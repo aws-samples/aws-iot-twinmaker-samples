@@ -1,0 +1,39 @@
+{
+    "workspaceId": "CookieFactory",
+    "componentTypeId": "com.example.s3.document",
+    "propertyDefinitions": {
+        "elemId": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isTimeSeries": false,
+            "isRequiredInEntity": true,
+            "isExternalId": true
+        },
+        "s3Url": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isTimeSeries": false,
+            "isStoredExternally": false
+        },
+        "operationStatus": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isTimeSeries": false,
+            "isStoredExternally": true
+        }
+    },
+    "functions": {
+        "attributePropertyValueReaderByEntity": {
+            "scope": "ENTITY",
+            "implementedBy": {
+                "isNative": false,
+                "lambda": {
+                    "arn": "arn:aws:lambda:{region}:{account}:function:IoTTwinMakerCookieFactoryS3-s3ReaderUDQ***"
+                }
+            }
+        }
+    }
+}

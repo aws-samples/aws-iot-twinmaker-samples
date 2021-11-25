@@ -1,0 +1,21 @@
+{
+    "componentTypeId": "com.example.cookiefactory.mixer",
+    "extendsFrom": [
+        "com.example.timestream-telemetry"
+    ],
+    "propertyDefinitions": {
+        "telemetryAssetType": {
+            "defaultValue" : { "stringValue": "Mixer" }
+        },
+        "RPM": {
+            "dataType": { "type": "DOUBLE" },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Temperature": {
+            "dataType": { "type": "DOUBLE" },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        }
+    }
+}

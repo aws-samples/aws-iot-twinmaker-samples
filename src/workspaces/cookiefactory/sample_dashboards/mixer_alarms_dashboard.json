@@ -1,0 +1,701 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 1,
+  "iteration": 1637731351082,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 49,
+      "panels": [],
+      "title": "Introduction",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 45,
+      "options": {
+        "content": "(feel free to click on the \"Introduction\" bar above this text to collapse this content)\n\n# AWS IoT TwinMaker Mixer Alarm Dashboard\n\nThis dashboard sample contains the following groups of panels:\n\n* Alarm List panel (top-left) - this provides a summary view of alarm states retrieved from the Timestream database you've set up\n  \n  * try clicking on Mixer entity entries to see detail metrics appear in the other panels\n\n* Equipment information panels (top-right) - this set of panels provides historic alarm activity, equipment metrics, equipment metadata, and links to technical documents for the selected Mixer entity\n  \n* Scene Viewer (bottom-left) - this provides a 3D view of where the select entity is located in the CookieFactory floor, you can also click on the Tags (floating blue icons) to select Mixer entities\n\n  * Mixer_1 is configured with a ModelShader linked to the Mixer's temperature readings. Try selecting Mixer_1 then selecting different time ranges in the \"Motor Temperature\" panel in the top-right. Try selecting different time ranges where the last data point is greater than 100 and less 100\n\n* Video Feeds (bottom-right) - this provides a video view of the CookieFactory stored in Amazon Kinesis Video Streams\n\n  * Mixers 0 through 12 are linked to one feed and Mixers 13 through 25 are linked to another. Try clicking different entities to see the video feed update\n\n  * Note: if you see a message regarding no fragments found, try expanding the time range by using the time selector (top-right of page) to select last 24 hours",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "queryType": "GetAlarms",
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 47,
+      "panels": [],
+      "title": "CookieFactory Telemetry",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 13,
+        "x": 0,
+        "y": 14
+      },
+      "id": 41,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "entityName"
+          }
+        ]
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "queryType": "GetAlarms",
+          "refId": "A"
+        }
+      ],
+      "title": "Alarm List",
+      "transformations": [
+        {
+          "id": "twinmaker-register-links",
+          "options": {
+            "addSelectionField": false,
+            "vars": [
+              {
+                "fieldName": "entityName",
+                "name": "${sel_entity_name}"
+              },
+              {
+                "fieldName": "entityId",
+                "name": "${sel_entity}"
+              },
+              {
+                "fieldName": "alarmName",
+                "name": "${sel_comp}"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 0
+          },
+          "displayName": "${sel_entity_name}",
+          "mappings": [
+            {
+              "options": {
+                "ACKNOWLEDGED": {
+                  "color": "blue",
+                  "index": 3,
+                  "text": "ACKNOWLEDGED"
+                },
+                "ACTIVE": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "ACTIVE"
+                },
+                "NORMAL": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "NORMAL"
+                },
+                "SNOOZE_DISABLED": {
+                  "color": "yellow",
+                  "index": 2,
+                  "text": "SNOOZE_DISABLED"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 13,
+        "y": 14
+      },
+      "id": 4,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "componentName": "${sel_comp}",
+          "entityId": "${sel_entity}",
+          "properties": [
+            "alarm_status"
+          ],
+          "queryType": "EntityHistory",
+          "refId": "A"
+        }
+      ],
+      "title": "Selected Alarm History",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 21,
+        "y": 14
+      },
+      "id": 30,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "telemetryAssetType {componentName=\"AlarmComponent\", entityId=\"Mixer_9_679aed7c-9544-4d06-bf64-6a19381765ca\"}"
+          }
+        ]
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "componentName": "AlarmComponent",
+          "entityId": "${sel_entity}",
+          "properties": [
+            "alarm_key"
+          ],
+          "queryType": "GetPropertyValue",
+          "refId": "A"
+        }
+      ],
+      "title": "Mixer Alarm Id",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 13,
+        "y": 18
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.2.0",
+      "targets": [
+        {
+          "componentName": "MixerComponent",
+          "entityId": "${sel_entity}",
+          "properties": [
+            "RPM"
+          ],
+          "queryType": "EntityHistory",
+          "refId": "A"
+        }
+      ],
+      "title": "RPM",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 21,
+        "y": 21
+      },
+      "id": 34,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "componentName": "SpecSheets",
+          "entityId": "${sel_entity}",
+          "properties": [
+            "documents"
+          ],
+          "queryType": "GetPropertyValue",
+          "refId": "A"
+        }
+      ],
+      "title": "Asset Specification Documents",
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 13,
+        "y": 22
+      },
+      "id": 38,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.2.0",
+      "targets": [
+        {
+          "componentName": "MixerComponent",
+          "entityId": "${sel_entity}",
+          "properties": [
+            "Temperature"
+          ],
+          "queryType": "EntityHistory",
+          "refId": "A"
+        }
+      ],
+      "title": "Motor Temperature",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 25,
+        "w": 13,
+        "x": 0,
+        "y": 27
+      },
+      "id": 6,
+      "options": {
+        "customSelCompVarName": "${sel_comp}",
+        "customSelEntityVarName": "${sel_entity}",
+        "datasource": "",
+        "sceneId": "CookieFactory"
+      },
+      "targets": [
+        {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": [
+            "alarm_status"
+          ],
+          "queryType": "ComponentHistory",
+          "refId": "A"
+        },
+        {
+          "componentName": "WaterTank",
+          "entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab",
+          "hide": false,
+          "properties": [
+            "flowRate1"
+          ],
+          "queryType": "EntityHistory",
+          "refId": "B"
+        },
+        {
+          "componentName": "MixerComponent",
+          "entityId": "Mixer_1_4b57cbee-c391-4de6-b882-622c633a697e",
+          "hide": false,
+          "properties": [
+            "Temperature"
+          ],
+          "queryType": "EntityHistory",
+          "refId": "C"
+        }
+      ],
+      "title": "Scene Viewer",
+      "type": "grafana-iot-twinmaker-sceneviewer-panel"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 25,
+        "w": 11,
+        "x": 13,
+        "y": 27
+      },
+      "id": 8,
+      "options": {
+        "componentName": "",
+        "datasource": "",
+        "entityId": "",
+        "kvsStreamName": "${kvs_stream_name}"
+      },
+      "targets": [
+        {
+          "queryType": "GetAlarms",
+          "refId": "A"
+        }
+      ],
+      "title": "Video Feeds",
+      "type": "grafana-iot-twinmaker-videoplayer-panel"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 32,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "label": null,
+        "name": "sel_entity_name",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "label": null,
+        "name": "sel_entity",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "label": null,
+        "name": "sel_comp",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "label": "",
+        "name": "kvs_stream_name",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "AWS IoT TwinMaker Mixer Alarm Dashboard",
+  "uid": "y1FGfj57z",
+  "version": 5
+}
