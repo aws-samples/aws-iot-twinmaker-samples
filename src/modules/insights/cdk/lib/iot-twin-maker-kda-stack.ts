@@ -47,7 +47,8 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
       },
       path: "/",
       managedPolicyArns: [
-        "arn:aws:iam::aws:policy/CloudWatchFullAccess"
+        "arn:aws:iam::aws:policy/CloudWatchFullAccess",
+        "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
       ],
       policies: [
         {
@@ -92,6 +93,11 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
           parallelismConfiguration: {
             parallelism: 4,
             configurationType: "CUSTOM"
+          },
+          monitoringConfiguration: {
+            configurationType: "CUSTOM",
+            metricsLevel: 'APPLICATION',
+            logLevel: "INFO"
           }
         },
         zeppelinApplicationConfiguration: {
