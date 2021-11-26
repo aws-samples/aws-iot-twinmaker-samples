@@ -5,9 +5,7 @@ import * as cdk from '@aws-cdk/core';
 import * as kda from "@aws-cdk/aws-kinesisanalytics";
 import * as glue from "@aws-cdk/aws-glue";
 import * as iam from "@aws-cdk/aws-iam";
-import * as assets from "@aws-cdk/aws-s3-assets";
-import {CfnParameter, CustomResource} from "@aws-cdk/core";
-import * as path from 'path';
+import { LogGroup, LogStream, RetentionDays } from '@aws-cdk/aws-logs';
 
 export class IotTwinMakerKdaStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -23,6 +21,16 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
       databaseInput: {
         description: "My glue database"
       }
+    });
+
+    const logGroup = new LogGroup(this, `kda-flink-LogGroup`, {
+      retention: RetentionDays.INFINITE,
+      logGroupName: `/aws/kinesis-analytics/flink`
+    });
+
+    const logStream = new LogStream(this, `kda-clink-LogStream`, {
+      logGroup: logGroup,
+      logStreamName: 'kinesis-analytics-log-stream'
     });
 
     const serviceExecutionRole = new iam.CfnRole(this, "serviceExecutionRole", {
@@ -77,10 +85,6 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
     });
 
     const zeppelinRole = iam.Role.fromRoleArn(this, 'zeppelinRole', serviceExecutionRole.attrArn);
-
-    const awsIotTwinMakerFlinkConnector = new assets.Asset(this, "iotTwinMakerFlinkLibraryAsset", {
-      path: path.join(path.dirname(path.basename(__dirname)), 'assets/aws-iot-twinmaker-flink-1.13.0.jar')
-    });
 
     const zeppelinAppName = `ZeppelinGettingStartedApp-${this.stackName}`
     const zeppelinApplication = new kda.CfnApplicationV2(this, "zeppelinApplication", {
@@ -137,8 +141,8 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
             {
               artifactType: "DEPENDENCY_JAR",
               s3ContentLocation: {
-                bucketArn: awsIotTwinMakerFlinkConnector.bucket.bucketArn,
-                fileKey: awsIotTwinMakerFlinkConnector.s3ObjectKey
+                bucketArn: 'arn:aws:s3:::aws-iot-twinmaker-flink-downloads-us-east-1',
+                fileKey: 'aws-iot-twinmaker-flink-1.13.0.jar'
               }
             }
           ]
@@ -146,15 +150,19 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
       }
     });
 
+    const kdaLogGroup = new kda.CfnApplicationCloudWatchLoggingOptionV2(
+        this,
+        `${zeppelinAppName}LoggingOptionId`,
+        {
+          applicationName: zeppelinAppName,
+          cloudWatchLoggingOption: {
+            logStreamArn: `arn:aws:logs:${region}:${accountId}:log-group:${logGroup.logGroupName}:log-stream:${logStream.logStreamName}`
+          }
+        }
+    );
+
     new cdk.CfnOutput(this, "ZeppelinAppName", {
       value: zeppelinAppName,
     });
-    //
-    // new cdk.CfnOutput(this, "ZeppelinNotebook", {
-    //   description: 'TwinMaker Zeppelin Notebook',
-    //   value: cdk.Fn.sub(`https://\${AWS::Region}.console.aws.amazon.com/kinesisanalytics/home?region=\${AWS::Region}#/notebook/\${zepAppName}/details/configuration`, {
-    //     "zepAppName": cdk.Fn.ref(zeppelinApplication.logicalId)
-    //   })
-    // });
   }
 }
