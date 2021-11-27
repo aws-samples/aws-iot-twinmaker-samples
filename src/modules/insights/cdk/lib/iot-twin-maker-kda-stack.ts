@@ -87,7 +87,7 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
     const zeppelinRole = iam.Role.fromRoleArn(this, 'zeppelinRole', serviceExecutionRole.attrArn);
 
     const zeppelinAppName = `ZeppelinGettingStartedApp-${this.stackName}`
-    const zeppelinApplication = new kda.CfnApplicationV2(this, "zeppelinApplication", {
+    const zeppelinApplication = new kda.CfnApplicationV2(this, zeppelinAppName, {
       applicationName: zeppelinAppName,
       applicationMode: "INTERACTIVE",
       runtimeEnvironment: "ZEPPELIN-FLINK-2_0",
@@ -160,6 +160,7 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
           }
         }
     );
+    kdaLogGroup.node.addDependency(zeppelinApplication)
 
     new cdk.CfnOutput(this, "ZeppelinAppName", {
       value: zeppelinAppName,
