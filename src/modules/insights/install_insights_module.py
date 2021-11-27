@@ -31,16 +31,16 @@ def parse_args():
     return parser.parse_args()
 
 def main():
-    def import_notebook(file_path, note_name, sagemaker_endpoint):
+    def import_notebook(file_path, note_name, sagemaker_endpoint, region_name):
         with open(file_path, 'r') as f:
             export_body_json = f.read().encode().decode('utf-8-sig')
             note_json = json.loads(export_body_json)
             note_json['name'] = note_name
-            text_str_1 = note_json['paragraphs'][0]['text'].encode().decode('utf-8-sig').format(sagemaker_endpoint)
+            text_str_1 = note_json['paragraphs'][0]['text'].encode().decode('utf-8-sig').format(region_name, sagemaker_endpoint)
             note_json['paragraphs'][0]['text'] = text_str_1
-            text_str_2 = note_json['paragraphs'][1]['text'].encode().decode('utf-8-sig').format(workspace_id)
+            text_str_2 = note_json['paragraphs'][1]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id)
             note_json['paragraphs'][1]['text'] = text_str_2
-            text_str_3 = note_json['paragraphs'][2]['text'].encode().decode('utf-8-sig').format(workspace_id)
+            text_str_3 = note_json['paragraphs'][2]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id)
             note_json['paragraphs'][2]['text'] = text_str_3
             for p in note_json['paragraphs']:
                if 'results' in p: # clear previous results
@@ -104,7 +104,7 @@ def main():
 
     session = boto3.session.Session(profile_name=None)
     stack_name = 'CookieFactoryKdaStack'
-    region_name = 'us-east-1'
+    region_name = args.region_name
     workspace_id = args.workspace_id
     simulation_output_asset_model_name= args.workspace_id+'__PowerSimulationOutputModel'
     anomaly_detection_output_asset_model_name= args.workspace_id+'__AnomalyDetectionOutputModel'
@@ -190,8 +190,8 @@ def main():
 
         # import Simulation Zeppelin Note (from /export output)
         print('Start importing notebook')
-        SIMULATION_EXPORT_BODY = import_notebook('MaplesoftSimulation.zpln', simulation_note_name, simulation_endpoint_name)
-        ANOMALY_DETECTION_EXPORT_BODY = import_notebook('AnomalyDetection.zpln', ad_note_name, ad_endpoint_name)
+        SIMULATION_EXPORT_BODY = import_notebook('MaplesoftSimulation.zpln', simulation_note_name, simulation_endpoint_name, region_name)
+        ANOMALY_DETECTION_EXPORT_BODY = import_notebook('AnomalyDetection.zpln', ad_note_name, ad_endpoint_name, region_name)
         headers = {'Cookie': VERIFIED_COOKIE, 'Content-Type': 'application/json'}
         requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=ANOMALY_DETECTION_EXPORT_BODY)
         requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=SIMULATION_EXPORT_BODY)

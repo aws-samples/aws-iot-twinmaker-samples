@@ -2,7 +2,7 @@
 
 ## Summary
 
-The module provides a sample integration with simulation functionality via Maplesoft, as well as a sample integration with a pretrained machine learning model for anomaly detection. 
+The module provides a sample integration with simulation functionality via Maplesoft, as well as a sample integration with a pretrained machine learning model for anomaly detection (using the sample data in the Cookie Factory). 
 
 It deploys 2 stacks:
 
@@ -52,7 +52,7 @@ Please note that the KDA notebook may incur AWS charges so it's recommended to s
     - set environment variables for convenience
       ```
       export SIMULATION_ENDPOINT_NAME=[fill in your endpoint name]
-      export ENDPOINT_URL=https://runtime.sagemaker.us-east-1.amazonaws.com/endpoints/${SIMULATION_ENDPOINT_NAME}/invocations
+      export ENDPOINT_URL=https://runtime.sagemaker.${AWS_DEFAULT_REGION}.amazonaws.com/endpoints/${SIMULATION_ENDPOINT_NAME}/invocations
       ```
     - send test request against Maplesoft simulation running in Sagemaker
       ```
@@ -69,7 +69,7 @@ Please note that the KDA notebook may incur AWS charges so it's recommended to s
     - set environment variables for convenience
       ```
       export AD_ENDPOINT_NAME=[fill in your endpoint name]
-      export AD_ENDPOINT_URL=https://runtime.sagemaker.us-east-1.amazonaws.com/endpoints/${AD_ENDPOINT_NAME}/invocations
+      export AD_ENDPOINT_URL=https://runtime.sagemaker.${AWS_DEFAULT_REGION}.amazonaws.com/endpoints/${AD_ENDPOINT_NAME}/invocations
       ```
     - send test request against Maplesoft simulation running in Sagemaker
       ```
@@ -99,6 +99,90 @@ This section should be similar to setting up the main Cookie Factory dashboard d
     Once you have the Grafana page open, you can click through the following to import the following sample dashboard json files in `$INSIGHT_DIR/sample_data/sample_dashboards`
 
     * aws_iot_twinmaker_insights_dashboard.json
+  
+## Adding User-Defined Functions (UDF)
+You can register your own User-Defined Functions (UDF) for other type of service integrations in the KDA notebook (for more information on Flink UDF, see https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/dev/table/functions/udfs/). 
+
+The following code snippet is an example of how to write Simulation Function, which is used in this demo. It takes RPM as an input at an timestamp and output the simulated instantaneous power (in Watts) consumed by the machine.
+```
+import org.apache.flink.util.FlinkRuntimeException；
+import com.amazonaws.services.sagemakerruntime.AmazonSageMakerRuntime;
+import com.amazonaws.services.sagemakerruntime.AmazonSageMakerRuntimeClient;
+import com.amazonaws.services.sagemakerruntime.model.InvokeEndpointRequest;
+import com.amazonaws.services.sagemakerruntime.model.InvokeEndpointResult;
+import lombok.extern.log4j.Log4j2;
+import org.apache.flink.table.functions.FunctionContext;
+import org.apache.flink.table.functions.ScalarFunction;
+import org.json.JSONObject;
+
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+
+@Log4j2
+public class SageMakerMixerSimulationFunction extends ScalarFunction {
+    private static final String REGION_KEY = “aws.region”;
+    private static final String ENDPOINT_NAME_KEY = “sagemaker.endpoint.name”;
+    private static final String CONTENT_TYPE_KEY = “sagemaker.endpoint.contentType”;
+    private static final String DEFAULT_CONTENT_TYPE = “application/json”;
+    private static final String POWER_KEY = “Power”;
+    private static final String DEFAULT_VALUE = “default”;
+
+    private static final String SAGEMAKER_REQUEST_FORMAT = “{\“inputs\“: {\“RPM\“: %f}, \“end_time\“: %d}“;
+
+    private String endpointName;
+    private String contentType;
+    private AmazonSageMakerRuntime sageMakerClient;
+
+    @Override
+    public void open(FunctionContext context) {
+        // access Flink global configuration
+        String region = context.getJobParameter(REGION_KEY, DEFAULT_VALUE);
+        endpointName = context.getJobParameter(ENDPOINT_NAME_KEY, DEFAULT_VALUE);
+        if (DEFAULT_VALUE.equals(region) || DEFAULT_VALUE.equals(endpointName)) {
+            String errorMsg = String.format(“%s and %s must be provided to run the simulation UDF”, REGION_KEY, ENDPOINT_NAME_KEY);
+            log.error(errorMsg);
+            throw new FlinkRuntimeException(errorMsg);
+        }
+        contentType = context.getJobParameter(CONTENT_TYPE_KEY, DEFAULT_CONTENT_TYPE);
+        sageMakerClient = AmazonSageMakerRuntimeClient.builder()
+                .withRegion(region)
+                .build();
+    }
+
+
+    /**
+     *
+     * @param time record timestamp
+     * @param rpm mixer RPM
+     * @rsrividh Map of “Power” key, and the simulated power value. Defaults to 0 when exception happens
+     */
+    public Map<String, Double> eval(Integer time, Double rpm) {
+        final String requestBody = String.format(SAGEMAKER_REQUEST_FORMAT, rpm.floatValue(), time);
+
+        final InvokeEndpointRequest invokeEndpointRequest = new InvokeEndpointRequest()
+                .withAccept(contentType)
+                .withContentType(contentType)
+                .withEndpointName(endpointName)
+                .withBody(ByteBuffer.wrap(requestBody.getBytes(StandardCharsets.UTF_8)));
+        Map<String, Double> result = new HashMap<>();
+        result.put(POWER_KEY, 0.0);
+        try {
+            final InvokeEndpointResult invokeEndpointResponse = sageMakerClient.invokeEndpoint(invokeEndpointRequest);
+
+            String output = StandardCharsets.UTF_8.decode(invokeEndpointResponse.getBody()).toString();
+            JSONObject jsonObject = new JSONObject(output);
+
+            result.put(POWER_KEY, jsonObject.getJSONObject(“outputs”).getDouble(POWER_KEY));
+            log.info(String.format(“Get simulated power result from SageMaker, time: %d, rpm: %f, power: %f.“, time, rpm, result.get(POWER_KEY)));
+        } catch (final Exception e) {
+            log.warn(“Got simulation exception, using 0 as the simulated value, continue the application”, e);
+        }
+        return result;
+    }
+}
+```  
 
 ## Cleanup
 

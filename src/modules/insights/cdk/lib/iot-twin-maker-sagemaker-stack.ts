@@ -128,7 +128,8 @@ export class IotTwinMakerSagemakerStack extends cdk.Stack {
     );
     const anomalyDetectionEndpoint = this.createAnomalyDetectionEndpoint(
       executionRole,
-      anomalyDetectionModelAsset
+      anomalyDetectionModelAsset,
+      props.env?.region as string
     );
 
     new cdk.CfnOutput(this, "SimulationEndpointName", {
@@ -192,7 +193,8 @@ export class IotTwinMakerSagemakerStack extends cdk.Stack {
 
   private createAnomalyDetectionEndpoint(
     executionRole: Role,
-    anomalyDetectionModelAsset: assets.Asset
+    anomalyDetectionModelAsset: assets.Asset,
+    region: string
   ): CfnEndpoint {
     const sageMakerModel = new CfnModel(
       this,
@@ -202,8 +204,7 @@ export class IotTwinMakerSagemakerStack extends cdk.Stack {
         modelName: `Anomaly-Detection-Model-${new Date().valueOf()}`,
         containers: [
           {
-            image:
-              "382416733822.dkr.ecr.us-east-1.amazonaws.com/randomcutforest:1",
+            image: this.getRandomCutForestDockerRegistrationPath(region),
             imageConfig: { repositoryAccessMode: "Platform" },
             mode: "SingleModel",
             modelDataUrl: anomalyDetectionModelAsset.httpUrl,
@@ -242,5 +243,20 @@ export class IotTwinMakerSagemakerStack extends cdk.Stack {
     );
     sageMakerEndpoint.node.addDependency(sageMakerEndpointConfig);
     return sageMakerEndpoint;
+  }
+
+  private getRandomCutForestDockerRegistrationPath(region: string): string {
+    switch (region) {
+      case "us-east-1":
+        return "382416733822.dkr.ecr.us-east-1.amazonaws.com/randomcutforest:1";
+      case "us-west-2":
+        return "174872318107.dkr.ecr.us-west-2.amazonaws.com/randomcutforest:1";
+      case "eu-west-1":
+        return "438346466558.dkr.ecr.eu-west-1.amazonaws.com/randomcutforest:1";
+      case "ap-southeast-1":
+        return "475088953585.dkr.ecr.ap-southeast-1.amazonaws.com/randomcutforest:1";
+      default:
+        throw new Error(`AWS region ${region} not supported by this demo.`);
+    }
   }
 }
