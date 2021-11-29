@@ -122,14 +122,14 @@ import java.util.Map;
 
 @Log4j2
 public class SageMakerMixerSimulationFunction extends ScalarFunction {
-    private static final String REGION_KEY = “aws.region”;
-    private static final String ENDPOINT_NAME_KEY = “sagemaker.endpoint.name”;
-    private static final String CONTENT_TYPE_KEY = “sagemaker.endpoint.contentType”;
-    private static final String DEFAULT_CONTENT_TYPE = “application/json”;
-    private static final String POWER_KEY = “Power”;
-    private static final String DEFAULT_VALUE = “default”;
+    private static final String REGION_KEY = "aws.region";
+    private static final String ENDPOINT_NAME_KEY = "sagemaker.endpoint.name";
+    private static final String CONTENT_TYPE_KEY = "sagemaker.endpoint.contentType";
+    private static final String DEFAULT_CONTENT_TYPE = "application/json";
+    private static final String POWER_KEY = "Power";
+    private static final String DEFAULT_VALUE = "default";
 
-    private static final String SAGEMAKER_REQUEST_FORMAT = “{\“inputs\“: {\“RPM\“: %f}, \“end_time\“: %d}“;
+    private static final String SAGEMAKER_REQUEST_FORMAT = "{\"inputs\": {\"RPM\": %f}, \"end_time\": %d}";
 
     private String endpointName;
     private String contentType;
@@ -141,7 +141,7 @@ public class SageMakerMixerSimulationFunction extends ScalarFunction {
         String region = context.getJobParameter(REGION_KEY, DEFAULT_VALUE);
         endpointName = context.getJobParameter(ENDPOINT_NAME_KEY, DEFAULT_VALUE);
         if (DEFAULT_VALUE.equals(region) || DEFAULT_VALUE.equals(endpointName)) {
-            String errorMsg = String.format(“%s and %s must be provided to run the simulation UDF”, REGION_KEY, ENDPOINT_NAME_KEY);
+            String errorMsg = String.format("%s and %s must be provided to run the simulation UDF", REGION_KEY, ENDPOINT_NAME_KEY);
             log.error(errorMsg);
             throw new FlinkRuntimeException(errorMsg);
         }
@@ -156,7 +156,7 @@ public class SageMakerMixerSimulationFunction extends ScalarFunction {
      *
      * @param time record timestamp
      * @param rpm mixer RPM
-     * @rsrividh Map of “Power” key, and the simulated power value. Defaults to 0 when exception happens
+     * @rsrividh Map of "Power" key, and the simulated power value. Defaults to 0 when exception happens
      */
     public Map<String, Double> eval(Integer time, Double rpm) {
         final String requestBody = String.format(SAGEMAKER_REQUEST_FORMAT, rpm.floatValue(), time);
@@ -174,10 +174,10 @@ public class SageMakerMixerSimulationFunction extends ScalarFunction {
             String output = StandardCharsets.UTF_8.decode(invokeEndpointResponse.getBody()).toString();
             JSONObject jsonObject = new JSONObject(output);
 
-            result.put(POWER_KEY, jsonObject.getJSONObject(“outputs”).getDouble(POWER_KEY));
-            log.info(String.format(“Get simulated power result from SageMaker, time: %d, rpm: %f, power: %f.“, time, rpm, result.get(POWER_KEY)));
+            result.put(POWER_KEY, jsonObject.getJSONObject("outputs").getDouble(POWER_KEY));
+            log.info(String.format("Get simulated power result from SageMaker, time: %d, rpm: %f, power: %f.", time, rpm, result.get(POWER_KEY)));
         } catch (final Exception e) {
-            log.warn(“Got simulation exception, using 0 as the simulated value, continue the application”, e);
+            log.warn("Got simulation exception, using 0 as the simulated value, continue the application", e);
         }
         return result;
     }
