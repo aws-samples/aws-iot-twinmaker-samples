@@ -5,6 +5,10 @@ import argparse
 import uuid
 import boto3
 import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
+import deploy_utils
 
 '''
 This utility creates an IAM role with necessary permissions for the CookieFactory workspace in Grafana
@@ -41,6 +45,12 @@ def main():
     identifier = uuid.uuid4().hex
 
     userArn = sts.get_caller_identity()['Arn']
+
+    ws = deploy_utils.WorkspaceUtils(
+        workspace_id=workspaceId,
+        region_name=region,
+        endpoint_url=endpoint_url,
+        profile=profile)
 
     role_name = f"{'Cloud9-' if is_c9() else ''}IoTTwinMakerDashboardRole-{identifier[:8]}"
     create_role_response = iam.create_role(
@@ -148,6 +158,8 @@ def main():
         PolicyArn=policy_arn
     )
     print(f"Attached VideoPlayerPolicy to dashboard role.")
+    
+    ws.store_sample_metadata("samples_content_dashboard_role_name", role_name)
 
     print(f"Please use this Role ARN when configuring the IoT TwinMaker datasource in Grafana:\n"
           f"\n  {role_arn}\n")

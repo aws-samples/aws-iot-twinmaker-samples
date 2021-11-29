@@ -210,11 +210,15 @@ In this section we'll add SiteWise assets and telemetry, and then update the Coo
 
 ### S3 Document Connector
 
-See the S3 module [README](./src/modules/s3/README.md).
+Go to the `s3` modules directory and check the [README](./src/modules/s3/README.md).
+
+```
+cd $GETTING_STARTED_DIR/src/modules/s3
+```
 
 ### AWS IoT TwinMaker Insight and Simulation
 
-Go to the `insights` directory and check the README.
+Go to the `insights` modules directory and check the [README](./src/modules/insights/README.md).
 
 ```
 cd $GETTING_STARTED_DIR/src/modules/insights
@@ -233,6 +237,10 @@ cd $GETTING_STARTED_DIR/src/modules/insights
 
 cd $GETTING_STARTED_DIR/src/workspaces/cookiefactory
 
+# Delete grafana dashboard role
+python3 $GETTING_STARTED_DIR/src/modules/grafana/cleanup_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
+
+# Delete workspace + contents
 python3 -m setup_content \
      --telemetry-stack-name $TIMESTREAM_TELEMETRY_STACK_NAME \
      --workspace-id $WORKSPACE_ID \
@@ -245,17 +253,22 @@ python3 -m setup_content \
 # Delete the CFN stack + wait
 aws cloudformation delete-stack --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION
 
-# Teardown SiteWise content
+# (If you installed the add-on SiteWise content) Delete SiteWise content
 python3 $GETTING_STARTED_DIR/src/modules/sitewise/deploy-utils/SiteWiseTelemetry.py cleanup --asset-model-name-prefix $WORKSPACE_ID
 
-# Tear down grafana dashboard role
-python3 $GETTING_STARTED_DIR/src/modules/grafana/cleanup_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
+# (If you installed the add-on S3 Document Connector content) Delete S3 content
+aws cloudformation delete-stack --stack-name IoTTwinMakerCookieFactoryS3 --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name IoTTwinMakerCookieFactoryS3 --region $AWS_DEFAULT_REGION
+
+# (If you installed the add-on Insight and Simulation content) Delete Insight and Simulation content (may take several minutes)
+python3 $INSIGHT_DIR/install_insights_module.py --workspace-id $WORKSPACE_ID --region-name $AWS_DEFAULT_REGION --kda-stack-name $KDA_STACK_NAME --sagemaker-stack-name $SAGEMAKER_STACK_NAME --delete-all
+aws cloudformation delete-stack --stack-name $KDA_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $KDA_STACK_NAME --region $AWS_DEFAULT_REGION
+aws cloudformation delete-stack --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION
 ```
 
 Optionally, you can remove the local Grafana configuration data.
 
 ```
-# alternatively delete it
+# alternatively delete it with `rm`
 mv ~/local_grafana_data/ /tmp/
 ```
 

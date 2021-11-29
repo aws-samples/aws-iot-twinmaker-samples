@@ -5,6 +5,10 @@ import argparse
 import uuid
 import boto3
 import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
+import deploy_utils
 
 '''
 This utility creates an IAM role with necessary permissions for the CookieFactory workspace in Grafana
@@ -36,24 +40,21 @@ def main():
     session = boto3.session.Session(profile_name=profile)
     iam = session.client(service_name='iam', region_name=region)
 
-    # find role tagged with the AWS IoT TwinMaker workspace id
-    dashboard_role_name_for_workspace = None
-    dashboard_role_arn_for_workspace = None
-    roles = iam.list_roles()
-    while "Marker" in roles:
-        for role in roles['Roles']:
-            if "IoTTwinMakerDashboardRole" in role['RoleName']:
-                role_tags = iam.list_role_tags(RoleName=role['RoleName'])
-                if len(role_tags['Tags']) > 0 and \
-                        [x['Value'] for x in role_tags['Tags'] if x['Key'] == 'iottwinmaker_workspace'] == [workspaceId]:
-                    dashboard_role_name_for_workspace = role['RoleName']
-                    dashboard_role_arn_for_workspace = role['Arn']
-                    print(f"Found role {dashboard_role_arn_for_workspace} for workspace {workspaceId}")
-        roles = iam.list_roles(Marker=roles['Marker'])
-
+    # fetch IAM role created for grafana from workspace tags
+    ws = deploy_utils.WorkspaceUtils(
+        workspace_id=workspaceId,
+        region_name=region,
+        endpoint_url=args.endpoint_url,
+        profile=profile)
+    dashboard_role_name_for_workspace = ws.fetch_sample_metadata("samples_content_dashboard_role_name")
     if dashboard_role_name_for_workspace is None:
         print(f"No dashboard role to delete was found for workspace {workspaceId}.")
         return
+    
+    # get role arn
+    print(f"roleName: {dashboard_role_name_for_workspace}")
+    dashboard_role_arn_for_workspace =iam.get_role(RoleName=dashboard_role_name_for_workspace)['Role']['Arn']
+    print(f"roleArn: {dashboard_role_arn_for_workspace}")
 
     account_id = dashboard_role_arn_for_workspace.split(":")[4]
     iam_resource = boto3.resource('iam')
