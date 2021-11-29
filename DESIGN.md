@@ -8,10 +8,15 @@ In particular, the src directory contains three main subdirectories
 
 ```
 -- src
+   |-- assets
    |-- lib
    |-- modules
    |-- workspaces
 ```
+
+## assets
+
+The `assets` directory contains static files for samples content.
 
 ## lib
 
