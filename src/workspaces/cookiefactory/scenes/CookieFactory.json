@@ -2221,8 +2221,7 @@
       },
       "transformConstraint": {},
       "children": [
-        61,
-        64
+        61
       ],
       "components": [
         {
@@ -2362,40 +2361,6 @@
           "navLink": {
             "params": {
               "var-kvs_stream_name": "AmcrestCamera"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Tag2",
-      "transform": {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ]
-      },
-      "transformConstraint": {},
-      "components": [
-        {
-          "type": "Tag",
-          "valueDataBinding": {
-            "dataBindingContext": {
-              "entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab",
-              "componentName": "WaterTank",
-              "propertyName": "flowRate1",
-              "entityPath": "Equipment/WaterTank"
             }
           }
         }

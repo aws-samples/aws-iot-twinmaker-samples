@@ -11,12 +11,12 @@ Check out the latest code from https://github.com/aws-samples/aws-iot-twinmaker-
 ```
 export AWS_ENDPOINT=<Specific AWS endpoint> ## OR beta or prod or whichever environment
 export IoTTwinMakerHome=<Directory where your checked out the code>
-export PYTHONPATH=.:${IoTTwinMakerHome}/getting_started/src/modules/sitewise/sync-connector-lambda:${IoTTwinMakerHome}/getting_started/src/libs/connector_utils/python/:$PYTHONPATH # where IoTTwinMakerHome is the directory where you checked out the code.
+export PYTHONPATH=.:${IoTTwinMakerHome}/src/modules/sitewise/sync-connector-lambda:${IoTTwinMakerHome}/src/libs/connector_utils/python/:$PYTHONPATH # where IoTTwinMakerHome is the directory where you checked out the code.
 ```
 
 ### To export the sitewise models and assets from iot sitewise to S3
 ```
-cd ${IoTTwinMakerHome}/getting_started/src/modules/sitewise/sync-connector-lambda
+cd ${IoTTwinMakerHome}/src/modules/sitewise/sync-connector-lambda
 python migration.py
 -b  --bucket                  The bucket to exported sitewise artifacts to.
 -p  --prefix                  The prefix under which assets and models will be exported to.

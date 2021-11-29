@@ -14,6 +14,7 @@ Please note that the KDA notebook may incur AWS charges, so we recommend that yo
 ## Prerequisites
 
 * (optional) Install [awscurl](https://github.com/okigan/awscurl) to test simulation service or ML inference directly.
+* (optional) Install [jq](https://stedolan.github.io/jq/) for easier environment variable configuration steps when testing simulation services.
 
 ---
 
@@ -42,16 +43,17 @@ Please note that the KDA notebook may incur AWS charges, so we recommend that yo
     ```
     npm install
     ```
-  - deploy stacks using cdk (answer `y` to accept IAM changes when prompted)
+  - Deploy stacks using cdk. Can take a few minutes to setup the SageMaker Endpoint. (Remove `--require-approval never` if you would like to review and accept IAM changes before deploying)
     ```
-    cdk deploy --all
+    cdk deploy --all --require-approval never
     ```
   - Note the SageMaker Endpoint Names that the cdk command will output once finished (output called `SageMakerEndpointNames`). The value will look similar to these: `SimulationEndpoint-IkxImigGVK6i` for simulation, and `AnomalyDetectionEndpoint-ZS4j48mRF3zR` for anomaly detection.
 3. (Optional) Test SageMaker Endpoints.
   - Test Simulation Service.
     - Set environment variables for convenience.
       ```
-      export SIMULATION_ENDPOINT_NAME=[fill in your endpoint name]
+      export SAGEMAKER_STACK_OUTPUTS=$(aws cloudformation describe-stacks --stack-name $SAGEMAKER_STACK_NAME | jq '.Stacks[0].Outputs')
+      export SIMULATION_ENDPOINT_NAME=$(echo $SAGEMAKER_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="SimulationEndpointName").OutputValue')
       export ENDPOINT_URL=https://runtime.sagemaker.${AWS_DEFAULT_REGION}.amazonaws.com/endpoints/${SIMULATION_ENDPOINT_NAME}/invocations
       ```
     - Send test request against Maplesoft simulation running in Sagemaker.
@@ -68,7 +70,7 @@ Please note that the KDA notebook may incur AWS charges, so we recommend that yo
   - Test Anomaly Detection.
     - Set environment variables for convenience.
       ```
-      export AD_ENDPOINT_NAME=[fill in your endpoint name]
+      export AD_ENDPOINT_NAME=$(echo $SAGEMAKER_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="AnomalyDetectionEndpointName").OutputValue')
       export AD_ENDPOINT_URL=https://runtime.sagemaker.${AWS_DEFAULT_REGION}.amazonaws.com/endpoints/${AD_ENDPOINT_NAME}/invocations
       ```
     - Send test request against Maplesoft simulation running in Sagemaker.
@@ -82,18 +84,21 @@ Please note that the KDA notebook may incur AWS charges, so we recommend that yo
     cd $INSIGHT_DIR
     ```
     ```
-    python3 $INSIGHT_DIR/install_insights_module.py --workspace-id $WORKSPACE_ID --region-name $AWS_DEFAULT_REGION --import-all
+    python3 $INSIGHT_DIR/install_insights_module.py --workspace-id $WORKSPACE_ID --region-name $AWS_DEFAULT_REGION --kda-stack-name $KDA_STACK_NAME --sagemaker-stack-name $SAGEMAKER_STACK_NAME --import-all
     ```
   - Navigate to the link output by the preceding command. (This may contain a long pre-signed url token). Please copy the full length of link output.
   - Update the paragraphs in the maple as needed:
     - update the timestamp in the `CREATE TABLE` call if needed based on when your data was ingested.
+    - if your data was ingested using the CookieFactory sample, we store a tag on the workspace indicating when data was ingested for the sample. You can use the following to lookup the data ingestion time (in milliseconds from epoch):
+      ```
+      aws iottwinmaker list-tags-for-resource --resource-arn $(aws iottwinmaker get-workspace --workspace-id $WORKSPACE_ID | jq -r '.arn') | jq -r .tags.samples_content_start_time
+      ```
   - Execute all the paragraphs sequentially in the notebook to see simulation data streamed from AWS IoT TwinMaker into the Maplesoft simulation and results outputed to the notebook.
 
 ## Set up AWS IoT TwinMaker Insight Dashboard
 This section should be similar to setting up the main Cookie Factory dashboard described in [GettingStarted/README.md](../../../README.md). If you have aleady finished setting up the main Cookie Factory dashboard. You can skip step 1 below.
-1.    AWS IoT TwinMaker provides a Grafana plugin that allows you to build dashboards using IoT TwinMaker scenes and modeled data sources. Grafana is deployable as a docker container. We recommend that new users follow these instructions to set up Grafana as a local container: [Instructions](./docs/grafana_local_docker_setup.md) (If this link does'nt work in Cloud9, open `docs/grafana_local_docker_setup.md`.)
-      
-      For advanced users aiming to set up a production Grafana installation in their account, we recommend checking out https://github.com/aws-samples/aws-cdk-grafana.
+1. AWS IoT TwinMaker provides a Grafana plugin that allows you to build dashboards using IoT TwinMaker scenes and modeled data sources. Grafana is deployable as a docker container. We recommend that new users follow these instructions to set up Grafana as a local container: [Instructions](./docs/grafana_local_docker_setup.md) (If this link does'nt work in Cloud9, open `docs/grafana_local_docker_setup.md`.)
+    For advanced users aiming to set up a production Grafana installation in their account, we recommend checking out https://github.com/aws-samples/aws-cdk-grafana.
 2. Import Grafana dashboards for the Cookie Factory.
 
     Once you have the Grafana page open, you can click through the following to import the following sample dashboard json files in `$INSIGHT_DIR/sample_data/sample_dashboards`.

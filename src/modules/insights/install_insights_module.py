@@ -18,6 +18,8 @@ def parse_args():
     parser.add_argument('--workspace-id', required=False, default='CookieFactory', help='workspace to be populated')
     parser.add_argument('--endpoint-url', required=False, default=None, help='AWS IoT TwinMaker service endpoint')
     parser.add_argument('--region-name', required=False, default='us-east-1', help='AWS region name containing the workspace')
+    parser.add_argument('--kda-stack-name', required=True, help='CloudFormation stack containing KDA resources')
+    parser.add_argument('--sagemaker-stack-name', required=True, help='CloudFormation stack containing Sagemaker resources')
 
     parser.add_argument('--import-all', default=False, required=False, action='store_true', dest="import_all", help='import all data into the workspace.')
     parser.add_argument('--import-simulation-sitewise', default=False, required=False, action='store_true', dest="import_simulation_sitewise", help='Import all sitewise data for simulation from the workspace.')
@@ -103,7 +105,7 @@ def main():
     args = parse_args()
 
     session = boto3.session.Session(profile_name=None)
-    stack_name = 'CookieFactoryKdaStack'
+    stack_name = args.kda_stack_name
     region_name = args.region_name
     workspace_id = args.workspace_id
     simulation_output_asset_model_name= args.workspace_id+'__PowerSimulationOutputModel'
@@ -117,7 +119,7 @@ def main():
     zeppelin_app_name = cfn_stack_outputs.get('ZeppelinAppName')
     print(zeppelin_app_name)
 
-    sageMakerStackName = 'CookieFactorySageMakerStack'
+    sageMakerStackName = args.sagemaker_stack_name
     cfn_stack_description = cfn_client.describe_stacks(StackName=sageMakerStackName)
     cfn_stack_outputs = {x['OutputKey']:x['OutputValue'] for x in cfn_stack_description['Stacks'][0]['Outputs']}
     simulation_endpoint_name = cfn_stack_outputs.get('SimulationEndpointName')
@@ -127,12 +129,12 @@ def main():
 
     ## Import SiteWise component for storing Simulation Output.
     if args.import_simulation_sitewise or args.import_all:
-        simulation_output_model_id, mixer_0_simulation_asset_id = create_sitewise_resources_for_simulation(simulation_output_asset_model_name, 'Mixer_0_Simulation_Output', 'SimulatedPower')
+        simulation_output_model_id, mixer_0_simulation_asset_id = create_sitewise_resources_for_simulation(simulation_output_asset_model_name, f'{workspace_id}_Mixer_0_Simulation_Output', 'SimulatedPower')
         update_entity_with_sitewise_components('PowerSimulationOutputComponent', mixer_0_simulation_asset_id, simulation_output_model_id)
 
     # Import SiteWise component for storing Anomaly Detection Output.
     if args.import_anomaly_detection_sitewise or args.import_all:
-        anomaly_detection_output_model_id, mixer_0_anomaly_detection_asset_id = create_sitewise_resources_for_simulation(anomaly_detection_output_asset_model_name, 'Mixer_0_Anomaly_Detection_Output', 'AnomalyScore')
+        anomaly_detection_output_model_id, mixer_0_anomaly_detection_asset_id = create_sitewise_resources_for_simulation(anomaly_detection_output_asset_model_name, f'{workspace_id}_Mixer_0_Anomaly_Detection_Output', 'AnomalyScore')
         update_entity_with_sitewise_components('AnomalyDetectionOutputComponent', mixer_0_anomaly_detection_asset_id, anomaly_detection_output_model_id)
 
     ## START
