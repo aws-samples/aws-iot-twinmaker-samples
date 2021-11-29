@@ -1,11 +1,11 @@
 # Migrating SiteWise Models and Assets to IoT TwinMaker Components and Entities
 ## Summary
-The sitewise module allows your to export sitewise assets and models to a JSON file that is stored in S3. This json file can then be imported into IoT TwinMaker such that the exported sitewise models are imported as IoT TwinMaker components and sitewise assets are exported as IoT TwinMaker entities. The sitewise hierarchy is also assigned to IoT TwinMaker entity hierarchy. This migration can be achieved either manually executing the export and import scripts or by executing the step function that is created when you deploy this module as CDK
+Wit the SiteWise module, you can export SiteWise assets and models to a JSON file that is stored in S3. This json file can then be imported into IoT TwinMaker so that the exported SiteWise models are imported as IoT TwinMaker components and SiteWise assets are exported as IoT TwinMaker entities. The SiteWise hierarchy is also assigned to the IoT TwinMaker entity hierarchy. This migration can be achieved either by manually executing the export and import scripts or by executing the step function that is created when you deploy this module as CDK.
 
 ![Architecture Flow](sitewise_workflow.jpg)
 
 ## Prerequisite
-Checkout the latest code from https://github.com/aws-samples/aws-iot-twinmaker-samples. Lets call this directory as IoTTwinMakerHome
+Check out the latest code from https://github.com/aws-samples/aws-iot-twinmaker-samples. Let's call this directory "IoTTwinMakerHome."
 
 ## Execute as stand-alone script
 ```
@@ -27,12 +27,12 @@ python migration.py
 
 ## Execute as step function
 ### Deploy the module using CDK
-Checkout the latest code from https://github.com/aws-samples/aws-iot-twinmaker-samples.
-Deploy with cdk from the sitewise module directory as shown below:
+Check out the latest code from https://github.com/aws-samples/aws-iot-twinmaker-samples.
+Deploy with cdk from the sitewise module directory as shown in the following.
 ```
 cd cdk && cdk synth && cdk bootstrap aws://unknown-account/us-east-1 && cdk deploy
 ```
-Execute the step function with the following input
+Execute the step function with the following input.
 
 ```
 {
