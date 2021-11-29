@@ -211,10 +211,10 @@ See s3 module [README](./src/modules/s3/README.md)
 
 ### AWS IoT TwinMaker Insight and Simulation
 
-Go to the insight_simulation directory and check the README.  
+Go to the `insights` directory and check the README.
 
 ```
-cd $GETTING_STARTED_DIR/src/modules/insight_simulation
+cd $GETTING_STARTED_DIR/src/modules/insights
 ```
 
 ---
