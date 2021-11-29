@@ -149,17 +149,6 @@ def main():
     )
     print(f"Attached VideoPlayerPolicy to dashboard role.")
 
-    # tag the role with the workspaceId so we can more easily delete it later
-    iam.tag_role(
-        RoleName=role_name,
-        Tags=[
-            {
-                'Key': 'iottwinmaker_workspace',
-                'Value': workspaceId
-            }
-        ]
-    )
-
     print(f"Please use this Role ARN when configuring the IoT TwinMaker datasource in Grafana:\n"
           f"\n  {role_arn}\n")
 
