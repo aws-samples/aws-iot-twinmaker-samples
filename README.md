@@ -1,3 +1,7 @@
+Note: if you are just looking for sample IAM policies to use when creating an AWS IoT TwinMaker workspace, please see these sample [permission](./docs/sample_workspace_role_permission_policy.json) and [trust relationship](./docs/sample_workspace_role_trust_policy.json) policies.
+
+The role permission policy will only grant AWS IoT TwinMaker access to manage workspace resources in your S3 buckets. We recommend you scope down the bucket permissions to your specific S3 bucket once it is created. You will also need to update the role to grant further permissions for your use-case, such as invoking AWS IoT TwinMaker custom AWS Lambda connectors you've implemented or accessing video stream metadata in AWS IoT SiteWise and Amazon Kinesis Video Streams. For an end-to-end setup experience (including auto-generation of these roles with all necessary permissions for the sample use-case) we recommend following the getting started guide below.
+
 # AWS IoT TwinMaker Getting Started
 
 ## Summary
@@ -12,7 +16,7 @@ If you run into any issues, please see the Troubleshooting section of this page.
 
 ## Prerequisites
 
-1. This sample depends on AWS services that might not yet be availabe in all regions. Please run this sample in one of the following regions:
+1. This sample depends on AWS services that might not yet be available in all regions. Please run this sample in one of the following regions:
    - US East (N. Virginia) (us-east-1)
    - US West (Oregon) (us-west-2)
    - Europe (Ireland) (eu-west-1)
@@ -31,7 +35,7 @@ If you run into any issues, please see the Troubleshooting section of this page.
       aws iottwinmaker list-workspaces --region us-east-1
      ```      
 3. [Python3](https://www.python.org/downloads/)
-   - Verify your python3 path and version (3.7+). (This shhould be pre-installed in Cloud9.)
+   - Verify your python3 path and version (3.7+). (This should be pre-installed in Cloud9.)
      ```
      python3 --version
      ```       
@@ -132,7 +136,7 @@ If you run into any issues, please see the Troubleshooting section of this page.
    npm install
    ```
 
-   Deploy the module. (Enter 'y' when promted to accept IAM changes.)
+   Deploy the module. (Enter 'y' when prompted to accept IAM changes.)
 
    ```
    cdk deploy
