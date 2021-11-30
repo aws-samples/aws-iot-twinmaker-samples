@@ -4,13 +4,10 @@
     {
       "Effect": "Allow",
       "Action": [
-        "s3:GetBucket",
+        "s3:GetBucket*",
         "s3:GetObject",
         "s3:ListBucket",
-        "s3:PutObject",
-        "s3:ListObjects",
-        "s3:ListObjectsV2",
-        "s3:GetBucketLocation"
+        "s3:PutObject"
       ],
       "Resource": [
         "arn:aws:s3:::*"
