@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Resources:
+  IoTTwinMakerWorkspaceRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - iottwinmaker.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:GetBucket*'
+                  - 's3:GetObject'
+                  - 's3:ListBucket'
+                  - 's3:PutObject'
+                Resource: 'arn:aws:s3:::*'
+              - Effect: Allow
+                Action:
+                  - 's3:DeleteObject'
+                Resource: 'arn:aws:s3:::*/DO_NOT_DELETE_WORKSPACE_*'
+
+Outputs:
+  WorkspaceRoleName:
+    Value:
+      !GetAtt IoTTwinMakerWorkspaceRole.Arn
