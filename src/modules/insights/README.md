@@ -7,9 +7,11 @@ The module provides a sample integration with simulation functionality via Maple
 It deploys the following 2 stacks:
 
 * CookieFactorySageMakerStack - Deploys two SageMaker endpoints, one as a sample simulation service for running MapleSoft simulation, the other as an inference endpoint using a pretrained anomaly detection model. Both endpoints accept HTTP POST requests. See a sample request in the "Test SageMaker Endpoints" section below. 
-* CookieFactoryKdaStack - Contains a KDA Studio notebook application configured with the AWS IoT TwinMaker connector library. In this notebook you can write Flink SQL streaming applications against AWS IoT TwinMaker data sources. The notebook application also interacts with the simulation/anomaly detection features hosted in SageMaker.
+* CookieFactoryKdaStack - Contains a KDA Studio notebook application configured with the AWS IoT TwinMaker Flink library. In this notebook you can write Flink SQL streaming applications against AWS IoT TwinMaker data sources. The notebook application also interacts with the simulation/anomaly detection features hosted in SageMaker.
 
-Please note that the KDA notebook may incur AWS charges, so we recommend that you stop the instance when it is not needed.
+**Note**
+* For the general guide on AWS IoT TwinMaker Flink library, see [IoT TwinMaker Flink Library Guide](./iot-twinmaker-flink-library-guide.md).
+* The KDA notebook may incur AWS charges, so we recommend that you stop the instance when it is not needed.
 
 ## Prerequisites
 
@@ -87,13 +89,13 @@ Please note that the KDA notebook may incur AWS charges, so we recommend that yo
     python3 $INSIGHT_DIR/install_insights_module.py --workspace-id $WORKSPACE_ID --region-name $AWS_DEFAULT_REGION --kda-stack-name $KDA_STACK_NAME --sagemaker-stack-name $SAGEMAKER_STACK_NAME --import-all
     ```
   - Navigate to the link output by the preceding command. (This may contain a long pre-signed url token). Please copy the full length of link output.
-  - Update the paragraphs in the maple as needed:
+  - Update the paragraphs in each notebook (MaplesoftSimulation and AnomalyDetection) as needed:
     - update the timestamp in the `CREATE TABLE` call if needed based on when your data was ingested.
     - if your data was ingested using the CookieFactory sample, we store a tag on the workspace indicating when data was ingested for the sample. You can use the following to lookup the data ingestion time (in milliseconds from epoch):
       ```
       aws iottwinmaker list-tags-for-resource --resource-arn $(aws iottwinmaker get-workspace --workspace-id $WORKSPACE_ID | jq -r '.arn') | jq -r .tags.samples_content_start_time
       ```
-  - Execute all the paragraphs sequentially in the notebook to see simulation data streamed from AWS IoT TwinMaker into the Maplesoft simulation and results outputed to the notebook.
+  - Execute all the paragraphs sequentially in the notebook to see data streamed from AWS IoT TwinMaker into the Maplesoft simulation/Anomaly Detection and results output to the notebook.
 
 ## Set up AWS IoT TwinMaker Insight Dashboard
 This section should be similar to setting up the main Cookie Factory dashboard described in [GettingStarted/README.md](../../../README.md). If you have aleady finished setting up the main Cookie Factory dashboard. You can skip step 1 below.
