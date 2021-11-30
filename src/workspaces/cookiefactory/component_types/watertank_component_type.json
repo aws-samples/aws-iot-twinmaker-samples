@@ -1,0 +1,31 @@
+{
+    "componentTypeId": "com.example.cookiefactory.watertank",
+    "extendsFrom": [
+        "com.example.timestream-telemetry"
+    ],
+    "propertyDefinitions": {
+        "telemetryAssetType": {
+            "defaultValue" : { "stringValue": "WaterTank" }
+        },
+        "tankVolume1": {
+            "dataType": { "type": "DOUBLE" },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "tankVolume2": {
+            "dataType": { "type": "DOUBLE" },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "flowRate1": {
+            "dataType": { "type": "DOUBLE" },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "flowrate2": {
+            "dataType": { "type": "DOUBLE" },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "componentTypeId": "com.example.cookiefactory.alarm",
+    "extendsFrom": [
+        "com.example.timestream-telemetry",
+        "com.amazon.iottwinmaker.alarm.basic"
+    ],
+    "propertyDefinitions": {
+        "telemetryAssetType": {
+            "defaultValue": {
+                "stringValue": "Alarm"
+            }
+        }
+    },
+    "functions": {
+        "dataReader": {
+            "implementedBy": {
+                "lambda": {
+                    "arn": "{lambdaArn}"
+                }
+            }
+        }
+    }
+}

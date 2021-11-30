@@ -1,0 +1,14 @@
+cdk.out
+node_modules
+package-lock.json
+*.iml
+.vscode
+
+# Python
+__pycache__/
+.python-version
+
+# macOS
+.DS_Store
+
+*.egg-info/

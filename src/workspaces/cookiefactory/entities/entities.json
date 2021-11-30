@@ -1,0 +1,2593 @@
+{
+  "entities": [
+    {
+      "parentEntityId": "$ROOT",
+      "entityId": "Equipment_5c9e83d2-1880-4f83-affd-9a27f80d39f7",
+      "entityName": "Equipment",
+      "entityPath": "/Equipment",
+      "components": {}
+    },
+    {
+      "parentEntityId": "Equipment_5c9e83d2-1880-4f83-affd-9a27f80d39f7",
+      "entityId": "CookieLines_a7a47b3c-8de0-4283-bf3f-4177bc0464ed",
+      "entityName": "CookieLines",
+      "entityPath": "/Equipment/CookieLines",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CookieLines_a7a47b3c-8de0-4283-bf3f-4177bc0464ed",
+      "entityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityName": "COOKIE_LINE",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "BOX_ERECTOR_142496af-df2e-490e-aed5-2580eaf75e40",
+      "entityName": "BOX_ERECTOR",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/BOX_ERECTOR",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "BOX_SEALER_ad434a34-4363-4a36-8153-20bd7189951d",
+      "entityName": "BOX_SEALER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/BOX_SEALER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "CONVEYOR_LEFT_TURN_b28f2ca9-b6a7-44cd-a62d-7f76fc17ba45",
+      "entityName": "CONVEYOR_LEFT_TURN",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/CONVEYOR_LEFT_TURN",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_LEFT_TURN_b28f2ca9-b6a7-44cd-a62d-7f76fc17ba45",
+      "entityId": "MotionIndicatorWidget_1_754fed62-d1f6-403c-b01e-0e2d7a2dd95b",
+      "entityName": "MotionIndicatorWidget_1",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/CONVEYOR_LEFT_TURN/MotionIndicatorWidget_1",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "CONVEYOR_RIGHT_TURN_c4f2df3d-26a2-45c5-a6c9-02ca00eb4af6",
+      "entityName": "CONVEYOR_RIGHT_TURN",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/CONVEYOR_RIGHT_TURN",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_RIGHT_TURN_c4f2df3d-26a2-45c5-a6c9-02ca00eb4af6",
+      "entityId": "MotionIndicatorWidget_e155d94d-84cd-460f-9a93-37aaea742040",
+      "entityName": "MotionIndicatorWidget",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/CONVEYOR_RIGHT_TURN/MotionIndicatorWidget",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "CONVEYOR_STRIGHT_9c62c546-f8ef-489d-9938-d46a12c97f32",
+      "entityName": "CONVEYOR_STRIGHT",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/CONVEYOR_STRIGHT",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_STRIGHT_9c62c546-f8ef-489d-9938-d46a12c97f32",
+      "entityId": "MotionIndicatorWidget_2_3101eabf-ad05-4232-8ff3-675d3cda4405",
+      "entityName": "MotionIndicatorWidget_2",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/CONVEYOR_STRIGHT/MotionIndicatorWidget_2",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "COOKIE_FORMER_19556bfd-469c-40bc-a389-dbeab255c144",
+      "entityName": "COOKIE_FORMER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/COOKIE_FORMER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "FREEZER_TUNNEL_e12e0733-f5df-4604-8f10-417f49e6d298",
+      "entityName": "FREEZER_TUNNEL",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/FREEZER_TUNNEL",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "LABELING_BELT_5f98ffd2-ced1-48dd-a111-e3503b4e8532",
+      "entityName": "LABELING_BELT",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/LABELING_BELT",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "PALLET_98648a84-72da-443a-b625-f671d99a13ba",
+      "entityName": "PALLET",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/PALLET",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "PLASTIC_LINER_a77e76bc-53f3-420d-8b2f-76103c810fac",
+      "entityName": "PLASTIC_LINER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/PLASTIC_LINER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_5ce9f1d5-61b0-433f-a850-53fa7ca27aa1",
+      "entityId": "VERTICAL_CONVEYOR_d5423f7f-379c-4a97-aae0-3a5c0bcc9116",
+      "entityName": "VERTICAL_CONVEYOR",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/VERTICAL_CONVEYOR",
+      "components": {}
+    },
+    {
+      "parentEntityId": "VERTICAL_CONVEYOR_d5423f7f-379c-4a97-aae0-3a5c0bcc9116",
+      "entityId": "MotionIndicatorWidget_1_ddd5849f-ce5c-4c6a-8056-c829ebee7c26",
+      "entityName": "MotionIndicatorWidget_1",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/VERTICAL_CONVEYOR/MotionIndicatorWidget_1",
+      "components": {}
+    },
+    {
+      "parentEntityId": "VERTICAL_CONVEYOR_d5423f7f-379c-4a97-aae0-3a5c0bcc9116",
+      "entityId": "VerticalConveyor_1989daa2-7b6b-4717-a233-5f708073ee4e",
+      "entityName": "VerticalConveyor",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE/VERTICAL_CONVEYOR/VerticalConveyor",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CookieLines_a7a47b3c-8de0-4283-bf3f-4177bc0464ed",
+      "entityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityName": "COOKIE_LINE_1",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "BOX_ERECTOR_c750322d-bd83-4a17-8b9c-acfa62ed6d64",
+      "entityName": "BOX_ERECTOR",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/BOX_ERECTOR",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "BOX_SEALER_91bceabc-ef3f-4783-a080-10fa25557ff8",
+      "entityName": "BOX_SEALER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/BOX_SEALER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "CONVEYOR_LEFT_TURN_d2e72da9-3333-4a24-9e23-0dd64a829c94",
+      "entityName": "CONVEYOR_LEFT_TURN",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/CONVEYOR_LEFT_TURN",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_LEFT_TURN_d2e72da9-3333-4a24-9e23-0dd64a829c94",
+      "entityId": "MotionIndicatorWidget_1_ecbf4a65-025b-4d47-a395-24d400109b03",
+      "entityName": "MotionIndicatorWidget_1",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/CONVEYOR_LEFT_TURN/MotionIndicatorWidget_1",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "CONVEYOR_RIGHT_TURN_54972194-9394-4158-a122-138a7e4a6654",
+      "entityName": "CONVEYOR_RIGHT_TURN",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/CONVEYOR_RIGHT_TURN",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_RIGHT_TURN_54972194-9394-4158-a122-138a7e4a6654",
+      "entityId": "MotionIndicatorWidget_aa8ae4ea-ed33-47b6-ae84-3c0cfe7e4705",
+      "entityName": "MotionIndicatorWidget",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/CONVEYOR_RIGHT_TURN/MotionIndicatorWidget",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "CONVEYOR_STRIGHT_a1f90af8-ea88-4397-b263-57ea6e41e554",
+      "entityName": "CONVEYOR_STRIGHT",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/CONVEYOR_STRIGHT",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_STRIGHT_a1f90af8-ea88-4397-b263-57ea6e41e554",
+      "entityId": "MotionIndicatorWidget_2_6f722f84-30c8-426d-ae7c-f940674d82f9",
+      "entityName": "MotionIndicatorWidget_2",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/CONVEYOR_STRIGHT/MotionIndicatorWidget_2",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "COOKIE_FORMER_e87acad2-1852-4f98-891f-c8f9a3eb7dd4",
+      "entityName": "COOKIE_FORMER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/COOKIE_FORMER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "FREEZER_TUNNEL_c726a21e-8fd4-4210-b71e-0ef9acc59d97",
+      "entityName": "FREEZER_TUNNEL",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/FREEZER_TUNNEL",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "LABELING_BELT_a507db85-2d94-48d7-b7e0-a205c1b5b509",
+      "entityName": "LABELING_BELT",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/LABELING_BELT",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "PALLET_bb958ee7-e8b9-412c-91a4-adda3f924ba6",
+      "entityName": "PALLET",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/PALLET",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "PLASTIC_LINER_23df2a72-30d6-4f8f-bc15-95a8e945b4fa",
+      "entityName": "PLASTIC_LINER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/PLASTIC_LINER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_1_70cde09c-2c2b-4aa2-9fc3-a91ff659e8f3",
+      "entityId": "VERTICAL_CONVEYOR_a10ee21c-c859-4d73-b0bb-396daaf02335",
+      "entityName": "VERTICAL_CONVEYOR",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/VERTICAL_CONVEYOR",
+      "components": {}
+    },
+    {
+      "parentEntityId": "VERTICAL_CONVEYOR_a10ee21c-c859-4d73-b0bb-396daaf02335",
+      "entityId": "MotionIndicatorWidget_1_37172154-f31f-4f8a-bd00-e5676eb43eaf",
+      "entityName": "MotionIndicatorWidget_1",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/VERTICAL_CONVEYOR/MotionIndicatorWidget_1",
+      "components": {}
+    },
+    {
+      "parentEntityId": "VERTICAL_CONVEYOR_a10ee21c-c859-4d73-b0bb-396daaf02335",
+      "entityId": "VerticalConveyor_bf5c3b2a-c092-43d6-90df-07c8ced552b0",
+      "entityName": "VerticalConveyor",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_1/VERTICAL_CONVEYOR/VerticalConveyor",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CookieLines_a7a47b3c-8de0-4283-bf3f-4177bc0464ed",
+      "entityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityName": "COOKIE_LINE_2",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "BOX_ERECTOR_170c5e21-441d-4181-ab3a-f7d01eddf1b8",
+      "entityName": "BOX_ERECTOR",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/BOX_ERECTOR",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "BOX_SEALER_c1638b9e-27e1-4e76-9096-5ce2aa1de6f4",
+      "entityName": "BOX_SEALER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/BOX_SEALER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "CONVEYOR_LEFT_TURN_f518cc43-90d6-4c77-bf06-a096080234aa",
+      "entityName": "CONVEYOR_LEFT_TURN",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/CONVEYOR_LEFT_TURN",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_LEFT_TURN_f518cc43-90d6-4c77-bf06-a096080234aa",
+      "entityId": "MotionIndicatorWidget_1_bf298ea4-38cc-48bc-8ffe-62d823dea083",
+      "entityName": "MotionIndicatorWidget_1",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/CONVEYOR_LEFT_TURN/MotionIndicatorWidget_1",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "CONVEYOR_RIGHT_TURN_e43df61e-f675-461f-97d1-fa16b9855434",
+      "entityName": "CONVEYOR_RIGHT_TURN",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/CONVEYOR_RIGHT_TURN",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_RIGHT_TURN_e43df61e-f675-461f-97d1-fa16b9855434",
+      "entityId": "MotionIndicatorWidget_e1d52c7c-b336-4911-84e8-3fc1155a118f",
+      "entityName": "MotionIndicatorWidget",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/CONVEYOR_RIGHT_TURN/MotionIndicatorWidget",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "CONVEYOR_STRIGHT_301d3d79-455f-4be2-8b87-843f6b7827d8",
+      "entityName": "CONVEYOR_STRIGHT",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/CONVEYOR_STRIGHT",
+      "components": {}
+    },
+    {
+      "parentEntityId": "CONVEYOR_STRIGHT_301d3d79-455f-4be2-8b87-843f6b7827d8",
+      "entityId": "MotionIndicatorWidget_2_b9e378c9-2ea6-4041-849f-32d78d2392d0",
+      "entityName": "MotionIndicatorWidget_2",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/CONVEYOR_STRIGHT/MotionIndicatorWidget_2",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "COOKIE_FORMER_93bae16c-9caf-4281-8509-e044dd17fa34",
+      "entityName": "COOKIE_FORMER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/COOKIE_FORMER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "FREEZER_TUNNEL_2f21726d-64f9-4e92-86e2-b8d1bb3e54d7",
+      "entityName": "FREEZER_TUNNEL",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/FREEZER_TUNNEL",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "LABELING_BELT_917ad457-dcb5-4781-a735-df1c7a48ab94",
+      "entityName": "LABELING_BELT",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/LABELING_BELT",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "PALLET_c790c4f2-85f0-4cf4-9c08-846ec49e3f4a",
+      "entityName": "PALLET",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/PALLET",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "PLASTIC_LINER_73a5c11d-d738-46ef-ba0c-969d0abd1334",
+      "entityName": "PLASTIC_LINER",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/PLASTIC_LINER",
+      "components": {}
+    },
+    {
+      "parentEntityId": "COOKIE_LINE_2_31be44be-6df3-4312-bd8f-84a9282f5029",
+      "entityId": "VERTICAL_CONVEYOR_c94f46c2-f47c-437a-998c-d6e91b736e24",
+      "entityName": "VERTICAL_CONVEYOR",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/VERTICAL_CONVEYOR",
+      "components": {}
+    },
+    {
+      "parentEntityId": "VERTICAL_CONVEYOR_c94f46c2-f47c-437a-998c-d6e91b736e24",
+      "entityId": "MotionIndicatorWidget_1_9dfff2b0-e6db-447b-b903-af870158a8ab",
+      "entityName": "MotionIndicatorWidget_1",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/VERTICAL_CONVEYOR/MotionIndicatorWidget_1",
+      "components": {}
+    },
+    {
+      "parentEntityId": "VERTICAL_CONVEYOR_c94f46c2-f47c-437a-998c-d6e91b736e24",
+      "entityId": "VerticalConveyor_9f4323a3-6c87-419a-a087-6be1a4c6a926",
+      "entityName": "VerticalConveyor",
+      "entityPath": "/Equipment/CookieLines/COOKIE_LINE_2/VERTICAL_CONVEYOR/VerticalConveyor",
+      "components": {}
+    },
+    {
+      "parentEntityId": "Equipment_5c9e83d2-1880-4f83-affd-9a27f80d39f7",
+      "entityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityName": "Mixers",
+      "entityPath": "/Equipment/Mixers",
+      "components": {}
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837",
+      "entityName": "Mixer_0",
+      "entityPath": "/Equipment/Mixers/Mixer_0",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_0_35a2fc78-ca0a-46e1-a24d-9243acfa9ac5"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_0_237685e2-3f33-42f9-8cff-5f761c94aa73"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_0_237685e2-3f33-42f9-8cff-5f761c94aa73"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer0_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_1_4b57cbee-c391-4de6-b882-622c633a697e",
+      "entityName": "Mixer_1",
+      "entityPath": "/Equipment/Mixers/Mixer_1",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_1_d2e1fb9c-308e-4801-9241-e4d3aa35255c"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_1_597c735b-38fd-476c-b276-7592b1699ef8"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_1_597c735b-38fd-476c-b276-7592b1699ef8"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer1_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_10_9ee8913d-1fef-4453-beee-fbfc147fc03c",
+      "entityName": "Mixer_10",
+      "entityPath": "/Equipment/Mixers/Mixer_10",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_10_8f562465-f2c2-4653-804c-a1f2c5f10ecb"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_10_54205d7c-1407-4f17-8b38-188e437e8d9d"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_10_54205d7c-1407-4f17-8b38-188e437e8d9d"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer10_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_11_67785f3f-229d-4d41-9ce4-09a5af1f152b",
+      "entityName": "Mixer_11",
+      "entityPath": "/Equipment/Mixers/Mixer_11",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_11_86e56d44-c19b-48d7-94a2-fdd68732f9aa"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_11_2ef76a9e-825b-4405-992f-f6fb401412ac"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_11_2ef76a9e-825b-4405-992f-f6fb401412ac"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer11_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_12_87c19fdf-e824-472d-a2e3-15012e8fc7a8",
+      "entityName": "Mixer_12",
+      "entityPath": "/Equipment/Mixers/Mixer_12",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_12_9216fb6b-123c-4549-8551-c17e17d15d1d"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_12_18786fcb-0b98-4e12-8d56-c7ab06007588"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_12_18786fcb-0b98-4e12-8d56-c7ab06007588"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer12_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_13_68bb09dd-7f89-46ee-b00a-f5a1126e5e5d",
+      "entityName": "Mixer_13",
+      "entityPath": "/Equipment/Mixers/Mixer_13",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_13_1e5bf8d3-99c9-42ae-839a-900794d31a22"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_13_e8061c85-73de-43f5-a772-4b14323abdf1"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_13_e8061c85-73de-43f5-a772-4b14323abdf1"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer13_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_14_456ba291-bf60-417a-848f-22a52bc1cb66",
+      "entityName": "Mixer_14",
+      "entityPath": "/Equipment/Mixers/Mixer_14",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_14_bd4a1a32-c07b-43e7-a675-e34c26919f33"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_14_57a12ffb-6b5d-499f-95d8-9c1f88e9151a"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_14_57a12ffb-6b5d-499f-95d8-9c1f88e9151a"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer14_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_15_3ba29ac2-6fcc-4884-a96e-fcab39caa35f",
+      "entityName": "Mixer_15",
+      "entityPath": "/Equipment/Mixers/Mixer_15",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_15_0bb566cd-d6f3-4804-9fe1-7d2abcad82d0"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_15_445782e9-808d-459b-86bf-6267f3fd1971"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_15_445782e9-808d-459b-86bf-6267f3fd1971"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer15_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_16_1fb550b1-868f-4efc-b39a-0e1c0f611890",
+      "entityName": "Mixer_16",
+      "entityPath": "/Equipment/Mixers/Mixer_16",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_16_ab6f7e9c-a4e3-48bf-ad23-98107b7da084"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_16_6393f849-ca84-4e43-9605-d20fa2477264"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_16_6393f849-ca84-4e43-9605-d20fa2477264"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer16_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_17_0a71b321-7ff9-4624-a894-d0a4541d630c",
+      "entityName": "Mixer_17",
+      "entityPath": "/Equipment/Mixers/Mixer_17",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_17_b0a69283-1626-4e0e-bf08-bc0feeecf01d"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_17_92cdfa24-6cac-45e3-9b69-92a0117fd66a"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_17_92cdfa24-6cac-45e3-9b69-92a0117fd66a"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer17_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_18_0bd49a00-128b-4a05-b694-c0acf0e12047",
+      "entityName": "Mixer_18",
+      "entityPath": "/Equipment/Mixers/Mixer_18",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_18_bbc6cf6e-3633-4795-83d9-d8f36368e4fb"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_18_1774f1e2-a64b-4273-8572-d50fd7be2ed3"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_18_1774f1e2-a64b-4273-8572-d50fd7be2ed3"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer18_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_19_002a0bfd-78f2-47d5-b694-73ffeb0be9ee",
+      "entityName": "Mixer_19",
+      "entityPath": "/Equipment/Mixers/Mixer_19",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_19_0a9f9294-d97e-47f1-8257-502249d17406"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_19_46603486-4777-484b-ac6c-df287a8a0aaf"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_19_46603486-4777-484b-ac6c-df287a8a0aaf"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer19_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+      "entityName": "Mixer_2",
+      "entityPath": "/Equipment/Mixers/Mixer_2",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_2_d8e76844-e739-4845-a748-a83983279376"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer2_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_20_4345c719-cf76-4c4f-8c10-35c69514e606",
+      "entityName": "Mixer_20",
+      "entityPath": "/Equipment/Mixers/Mixer_20",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_20_0568f25f-116c-429c-a974-5ceec065a6ac"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_20_db23cc52-ecd6-43a4-8b45-dc286089905a"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_20_db23cc52-ecd6-43a4-8b45-dc286089905a"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer20_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_21_a2fb39ba-7c76-4064-91f8-792718b64fc5",
+      "entityName": "Mixer_21",
+      "entityPath": "/Equipment/Mixers/Mixer_21",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_21_3f539772-2555-4a4f-8586-9e4cee497de0"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_21_aacc32af-d1f2-4bec-be43-08baef9d9339"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_21_aacc32af-d1f2-4bec-be43-08baef9d9339"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer21_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_22_d133c9d0-472c-48bb-8f14-54f3890bc0fe",
+      "entityName": "Mixer_22",
+      "entityPath": "/Equipment/Mixers/Mixer_22",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_22_680b5b8e-1afe-4a77-87ab-834fbe5ba01e"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_22_fc8faca3-c6fa-4bdc-9a60-045d3d6134b7"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_22_fc8faca3-c6fa-4bdc-9a60-045d3d6134b7"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer22_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_23_017d92a8-6bc8-44d0-aacf-8943fb776877",
+      "entityName": "Mixer_23",
+      "entityPath": "/Equipment/Mixers/Mixer_23",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_23_ba808290-9abc-44df-8db9-ee63f0740340"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_23_7025eb0a-1950-4142-a30a-90b90b12c56a"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_23_7025eb0a-1950-4142-a30a-90b90b12c56a"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer23_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_24_254b1597-3153-4ee1-bae4-d961c5810e7f",
+      "entityName": "Mixer_24",
+      "entityPath": "/Equipment/Mixers/Mixer_24",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_24_7ff0b75b-f0fa-43f0-bc89-b96337586d00"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_24_a328de22-4e43-40da-b11d-5705bf8297c6"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_24_a328de22-4e43-40da-b11d-5705bf8297c6"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer24_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_25_7d040a42-55c7-4a1c-9509-ce3e09e8071e",
+      "entityName": "Mixer_25",
+      "entityPath": "/Equipment/Mixers/Mixer_25",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_25_cf42effc-ba19-48ba-bbc3-d21d2508ce31"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_25_4d403849-b962-44ed-8458-3994fb60d9fd"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_25_4d403849-b962-44ed-8458-3994fb60d9fd"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer25_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_3_3218c6d8-627e-465f-9aea-cdbcd212625b",
+      "entityName": "Mixer_3",
+      "entityPath": "/Equipment/Mixers/Mixer_3",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_3_1c19dcc4-7e76-458e-83a0-f6cd0f72c37e"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_3_f813ecad-e144-4105-a4dd-64b8070fe012"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_3_f813ecad-e144-4105-a4dd-64b8070fe012"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer3_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_4_784b3c3e-5779-4ca1-ad0b-036b18dd1fcc",
+      "entityName": "Mixer_4",
+      "entityPath": "/Equipment/Mixers/Mixer_4",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_4_31dfa9b3-2dc9-4ae2-8de6-fbffd1c972df"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_4_137a2b35-33ff-4590-aa98-3299aab56203"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_4_137a2b35-33ff-4590-aa98-3299aab56203"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer4_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_5_018fbf69-c06a-4690-8817-53bf163df8d4",
+      "entityName": "Mixer_5",
+      "entityPath": "/Equipment/Mixers/Mixer_5",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_5_794a4271-0b9c-4447-a492-228ecf77e5c7"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_5_a15993f9-dfb5-41f4-b7fe-acd3e1b838c4"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_5_a15993f9-dfb5-41f4-b7fe-acd3e1b838c4"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer5_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_6_9aa0cd6c-a8f7-4a8a-9881-9c3cb2a22bf1",
+      "entityName": "Mixer_6",
+      "entityPath": "/Equipment/Mixers/Mixer_6",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_6_b66db3d3-c144-47b5-afb9-3a0150c53456"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_6_93efa292-4bd2-4e01-bcee-bb943c332dd2"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_6_93efa292-4bd2-4e01-bcee-bb943c332dd2"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer6_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_7_522e64d6-b5c2-4980-bd3f-5db1cf837b1f",
+      "entityName": "Mixer_7",
+      "entityPath": "/Equipment/Mixers/Mixer_7",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_7_851608fb-def2-4b0e-aa71-9021d1c4846a"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_7_ca6b9bd9-6ace-433f-a095-da4b8ab53b1b"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_7_ca6b9bd9-6ace-433f-a095-da4b8ab53b1b"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer7_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_8_fc6e52dd-1600-402f-aee7-4d17eca68d5f",
+      "entityName": "Mixer_8",
+      "entityPath": "/Equipment/Mixers/Mixer_8",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_8_6db988de-16f7-4ad6-bcbb-7c0416fed471"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_8_f058a7eb-4c6c-4990-8a5f-e39168f16f03"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_8_f058a7eb-4c6c-4990-8a5f-e39168f16f03"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer8_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+      "entityId": "Mixer_9_679aed7c-9544-4d06-bf64-6a19381765ca",
+      "entityName": "Mixer_9",
+      "entityPath": "/Equipment/Mixers/Mixer_9",
+      "components": {
+        "MixerComponent": {
+          "componentTypeId": "com.example.cookiefactory.mixer",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_9_a22d4ca4-0fc6-464f-9ea1-14de9d799c52"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "Mixer_9_515ed6a1-0fb1-4e09-a513-b682938a2bb4"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "Mixer_9_515ed6a1-0fb1-4e09-a513-b682938a2bb4"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "mixer9_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Equipment_5c9e83d2-1880-4f83-affd-9a27f80d39f7",
+      "entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab",
+      "entityName": "WaterTank",
+      "entityPath": "/Equipment/WaterTank",
+      "components": {
+        "WaterTank": {
+          "componentTypeId": "com.example.cookiefactory.watertank",
+          "properties": {
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "WaterTank_76bff931-8642-424b-ac5d-636a089669f4"
+              }
+            }
+          }
+        },
+        "AlarmComponent": {
+          "componentTypeId": "com.example.cookiefactory.alarm",
+          "properties": {
+            "alarm_key": {
+              "value": {
+                "stringValue": "WaterTank_ce63b782-c855-4cff-8d1c-6e542e0a3cbf"
+              }
+            },
+            "telemetryAssetId": {
+              "value": {
+                "stringValue": "WaterTank_ce63b782-c855-4cff-8d1c-6e542e0a3cbf"
+              }
+            }
+          }
+        },
+        "SpecSheets": {
+          "componentTypeId": "com.amazon.iottwinmaker.documents",
+          "properties": {
+            "documents": {
+              "value": {
+                "mapValue": {
+                  "watertank_manual": {
+                    "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                  },
+                  "manufacturer_page": {
+                    "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "$ROOT",
+      "entityId": "SiteWatchCameras_d621310a-e94a-4840-a3aa-ba0bba4c7f81",
+      "entityName": "SiteWatchCameras",
+      "entityPath": "/SiteWatchCameras",
+      "components": {}
+    },
+    {
+      "parentEntityId": "SiteWatchCameras_d621310a-e94a-4840-a3aa-ba0bba4c7f81",
+      "entityId": "Camera_MixingRoom_1_9a9af99c-9a8a-49a9-b3c2-61de8e8afe0c",
+      "entityName": "Camera_MixingRoom_1",
+      "entityPath": "/SiteWatchCameras/Camera_MixingRoom_1",
+      "components": {}
+    },
+    {
+      "parentEntityId": "$ROOT",
+      "entityId": "Spaces_aae147fa-014f-41b0-adbe-1dd6802bfe48",
+      "entityName": "Spaces",
+      "entityPath": "/Spaces",
+      "components": {}
+    },
+    {
+      "parentEntityId": "Spaces_aae147fa-014f-41b0-adbe-1dd6802bfe48",
+      "entityId": "Factory_aa3d7d8b-6b94-44fe-ab02-6936bfcdade6",
+      "entityName": "Factory",
+      "entityPath": "/Spaces/Factory",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 105.09 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 175.96 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -52.2 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -87.8 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Factory_aa3d7d8b-6b94-44fe-ab02-6936bfcdade6",
+      "entityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityName": "Office_Space",
+      "entityPath": "/Spaces/Factory/Office_Space",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 54.2 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 76.72 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -33.3000031 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -83.5 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Hallway_d7738b0c-7a9d-4791-a49d-ddc520f50212",
+      "entityName": "Office_Hallway",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Hallway",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 4.39 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 42.91 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -11.5800018 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -68.4500046 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Reception_0d839324-4da3-4189-aa4b-d2dbbd2d0619",
+      "entityName": "Office_Reception",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Reception",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 43.2 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 14.6 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -33.3000031 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -83.5 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Room_A_2ad41ea0-1f08-4120-9485-dcfcb18d7b1f",
+      "entityName": "Office_Room_A",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Room_A",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 10.5 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 14.47 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 10.1000023 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -83.4 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Room_B_03432b41-5f93-480e-a0d4-2a61a5c23173",
+      "entityName": "Office_Room_B",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Room_B",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 27.52 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 12.97 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -6.90000153 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -68.8 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Room_C_b5b381cd-b7d7-477f-8ed0-e80723e89192",
+      "entityName": "Office_Room_C",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Room_C",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 27.57 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 14.14 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -7.000004 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -55.47 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Room_D_108ea545-614c-4321-8f5b-a7cd9b87556b",
+      "entityName": "Office_Room_D",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Room_D",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 27.59 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 15.75 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -6.90000153 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -41.3000031 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Room_E_6174ea3d-c2a0-4929-903f-fa6b9b979d92",
+      "entityName": "Office_Room_E",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Room_E",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 22.32 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 18.39 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -1.70000076 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -25.220005 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Room_F_29bc43d5-b787-47cf-9ddb-09adc2366a3b",
+      "entityName": "Office_Room_F",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Room_F",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 21.5 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 27.2 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -33.3000031 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -68.53 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Room_G_d84da41c-33a3-4c5a-a0ca-a203bf5a2faf",
+      "entityName": "Office_Room_G",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Room_G",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 21.37 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 23.15 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -33.2 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -41.1300049 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Office_Space_3c1e1bde-b842-496d-9832-a1c7db5d85ab",
+      "entityId": "Office_Room_H_f9bc827e-af66-4630-afde-193a940694fd",
+      "entityName": "Office_Room_H",
+      "entityPath": "/Spaces/Factory/Office_Space/Office_Room_H",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 21.38 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 8.23 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -33.21 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -14.8499985 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Factory_aa3d7d8b-6b94-44fe-ab02-6936bfcdade6",
+      "entityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityName": "Warehouse",
+      "entityPath": "/Spaces/Factory/Warehouse",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 103.03 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 92.45 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -51.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -5.800003 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityId": "Warehouse_Floorspace_A_abcf93aa-a29a-428c-bebc-4b0d9b447037",
+      "entityName": "Warehouse_Floorspace_A",
+      "entityPath": "/Spaces/Factory/Warehouse/Warehouse_Floorspace_A",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 65.1 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 51.7 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -51.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 12.8999939 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityId": "Warehouse_Floorspace_B_6633dc49-5b0c-4e0b-973c-91c7a4edf470",
+      "entityName": "Warehouse_Floorspace_B",
+      "entityPath": "/Spaces/Factory/Warehouse/Warehouse_Floorspace_B",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 52.4 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 33.74 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -11.4000015 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -5.70000458 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityId": "Warehouse_Room_A_e4c579dd-5c59-46f8-a9ae-e406d6438132",
+      "entityName": "Warehouse_Room_A",
+      "entityPath": "/Spaces/Factory/Warehouse/Warehouse_Room_A",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 33.3 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 21.16 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -51.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 65.2 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityId": "Warehouse_Room_B_49e168f9-413a-4a75-b472-677f4617b4c8",
+      "entityName": "Warehouse_Room_B",
+      "entityPath": "/Spaces/Factory/Warehouse/Warehouse_Room_B",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 30.12 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 21.35 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -16.5999985 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 65.09999 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityId": "Warehouse_Room_C_eb117506-479c-4899-b40f-120ec94572cb",
+      "entityName": "Warehouse_Room_C",
+      "entityPath": "/Spaces/Factory/Warehouse/Warehouse_Room_C",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 37.66 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 25.31 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 14.2999992 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 61.3999939 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityId": "Warehouse_Room_D_e2afb57b-63ad-4e6a-ada3-492f8d11f563",
+      "entityName": "Warehouse_Room_D",
+      "entityPath": "/Spaces/Factory/Warehouse/Warehouse_Room_D",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 37.6 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 31.85 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 14.2999992 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 28.7999954 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityId": "Warehouse_Room_E_62a08267-a89f-4a3c-826e-844fc52736e5",
+      "entityName": "Warehouse_Room_E",
+      "entityPath": "/Spaces/Factory/Warehouse/Warehouse_Room_E",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 38.93 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 18.13 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -51.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": -5.800003 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "parentEntityId": "Warehouse_058779af-8292-4636-84ee-c065e6da462d",
+      "entityId": "Warehouse_Room_F_314b3daf-888d-41ff-ae53-0e83aac2f700",
+      "entityName": "Warehouse_Room_F",
+      "entityPath": "/Spaces/Factory/Warehouse/Warehouse_Room_F",
+      "components": {
+        "Space": {
+          "componentTypeId": "com.example.cookiefactory.space",
+          "properties": {
+            "bounds": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 5.85 },
+                  { "doubleValue": 9.5 },
+                  { "doubleValue": 30.85 }
+                ]
+              }
+            },
+            "position": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": -51.1000023 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 24.0999985 }
+                ]
+              }
+            },
+            "rotation": {
+              "value": {
+                "listValue": [
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 },
+                  { "doubleValue": 0.0 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+    "componentTypeId": "com.example.timestream-telemetry",
+    "functions": {
+        "dataReader": {
+            "implementedBy": {
+                "lambda": {
+                    "arn": "{lambdaArn}"
+                }
+            }
+        }
+    },
+    "propertyDefinitions": {
+        "telemetryAssetType": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isExternalId": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false,
+            "isRequiredInEntity": true
+        },
+        "telemetryAssetId": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isExternalId": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false,
+            "isRequiredInEntity": true
+        }
+    }
+}
