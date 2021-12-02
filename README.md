@@ -25,11 +25,15 @@ If you run into any issues, please see the Troubleshooting section of this page.
      ```bash
      aws sts get-caller-identity
      ```
-   - Temporary prerequisite to install CLI models (won't be needed at preview)
+   - Ensure your AWS CLI version is at least 1.22.17.
      ```bash
-     # run from same directory as this README
-     aws configure add-model --service-model file://iottwinmaker-2021-11-29.normal.json
+     aws --version
      ```
+     - Otherwise, you may use the following to directly install the `iottwinmaker` module to your current AWS CLI.
+       ```bash
+       # run from same directory as this README
+       aws configure add-model --service-model file://iottwinmaker-2021-11-29.normal.json
+       ```
    - When you are set up, test your access with the following command. (You should not receive errors.)
      ```
       aws iottwinmaker list-workspaces --region us-east-1

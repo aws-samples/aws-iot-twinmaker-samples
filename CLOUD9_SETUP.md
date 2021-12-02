@@ -38,7 +38,7 @@ Note: If you encounter any issues, try checking the Troubleshooting section at t
         - click on the Instance id link to bring up the "Instance summary" page for your instance
     - Attach Instance Role
         - "Actions" (top right) > "Security" > "Modify IAM role"
-        - (if haven't already created a role for IoT TwinMaker development) "Create new IAM role"
+        - (if you haven't already created a role for IoT TwinMaker development) "Create new IAM role"
             - "Create Role" (top right)
                 ```
                 [Select type of trusted entity] EC2
@@ -99,7 +99,7 @@ Note: If you encounter any issues, try checking the Troubleshooting section at t
     - Expand volume size
         - click back to the "Instance summary" page for your instance
         - "Storage" tab (middle of page, 3 to right of "Details")
-        - click on the volume link under under "Block devices" > "Volume ID" section
+        - click on the volume link under "Block devices" > "Volume ID" section
         - click on the volume ID link in the "Volumes" page
             - "Modify" (top right)
             - Change the Size to `20` GiB
@@ -109,23 +109,37 @@ Note: If you encounter any issues, try checking the Troubleshooting section at t
         - Restart EC2 instance
             - click back to the "Instance summary" page for your instance
             - "Instance state" (top-right) > "Reboot Instance"
-    - Return back to the Cloud9 console, after rebooting the instance it should be attempting to connect again. Wait for it to reconnect to the rebooted instance (may take a few minutes)
+    - Return to the Cloud9 console, after rebooting the instance it should be attempting to connect again. Wait for it to reconnect to the rebooted instance (may take a few minutes)
         - once reconnected, feel free to click the red banner link at top of page to refresh the IDE to re-enable AWS Toolkit and Git panel
 
-3. (Optional) Verify credentials
+3. Install other dependencies
+
+  In the bash terminal in Cloud9 run the following
+
+  Install OpenCV and jq dependencies
+
+  ```
+  sudo yum install mesa-libGL jq -y
+  ```
+  
+  Upgrade pip
+  
+  ```
+  sudo python3 -m pip install --upgrade pip
+  ```
+
+  Upgrade AWS CLI (should output `aws-cli/1.22.17` or greater)
+
+  ```
+  sudo pip3 install awscli --force-reinstall --upgrade && source ~/.bashrc && aws --version
+  ```
+
+4. (Optional) Verify credentials
 
   In the bash terminal in Cloud9, try running the following to verify your environment has `awscli` and properly configured credentials (you should not see any errors)
 
   ```
   aws sts get-caller-identity
-  ```
-
-4. Install other dependencies
-
-  In the bash terminal in Cloud9
-
-  ```
-  sudo yum install mesa-libGL jq -y
   ```
 
 5. Open Getting started README in Cloud9
