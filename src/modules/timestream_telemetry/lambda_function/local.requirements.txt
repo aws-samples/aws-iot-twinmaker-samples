@@ -1,6 +1,6 @@
 # boto dependencies make the lambda very large, they are also automatically provided by lambda
 # this file is kept here for installing dependencies locally
-boto3==1.18.7
+boto3==1.20.17
 botocore==1.21.16
 numpy==1.21.3
 sqlparse==0.4.2

@@ -121,6 +121,18 @@ Note: If you encounter any issues, try checking the Troubleshooting section at t
   ```
   sudo yum install mesa-libGL jq -y
   ```
+  
+  Upgrade pip
+  
+  ```
+  sudo python3 -m pip install --upgrade pip
+  ```
+
+  Upgrade AWS CLI (should output `aws-cli/1.22.17` or greater)
+
+  ```
+  sudo pip3 install awscli --force-reinstall --upgrade && source ~/.bashrc && aws --version
+  ```
 
 4. (Optional) Verify credentials
 
