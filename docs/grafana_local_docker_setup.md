@@ -70,6 +70,14 @@ If it does not show up in your list you may need to refresh the page a few times
 
 You will need to edit your Dashboard IAM role to grant permissions to grant assume role permissions to the instance. For quick troubleshooting, you can also temporarily leave the `Assume Role ARN` field blank to default to your SDK credentials. (not recommended for production use-cases)
 
+### could not create "var/lib/grafana/plugins/grafana-iot-twinmaker-app", permission denied
+
+If this occurs while running `setup_local_grafana_docker.sh`, try running the following to grant permissions to the grafana configuration directory then rerunning the `setup_local_grafana_docker.sh` command.
+
+```
+SCRIPT_DIR=${HOME} && mkdir -p ${SCRIPT_DIR}/local_grafana_data/plugins && sudo chmod 777 ${SCRIPT_DIR}/local_grafana_data && chmod 777 ${SCRIPT_DIR}/local_grafana_data/plugins
+```
+
 ---
 
 ## License
