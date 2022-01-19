@@ -51,7 +51,8 @@ This module provides a sample implementation of an Amazon S3 connector for AWS I
     python3 ./create_s3_document_connector.py \
         --workspace-id $WORKSPACE_ID \
         --component-type-id com.example.s3connector.document \
-        --attribute-property-value-reader-by-entity-arn ${S3_CONNECTOR_UDQ_LAMBDA_ARN}
+        --attribute-property-value-reader-by-entity-arn ${S3_CONNECTOR_UDQ_LAMBDA_ARN} \
+        --region ${AWS_DEFAULT_REGION}
     ```
 
 4. Create sample S3 status document
@@ -73,7 +74,8 @@ This module provides a sample implementation of an Amazon S3 connector for AWS I
         --workspace-id $WORKSPACE_ID \
         --entity-id Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837 \
         --component-type-id com.example.s3connector.document \
-        --s3-url-json s3://${WORKSPACE_S3}/operation_status.json
+        --s3-url-json s3://${WORKSPACE_S3}/operation_status.json \
+        --region ${AWS_DEFAULT_REGION}
     ```
 
 6. verify that the value can be read from IoT TwinMaker:
