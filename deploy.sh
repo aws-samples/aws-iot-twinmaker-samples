@@ -56,3 +56,9 @@ python3 $GETTING_STARTED_DIR/src/modules/grafana/create_grafana_dashboard_role.p
 
 # Afterwards, move onto step 4 of the instructions
 
+# tried yum install libgl1-mesa-glx
+# got the following error:
+# No package libgl1-mesa-glx available.
+
+# I think the issue is that certain packages are not available for Amazon Linux
+# Workaround - try creating a new Cloud 9; can run deploy.sh from where I left off. Don't need to create new IoT Workspace. The Role ARN is still the same
