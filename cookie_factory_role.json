@@ -1,0 +1,31 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::twinmaker-workspace-cookiefactory-129142395644-iad",
+        "arn:aws:s3:::twinmaker-workspace-cookiefactory-129142395644-iad/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iottwinmaker:Get*",
+        "iottwinmaker:List*"
+      ],
+      "Resource": [
+        "arn:aws:iottwinmaker:us-east-1:129142395644:workspace/CookieFactory",
+        "arn:aws:iottwinmaker:us-east-1:129142395644:workspace/CookieFactory/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": "iottwinmaker:ListWorkspaces",
+      "Resource": "*"
+    }
+  ]
+}
