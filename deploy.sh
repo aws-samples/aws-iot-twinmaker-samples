@@ -85,6 +85,8 @@ sudo apt install libgl1-mesa-glx # to address issue with OpenCV
 #   --workspace-id $WORKSPACE_ID \
 #   --region-name $AWS_DEFAULT_REGION \
 #   --import-all
+# cd $GETTING_STARTED_DIR
+  
 
 # Test that data has been added by running the following query. If not available, uncomment above to import content into cookiefactory TwinMaker instance
 aws iottwinmaker get-property-value-history \
@@ -93,7 +95,9 @@ aws iottwinmaker get-property-value-history \
    
 # Now deploy Grafana on your instance or on the web
 # Uncomment if you have not previously deployed Grafana on the local machine
-sh $GETTING_STARTED_DIR/src/modules/grafana/setup_cloud9_grafana_docker.sh
+# sh $GETTING_STARTED_DIR/src/modules/grafana/setup_cloud9_grafana_docker.sh
 
 # Error
 # Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use.
+
+# $GETTING_STARTED_DIR/src/workspaces/cookiefactory/sample_dashboards/
