@@ -340,9 +340,20 @@ Problem:
 - Discover requires all external links to be HTTPS for TLS encryption
 
 Solution:
-- purchase domain
-- use aws certificate manager to assign certificate for subdomain '*' of the purchase domain
-- attached certificate to load balancer
+- Setup load balancer
+    - Setup HTTP(S) Load Balancer
+    - redirect port 80 to port 443
+    - forward port 443 to public IP and port on which Grafana is running
+- Set up HTTPS
+    - purchase domain
+    - use aws certificate manager to assign certificate for subdomain '*' of the purchase domain
+    - attached certificate to load balancer
+    - Setup the following record on the purchased domain
+        ```
+        TYPE: CNAME
+        Host name: <subdomain>.<purchased domain>
+        Data: <DNS Name of HTTPS load balancer>
+        ```
 
 #### Problem-Solution 2: X-frame-options DENY
 Error:
