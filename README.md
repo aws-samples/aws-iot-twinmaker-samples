@@ -334,6 +334,28 @@ For any issue not addressed here, please open an issue or contact AWS Support.
 
 Verify that you're running the command from the same directory as this README file.
 
+### Additional Troubleshooting added by Guidheouse Team
+#### Problem-Solution 1: HTTP for TLS Encryption
+Problem:
+- Discover requires all external links to be HTTPS for TLS encryption
+
+Solution:
+- purchase domain
+- use aws certificate manager to assign certificate for subdomain '*' of the purchase domain
+- attached certificate to load balancer
+
+#### Problem-Solution 2: X-frame-options DENY
+Error:
+- X-frame-options: DENY
+- Set by Grafana to Deny as Default
+
+Solution:
+- following https://grafana.com/docs/grafana/latest/administration/configuration/
+- changing in etc/grafana/grafana.ini 
+	- approx line 241 under security
+	- set `allow_embedding = true`
+- restart container: `docker restart <container name>`
+
 ---
 
 ## Security
