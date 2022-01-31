@@ -97,7 +97,18 @@ aws iottwinmaker get-property-value-history \
 # Uncomment if you have not previously deployed Grafana on the local machine
 # sh $GETTING_STARTED_DIR/src/modules/grafana/setup_cloud9_grafana_docker.sh
 
-# Error
-# Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use.
 
-# $GETTING_STARTED_DIR/src/workspaces/cookiefactory/sample_dashboards/
+# SITEWISE
+# Add SiteWise assets and telemetry.
+# Uncomment if you have not previously deploy SiteWise assets
+# python3 $GETTING_STARTED_DIR/src/modules/sitewise/deploy-utils/SiteWiseTelemetry.py import --csv-file $GETTING_STARTED_DIR/src/workspaces/cookiefactory/sample_data/telemetry/telemetry.csv \
+#   --entity-include-pattern WaterTank \
+#   --asset-model-name-prefix $WORKSPACE_ID
+
+# Update entities to attach SiteWise connector.
+# python3 $GETTING_STARTED_DIR/src/modules/sitewise/lib/patch_sitewise_content.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
+
+# Test SiteWise data connectivity with UDQ to query WaterTank volume metrics.
+# aws iottwinmaker get-property-value-history \
+#   --region $AWS_DEFAULT_REGION \
+#   --cli-input-json '{"componentName": "WaterTankVolume","endDateTime": "2022-11-01T00:00:00","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startDateTime": "2021-11-01T00:00:00","workspaceId": "'${WORKSPACE_ID}'"}'
