@@ -1,0 +1,5 @@
+matterport-api-token=PUT_YOUR_API_TOKEN_HERE
+matterport-api-secret=PUT_YOUR_API_SECRET_HERE
+model-id=PUT_YOUR_MODEL_ID_HERE
+workspace-id=PUT_YOUR_WORK_SPACE_ID_HERE
+region=PUT_YOUR_REGION_HERE

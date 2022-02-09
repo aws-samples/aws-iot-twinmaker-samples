@@ -237,6 +237,24 @@ Go to the `insights` modules directory and check the [README](./src/modules/insi
 cd $GETTING_STARTED_DIR/src/modules/insights
 ```
 
+### Matterport model converter
+
+#### Prerequisites
+1. Go to https://my.matterport.com/models, click the space you need to import to AWS IotTwinMaker scene composer. Take a note of the modelId by checking the url, it will be something like https://my.matterport.com/models/<THIS IS THE MODEL ID>?cta_origin=all_spaces_page&section=media. Then go to ADD-ONS, purchase the MatterPark if not done yet.
+
+2. This step is needed if the api token and secret is not created or lost. Click the right upper corner of the user name, and then click setting -> DEVELOPER TOOLS, then click ```add an API Token``` in the Developer Tools page. Take a note of the api token and secret. 
+
+3. run npm i -g npx to install npx if not installed yet.
+
+#### Running the script
+
+1. Go to src/libs/model_converter_utils, then run ```npm install``` to install all the dependencies.
+
+2. Run ```npx ts-node model_converter.ts --matterport-api-token YOUR_API_TOKEN --matterport-api-secret YOUR_API_SECRET --model-id YOUR_MODEL_ID --workspace-id YOUR_WORK_SPACE_ID --region YOUR_REGION```
+
+Note that the matterport-api-token and matterport-api-secret can be retrieved by following the step in the prerequisites. The workspace-id is the workspace created in the IotTwinMaker console https://console.aws.amazon.com/iottwinmaker/home. The region parameter is optional, if it is not specified, it will default to "us-east-1".
+
+The parameters above can also be set in the .setting file. Go to src/libs/model_converter_utils, and edit .setting file to fill out the parameter value.
 ---
 
 ## Teardown
