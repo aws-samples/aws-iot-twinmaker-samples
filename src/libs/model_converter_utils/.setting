@@ -1,4 +1,4 @@
-matterport-api-token=524641a34b3ea75b
-matterport-api-secret=58015ddf986582f017867770c02faff5
-model-id=xyCUpQoJSnP
-workspace-id=myworkspace
+matterport-api-token=PUT_YOUR_API_TOKEN_HERE
+matterport-api-secret=PUT_YOUR_API_SECRET_HERE
+model-id=PUT_YOUR_MODEL_ID_HERE
+workspace-id=PUT_YOUR_WORK_SPACE_ID_HERE
