@@ -20,7 +20,7 @@ class WorkspaceUtils:
         self.s3BucketUri = self.s3BucketArn.replace('arn:aws:s3:::', 's3://')
         self.s3BucketName = self.s3BucketArn.rpartition(":")[2]
         self.s3 = self.session.client(service_name='s3', region_name=region_name)
-        self.account_id = boto3.client("sts").get_caller_identity()["Account"]
+        self.account_id = self.session.client("sts").get_caller_identity()["Account"]
 
     def recursive_delete_child_entites(self, entity_id):
         # first we do a depth first recursive delete to get down to the leaf nodes
