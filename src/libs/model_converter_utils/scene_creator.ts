@@ -62,12 +62,12 @@ export async function createScene(modelName: string, workspace: string, region: 
   }
 
   // converting viewpoint to scene composer viewpoint
-  var index = childrenIndex[-1];
+  var index = childrenIndex[childrenIndex.length - 1];
   const sceneCoomposerViewPoints = [];
+
   for (var i = 1; i <= copiedViewPoints.length; i++) {
-    childrenIndex.push(index + 1);
+    childrenIndex.push(index + i);
     var copiedViewpoint = copiedViewPoints[i - 1];
-    var imageS3Urls = [];
     var skyboxImagesUri = [];
     for (var j = 0; j < copiedViewpoint.skyboxImages.length; j++) {
       var image: Image = copiedViewpoint.skyboxImages[j];
@@ -87,8 +87,10 @@ export async function createScene(modelName: string, workspace: string, region: 
       },
       "components":[{
         "type":"Viewpoint",
-        "skyboxImage": skyboxImagesUri,
+        "skyboxImages": skyboxImagesUri,
         "floorOffset": copiedViewpoint.floorOffset,
+        "skyboxImageFormat": "SixSided",
+        "visibleObjectIDs": [] // TODO, calculate the visible object ids
       }
       ]
     });
@@ -111,35 +113,24 @@ export async function createScene(modelName: string, workspace: string, region: 
     ]
   }
 
+  const rootNode = {
+    "name": 'Model',
+    "transform": {
+      "position": [0, 0, 0],
+      "rotation": [-Math.PI/2, 0, 0],
+      "scale": [1, 1, 1]
+    },
+    "children": [1],
+  }
+
   // insert model and tag nodes to scene
   var nodes = sceneTemplate["nodes"];
+  nodes.push(rootNode);
   nodes.push(modelNode);
-  nodes.push({
-    "name":"Light",
-    "transform":{
-        "position":[0, 0, 0],
-        "rotation":[0, 0, 0],
-        "scale":[1, 1, 1]
-    },
-    "transformConstraint":{
-    },
-    "components":[
-        {
-            "type":"Light",
-            "lightType":"Directional",
-            "lightSettings":{
-                "color":16777215,
-                "intensity":1,
-                "castShadow":true
-            }
-        }
-    ]
-  });
-
   nodes = nodes.concat(tags);
   nodes = nodes.concat(sceneCoomposerViewPoints);
   sceneTemplate["nodes"] = nodes;
-  sceneTemplate["rootNodeIndexes"] = [0, 1];
+  sceneTemplate["rootNodeIndexes"] = [0];
   const sceneId = `${modelName}_scene`;
   const sceneFileName = `${sceneId}.json`;
   fs.writeFileSync(`./model/${sceneFileName}`, JSON.stringify(sceneTemplate));
