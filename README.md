@@ -193,6 +193,33 @@ If you run into any issues, please see the Troubleshooting section of this page.
 
    For the CookieFactory sample running with local Grafana, you can navigate to http://localhost:3000/d/y1FGfj57z/aws-iot-twinmaker-mixer-alarm-dashboard?orgId=1& to see the dashboard.
 
+# Launching Grafana Instance
+
+1. Launch EC2 Instance with Linux AMI and SSH enabled
+
+2. Add inbound rules to security group of EC2 instance
+   - Locate the security group of your instance
+   - Click edit inbound rules and add 3 rules detailed below
+      - Type: Custom TCP, Port range: 3000, Source: Custom 0.0.0.0/0
+      - Type: HTTP, Port range: 80, Source: Custom 0.0.0.0/0
+      - Type: HTTPS, Port range: 443, Source: Custom 0.0.0.0/0
+
+3. Copy `grafana.ini` into instance using SSH or clone git repo
+
+   `sudo scp -i path/to/your/key.pem aws-iot-twinmaker-samples/launch_grafana.sh ec2-user@your-instance-dns:~`
+
+4. Copy `launch_grafana.sh` into instance using SSH or clone git repo
+
+   `sudo scp -i path/to/your/key.pem aws-iot-twinmaker-samples/launch_grafana.sh ec2-user@your-instance-dns:~`
+
+5. SSH into instance 
+
+   `sudo ssh -i "path/to/your/key.pem" ec2-user@your-instance-dns`
+
+6. Run `bash launch_grafana.sh`
+
+7. You can now access the Grafana instance on port 3000 of your EC2 instance's Public IPv4 address
+
 ## Deploying Additional (Add-on) Content
 
 ### SiteWise Connector
@@ -340,10 +367,10 @@ Problem:
 - Discover requires all external links to be HTTPS for TLS encryption
 
 Solution:
-- Setup load balancer
+- Setup application load balancer
     - Setup HTTP(S) Load Balancer
     - redirect port 80 to port 443
-    - forward port 443 to public IP and port on which Grafana is running
+    - forward port 443 to public IP and port on which Grafana is running by registering on a target group
 - Set up HTTPS
     - purchase domain
     - use aws certificate manager to assign certificate for subdomain '*' of the purchase domain
@@ -354,6 +381,7 @@ Solution:
         Host name: <subdomain>.<purchased domain>
         Data: <DNS Name of HTTPS load balancer>
         ```
+- https://support.smartbear.com/swaggerhub/docs/enterprise/installation/aws/https.html
 
 #### Problem-Solution 2: X-frame-options DENY
 Error:

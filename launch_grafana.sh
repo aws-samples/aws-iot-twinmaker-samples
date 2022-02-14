@@ -14,14 +14,14 @@ sudo service docker start
 sudo usermod -a -G docker ec2-user
 
 # running open source grafama version 8.2.4 for ubuntu
-docker run -d -p 3000:3000 --name grafana grafana/grafana-oss:8.2.4-ubuntu
+sudo docker run -d -p 3000:3000 --name grafana grafana/grafana-oss:8.2.4-ubuntu
 
 # store container id in variable
-container_id=$(docker container ls  | grep 'grafana' | awk '{print $1}')
+container_id=$(sudo docker container ls  | grep 'grafana' | awk '{print $1}')
 
 # copy config file into container and overwrite config
 # enables anonomous Viewer role and iFrame embedding capability
-docker cp grafana.ini $container_id:/etc/grafana/
+sudo docker cp grafana.ini $container_id:/etc/grafana/
 
 # Must restart container to reflect changes
-docker restart grafana
+sudo docker restart grafana
