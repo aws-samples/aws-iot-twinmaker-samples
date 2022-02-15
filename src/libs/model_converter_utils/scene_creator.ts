@@ -45,9 +45,9 @@ export async function createScene(modelName: string, workspace: string, region: 
       "name": `${mattertag["label"]}`,
       "transform":{
         "position":[
-          `${anchorPosition["x"]}`,
-          `${anchorPosition["y"]}`,
-          `${anchorPosition["z"]}`
+          anchorPosition["x"],
+          anchorPosition["y"],
+          anchorPosition["z"]
         ],
         "rotation":[0,0,0],
         "scale":[1, 1, 1]
