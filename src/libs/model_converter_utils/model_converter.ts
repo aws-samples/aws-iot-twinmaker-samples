@@ -29,6 +29,7 @@ async function queryMatterPortApi() {
   var response = axios.post(url, {
     "query": `query($id: ID!) {
       model(id: $id) {
+        name
         mattertags {
           anchorPosition {x y z}
           label
@@ -143,8 +144,9 @@ async function unzip(zipFile: string, matterportData: any, parameters: Matterpor
     if (!parameters.region) {
       console.warn("region is not set, default to us-east-1");
     }
+    const modelName = matterportData["data"]["model"]["name"];
 
-    createScene(parameters.modelId, parameters.workspaceId, parameters.region ? parameters.region : "us-east-1", 
+    createScene(modelName, parameters.modelId, parameters.workspaceId, parameters.region ? parameters.region : "us-east-1", 
       matterportData);
   });
 }

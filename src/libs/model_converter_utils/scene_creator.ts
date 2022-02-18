@@ -7,7 +7,8 @@ import { downViewPointAssets } from "./viewpoint_assets_downloader";
 import { generateViewPointsFromMatterPortData } from "./view_point_factory"
 import {ViewPoint, Image } from "./viewpoint"
 
-export async function createScene(modelName: string, workspace: string, region: string, matterportData: any) {
+export async function createScene(modelName: string, modelId: string,
+   workspace: string, region: string, matterportData: any) {
 
   // calling IotTwinMaker API to get workspace s3.
   // Sending request to create scene
@@ -25,21 +26,22 @@ export async function createScene(modelName: string, workspace: string, region: 
   const bucketName = JSON.parse(JSON.stringify(getWorkspaceResponse))["s3Location"].split(":").at(-1);
   console.log("generating scene file...");
   var sceneTemplate = JSON.parse(fs.readFileSync("scene_template.json").toString());
-  const modelFileName = `${modelName}.glb`;
+  const modelFileName = `${modelId}.glb`;
   const modelTargetedUri = `s3://${bucketName}/${modelFileName}`;
 
   var childrenIndex = [];
   const tags = [];
 
   const mattertags = matterportData["data"]["model"]["mattertags"];
-  const viewpoints = generateViewPointsFromMatterPortData(matterportData, modelName);
+  const viewpoints = generateViewPointsFromMatterPortData(matterportData, modelId);
 
   const copiedViewPoints = await downViewPointAssets(viewpoints);
 
   // converting mattertag to scene composer tag.
-  for (var i = 2; i <= mattertags.length + 1; i++) {
+  const tagStartindex = 1;
+  for (var i = tagStartindex; i <= mattertags.length + tagStartindex - 1; i++) {
     childrenIndex.push(i);
-    const mattertag = mattertags[i - 2] as any;
+    const mattertag = mattertags[i - tagStartindex] as any;
     const anchorPosition = mattertag["anchorPosition"] as any;
     tags.push({
       "name": `${mattertag["label"]}`,
@@ -100,7 +102,7 @@ export async function createScene(modelName: string, workspace: string, region: 
     "name": `${ modelName }`,
     "transform": {
       "position": [0, 2.8, 0],
-      "rotation": [0, 0, 0],
+      "rotation": [-Math.PI/2, 0, 0],
       "scale": [1, 1, 1]
     },
     "children": childrenIndex,
@@ -113,25 +115,14 @@ export async function createScene(modelName: string, workspace: string, region: 
     ]
   }
 
-  const rootNode = {
-    "name": 'Model',
-    "transform": {
-      "position": [0, 0, 0],
-      "rotation": [-Math.PI/2, 0, 0],
-      "scale": [1, 1, 1]
-    },
-    "children": [1],
-  }
-
   // insert model and tag nodes to scene
   var nodes = sceneTemplate["nodes"];
-  nodes.push(rootNode);
   nodes.push(modelNode);
   nodes = nodes.concat(tags);
   nodes = nodes.concat(sceneCoomposerViewPoints);
   sceneTemplate["nodes"] = nodes;
   sceneTemplate["rootNodeIndexes"] = [0];
-  const sceneId = `${modelName}_scene`;
+  const sceneId = `${modelId}_scene`;
   const sceneFileName = `${sceneId}.json`;
   fs.writeFileSync(`./model/${sceneFileName}`, JSON.stringify(sceneTemplate));
   uploadToS3(`./model/${modelFileName}`, bucketName, modelFileName);

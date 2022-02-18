@@ -20,6 +20,7 @@ export async function downViewPointAssets(viewpoints: ViewPoint[]): Promise<View
       });
       await downloadImages(viewpoint.skyboxImages[i].path, localPath);
     } 
+
     copiedViewPoints.push({
       modelId: viewpoint.modelId,
       id: viewpoint.id,

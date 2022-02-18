@@ -9,6 +9,7 @@ export function generateViewPointsFromMatterPortData(matterportData: any, modelI
     var skybox = panoLocations[i]["skybox"];
     var rotation = skybox["perspective"]["rotation"];
     var position = skybox["anchor"]["position"];
+    var floorOffset = skybox["perspective"]["position"];
     var viewpoint: ViewPoint = {
       modelId: modelId,
       id: `viewpoint${i}`,
@@ -16,7 +17,7 @@ export function generateViewPointsFromMatterPortData(matterportData: any, modelI
       position: [position.x, position.y, position.z],
       rotation: toEulerAngles(rotation.x, rotation.y, rotation.z, rotation.w),
       skyboxImages: constructImages(skybox["children"]),
-      floorOffset: skybox["perspective"]["position"]
+      floorOffset: [floorOffset.x, floorOffset.y, floorOffset.z]
     }
 
     viewPoints.push(viewpoint);
