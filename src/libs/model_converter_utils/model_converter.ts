@@ -133,7 +133,9 @@ async function unzip(zipFile: string, matterportData: any, parameters: Matterpor
 
   console.log("Finish extracting resource files, start converting model...");
   const options = {
-    binary: true
+    binary: true,
+    inputUpAxis: "Z",
+    outputUpAxis: "Y",
   };
   const modelFile = findModelFile("./model");
   const convertedModelFileName = parameters.modelId;

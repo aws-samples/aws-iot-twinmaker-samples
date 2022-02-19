@@ -3,7 +3,7 @@ import axios, { Method, AxiosRequestConfig } from "axios";
 import * as AWS from "aws-sdk"
 import * as fs from "fs"
 import { TEMP_DIR, TEMP_ZIP } from "./const";
-import { downViewPointAssets } from "./viewpoint_assets_downloader";
+import { downloadViewPointAssets } from "./viewpoint_assets_downloader";
 import { generateViewPointsFromMatterPortData } from "./view_point_factory"
 import {ViewPoint, Image } from "./viewpoint"
 
@@ -35,7 +35,7 @@ export async function createScene(modelName: string, modelId: string,
   const mattertags = matterportData["data"]["model"]["mattertags"];
   const viewpoints = generateViewPointsFromMatterPortData(matterportData, modelId);
 
-  const copiedViewPoints = await downViewPointAssets(viewpoints);
+  const copiedViewPoints = await downloadViewPointAssets(viewpoints);
 
   // converting mattertag to scene composer tag.
   const tagStartindex = 1;
@@ -46,10 +46,11 @@ export async function createScene(modelName: string, modelId: string,
     tags.push({
       "name": `${mattertag["label"]}`,
       "transform":{
+        // rotate the point through x axis by -90 degree
         "position":[
           anchorPosition["x"],
-          anchorPosition["y"],
-          anchorPosition["z"]
+          anchorPosition["z"],
+          -anchorPosition["y"],
         ],
         "rotation":[0,0,0],
         "scale":[1, 1, 1]
@@ -102,7 +103,7 @@ export async function createScene(modelName: string, modelId: string,
     "name": `${ modelName }`,
     "transform": {
       "position": [0, 2.8, 0],
-      "rotation": [-Math.PI/2, 0, 0],
+      "rotation": [0, 0, 0],
       "scale": [1, 1, 1]
     },
     "children": childrenIndex,

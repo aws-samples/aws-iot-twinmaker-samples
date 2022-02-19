@@ -14,7 +14,8 @@ export function generateViewPointsFromMatterPortData(matterportData: any, modelI
       modelId: modelId,
       id: `viewpoint${i}`,
       name: `viewpoint${i}`,
-      position: [position.x, position.y, position.z],
+      // rotate the point through x axis by -90 degree
+      position: [position.x, position.z, -position.y],
       rotation: toEulerAngles(rotation.x, rotation.y, rotation.z, rotation.w),
       skyboxImages: constructImages(skybox["children"]),
       floorOffset: [floorOffset.x, floorOffset.y, floorOffset.z]

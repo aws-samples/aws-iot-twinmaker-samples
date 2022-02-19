@@ -3,7 +3,7 @@ import { ViewPoint, Image } from "./viewpoint"
 import { TEMP_DIR } from "./const";
 import * as fs from 'fs';
 
-export async function downViewPointAssets(viewpoints: ViewPoint[]): Promise<ViewPoint[]> {
+export async function downloadViewPointAssets(viewpoints: ViewPoint[]): Promise<ViewPoint[]> {
   var copiedViewPoints: ViewPoint[] = [];
   for (var viewpoint of viewpoints) {
     var images: Image[] = [];
