@@ -2124,9 +2124,6 @@
         ]
       },
       "transformConstraint": {},
-      "children": [
-        63
-      ],
       "components": [
         {
           "uri": "CookieFactoryLine.glb",
@@ -2157,9 +2154,6 @@
         ]
       },
       "transformConstraint": {},
-      "children": [
-        62
-      ],
       "components": [
         {
           "uri": "CookieFactoryLine.glb",
@@ -2279,90 +2273,6 @@
             }
           },
           "navLink": null
-        }
-      ]
-    },
-    {
-      "name": "VideoFeed",
-      "transform": {
-        "position": [
-          8.099028701322132,
-          4.959177507639787,
-          5.863509411444866
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ]
-      },
-      "transformConstraint": {},
-      "components": [
-        {
-          "type": "Tag",
-          "icon": "iottwinmaker.common.icon:Video",
-          "valueDataBinding": {
-            "dataBindingContext": {
-              "componentTypeId": "com.amazon.iotsitewise.connector.edgevideo",
-              "sitewiseAssetId": "87f9beb7-5c66-4f42-bad0-95f9bf8741ba",
-              "entityPath": "SiteWatchCameras/Camera_MixingRoom_2",
-              "entityId": "a959d132-7c39-41a1-a62e-bb9d0488f159",
-              "componentName": "Camera",
-              "propertyName": "KinesisVideoStreamName"
-            }
-          },
-          "navLink": {
-            "params": {
-              "var-kvs_stream_name": "CookieFactory-Demo-Nov-05"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "VideoFeed",
-      "transform": {
-        "position": [
-          8.077077571796274,
-          5.182497382884771,
-          6.048829467805035
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ]
-      },
-      "transformConstraint": {},
-      "components": [
-        {
-          "type": "Tag",
-          "icon": "iottwinmaker.common.icon:Video",
-          "valueDataBinding": {
-            "dataBindingContext": {
-              "componentTypeId": "com.amazon.iotsitewise.connector.edgevideo",
-              "sitewiseAssetId": "ca298339-3c6b-42c1-98fb-fb7d1f826384",
-              "entityPath": "SiteWatchCameras/Camera_MixingRoom_1",
-              "entityId": "Camera_MixingRoom_1_9a9af99c-9a8a-49a9-b3c2-61de8e8afe0c",
-              "componentName": "Camera",
-              "propertyName": "KinesisVideoStreamName"
-            }
-          },
-          "navLink": {
-            "params": {
-              "var-kvs_stream_name": "AmcrestCamera"
-            }
-          }
         }
       ]
     }
