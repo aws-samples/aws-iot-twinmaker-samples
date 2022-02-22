@@ -1,7 +1,9 @@
-import axios from "axios";
 import { ViewPoint, Image } from "./viewpoint"
 import { TEMP_DIR } from "./const";
 import * as fs from 'fs';
+import * as Jimp from "jimp";
+
+const toIotTwinMakerAxisImageMapper = [3, 1, 0, 5, 2, 4]; // x+, x-, y+, y-, z+, z-
 
 export async function downloadViewPointAssets(viewpoints: ViewPoint[]): Promise<ViewPoint[]> {
   var copiedViewPoints: ViewPoint[] = [];
@@ -18,7 +20,8 @@ export async function downloadViewPointAssets(viewpoints: ViewPoint[]): Promise<
         fileName: fileName,
         path: localPath
       });
-      await downloadImages(viewpoint.skyboxImages[i].path, localPath);
+      const isYAxisImage: boolean = (i === 2 || i === 3);
+      await downloadImages(viewpoint.skyboxImages[toIotTwinMakerAxisImageMapper[i]].path, localPath, isYAxisImage);
     } 
 
     copiedViewPoints.push({
@@ -35,13 +38,12 @@ export async function downloadViewPointAssets(viewpoints: ViewPoint[]): Promise<
   return copiedViewPoints;
 }
 
-async function downloadImages(url: string, destFileName: string) {
-  var out = fs.createWriteStream(destFileName);
-  const response = await axios({
-    method: "GET",
-    url: url,
-    responseType: "stream"
-  });
+async function downloadImages(url: string, destFileName: string, isYAxisImage: boolean) {
+  const image = await Jimp.read(url);
 
-  response.data.pipe(out);
+  if (isYAxisImage) {
+    image.rotate(270).write(destFileName);
+  } else {
+    image.write(destFileName);
+  }
 }

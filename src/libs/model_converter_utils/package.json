@@ -12,6 +12,7 @@
     "@types/adm-zip": "^0.4.34",
     "adm-zip": "^0.5.9",
     "aws-sdk": "^2.1067.0",
+    "jimp": "^0.16.1",
     "node-stream-zip": "^1.15.0",
     "obj2gltf": "^3.1.4",
     "request": "^2.88.2",
