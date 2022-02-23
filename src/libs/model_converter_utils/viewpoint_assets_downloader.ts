@@ -3,7 +3,7 @@ import { TEMP_DIR } from "./const";
 import * as fs from 'fs';
 import * as Jimp from "jimp";
 
-const toIotTwinMakerAxisImageMapper = [3, 1, 0, 5, 2, 4]; // x+, x-, y+, y-, z+, z-
+const toIotTwinMakerAxisImageMapper = [1, 3, 0, 5, 4, 2]; // x+, x-, y+, y-, z+, z-
 
 export async function downloadViewPointAssets(viewpoints: ViewPoint[]): Promise<ViewPoint[]> {
   var copiedViewPoints: ViewPoint[] = [];
@@ -20,8 +20,8 @@ export async function downloadViewPointAssets(viewpoints: ViewPoint[]): Promise<
         fileName: fileName,
         path: localPath
       });
-      const isYAxisImage: boolean = (i === 2 || i === 3);
-      await downloadImages(viewpoint.skyboxImages[toIotTwinMakerAxisImageMapper[i]].path, localPath, isYAxisImage);
+      const rotationDegree: number = (i === 2 ? 90 : (i === 3 ? 270 : 0));
+      await downloadImages(viewpoint.skyboxImages[toIotTwinMakerAxisImageMapper[i]].path, localPath, rotationDegree);
     } 
 
     copiedViewPoints.push({
@@ -38,12 +38,7 @@ export async function downloadViewPointAssets(viewpoints: ViewPoint[]): Promise<
   return copiedViewPoints;
 }
 
-async function downloadImages(url: string, destFileName: string, isYAxisImage: boolean) {
+async function downloadImages(url: string, destFileName: string, rotationDegree: number) {
   const image = await Jimp.read(url);
-
-  if (isYAxisImage) {
-    image.rotate(270).write(destFileName);
-  } else {
-    image.write(destFileName);
-  }
+  image.rotate(rotationDegree).write(destFileName);
 }
