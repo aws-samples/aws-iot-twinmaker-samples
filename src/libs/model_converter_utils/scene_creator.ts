@@ -102,7 +102,7 @@ export async function createScene(modelName: string, modelId: string,
   const modelNode = {
     "name": `${ modelName }`,
     "transform": {
-      "position": [0, 2.8, 0],
+      "position": [0, 0, 0],
       "rotation": [0, 0, 0],
       "scale": [1, 1, 1]
     },
