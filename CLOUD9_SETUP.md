@@ -164,20 +164,7 @@ Note: that images and links to other Instructions might not load properly in Clo
 
 ### Unable to connect to EC2 instance through web browser
 
-Try temporarily setting the Ingress rules for the security group to ""
-```
-docker issues
-  https://newbedev.com/how-to-fix-docker-got-permission-denied-issue 
-
-  rm -rf the local_grafana_data dir and rerun
-    sh setup_local_grafana_docker.sh get back to permission denied on grafana.db
-
-  the assume role doesnt work, may need to modify the ec2 instance role to be able to assume
-  otherwise, with admin instance role, am able to setup with AWS SDK Default
-
-endpoint not reachable, to debug see if issue with IP address detected for your computer
-try changing security group inbound temporarily to 0.0.0.0/0 (all IPs)
-```
+Try temporarily setting the Ingress rules for the security group to 0.0.0.0/0 (all IPs)
 
 ---
 
