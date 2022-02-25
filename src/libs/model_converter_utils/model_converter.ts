@@ -5,6 +5,8 @@ import { createScene } from "./scene_creator";
 import * as AdmZip from "adm-zip";
 import * as fs from "fs";
 import { getParameters, MatterportParameters } from "./parameters_reader";
+import { getAllMatterportMetadata } from "./matterport_data_provider"
+
 import { TEMP_DIR, TEMP_ZIP } from "./const"
 
 const obj2gltf = require("obj2gltf");
@@ -12,69 +14,9 @@ const obj2gltf = require("obj2gltf");
 const destinationDir = "./model";
 
 async function queryMatterPortApi() {
-
+  const response = await getAllMatterportMetadata();
   var parameters: MatterportParameters = await getParameters();
-
-  var url = "https://api.matterport.com/api/models/graph";
-  var headers = {
-    "Content-Type": "application/json",
-    "Accept": "gzip"
-  }
-
-  var auth = {
-    "username": parameters.matterportApiToken,
-    "password": parameters.matterportApiSecret
-  }
-
-  var response = axios.post(url, {
-    "query": `query($id: ID!) {
-      model(id: $id) {
-        name
-        mattertags {
-          anchorPosition {x y z}
-          label
-        }
-
-        panoLocations {
-          skybox(resolution: "high") {
-            url
-            urlTemplate
-            children
-            anchor {
-              position {
-                x y z
-              }
-            }
-            perspective {
-              position {
-                x y z
-              }
-              rotation {
-                x y z w
-              }
-            }
-          }
-        }
-
-        locations {
-          position {
-            x y z
-          }
-        }
-        assets {
-          resources {
-            url
-          }
-        }
-      }
-    }`,
-    "variables": {"id": parameters.modelId},
-  }, {"headers": headers, "auth": auth}).then(res => {
-    processResponse(res.data, parameters);
-  }).catch(error => {
-    console.log(error)
-  });
-  
+  await processResponse(response, parameters);
 }
 
 async function processResponse(matterportData: any, parameters: MatterportParameters) {
@@ -154,4 +96,3 @@ async function unzip(zipFile: string, matterportData: any, parameters: Matterpor
 }
 
 queryMatterPortApi();
-

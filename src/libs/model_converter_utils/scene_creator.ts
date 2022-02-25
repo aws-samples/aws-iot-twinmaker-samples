@@ -1,11 +1,11 @@
 import { sign } from "aws4";
 import axios, { Method, AxiosRequestConfig } from "axios";
-import * as AWS from "aws-sdk"
-import * as fs from "fs"
 import { TEMP_DIR, TEMP_ZIP } from "./const";
 import { downloadViewPointAssets } from "./viewpoint_assets_downloader";
-import { generateViewPointsFromMatterPortData } from "./view_point_factory"
-import {ViewPoint, Image } from "./viewpoint"
+import {Image, ViewPoint } from "./viewpoint"
+import * as fs from "fs";
+import { uploadToS3 } from "./s3_uploader";
+import { buildRemotePath } from "./skybox_image_remote_path";
 
 export async function createScene(modelName: string, modelId: string,
    workspace: string, region: string, matterportData: any) {
@@ -33,9 +33,8 @@ export async function createScene(modelName: string, modelId: string,
   const tags = [];
 
   const mattertags = matterportData["data"]["model"]["mattertags"];
-  const viewpoints = generateViewPointsFromMatterPortData(matterportData, modelId);
 
-  const copiedViewPoints = await downloadViewPointAssets(viewpoints);
+  const copiedViewPoints = await downloadViewPointAssets(bucketName);
 
   // converting mattertag to scene composer tag.
   const tagStartindex = 1;
@@ -74,8 +73,8 @@ export async function createScene(modelName: string, modelId: string,
     var skyboxImagesUri = [];
     for (var j = 0; j < copiedViewpoint.skyboxImages.length; j++) {
       var image: Image = copiedViewpoint.skyboxImages[j];
-      var remotePath = `${copiedViewpoint.modelId}/${copiedViewpoint.id}/${image.fileName}`;
-      uploadToS3(image.path, bucketName, remotePath);
+      var remotePath = buildRemotePath(copiedViewpoint.modelId, 
+        copiedViewpoint.id, image.fileName);
       skyboxImagesUri.push(`s3://${bucketName}/${remotePath}`);
     }
     sceneCoomposerViewPoints.push({
@@ -126,8 +125,8 @@ export async function createScene(modelName: string, modelId: string,
   const sceneId = `${modelId}_scene`;
   const sceneFileName = `${sceneId}.json`;
   fs.writeFileSync(`./model/${sceneFileName}`, JSON.stringify(sceneTemplate));
-  uploadToS3(`./model/${modelFileName}`, bucketName, modelFileName);
-  uploadToS3(`./model/${sceneFileName}`, bucketName, sceneFileName);
+  await uploadToS3(`./model/${modelFileName}`, bucketName, modelFileName);
+  await uploadToS3(`./model/${sceneFileName}`, bucketName, sceneFileName);
 
   console.log("finished uploading model and scene files to S3 bucket.");
 
@@ -140,37 +139,15 @@ export async function createScene(modelName: string, modelId: string,
   }
 
   await sendRequest("POST", `/workspaces/${workspace}/scenes`, createSceneRequestData, region);
-
-  console.log("Finished Creating scene.");
   console.log("Cleaning temp files...");
   fs.rmSync(TEMP_DIR, {recursive: true, force: true});
-
   console.log("Finished cleanup.")
+
+  console.log("Finished Creating scene.");
   console.log(`https://console.aws.amazon.com/iottwinmaker/home?region=${region}#/workspaces/${workspace}/scenes/${sceneId}`);
 }
 
-function uploadToS3(localPath: string, bucketName: string, remotePath: string) {
-    // upload the model to S3 bucket
-    const modelReadStream = fs.createReadStream(localPath);
 
-    const params = {
-      Bucket: bucketName,
-      Key: remotePath,
-      Body: modelReadStream
-    };
-  
-    const s3Bucket = new AWS.S3();
-  
-    console.log(`start uploading file ${localPath} to S3:` + bucketName);
-    s3Bucket.upload(params, (err: any, data: any) => {
-      modelReadStream.destroy();
-      if (err) {
-        console.error("failed to upload model file to S3 due to", err);
-        throw err;
-      }
-    });
-    console.log(`finished uploading file ${localPath} to bucket ${bucketName}`);
-}
 
 function sendRequest(method: Method, path: string, requestData: any, region: string) {
   const requestOptions = getRequestOptions(method, path, requestData, region);

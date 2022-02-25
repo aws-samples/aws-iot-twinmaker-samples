@@ -1,17 +1,21 @@
 import { posix } from "path/posix";
+import { getPanoLocations } from "./matterport_data_provider";
 import { Image, ViewPoint } from "./viewpoint";
+import { getParameters, MatterportParameters } from "./parameters_reader";
 
-export function generateViewPointsFromMatterPortData(matterportData: any, modelId: string) : ViewPoint[] {
-  var panoLocations = matterportData["data"]["model"]["panoLocations"];
+export async function generateViewPointsFromMatterPortData() : Promise<ViewPoint[]> {
+  
+  var panoLocations = await getPanoLocations();
+  var parameters: MatterportParameters = await getParameters(); 
   var viewPoints: ViewPoint[] = [];
 
   for (var i = 0; i < panoLocations.length; i++) {
     var skybox = panoLocations[i]["skybox"];
-    var rotation = skybox["perspective"]["rotation"];
-    var position = skybox["anchor"]["position"];
-    var floorOffset = skybox["perspective"]["position"];
+    var rotation = skybox["perspective"]["rotation"] as any;
+    var position = skybox["anchor"]["position"] as any;
+    var floorOffset = skybox["perspective"]["position"] as any;
     var viewpoint: ViewPoint = {
-      modelId: modelId,
+      modelId: parameters.modelId,
       id: `viewpoint${i}`,
       name: `viewpoint${i}`,
       // rotate the point through x axis by -90 degree
