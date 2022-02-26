@@ -20,7 +20,7 @@ export async function generateViewPointsFromMatterPortData() : Promise<ViewPoint
       name: `viewpoint${i}`,
       // rotate the point through x axis by -90 degree
       position: [position.x, position.z, -position.y],
-      rotation: toEulerAngles(rotation.x, rotation.y, rotation.z, rotation.w),
+      rotation: [0, 0, 0],
       skyboxImages: constructImages(skybox["children"]),
       floorOffset: [floorOffset.x, floorOffset.z, -floorOffset.y]
     }

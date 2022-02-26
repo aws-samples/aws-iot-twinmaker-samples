@@ -7,7 +7,7 @@ import { generateViewPointsFromMatterPortData } from "./view_point_factory"
 import { uploadToS3 } from "./s3_uploader";
 import { getParameters, MatterportParameters } from "./parameters_reader";
 
-const toIotTwinMakerAxisImageMapper = [1, 3, 0, 5, 4, 2]; // x+, x-, y+, y-, z+, z-
+const toIotTwinMakerAxisImageMapper = [1, 3, 0, 5, 2, 4]; // x+, x-, y+, y-, z+, z-
 
 export async function downloadViewPointAssets(s3Bucket: string): Promise<ViewPoint[]> {
   var viewpoints = await generateViewPointsFromMatterPortData();
@@ -53,7 +53,9 @@ async function downloadOneViewPointImage(viewpoint: ViewPoint): Promise<ViewPoin
       path: localPath
     });
     const rotationDegree: number = (i === 2 ? 90 : (i === 3 ? 270 : 0));
-    await downloadImages(viewpoint.skyboxImages[toIotTwinMakerAxisImageMapper[i]].path, localPath, rotationDegree);
+    const flipVertical = (i === 2 || i === 3);
+    await downloadImages(viewpoint.skyboxImages[toIotTwinMakerAxisImageMapper[i]].path, 
+      localPath, rotationDegree, !flipVertical, flipVertical);
   } 
 
   return {
@@ -67,11 +69,10 @@ async function downloadOneViewPointImage(viewpoint: ViewPoint): Promise<ViewPoin
   }
 }
 
-
-
-async function downloadImages(url: string, destFileName: string, rotationDegree: number) {
+async function downloadImages(url: string, destFileName: string, rotationDegree: number, horizontalFlip: boolean, 
+  verticalFlip: boolean) {
   console.log("start downloading image from: " + url);
   const image = await Jimp.read(url);
   console.log("finish downloading image: " + url);
-  image.rotate(rotationDegree).writeAsync(destFileName);
+  image.rotate(rotationDegree).flip(horizontalFlip, verticalFlip).writeAsync(destFileName);
 }
