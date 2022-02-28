@@ -11,8 +11,6 @@ import { TEMP_DIR, TEMP_ZIP } from "./const"
 
 const obj2gltf = require("obj2gltf");
 
-const destinationDir = "./model";
-
 async function queryMatterPortApi() {
   const response = await getAllMatterportMetadata();
   var parameters: MatterportParameters = await getParameters();
@@ -71,7 +69,7 @@ async function unzip(zipFile: string, matterportData: any, parameters: Matterpor
   console.log("Starting unzip files...");
   const zip = new AdmZip(zipFile);
 
-  zip.extractAllTo(destinationDir);
+  zip.extractAllTo(TEMP_DIR);
 
   console.log("Finish extracting resource files, start converting model...");
   const options = {
@@ -79,11 +77,11 @@ async function unzip(zipFile: string, matterportData: any, parameters: Matterpor
     inputUpAxis: "Z",
     outputUpAxis: "Y",
   };
-  const modelFile = findModelFile("./model");
+  const modelFile = findModelFile(TEMP_DIR);
   const convertedModelFileName = parameters.modelId;
   
-  obj2gltf(`./model/${modelFile}`, options).then((glb: any) => {
-    writeFileSync(`${destinationDir}/${convertedModelFileName}.glb`, glb);
+  obj2gltf(`${TEMP_DIR}/${modelFile}`, options).then((glb: any) => {
+    writeFileSync(`${TEMP_DIR}/${convertedModelFileName}.glb`, glb);
     console.log("Finished converting.");
     if (!parameters.region) {
       console.warn("region is not set, default to us-east-1");

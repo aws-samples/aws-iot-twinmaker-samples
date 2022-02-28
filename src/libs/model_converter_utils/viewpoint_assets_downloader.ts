@@ -28,7 +28,7 @@ export async function downloadViewPointAssets(s3Bucket: string): Promise<ViewPoi
     for (var viewpoint of returnedViewpoints) {
       const skyboxImages: Image[] = viewpoint.skyboxImages;
       for (var image of skyboxImages) {
-        await uploadToS3(image.path, s3Bucket, buildRemotePath(parameters.modelId, viewpoint.id, image.fileName));
+        uploadToS3(image.path, s3Bucket, buildRemotePath(parameters.modelId, viewpoint.id, image.fileName));
       }
     }
     copiedViewPoints = copiedViewPoints.concat(returnedViewpoints);

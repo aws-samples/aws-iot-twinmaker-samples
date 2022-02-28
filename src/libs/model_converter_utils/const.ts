@@ -1,4 +1,4 @@
-export const TEMP_DIR = "./model";
+export const TEMP_DIR = "./temp";
 export const TEMP_ZIP = "temp.zip";
 export const WORKSPACE_ID = "workspace-id";
 export const MODEL_ID = "model-id";

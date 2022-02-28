@@ -14,13 +14,14 @@ export async function generateViewPointsFromMatterPortData() : Promise<ViewPoint
     var rotation = skybox["perspective"]["rotation"] as any;
     var position = skybox["anchor"]["position"] as any;
     var floorOffset = skybox["perspective"]["position"] as any;
+    var computedRotation = toEulerAngles(rotation.x, rotation.y, rotation.z, rotation.w);
     var viewpoint: ViewPoint = {
       modelId: parameters.modelId,
       id: `viewpoint${i}`,
       name: `viewpoint${i}`,
       // rotate the point through x axis by -90 degree
       position: [position.x, position.z, -position.y],
-      rotation: [0, 0, 0],
+      rotation: computedRotation,
       skyboxImages: constructImages(skybox["children"]),
       floorOffset: [floorOffset.x, floorOffset.z, -floorOffset.y]
     }

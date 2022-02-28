@@ -14,11 +14,8 @@ export async function uploadToS3(localPath: string, bucketName: string, remotePa
 
   const s3Bucket = new AWS.S3();
 
-  console.log(`start uploading file ${localPath} to S3:` + bucketName);
-
   try {
-    await s3Bucket.upload(params).promise();
-    console.log(`finished uploading file ${localPath} to bucket ${bucketName}`);
+    return s3Bucket.upload(params).promise();
   } catch (err) {
     throw err;
   }

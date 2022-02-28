@@ -23,11 +23,14 @@ export async function createScene(modelName: string, modelId: string,
     throw new Error(JSON.parse(JSON.stringify(getWorkspaceResponse))["message"]);
   }
 
-  const bucketName = JSON.parse(JSON.stringify(getWorkspaceResponse))["s3Location"].split(":").at(-1);
+  const s3LocationSegments = JSON.parse(JSON.stringify(getWorkspaceResponse))["s3Location"].split(":");
+
+  const bucketName = s3LocationSegments[s3LocationSegments.length - 1];
   console.log("generating scene file...");
   var sceneTemplate = JSON.parse(fs.readFileSync("scene_template.json").toString());
   const modelFileName = `${modelId}.glb`;
   const modelTargetedUri = `s3://${bucketName}/${modelFileName}`;
+  uploadToS3(`${TEMP_DIR}/${modelFileName}`, bucketName, modelFileName);
 
   var childrenIndex = [];
   const tags = [];
@@ -82,7 +85,7 @@ export async function createScene(modelName: string, modelId: string,
       "id": copiedViewpoint.id,
       "transform":{
         "position":copiedViewpoint.position,
-        "rotation":copiedViewpoint.rotation,
+        "rotation":[0, 0, 0],
         "scale":[1, 1, 1]
       },
       "transformConstraint":{
@@ -91,6 +94,7 @@ export async function createScene(modelName: string, modelId: string,
         "type":"Viewpoint",
         "skyboxImages": skyboxImagesUri,
         "floorOffset": copiedViewpoint.floorOffset,
+        "rotation": copiedViewpoint.rotation,
         "skyboxImageFormat": "SixSided",
         "hiddenNodeIndexes": [0],
         "visibleObjectIDs": [] // TODO, calculate the visible object ids
@@ -125,11 +129,11 @@ export async function createScene(modelName: string, modelId: string,
   sceneTemplate["rootNodeIndexes"] = [0];
   const sceneId = `${modelId}_scene`;
   const sceneFileName = `${sceneId}.json`;
-  fs.writeFileSync(`./model/${sceneFileName}`, JSON.stringify(sceneTemplate));
-  await uploadToS3(`./model/${modelFileName}`, bucketName, modelFileName);
-  await uploadToS3(`./model/${sceneFileName}`, bucketName, sceneFileName);
-
-  console.log("finished uploading model and scene files to S3 bucket.");
+  const sceneFileLocalPath = `${TEMP_DIR}/${sceneFileName}`
+  fs.writeFileSync(sceneFileLocalPath, JSON.stringify(sceneTemplate));
+  console.log(`start uploading file ${sceneFileLocalPath} to S3:` + bucketName);
+  await uploadToS3(sceneFileLocalPath, bucketName, sceneFileName);
+  console.log(`finished uploading file ${sceneFileLocalPath} to S3:` + bucketName);
 
   console.log("Creating scene...");
   const createSceneRequestData = {
