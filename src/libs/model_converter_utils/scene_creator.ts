@@ -93,8 +93,8 @@ export async function createScene(modelName: string, modelId: string,
       "components":[{
         "type":"Viewpoint",
         "skyboxImages": skyboxImagesUri,
-        "floorOffset": copiedViewpoint.floorOffset,
-        "rotation": copiedViewpoint.rotation,
+        "cameraPosition": copiedViewpoint.cameraPosition,
+        "cameraRotation": copiedViewpoint.cameraRotation,
         "skyboxImageFormat": "SixSided",
         "hiddenNodeIndexes": [0],
         "visibleObjectIDs": [] // TODO, calculate the visible object ids

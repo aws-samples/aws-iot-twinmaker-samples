@@ -21,9 +21,9 @@ export async function generateViewPointsFromMatterPortData() : Promise<ViewPoint
       name: `viewpoint${i}`,
       // rotate the point through x axis by -90 degree
       position: [position.x, position.z, -position.y],
-      rotation: computedRotation,
+      cameraRotation: computedRotation,
       skyboxImages: constructImages(skybox["children"]),
-      floorOffset: [floorOffset.x, floorOffset.z, -floorOffset.y]
+      cameraPosition: [floorOffset.x, floorOffset.z, -floorOffset.y]
     }
 
     viewPoints.push(viewpoint);

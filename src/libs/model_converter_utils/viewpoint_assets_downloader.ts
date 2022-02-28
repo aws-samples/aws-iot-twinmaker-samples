@@ -63,9 +63,9 @@ async function downloadOneViewPointImage(viewpoint: ViewPoint): Promise<ViewPoin
     id: viewpoint.id,
     name: viewpoint.name,
     position: viewpoint.position,
-    rotation: viewpoint.rotation,
+    cameraRotation: viewpoint.cameraRotation,
     skyboxImages: images,
-    floorOffset: viewpoint.floorOffset
+    cameraPosition: viewpoint.cameraPosition
   }
 }
 

@@ -3,9 +3,9 @@ export type ViewPoint = {
   id: string;
   name: string;
   position: number[];
-  rotation: number[];
+  cameraRotation: number[];
   skyboxImages: Image[];
-  floorOffset: number[];
+  cameraPosition: number[];
 }
 
 export type Image = {
