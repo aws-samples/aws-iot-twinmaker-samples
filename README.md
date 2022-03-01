@@ -10,11 +10,11 @@ This project walks you through the process of building a digital twin applicatio
 
 ![Grafana Import CookieFactory](docs/images/grafana_import_result_cookiefactory.png)
 
-Note: These instructions have primarily been tested for Mac/Linux/WSL environments. For a standardized development environment, consider following our [Cloud9 setup guide](./CLOUD9_SETUP.md) and then running these instructions in Cloud9
-
 If you run into any issues, please see the Troubleshooting section of this page.
 
 ## Prerequisites
+
+Note: These instructions have primarily been tested for Mac/Linux/WSL environments. For a standardized development environment, consider following our [Cloud9 setup guide](./CLOUD9_SETUP.md) instead.
 
 1. This sample depends on AWS services that might not yet be available in all regions. Please run this sample in one of the following regions:
    - US East (N. Virginia) (us-east-1)
@@ -25,15 +25,10 @@ If you run into any issues, please see the Troubleshooting section of this page.
      ```bash
      aws sts get-caller-identity
      ```
-   - Ensure your AWS CLI version is at least 1.22.17.
+   - Ensure your AWS CLI version is at least 1.22.17. (or 2.4.21+ for AWS CLI v2)
      ```bash
      aws --version
      ```
-     - Otherwise, you may use the following to directly install the `iottwinmaker` module to your current AWS CLI.
-       ```bash
-       # run from same directory as this README
-       aws configure add-model --service-model file://iottwinmaker-2021-11-29.normal.json
-       ```
    - When you are set up, test your access with the following command. (You should not receive errors.)
      ```
       aws iottwinmaker list-workspaces --region us-east-1
@@ -330,9 +325,13 @@ rm -rf ~/local_grafana_data/
 
 For any issue not addressed here, please open an issue or contact AWS Support.
 
-### `Error parsing parameter '--service-model': Unable to load paramfile file://iottwinmaker-2021-11-29.normal.json: [Errno 2] No such file or directory: 'iottwinmaker-2021-11-29.normal.json'`
+### `ImportError: libGL.so.1: cannot open shared object file: No such file or directory`
 
-Verify that you're running the command from the same directory as this README file.
+Ensure you have `mesa-libGL` installed. e.g.
+
+```
+sudo yum install mesa-libGL
+```
 
 ---
 
