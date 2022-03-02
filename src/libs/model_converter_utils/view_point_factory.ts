@@ -8,6 +8,7 @@ export async function generateViewPointsFromMatterPortData() : Promise<ViewPoint
   var panoLocations = await getPanoLocations();
   var parameters: MatterportParameters = await getParameters(); 
   var viewPoints: ViewPoint[] = [];
+  const VIEWPOINT_FLOOR_OFFSET = 0.01;
 
   for (var i = 0; i < panoLocations.length; i++) {
     var skybox = panoLocations[i]["skybox"];
@@ -20,7 +21,7 @@ export async function generateViewPointsFromMatterPortData() : Promise<ViewPoint
       id: `viewpoint${i}`,
       name: `viewpoint${i}`,
       // rotate the point through x axis by -90 degree
-      position: [position.x, Math.abs(position.z) + 0.01, -position.y],
+      position: [position.x, position.z + VIEWPOINT_FLOOR_OFFSET, -position.y],
       cameraRotation: [computedRotation[0], computedRotation[2], -computedRotation[1]],
       skyboxImages: constructImages(skybox["children"]),
       cameraPosition: [floorOffset.x, floorOffset.z, -floorOffset.y]
