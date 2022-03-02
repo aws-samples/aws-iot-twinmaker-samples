@@ -20,7 +20,7 @@ export async function generateViewPointsFromMatterPortData() : Promise<ViewPoint
       id: `viewpoint${i}`,
       name: `viewpoint${i}`,
       // rotate the point through x axis by -90 degree
-      position: [position.x, position.z, -position.y],
+      position: [position.x, Math.abs(position.z) + 0.01, -position.y],
       cameraRotation: [computedRotation[0], computedRotation[2], -computedRotation[1]],
       skyboxImages: constructImages(skybox["children"]),
       cameraPosition: [floorOffset.x, floorOffset.z, -floorOffset.y]
