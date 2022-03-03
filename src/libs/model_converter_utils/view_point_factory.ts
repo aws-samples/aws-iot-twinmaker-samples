@@ -8,7 +8,7 @@ export async function generateViewPointsFromMatterPortData() : Promise<ViewPoint
   var panoLocations = await getPanoLocations();
   var parameters: MatterportParameters = await getParameters(); 
   var viewPoints: ViewPoint[] = [];
-  const VIEWPOINT_FLOOR_OFFSET = 0.01;
+  const VIEWPOINT_FLOOR_OFFSET = 0.03;
 
   for (var i = 0; i < panoLocations.length; i++) {
     var skybox = panoLocations[i]["skybox"];
