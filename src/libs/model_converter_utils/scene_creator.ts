@@ -96,8 +96,6 @@ export async function createScene(modelName: string, modelId: string,
         "cameraPosition": copiedViewpoint.cameraPosition,
         "cameraRotation": copiedViewpoint.cameraRotation,
         "skyboxImageFormat": "SixSided",
-        "hiddenNodeIndexes": [0],
-        "visibleObjectIDs": [] // TODO, calculate the visible object ids
       }
       ]
     });
@@ -105,6 +103,7 @@ export async function createScene(modelName: string, modelId: string,
 
   const modelNode = {
     "name": `${ modelName }`,
+    "properties": { hiddenWhileImmersive: true },
     "transform": {
       "position": [0, 0, 0],
       "rotation": [0, 0, 0],
