@@ -78,7 +78,7 @@ export async function createScene(modelName: string, modelId: string,
       var image: Image = copiedViewpoint.skyboxImages[j];
       var remotePath = buildRemotePath(copiedViewpoint.modelId, 
         copiedViewpoint.id, image.fileName);
-      skyboxImagesUri.push(`s3://${bucketName}/${remotePath}`);
+      skyboxImagesUri.push(`${remotePath}`);
     }
     sceneCoomposerViewPoints.push({
       "name": copiedViewpoint.name,
