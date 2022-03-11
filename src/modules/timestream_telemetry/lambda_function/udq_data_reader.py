@@ -292,3 +292,518 @@ def lambda_handler(event, context):
     LOGGER.info("result:")
     LOGGER.info(result)
     return result
+
+
+
+'''
+To illustrate the end-to-end request/response flow, here we walk through a sample request/response payload for the above
+Note that since we are using the udq_utils library, the JSON unmarshalling/marshalling is handled automatically
+
+## get-property-value-history CLI request (Single Entity request: fetch alarm data for Mixer_2)
+aws iottwinmaker get-property-value-history \
+      --region $AWS_DEFAULT_REGION \
+      --cli-input-json '{
+        "componentName": "AlarmComponent",
+        "endDateTime": "2022-11-01T00:00:00",
+        "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+        "orderByTime": "ASCENDING",
+        "selectedProperties": ["alarm_status"],
+        "startDateTime": "2021-11-01T00:00:00",
+        "workspaceId": "CookieFactory"}'
+
+
+## The above request goes to AWS IoT TwinMaker, who invokes the dataReader defined in the AlarmComponent for Mixer_2 to
+##   fetch alarm data for Mixer_2. The dataReader Lambda defined in the AlarmComponent (this Lambda) is invoked with
+##   the following Event JSON:
+
+{
+  "workspaceId": "CookieFactory",
+  "selectedProperties": [
+    "alarm_status"
+  ],
+  "startDateTime": 1635724800,
+  "endDateTime": 1667260800,
+  "properties": {
+    "alarm_status": {
+      "definition": {
+        "dataType": {
+          "type": "STRING",
+          "allowedValues": [
+            {
+              "stringValue": "ACTIVE"
+            },
+            {
+              "stringValue": "SNOOZE_DISABLED"
+            },
+            {
+              "stringValue": "ACKNOWLEDGED"
+            },
+            {
+              "stringValue": "NORMAL"
+            }
+          ]
+        },
+        "isTimeSeries": true,
+        "isRequiredInEntity": false,
+        "isExternalId": false,
+        "isStoredExternally": true,
+        "isImported": false,
+        "isFinal": false,
+        "isInherited": true,
+        "imported": false,
+        "requiredInEntity": false,
+        "inherited": true,
+        "final": false,
+        "storedExternally": true,
+        "externalId": false,
+        "timeSeries": true
+      }
+    },
+    "telemetryAssetId": {
+      "definition": {
+        "dataType": {
+          "type": "STRING"
+        },
+        "isTimeSeries": false,
+        "isRequiredInEntity": true,
+        "isExternalId": false,
+        "isStoredExternally": false,
+        "isImported": false,
+        "isFinal": false,
+        "isInherited": true,
+        "imported": false,
+        "requiredInEntity": true,
+        "inherited": true,
+        "final": false,
+        "storedExternally": false,
+        "externalId": false,
+        "timeSeries": false
+      },
+      "value": {
+        "stringValue": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb"
+      }
+    },
+    "telemetryAssetType": {
+      "definition": {
+        "dataType": {
+          "type": "STRING"
+        },
+        "isTimeSeries": false,
+        "isRequiredInEntity": true,
+        "isExternalId": false,
+        "isStoredExternally": false,
+        "isImported": false,
+        "isFinal": false,
+        "isInherited": true,
+        "defaultValue": {
+          "stringValue": "Alarm"
+        },
+        "imported": false,
+        "requiredInEntity": true,
+        "inherited": true,
+        "final": false,
+        "storedExternally": false,
+        "externalId": false,
+        "timeSeries": false
+      },
+      "value": {
+        "stringValue": "Alarm"
+      }
+    },
+    "alarm_key": {
+      "definition": {
+        "dataType": {
+          "type": "STRING"
+        },
+        "isTimeSeries": false,
+        "isRequiredInEntity": true,
+        "isExternalId": true,
+        "isStoredExternally": false,
+        "isImported": false,
+        "isFinal": false,
+        "isInherited": true,
+        "imported": false,
+        "requiredInEntity": true,
+        "inherited": true,
+        "final": false,
+        "storedExternally": false,
+        "externalId": true,
+        "timeSeries": false
+      },
+      "value": {
+        "stringValue": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb"
+      }
+    }
+  },
+  "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+  "componentName": "AlarmComponent",
+  "maxResults": 100,
+  "orderByTime": "ASCENDING"
+}
+
+
+
+## Note: the contents of the above event are derived from the entity model:
+
+# Entity model for Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef
+
+{
+    "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+    "entityName": "Mixer_2",
+    "arn": "arn:aws:iottwinmaker:us-east-1:261053700147:workspace/CookieFactory/entity/Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+    "status": {
+        "state": "ACTIVE",
+        "error": {}
+    },
+    "workspaceId": "CookieFactory",
+    "description": "",
+    "components": {
+        "AlarmComponent": {
+            "componentName": "AlarmComponent",
+            "componentTypeId": "com.example.cookiefactory.alarm",
+            "status": {
+                "state": "ACTIVE",
+                "error": {}
+            },
+            "properties": {
+                "alarm_key": {
+                    "definition": {
+                        "dataType": {
+                            "type": "STRING"
+                        },
+                        "isTimeSeries": false,
+                        "isRequiredInEntity": true,
+                        "isExternalId": true,
+                        "isStoredExternally": false,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": true
+                    },
+                    "value": {
+                        "stringValue": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb"
+                    }
+                },
+                "alarm_status": {
+                    "definition": {
+                        "dataType": {
+                            "type": "STRING",
+                            "allowedValues": [
+                                {
+                                    "stringValue": "ACTIVE"
+                                },
+                                {
+                                    "stringValue": "SNOOZE_DISABLED"
+                                },
+                                {
+                                    "stringValue": "ACKNOWLEDGED"
+                                },
+                                {
+                                    "stringValue": "NORMAL"
+                                }
+                            ]
+                        },
+                        "isTimeSeries": true,
+                        "isRequiredInEntity": false,
+                        "isExternalId": false,
+                        "isStoredExternally": true,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": true
+                    }
+                },
+                "telemetryAssetId": {
+                    "definition": {
+                        "dataType": {
+                            "type": "STRING"
+                        },
+                        "isTimeSeries": false,
+                        "isRequiredInEntity": true,
+                        "isExternalId": false,
+                        "isStoredExternally": false,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": true
+                    },
+                    "value": {
+                        "stringValue": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb"
+                    }
+                },
+                "telemetryAssetType": {
+                    "definition": {
+                        "dataType": {
+                            "type": "STRING"
+                        },
+                        "isTimeSeries": false,
+                        "isRequiredInEntity": true,
+                        "isExternalId": false,
+                        "isStoredExternally": false,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": true,
+                        "defaultValue": {
+                            "stringValue": "Alarm"
+                        }
+                    },
+                    "value": {
+                        "stringValue": "Alarm"
+                    }
+                }
+            }
+        },
+        "MixerComponent": {
+            "componentName": "MixerComponent",
+            "componentTypeId": "com.example.cookiefactory.mixer",
+            "status": {
+                "state": "ACTIVE",
+                "error": {}
+            },
+            "properties": {
+                "RPM": {
+                    "definition": {
+                        "dataType": {
+                            "type": "DOUBLE"
+                        },
+                        "isTimeSeries": true,
+                        "isRequiredInEntity": false,
+                        "isExternalId": false,
+                        "isStoredExternally": true,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": false
+                    }
+                },
+                "Temperature": {
+                    "definition": {
+                        "dataType": {
+                            "type": "DOUBLE"
+                        },
+                        "isTimeSeries": true,
+                        "isRequiredInEntity": false,
+                        "isExternalId": false,
+                        "isStoredExternally": true,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": false
+                    }
+                },
+                "telemetryAssetId": {
+                    "definition": {
+                        "dataType": {
+                            "type": "STRING"
+                        },
+                        "isTimeSeries": false,
+                        "isRequiredInEntity": true,
+                        "isExternalId": false,
+                        "isStoredExternally": false,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": true
+                    },
+                    "value": {
+                        "stringValue": "Mixer_2_d8e76844-e739-4845-a748-a83983279376"
+                    }
+                },
+                "telemetryAssetType": {
+                    "definition": {
+                        "dataType": {
+                            "type": "STRING"
+                        },
+                        "isTimeSeries": false,
+                        "isRequiredInEntity": true,
+                        "isExternalId": false,
+                        "isStoredExternally": false,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": true,
+                        "defaultValue": {
+                            "stringValue": "Mixer"
+                        }
+                    },
+                    "value": {
+                        "stringValue": "Mixer"
+                    }
+                }
+            }
+        },
+        "SpecSheets": {
+            "componentName": "SpecSheets",
+            "componentTypeId": "com.amazon.iottwinmaker.documents",
+            "status": {
+                "state": "ACTIVE",
+                "error": {}
+            },
+            "properties": {
+                "documents": {
+                    "definition": {
+                        "dataType": {
+                            "type": "MAP",
+                            "nestedType": {
+                                "type": "STRING"
+                            }
+                        },
+                        "isTimeSeries": false,
+                        "isRequiredInEntity": false,
+                        "isExternalId": false,
+                        "isStoredExternally": false,
+                        "isImported": false,
+                        "isFinal": false,
+                        "isInherited": false
+                    },
+                    "value": {
+                        "mapValue": {
+                            "manufacturer_page": {
+                                "stringValue": "https://console.aws.amazon.com/iottwinmaker/home"
+                            },
+                            "mixer2_manual": {
+                                "stringValue": "https://github.com/aws-samples/aws-iot-twinmaker-samples"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "parentEntityId": "Mixers_b1e081ee-e6a3-4636-82cb-6b6bce0786a7",
+    "hasChildEntities": false,
+    "creationDateTime": 1646427217.161,
+    "updateDateTime": 1646427218.046
+}
+
+
+## Resulting Timestream Query constructed to fetch data for the Lambda event (see the "entity_query" function)
+
+SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar
+FROM CookieFactoryTelemetry0304.Telemetry
+WHERE time > from_iso8601_timestamp('2021-11-01T00:00:00')
+    AND time <= from_iso8601_timestamp('2022-11-01T00:00:00')
+    AND TelemetryAssetType = 'Alarm'
+    AND TelemetryAssetId = 'Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb'
+    AND measure_name = 'alarm_status'
+ORDER BY time ASC , next token is None
+
+
+
+## Timestream Query Results
+{
+  "QueryId": "...redacted...",
+  "Rows": [
+    {
+      "Data": [
+        {
+          "ScalarValue": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb"
+        },
+        {
+          "ScalarValue": "alarm_status"
+        },
+        {
+          "ScalarValue": "2022-03-04 20:43:26.827000000"
+        },
+        {
+          "NullValue": true
+        },
+        {
+          "ScalarValue": "NORMAL"
+        }
+      ]
+    }
+  ],
+  "ColumnInfo": [
+    {
+      "Name": "TelemetryAssetId",
+      "Type": {
+        "ScalarType": "VARCHAR"
+      }
+    },
+    {
+      "Name": "measure_name",
+      "Type": {
+        "ScalarType": "VARCHAR"
+      }
+    },
+    {
+      "Name": "time",
+      "Type": {
+        "ScalarType": "TIMESTAMP"
+      }
+    },
+    {
+      "Name": "measure_value::double",
+      "Type": {
+        "ScalarType": "DOUBLE"
+      }
+    },
+    {
+      "Name": "measure_value::varchar",
+      "Type": {
+        "ScalarType": "VARCHAR"
+      }
+    }
+  ],
+  "QueryStatus": {
+    "ProgressPercentage": 100,
+    "CumulativeBytesScanned": 109,
+    "CumulativeBytesMetered": 10000000
+  },
+  "ResponseMetadata": {
+    "RequestId": "...redacted...",
+    "HTTPStatusCode": 200,
+    "HTTPHeaders": {
+      "x-amzn-requestid": "...redacted...",
+      "content-type": "application/x-amz-json-1.0",
+      "content-length": "700",
+      "date": "Fri, 04 Mar 2022 20:54:30 GMT"
+    },
+    "RetryAttempts": 0
+  }
+}
+
+
+## We then convert the above Query results into the following Lambda response JSON:
+
+{
+  "propertyValues": [
+    {
+      "entityPropertyReference": {
+        "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+        "componentName": "AlarmComponent",
+        "propertyName": "alarm_status"
+      },
+      "values": [
+        {
+          "timestamp": 1646426606,
+          "value": {
+            "stringValue": "NORMAL"
+          }
+        }
+      ]
+    }
+  ],
+  "nextToken": null
+}
+
+
+
+## to allow AWS IoT TwinMaker to return back the following get-property-value-history CLI result
+{
+    "propertyValues": [
+        {
+            "entityPropertyReference": {
+                "componentName": "AlarmComponent",
+                "externalIdProperty": {
+                    "alarm_key": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb"
+                },
+                "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+                "propertyName": "alarm_status"
+            },
+            "values": [
+                {
+                    "timestamp": 1646426606.0,
+                    "value": {
+                        "stringValue": "NORMAL"
+                    }
+                }
+            ]
+        }
+    ]
+}
+'''
