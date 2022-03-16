@@ -2,7 +2,9 @@
 ---
 **NOTE**
 
- IoT TwinMaker is currently in public preview. This service is subject to change.
+IoT TwinMaker is currently in public preview. This service is subject to change.
+
+Currently IoT TwinMaker Flink library only supports Flink version 1.13.
 
 ---
 
@@ -14,8 +16,8 @@ This topic assumes that you have the following prerequisites.
 
 **Prerequisites**
 
-1. A fully populated with scenes and components. Use the built-in component types for data from AWS services (AWS IoT SiteWise and Kinesis Video Streams). Create custom component types for data from third party sources\. For more information, see [Using and creating component types](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/twinmaker-component-types.html) in IoT TwinMaker user guide.
-2. An understanding of Studio notebooks with Kinesis Data Analytics for Apache Flink. These notebooks are powered by [Apache Zeppelin](https://zeppelin.apache.org) and use the [Apache Flink](https://flink.apache.org) framework. For more information, see [Using a Studio notebook with Kinesis Video Streams for Apache Flink](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-notebook.html).
+1. A fully populated with scenes and components. Use the built-in component types for data from AWS services (e.g., AWS IoT SiteWise). Create custom component types for data from third party sources\. For more information, see [Using and creating component types](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/twinmaker-component-types.html) in IoT TwinMaker user guide.
+2. An understanding of Studio notebooks with Kinesis Data Analytics for Apache Flink. These notebooks are powered by [Apache Zeppelin](https://zeppelin.apache.org) and use the [Apache Flink](https://flink.apache.org) framework. For more information, see [Using a Studio notebook with Kinesis Data Analytics for Apache Flink](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-notebook.html).
 
 **Note**  
 For instructions on setting up IoT TwinMaker flink library with the quick start in [AWS IoT TwinMaker samples](https://github.com/aws-samples/aws-iot-twinmaker-samples), see [README file for the sample insights application](./README.md).
@@ -36,7 +38,7 @@ The following steps describe how to install theIoT TwinMaker Flink library.
 
 1. Add a customer connector by following the instructions in [Dependencies and custom connectors](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-zeppelin-connectors.html#zeppelin-custom-connectors)\.
 
-   The IoT TwinMaker Flink library can be downloaded from https://aws-iot-twinmaker-flink-downloads-us-east-1.s3.amazonaws.com/aws-iot-twinmaker-flink-1.13.0.jar  
+   The IoT TwinMaker Flink library (for Flink 1.13) can be downloaded from https://aws-iot-twinmaker-flink-downloads-us-east-1.s3.amazonaws.com/aws-iot-twinmaker-flink-1.13.0.jar  
    Enter the bucket value in the **Location of custom connector in S3** field, and the S3 object key in the **Path to S3 object** field. You can also upload the library and use your own S3 location. 
 
 ## Using the library
