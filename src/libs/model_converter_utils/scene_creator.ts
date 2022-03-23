@@ -47,6 +47,7 @@ export async function createScene(modelName: string, modelId: string,
     const anchorPosition = mattertag["anchorPosition"] as any;
     tags.push({
       "name": `${mattertag["label"]}`,
+      "properties": { alwaysVisible: false },
       "transform":{
         // rotate the point through x axis by -90 degree
         "position":[
@@ -82,6 +83,7 @@ export async function createScene(modelName: string, modelId: string,
     }
     sceneCoomposerViewPoints.push({
       "name": copiedViewpoint.name,
+      "properties": { alwaysVisible: false },
       "id": copiedViewpoint.id,
       "transform":{
         "position":copiedViewpoint.position,
