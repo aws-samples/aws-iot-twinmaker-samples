@@ -1,0 +1,336 @@
+﻿{
+  "paragraphs": [
+    {
+      "title": "Register Anomaly Detection Function",
+      "text": "%flink\nstenv.getConfig().addJobParameter(\"aws.region\", \"us-west-2\");\nstenv.getConfig().addJobParameter(\"sagemaker.endpoint.name\", \"AnomalyDetectionEndpoint-8bqWuay46mKf\")\nstenv.dropTemporarySystemFunction(\"callAnomalyDetectionFunc\");\nstenv.createTemporarySystemFunction(\"callAnomalyDetectionFunc\", classOf[com.amazonaws.services.iottwinmaker.udf.SageMakerMixerAnomalyDetectionFunction])",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:44:14+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872655846_1480635061",
+      "id": "paragraph_1636074040942_1841191548",
+      "dateCreated": "2022-03-10T00:37:35+0000",
+      "dateStarted": "2022-03-23T19:44:14+0000",
+      "dateFinished": "2022-03-23T19:44:58+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:1773"
+    },
+    {
+      "title": "Create Input Table",
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS anomaly_detection_input_table;\nCREATE TABLE anomaly_detection_input_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `RPM` DOUBLE,\n  `timestamp` TIMESTAMP(3),\n  WATERMARK FOR `timestamp` AS `timestamp` - INTERVAL '2' SECOND\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = 'us-west-2',\n  'iottwinmaker.workspace_id' = 'CookieFactory2',\n  'iottwinmaker.component_type_id' = 'com.example.cookiefactory.mixer',\n  'iottwinmaker.property_name' = 'RPM',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '2022-03-23T17:10:39-00:00'\n);\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:22:19+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872655847_1142679969",
+      "id": "paragraph_1636074106529_173906761",
+      "dateCreated": "2022-03-10T00:37:35+0000",
+      "dateStarted": "2022-03-23T19:22:19+0000",
+      "dateFinished": "2022-03-23T19:22:22+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:1774"
+    },
+    {
+      "title": "Create Output Table",
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS anomaly_detection_output_table;\nCREATE TABLE anomaly_detection_output_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `AnomalyScore` DOUBLE,\n  `timestamp` TIMESTAMP(3)\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = 'us-west-2',\n  'iottwinmaker.workspace_id' = 'CookieFactory2',\n  'iottwinmaker.component_type_id' = 'com.amazon.iotsitewise.connector',\n  'iottwinmaker.property_name' = 'AnomalyScore',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '2022-03-23T17:10:39-00:00'\n);\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:22:47+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872655847_1063391448",
+      "id": "paragraph_1637694820741_1665743387",
+      "dateCreated": "2022-03-10T00:37:35+0000",
+      "dateStarted": "2022-03-23T19:22:47+0000",
+      "dateFinished": "2022-03-23T19:22:50+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:1775"
+    },
+    {
+      "title": "Query Input (Mixer RPM)",
+      "text": "%flink.ssql(type=update)\nselect * from anomaly_detection_input_table;",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:22:53+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "entity_id": "string",
+                      "component_name": "string",
+                      "RPM": "string",
+                      "timestamp": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872655847_1225103327",
+      "id": "paragraph_1636074240445_729612042",
+      "dateCreated": "2022-03-10T00:37:35+0000",
+      "dateStarted": "2022-03-23T19:22:53+0000",
+      "dateFinished": "2022-03-23T19:23:47+0000",
+      "status": "ABORT",
+      "$$hashKey": "object:1776"
+    },
+    {
+      "title": "Write Anomaly Detection Result",
+      "text": "%flink.ssql\ninsert into anomaly_detection_output_table\nSELECT entity_id, 'AnomalyDetectionOutputComponent', `result`['anomaly_score'], `timestamp`\nfrom (\n    select  `timestamp`, entity_id, component_name, callAnomalyDetectionFunc(TIMESTAMPDIFF(SECOND, TIMESTAMP '1970-01-01 00:00:00', `timestamp`), RPM) as `result`\n    from anomaly_detection_input_table\n)\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:45:18+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "entity_id": "string",
+                      "component_name": "string",
+                      "result": "string",
+                      "timestamp": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872655847_456021154",
+      "id": "paragraph_1636074270462_716385670",
+      "dateCreated": "2022-03-10T00:37:35+0000",
+      "dateStarted": "2022-03-23T19:45:18+0000",
+      "dateFinished": "2022-03-23T19:49:37+0000",
+      "status": "ABORT",
+      "$$hashKey": "object:1777"
+    },
+    {
+      "title": "Query Anomaly Detection Ouput (Mixer RPM Anomaly Score)",
+      "text": "%flink.ssql(type=update)\nselect * from anomaly_detection_output_table;\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-10T01:24:24+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/45610eaf13f1b68a6230cd6e7e5c5ef4",
+              "$$hashKey": "object:2358"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872655848_1166023459",
+      "id": "paragraph_1636081044306_897918052",
+      "dateCreated": "2022-03-10T00:37:35+0000",
+      "dateStarted": "2022-03-10T01:24:24+0000",
+      "status": "ABORT",
+      "$$hashKey": "object:1778"
+    },
+    {
+      "text": "%flink.ssql\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-10T01:24:24+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646875464241_849723095",
+      "id": "paragraph_1646875464241_849723095",
+      "dateCreated": "2022-03-10T01:24:24+0000",
+      "status": "READY",
+      "$$hashKey": "object:1779"
+    }
+  ],
+  "name": "AnomalyDetection",
+  "id": "2GW3P4JY6",
+  "defaultInterpreterGroup": "flink",
+  "version": "0.9.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/AnomalyDetection"
+}

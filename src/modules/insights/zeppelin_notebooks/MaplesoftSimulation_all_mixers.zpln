@@ -1,0 +1,419 @@
+﻿{
+  "paragraphs": [
+    {
+      "title": "Register Simulation Function",
+      "text": "%flink\nstenv.getConfig().addJobParameter(\"aws.region\", \"us-west-2\");\nstenv.getConfig().addJobParameter(\"sagemaker.endpoint.name\", \"SimulationEndpoint-51aUKxfKdIIp\");\nstenv.dropTemporarySystemFunction(\"callSimFunc\");\nstenv.createTemporarySystemFunction(\"callSimFunc\", classOf[com.amazonaws.services.iottwinmaker.udf.SageMakerMixerSimulationFunction])",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-26T00:41:30+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872656188_841021894",
+      "id": "paragraph_1636074040942_1841191548",
+      "dateCreated": "2022-03-10T00:37:36+0000",
+      "dateStarted": "2022-03-26T00:41:30+0000",
+      "dateFinished": "2022-03-26T00:42:14+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:52"
+    },
+    {
+      "title": "Create Input Table",
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS simulation_input_table;\n\nCREATE TABLE simulation_input_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `RPM` DOUBLE,\n  `timestamp` TIMESTAMP(3),\n  WATERMARK FOR `timestamp` AS `timestamp` - INTERVAL '2' SECOND\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = 'us-west-2',\n  'iottwinmaker.workspace_id' = 'CookieFactory2',\n  'iottwinmaker.component_type_id' = 'com.example.cookiefactory.mixer',\n  'iottwinmaker.property_name' = 'RPM',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '2022-03-23T17:10:39-00:00'\n);\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:15:36+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872656188_629722674",
+      "id": "paragraph_1636074106529_173906761",
+      "dateCreated": "2022-03-10T00:37:36+0000",
+      "dateStarted": "2022-03-23T19:15:36+0000",
+      "dateFinished": "2022-03-23T19:15:38+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:53"
+    },
+    {
+      "title": "Create Output Table",
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS simulation_output_table;\n\nCREATE TABLE simulation_output_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `SimulatedPower` DOUBLE,\n  `timestamp` TIMESTAMP(3)\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = 'us-west-2',\n  'iottwinmaker.workspace_id' = 'CookieFactory2',\n  'iottwinmaker.component_type_id' = 'com.amazon.iotsitewise.connector',\n  'iottwinmaker.property_name' = 'SimulatedPower',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '2022-03-23T17:10:39-00:00'\n);\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:15:46+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872656188_642233518",
+      "id": "paragraph_1637694820741_1665743387",
+      "dateCreated": "2022-03-10T00:37:36+0000",
+      "dateStarted": "2022-03-23T19:15:46+0000",
+      "dateFinished": "2022-03-23T19:15:48+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:54"
+    },
+    {
+      "title": "Query Input (Mixer RPM)",
+      "text": "%flink.ssql(type=update)\nselect * from simulation_input_table;",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:15:54+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "entity_id": "string",
+                      "component_name": "string",
+                      "RPM": "string",
+                      "timestamp": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872656189_1532230573",
+      "id": "paragraph_1636074240445_729612042",
+      "dateCreated": "2022-03-10T00:37:36+0000",
+      "dateStarted": "2022-03-23T19:15:54+0000",
+      "dateFinished": "2022-03-23T19:17:24+0000",
+      "status": "ABORT",
+      "$$hashKey": "object:55"
+    },
+    {
+      "title": "Write Simulation Result (Mixer SimulatedPower) ",
+      "text": "%flink.ssql\ninsert into simulation_output_table\nSELECT entity_id, 'PowerSimulationOutputComponent', `result`['Power'], `timestamp`\nfrom (\n    select  `timestamp`, entity_id, component_name, callSimFunc(TIMESTAMPDIFF(SECOND, TIMESTAMP '1970-01-01 00:00:00', `timestamp`), RPM) as `result`\n    from simulation_input_table\n)\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-23T19:35:09+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "entity_id": "string",
+                      "component_name": "string",
+                      "result": "string",
+                      "timestamp": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872656189_1919934784",
+      "id": "paragraph_1636074270462_716385670",
+      "dateCreated": "2022-03-10T00:37:36+0000",
+      "dateStarted": "2022-03-23T19:16:49+0000",
+      "dateFinished": "2022-03-10T00:46:33+0000",
+      "status": "ABORT",
+      "$$hashKey": "object:56"
+    },
+    {
+      "title": "Query Simulated Ouput (Mixer SimulatedPower)",
+      "text": "%flink.ssql(type=update)\nselect * from simulation_output_table;\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-26T00:42:46+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {
+                    "columns": [
+                      {
+                        "name": "entity_id0",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "component_name1",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "SimulatedPower2",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "timestamp3",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {
+                          "priority": 0,
+                          "direction": "asc"
+                        },
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      }
+                    ],
+                    "scrollFocus": {},
+                    "selection": [],
+                    "grouping": {
+                      "grouping": [],
+                      "aggregations": [],
+                      "rowExpandedStates": {}
+                    },
+                    "treeView": {},
+                    "pagination": {
+                      "paginationCurrentPage": 1,
+                      "paginationPageSize": 250
+                    }
+                  },
+                  "tableColumnTypeState": {
+                    "names": {
+                      "entity_id": "string",
+                      "component_name": "string",
+                      "SimulatedPower": "string",
+                      "timestamp": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872656189_1918085009",
+      "id": "paragraph_1636081044306_897918052",
+      "dateCreated": "2022-03-10T00:37:36+0000",
+      "dateStarted": "2022-03-23T19:18:31+0000",
+      "dateFinished": "2022-03-23T19:21:18+0000",
+      "status": "ABORT",
+      "$$hashKey": "object:57"
+    },
+    {
+      "text": "%flink.ssql\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-10T00:42:33+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646872953995_19141282",
+      "id": "paragraph_1646872953995_19141282",
+      "dateCreated": "2022-03-10T00:42:33+0000",
+      "status": "READY",
+      "$$hashKey": "object:58"
+    }
+  ],
+  "name": "MaplesoftSimulation",
+  "id": "2GWPVV3D3",
+  "defaultInterpreterGroup": "flink",
+  "version": "0.9.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/MaplesoftSimulation"
+}

@@ -22,6 +22,7 @@ def parse_args():
     parser.add_argument('--sagemaker-stack-name', required=True, help='CloudFormation stack containing Sagemaker resources')
 
     parser.add_argument('--import-all', default=False, required=False, action='store_true', dest="import_all", help='import all data into the workspace.')
+    parser.add_argument('--analyze-one-mixer', default=False, required=False, action='store_true', dest="analyze_one_mixer", help='Run insights analysis only on mixer 0 (only mixer 0 will be updated with insights related components).')
     parser.add_argument('--import-simulation-sitewise', default=False, required=False, action='store_true', dest="import_simulation_sitewise", help='Import all sitewise data for simulation from the workspace.')
     parser.add_argument('--import-anomaly-detection-sitewise', default=False, required=False, action='store_true', dest="import_anomaly_detection_sitewise", help='Import all sitewise data for anomaly detection from the workspace.')
     parser.add_argument('--import-kda-app', default=False, required=False, action='store_true', dest="import_kda_app", help='Delete all sitewise data for simulation from the workspace.')
@@ -54,17 +55,20 @@ def main():
             print("=========================")
             return json.dumps(note_json)
 
-    def create_sitewise_resources_for_simulation(asset_model_name, asset_name, property_name):
-        print('importing sitewise assets for ' + property_name)
-        simulation_output_model = sitewiseImporter.create_asset_model(asset_model_name)
-        simulation_output_model_id = simulation_output_model['assetModelId']
-        sitewiseImporter.create_asset_model_property(simulation_output_model, property_name,
-                                                 'DOUBLE')
-        mixer_0_simulation_asset = sitewiseImporter.create_asset(asset_name, simulation_output_model_id)
-        mixer_0_simulation_asset_id = mixer_0_simulation_asset['assetId']
-        return simulation_output_model_id, mixer_0_simulation_asset_id
 
-    def update_entity_with_sitewise_components(component_name, asset_id, asset_model_id):
+    def create_sitewise_model_for_insights(asset_model_name, property_name):
+        print('importing sitewise assets for ' + property_name)
+        output_model = sitewiseImporter.create_asset_model(asset_model_name)
+        output_model_id = output_model['assetModelId']
+        sitewiseImporter.create_asset_model_property(output_model, property_name,
+                                                 'DOUBLE')
+        return output_model_id
+
+    def create_sitewise_asset_for_insights(sitewise_model_id, asset_name):
+        asset = sitewiseImporter.create_asset(asset_name, sitewise_model_id)
+        return asset['assetId']
+
+    def update_entity_with_sitewise_components(entity_id, component_name, asset_id, asset_model_id):
         try:
             update_entity = iottwinmaker.update_entity(
                 componentUpdates={
@@ -87,125 +91,169 @@ def main():
                         }
                     }
                 },
-                entityId = insight_entity_id,
+                entityId = entity_id,
                 workspaceId = workspace_id)
             print(update_entity)
             state = update_entity['state']
             print(f'{state}')
             while state == 'UPDATING':
-                entity_description = iottwinmaker.get_entity(entityId=insight_entity_id, workspaceId=workspace_id)
+                entity_description = iottwinmaker.get_entity(entityId=entity_id, workspaceId=workspace_id)
                 state = entity_description['status']['state']
             print('Updating finished')
         except Exception as e:
-            if 'Component '+ component_name + ' in entity ' + insight_entity_id + ' in workspace' in str(e):
+            if 'Component '+ component_name + ' in entity ' + entity_id + ' in workspace' in str(e):
                 print("entity updated")
             else:
                 raise e
 
-    args = parse_args()
-
-    session = boto3.session.Session(profile_name=None)
-    stack_name = args.kda_stack_name
-    region_name = args.region_name
-    workspace_id = args.workspace_id
-    simulation_output_asset_model_name= args.workspace_id+'__PowerSimulationOutputModel'
-    anomaly_detection_output_asset_model_name= args.workspace_id+'__AnomalyDetectionOutputModel'
-    insight_entity_id = 'Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837'
-    sitewiseImporter = SiteWiseTelemetryImporter(args.region_name, asset_model_prefix=workspace_id)
-    iottwinmaker = session.client(service_name='iottwinmaker', endpoint_url=args.endpoint_url, region_name=args.region_name)
-    cfn_client = session.client(service_name='cloudformation', region_name=region_name)
-    cfn_stack_description = cfn_client.describe_stacks(StackName=stack_name)
-    cfn_stack_outputs = {x['OutputKey']:x['OutputValue'] for x in cfn_stack_description['Stacks'][0]['Outputs']}
-    zeppelin_app_name = cfn_stack_outputs.get('ZeppelinAppName')
-    print(zeppelin_app_name)
-
-    sageMakerStackName = args.sagemaker_stack_name
-    cfn_stack_description = cfn_client.describe_stacks(StackName=sageMakerStackName)
-    cfn_stack_outputs = {x['OutputKey']:x['OutputValue'] for x in cfn_stack_description['Stacks'][0]['Outputs']}
-    simulation_endpoint_name = cfn_stack_outputs.get('SimulationEndpointName')
-    ad_endpoint_name = cfn_stack_outputs.get('AnomalyDetectionEndpointName')
-    print('simulation_endpoint_name: ' + simulation_endpoint_name)
-    print('anomaly_detection_endpoint_name: ' + ad_endpoint_name)
-
-    ## Import SiteWise component for storing Simulation Output.
-    if args.import_simulation_sitewise or args.import_all:
-        simulation_output_model_id, mixer_0_simulation_asset_id = create_sitewise_resources_for_simulation(simulation_output_asset_model_name, f'{workspace_id}_Mixer_0_Simulation_Output', 'SimulatedPower')
-        update_entity_with_sitewise_components('PowerSimulationOutputComponent', mixer_0_simulation_asset_id, simulation_output_model_id)
-
-    # Import SiteWise component for storing Anomaly Detection Output.
-    if args.import_anomaly_detection_sitewise or args.import_all:
-        anomaly_detection_output_model_id, mixer_0_anomaly_detection_asset_id = create_sitewise_resources_for_simulation(anomaly_detection_output_asset_model_name, f'{workspace_id}_Mixer_0_Anomaly_Detection_Output', 'AnomalyScore')
-        update_entity_with_sitewise_components('AnomalyDetectionOutputComponent', mixer_0_anomaly_detection_asset_id, anomaly_detection_output_model_id)
-
-    ## START
-    # aws kinesisanalyticsv2 start-application --application-name $ZEPPELIN_APP_NAME --region us-west-2
-    if args.import_kda_app or args.import_all:
-        kda = session.client(service_name='kinesisanalyticsv2', region_name=region_name)
-        try:
-            kda.start_application(
-                ApplicationName=zeppelin_app_name
-            )
-        except Exception as e:
-            if "Application cannot be started in 'STARTING' state" in str(e):
-                pass
-            elif "Application cannot be started in 'RUNNING' state" in str(e):
-                pass
-            else:
-                raise e
-
-        ## wait for RUNNING state
-        # ZEPPELIN_APP_STATUS=$(aws kinesisanalyticsv2 describe-application --application-name $ZEPPELIN_APP_NAME --region us-west-2 | jq -r '.ApplicationDetail.ApplicationStatus') && while [ "$ZEPPELIN_APP_STATUS" != "RUNNING" ]; do      ZEPPELIN_APP_STATUS=$(aws kinesisanalyticsv2 describe-application --application-name $ZEPPELIN_APP_NAME --region us-west-2 | jq -r '.ApplicationDetail.ApplicationStatus') && echo "ZEPPELIN_APP_STATUS = "$ZEPPELIN_APP_STATUS;     sleep 5; done
-        zeppelin_app_status = kda.describe_application(
-            ApplicationName=zeppelin_app_name
+    def list_mixer_entities():
+        list_response = iottwinmaker.list_entities(
+            filters=[
+                {
+                    'componentTypeId': 'com.example.cookiefactory.mixer'
+                },
+            ],
+            workspaceId = workspace_id
         )
-        while zeppelin_app_status['ApplicationDetail']['ApplicationStatus'] == 'STARTING':
-            print(f"{datetime.datetime.now()} - ZEPPELIN_APP_STATUS: {zeppelin_app_status['ApplicationDetail']['ApplicationStatus']}")
+        entity_summaries = list_response['entitySummaries']
+        response = {s['entityName']: s['entityId'] for s in entity_summaries}
+        print(f'List mixer entity response: {response}')
+        return response
+
+    def get_mixer_entities():
+        if args.analyze_one_mixer:
+            return {'Mixer_0': 'Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837'}
+        else:
+            return list_mixer_entities()
+
+    def import_sitewise_components(mixers):
+        ## Import SiteWise component for storing Simulation Output.
+        if args.import_simulation_sitewise or args.import_all:
+            simulation_sitewise_model_id = create_sitewise_model_for_insights(simulation_output_asset_model_name, 'SimulatedPower')
+            for mixer_name in mixers:
+                mixer_entity_id = mixers[mixer_name]
+                simulation_sitewise_asset_id = create_sitewise_asset_for_insights(simulation_sitewise_model_id, f'{workspace_id}_{mixer_name}_Simulation_Output')
+                update_entity_with_sitewise_components(mixer_entity_id, 'PowerSimulationOutputComponent', simulation_sitewise_asset_id, simulation_sitewise_model_id)
+
+        # Import SiteWise component for storing Anomaly Detection Output.
+        if args.import_anomaly_detection_sitewise or args.import_all:
+            anomaly_detection_sitewise_model_id = create_sitewise_model_for_insights(anomaly_detection_output_asset_model_name, 'AnomalyScore')
+            for mixer_name in mixers:
+                mixer_entity_id = mixers[mixer_name]
+                anomaly_detection_sitewise_asset_id = create_sitewise_asset_for_insights(anomaly_detection_sitewise_model_id, f'{workspace_id}_{mixer_name}_Anomaly_Detection_Output')
+                update_entity_with_sitewise_components(mixer_entity_id, 'AnomalyDetectionOutputComponent', anomaly_detection_sitewise_asset_id, anomaly_detection_sitewise_model_id)
+
+    def start_kda_app(zeppelin_app_name):
+        ## START
+        # aws kinesisanalyticsv2 start-application --application-name $ZEPPELIN_APP_NAME --region us-west-2
+        if args.import_kda_app or args.import_all:
+            kda = session.client(service_name='kinesisanalyticsv2', region_name=region_name)
+            try:
+                kda.start_application(
+                    ApplicationName=zeppelin_app_name
+                )
+            except Exception as e:
+                if "Application cannot be started in 'STARTING' state" in str(e):
+                    pass
+                elif "Application cannot be started in 'RUNNING' state" in str(e):
+                    pass
+                else:
+                    raise e
+
+            ## wait for RUNNING state
+            # ZEPPELIN_APP_STATUS=$(aws kinesisanalyticsv2 describe-application --application-name $ZEPPELIN_APP_NAME --region us-west-2 | jq -r '.ApplicationDetail.ApplicationStatus') && while [ "$ZEPPELIN_APP_STATUS" != "RUNNING" ]; do      ZEPPELIN_APP_STATUS=$(aws kinesisanalyticsv2 describe-application --application-name $ZEPPELIN_APP_NAME --region us-west-2 | jq -r '.ApplicationDetail.ApplicationStatus') && echo "ZEPPELIN_APP_STATUS = "$ZEPPELIN_APP_STATUS;     sleep 5; done
             zeppelin_app_status = kda.describe_application(
                 ApplicationName=zeppelin_app_name
             )
-            time.sleep(10)
-        print(zeppelin_app_status['ApplicationDetail']['ApplicationStatus'])
+            while zeppelin_app_status['ApplicationDetail']['ApplicationStatus'] == 'STARTING':
+                print(f"{datetime.datetime.now()} - ZEPPELIN_APP_STATUS: {zeppelin_app_status['ApplicationDetail']['ApplicationStatus']}")
+                zeppelin_app_status = kda.describe_application(
+                    ApplicationName=zeppelin_app_name
+                )
+                time.sleep(10)
+            print(zeppelin_app_status['ApplicationDetail']['ApplicationStatus'])
 
-        ## create logic sample notebook
-        # PRESIGN_URL=$(aws kinesisanalyticsv2 create-application-presigned-url --application-name $ZEPPELIN_APP_NAME --url-type ZEPPELIN_UI_URL --region us-west-2 | jq -r ".AuthorizedUrl")
-        presign_url = kda.create_application_presigned_url(
-            ApplicationName=zeppelin_app_name,
-            UrlType='ZEPPELIN_UI_URL'
-        )['AuthorizedUrl']
-        url_prefix = "/".join(presign_url.split('/')[0:4])
-        print(url_prefix)
+            ## create logic sample notebook
+            # PRESIGN_URL=$(aws kinesisanalyticsv2 create-application-presigned-url --application-name $ZEPPELIN_APP_NAME --url-type ZEPPELIN_UI_URL --region us-west-2 | jq -r ".AuthorizedUrl")
+            presign_url = kda.create_application_presigned_url(
+                ApplicationName=zeppelin_app_name,
+                UrlType='ZEPPELIN_UI_URL'
+            )['AuthorizedUrl']
+            url_prefix = "/".join(presign_url.split('/')[0:4])
+            print(url_prefix)
 
-        print(f"PRESIGN_URL {presign_url}")
-        r = requests.get(presign_url, allow_redirects=False)
-        VERIFIED_COOKIE=r.headers['set-cookie'].split(";")[0]
-        print(f"r.headers['set-cookie']: {r.headers['set-cookie']}")
-        print(f"VERIFIED_COOKIE: {VERIFIED_COOKIE}")
+            print(f"PRESIGN_URL {presign_url}")
+            r = requests.get(presign_url, allow_redirects=False)
+            VERIFIED_COOKIE=r.headers['set-cookie'].split(";")[0]
+            print(f"r.headers['set-cookie']: {r.headers['set-cookie']}")
+            print(f"VERIFIED_COOKIE: {VERIFIED_COOKIE}")
 
-        headers = {'Cookie': VERIFIED_COOKIE}
-        print(f"{url_prefix}/api/notebook")
-        r2 = requests.get(f"{url_prefix}/api/notebook", headers=headers)
-        print(r2)
-        print(f"r2.json() {r2.json()}")
+            headers = {'Cookie': VERIFIED_COOKIE}
+            print(f"{url_prefix}/api/notebook")
+            r2 = requests.get(f"{url_prefix}/api/notebook", headers=headers)
+            print(r2)
+            print(f"r2.json() {r2.json()}")
 
-        simulation_note_name = "MaplesoftSimulation"
-        ad_note_name = "AnomalyDetection"
+            simulation_note_name = "MaplesoftSimulation_single_mixer" if args.analyze_one_mixer else "MaplesoftSimulation_all_mixers"
+            ad_note_name = "AnomalyDetection_single_mixer" if args.analyze_one_mixer else "AnomalyDetection_all_mixers"
 
-        # import Simulation Zeppelin Note (from /export output)
-        print('Start importing notebook')
-        SIMULATION_EXPORT_BODY = import_notebook('MaplesoftSimulation.zpln', simulation_note_name, simulation_endpoint_name, region_name)
-        ANOMALY_DETECTION_EXPORT_BODY = import_notebook('AnomalyDetection.zpln', ad_note_name, ad_endpoint_name, region_name)
-        headers = {'Cookie': VERIFIED_COOKIE, 'Content-Type': 'application/json'}
-        requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=ANOMALY_DETECTION_EXPORT_BODY)
-        requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=SIMULATION_EXPORT_BODY)
-        print(f"Imported note as [{simulation_note_name}] and [{ad_note_name}], see by opening Zeppelin with this link in browser:\n\n  {presign_url}\n")
+            # import Simulation Zeppelin Note (from /export output)
+            print('Start importing notebook')
+            SIMULATION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{simulation_note_name}.zpln', simulation_note_name, simulation_endpoint_name, region_name)
+            ANOMALY_DETECTION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{ad_note_name}.zpln', ad_note_name, ad_endpoint_name, region_name)
+            headers = {'Cookie': VERIFIED_COOKIE, 'Content-Type': 'application/json'}
+            requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=ANOMALY_DETECTION_EXPORT_BODY)
+            requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=SIMULATION_EXPORT_BODY)
+            print(f"Imported note as [{simulation_note_name}] and [{ad_note_name}], see by opening Zeppelin with this link in browser:\n\n  {presign_url}\n")
 
-    # Teardown section
-    if args.delete_simulation_sitewise or args.delete_all:
-        print('Deleting sitewise data for simulation...')
-        sitewiseImporter.cleanup_sitewise(simulation_output_asset_model_name)
-    if args.delete_anomaly_detection_sitewise or args.delete_all:
-        print('Deleting sitewise data for anomaly detection...')
-        sitewiseImporter.cleanup_sitewise(anomaly_detection_output_asset_model_name)
+    def perform_teardown():
+        # Teardown section
+        if args.delete_simulation_sitewise or args.delete_all:
+            print('Deleting sitewise data for simulation...')
+            sitewiseImporter.cleanup_sitewise(simulation_output_asset_model_name)
+        if args.delete_anomaly_detection_sitewise or args.delete_all:
+            print('Deleting sitewise data for anomaly detection...')
+            sitewiseImporter.cleanup_sitewise(anomaly_detection_output_asset_model_name)
+
+    def get_zepplin_app_name():
+        cfn_stack_description = cfn_client.describe_stacks(StackName=args.kda_stack_name)
+        cfn_stack_outputs = {x['OutputKey']:x['OutputValue'] for x in cfn_stack_description['Stacks'][0]['Outputs']}
+        zeppelin_app_name = cfn_stack_outputs.get('ZeppelinAppName')
+        print(zeppelin_app_name)
+        return zeppelin_app_name
+
+    def get_sagemaker_endpoints():
+        sageMakerStackName = args.sagemaker_stack_name
+        cfn_stack_description = cfn_client.describe_stacks(StackName=sageMakerStackName)
+        cfn_stack_outputs = {x['OutputKey']:x['OutputValue'] for x in cfn_stack_description['Stacks'][0]['Outputs']}
+        simulation_endpoint_name = cfn_stack_outputs.get('SimulationEndpointName')
+        ad_endpoint_name = cfn_stack_outputs.get('AnomalyDetectionEndpointName')
+        print('simulation_endpoint_name: ' + simulation_endpoint_name)
+        print('anomaly_detection_endpoint_name: ' + ad_endpoint_name)
+        return simulation_endpoint_name, ad_endpoint_name
+
+    args = parse_args()
+
+    session = boto3.session.Session(profile_name=None)
+    region_name = args.region_name
+    workspace_id = args.workspace_id
+    simulation_output_asset_model_name = args.workspace_id + '__PowerSimulationOutputModel'
+    anomaly_detection_output_asset_model_name = args.workspace_id + '__AnomalyDetectionOutputModel'
+    sitewiseImporter = SiteWiseTelemetryImporter(args.region_name, asset_model_prefix=workspace_id)
+    iottwinmaker = session.client(service_name='iottwinmaker', endpoint_url=args.endpoint_url, region_name=args.region_name)
+    cfn_client = session.client(service_name='cloudformation', region_name=region_name)
+
+    zeppelin_app_name = get_zepplin_app_name()
+
+    simulation_endpoint_name, ad_endpoint_name = get_sagemaker_endpoints()
+
+    mixers = get_mixer_entities()
+
+    import_sitewise_components(mixers)
+
+    start_kda_app(zeppelin_app_name)
+
+    perform_teardown()
 
 if __name__ == '__main__':
     main()

@@ -82,14 +82,20 @@ It deploys the following 2 stacks:
       The response should look something like the following: ```{"scores":[{"score":1.019143498}]}```.    
 4. Set up KDA Studio, SiteWise resources for insights
   - Start and bootstrap KDA notebook. (Notebook startup can take ~5 minutes.)
+
     ```
     cd $INSIGHT_DIR
     ```
+
+    Note: by default, the insights module updates all mixers in the cookie factory with simulation and anomaly detection components, and
+    run Flink jobs for all mixers. If you only want to run analysis for a single mixer, add `--analyze-one-mixer` to the command below.
+
     ```
     python3 $INSIGHT_DIR/install_insights_module.py --workspace-id $WORKSPACE_ID --region-name $AWS_DEFAULT_REGION --kda-stack-name $KDA_STACK_NAME --sagemaker-stack-name $SAGEMAKER_STACK_NAME --import-all
     ```
+
   - Navigate to the link output by the preceding command. (This may contain a long pre-signed url token). Please copy the full length of link output.
-  - Update the paragraphs in each notebook (MaplesoftSimulation and AnomalyDetection) as needed:
+  - Update the paragraphs in each notebook (MaplesoftSimulation_all_mixers and AnomalyDetection_all_mixers) as needed:
     - update the timestamp in the `CREATE TABLE` call if needed based on when your data was ingested.
     - if your data was ingested using the CookieFactory sample, we store a tag on the workspace indicating when data was ingested for the sample. You can use the following to lookup the data ingestion time (in milliseconds from epoch):
       ```
@@ -98,8 +104,10 @@ It deploys the following 2 stacks:
   - Execute all the paragraphs sequentially in the notebook to see data streamed from AWS IoT TwinMaker into the Maplesoft simulation/Anomaly Detection and results output to the notebook.
 
 ## Set up AWS IoT TwinMaker Insight Dashboard
+![Grafana Import CookieFactory](../../../docs/images/grafana_import_result_insights_module.png)
+
 This section should be similar to setting up the main Cookie Factory dashboard described in [GettingStarted/README.md](../../../README.md). If you have aleady finished setting up the main Cookie Factory dashboard. You can skip step 1 below.
-1. AWS IoT TwinMaker provides a Grafana plugin that allows you to build dashboards using IoT TwinMaker scenes and modeled data sources. Grafana is deployable as a docker container. We recommend that new users follow these instructions to set up Grafana as a local container: [Instructions](./docs/grafana_local_docker_setup.md) (If this link doesn't work in Cloud9, open `docs/grafana_local_docker_setup.md`.)
+1. AWS IoT TwinMaker provides a Grafana plugin that allows you to build dashboards using IoT TwinMaker scenes and modeled data sources. Grafana is deployable as a docker container. We recommend that new users follow these instructions to set up Grafana as a local container: [Instructions](../../../docs/grafana_local_docker_setup.md) (If this link doesn't work in Cloud9, open `docs/grafana_local_docker_setup.md`.)
     For advanced users aiming to set up a production Grafana installation in their account, we recommend checking out https://github.com/aws-samples/aws-cdk-grafana.
 2. Import Grafana dashboards for the Cookie Factory.
 
