@@ -22,11 +22,62 @@
   "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 7,
-  "iteration": 1637620500168,
+  "id": 3,
+  "iteration": 1648246306407,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 18,
+      "panels": [],
+      "title": "Introduction",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 20,
+      "options": {
+        "content": "(feel free to click on the \"Introduction\" bar above this text to collapse this content)\n\n# AWS IoT TwinMaker Mixer Insights Dashboard\n\nThis dashboard sample contains the following groups of panels:\n\n* Mixer List panel (top-left) - this provides a summary view of mixer entities in the cookie factory. \n    * try clicking on Mixer entity entries to see detail metrics appear in the other panels\n\n* Mixer information panels (top-right) - this set of panels provides the component details, mixer RPM, the simulated power consumption, and the anomaly score of the RPM value series. \n\n* Scene Viewer (bottom-left) - this provides a 3D view of where the select entity is located in the CookieFactory floor, you can also click on the Tags (floating blue icons) to select Mixer entities",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "queryType": "GetAlarms",
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 16,
+      "panels": [],
+      "title": "Insights for Cookie Factory Mixer",
+      "type": "row"
+    },
     {
       "datasource": null,
       "fieldConfig": {
@@ -56,10 +107,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 11,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 10
       },
       "id": 10,
       "options": {
@@ -73,33 +124,16 @@
           "refId": "A"
         }
       ],
-      "title": "Simulation Entity",
+      "title": "Mixer Entity List",
       "transformations": [
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "equal",
-                  "options": {
-                    "value": "Mixer_0"
-                  }
-                },
-                "fieldName": "name"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        },
         {
           "id": "twinmaker-register-links",
           "options": {
+            "addSelectionField": false,
             "vars": [
               {
                 "fieldName": "entityId",
-                "name": "${SimulationEntity}"
+                "name": "${sel_entity}"
               }
             ]
           }
@@ -133,17 +167,31 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "component"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 208
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 10
       },
       "id": 2,
       "options": {
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "8.2.5",
       "targets": [
@@ -154,7 +202,7 @@
           "refId": "A"
         }
       ],
-      "title": "Simulation Entity Components",
+      "title": "Mixer Entity Components",
       "transformations": [
         {
           "id": "configFromData",
@@ -219,10 +267,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 30,
+        "h": 7,
         "w": 12,
-        "x": 0,
-        "y": 7
+        "x": 12,
+        "y": 17
       },
       "id": 4,
       "options": {
@@ -256,6 +304,33 @@
       "title": "Insights Input - RPM",
       "transformations": [],
       "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "gridPos": {
+        "h": 18,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "id": 12,
+      "options": {
+        "customSelCompVarName": "${sel_comp}",
+        "customSelEntityVarName": "${sel_entity}",
+        "datasource": "",
+        "sceneId": "CookieFactory"
+      },
+      "repeat": null,
+      "targets": [
+        {
+          "queryType": "ListScenes",
+          "refId": "A"
+        }
+      ],
+      "title": "Scene Viewer",
+      "transformations": [],
+      "type": "grafana-iot-twinmaker-sceneviewer-panel"
     },
     {
       "datasource": null,
@@ -310,10 +385,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 14,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 7
+        "y": 24
       },
       "id": 8,
       "options": {
@@ -330,6 +405,14 @@
         {
           "componentName": "PowerSimulationOutputComponent",
           "entityId": "${sel_entity}",
+          "filter": [
+            {
+              "name": "",
+              "op": "=",
+              "value": ""
+            }
+          ],
+          "hide": false,
           "properties": [
             "SimulatedPower"
           ],
@@ -394,10 +477,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 16,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 31
       },
       "id": 14,
       "options": {
@@ -423,30 +506,6 @@
       ],
       "title": "Anomaly Score  Output - RPM",
       "type": "timeseries"
-    },
-    {
-      "datasource": null,
-      "gridPos": {
-        "h": 32,
-        "w": 24,
-        "x": 0,
-        "y": 37
-      },
-      "id": 12,
-      "options": {
-        "customSelEntityVarName": "${sel_entity}",
-        "datasource": "",
-        "sceneId": "CookieFactory"
-      },
-      "targets": [
-        {
-          "queryType": "ListScenes",
-          "refId": "A"
-        }
-      ],
-      "title": "Scene Viewer",
-      "transformations": [],
-      "type": "grafana-iot-twinmaker-sceneviewer-panel"
     }
   ],
   "refresh": false,
@@ -463,7 +522,7 @@
         },
         "description": null,
         "error": null,
-        "hide": 0,
+        "hide": 2,
         "label": null,
         "name": "sel_entity",
         "options": [
@@ -476,6 +535,16 @@
         "query": "Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837",
         "skipUrlSync": false,
         "type": "textbox"
+      },
+      {
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "label": null,
+        "name": "sel_comp",
+        "query": "MixerComponent",
+        "skipUrlSync": false,
+        "type": "constant"
       }
     ]
   },
@@ -485,7 +554,7 @@
   },
   "timepicker": {},
   "timezone": "utc",
-  "title": "AWS IoT TwinMaker Insights Dashboard",
-  "uid": "K1_iyCc7z",
-  "version": 34
+  "title": "AWS IoT TwinMaker Insights Dashboard - Multi-Mixer",
+  "uid": "K2_iyCc7z",
+  "version": 13
 }
