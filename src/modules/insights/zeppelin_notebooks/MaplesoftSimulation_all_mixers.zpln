@@ -2,7 +2,7 @@
   "paragraphs": [
     {
       "title": "Register Simulation Function",
-      "text": "%flink\nstenv.getConfig().addJobParameter(\"aws.region\", \"us-west-2\");\nstenv.getConfig().addJobParameter(\"sagemaker.endpoint.name\", \"SimulationEndpoint-51aUKxfKdIIp\");\nstenv.dropTemporarySystemFunction(\"callSimFunc\");\nstenv.createTemporarySystemFunction(\"callSimFunc\", classOf[com.amazonaws.services.iottwinmaker.udf.SageMakerMixerSimulationFunction])",
+      "text": "%flink\nstenv.getConfig().addJobParameter(\"aws.region\", \"{0}\");\nstenv.getConfig().addJobParameter(\"sagemaker.endpoint.name\", \"{1}\");\nstenv.dropTemporarySystemFunction(\"callSimFunc\");\nstenv.createTemporarySystemFunction(\"callSimFunc\", classOf[com.amazonaws.services.iottwinmaker.udf.SageMakerMixerSimulationFunction])",
       "user": "anonymous",
       "dateUpdated": "2022-03-26T00:41:30+0000",
       "progress": 0,
@@ -39,7 +39,7 @@
     },
     {
       "title": "Create Input Table",
-      "text": "%flink.ssql\nDROP TABLE IF EXISTS simulation_input_table;\n\nCREATE TABLE simulation_input_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `RPM` DOUBLE,\n  `timestamp` TIMESTAMP(3),\n  WATERMARK FOR `timestamp` AS `timestamp` - INTERVAL '2' SECOND\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = 'us-west-2',\n  'iottwinmaker.workspace_id' = 'CookieFactory2',\n  'iottwinmaker.component_type_id' = 'com.example.cookiefactory.mixer',\n  'iottwinmaker.property_name' = 'RPM',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '2022-03-23T17:10:39-00:00'\n);\n",
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS simulation_input_table;\n\nCREATE TABLE simulation_input_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `RPM` DOUBLE,\n  `timestamp` TIMESTAMP(3),\n  WATERMARK FOR `timestamp` AS `timestamp` - INTERVAL '2' SECOND\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = '{0}',\n  'iottwinmaker.workspace_id' = '{1}',\n  'iottwinmaker.component_type_id' = 'com.example.cookiefactory.mixer',\n  'iottwinmaker.property_name' = 'RPM',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '{2}'\n);\n",
       "user": "anonymous",
       "dateUpdated": "2022-03-23T19:15:36+0000",
       "progress": 0,
@@ -75,7 +75,7 @@
     },
     {
       "title": "Create Output Table",
-      "text": "%flink.ssql\nDROP TABLE IF EXISTS simulation_output_table;\n\nCREATE TABLE simulation_output_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `SimulatedPower` DOUBLE,\n  `timestamp` TIMESTAMP(3)\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = 'us-west-2',\n  'iottwinmaker.workspace_id' = 'CookieFactory2',\n  'iottwinmaker.component_type_id' = 'com.amazon.iotsitewise.connector',\n  'iottwinmaker.property_name' = 'SimulatedPower',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '2022-03-23T17:10:39-00:00'\n);\n",
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS simulation_output_table;\n\nCREATE TABLE simulation_output_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `SimulatedPower` DOUBLE,\n  `timestamp` TIMESTAMP(3)\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = '{0}',\n  'iottwinmaker.workspace_id' = '{1}',\n  'iottwinmaker.component_type_id' = 'com.amazon.iotsitewise.connector',\n  'iottwinmaker.property_name' = 'SimulatedPower',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '{2}'\n);\n",
       "user": "anonymous",
       "dateUpdated": "2022-03-23T19:15:46+0000",
       "progress": 0,
