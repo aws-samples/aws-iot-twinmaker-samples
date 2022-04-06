@@ -3,7 +3,7 @@
 
 import boto3
 import time
-import datetime
+from datetime import datetime
 import requests
 import json
 import argparse
@@ -34,16 +34,16 @@ def parse_args():
     return parser.parse_args()
 
 def main():
-    def import_notebook(file_path, note_name, sagemaker_endpoint, region_name):
+    def import_notebook(file_path, note_name, sagemaker_endpoint, region_name, start_time):
         with open(file_path, 'r') as f:
             export_body_json = f.read().encode().decode('utf-8-sig')
             note_json = json.loads(export_body_json)
             note_json['name'] = note_name
             text_str_1 = note_json['paragraphs'][0]['text'].encode().decode('utf-8-sig').format(region_name, sagemaker_endpoint)
             note_json['paragraphs'][0]['text'] = text_str_1
-            text_str_2 = note_json['paragraphs'][1]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id)
+            text_str_2 = note_json['paragraphs'][1]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id, start_time)
             note_json['paragraphs'][1]['text'] = text_str_2
-            text_str_3 = note_json['paragraphs'][2]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id)
+            text_str_3 = note_json['paragraphs'][2]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id, start_time)
             note_json['paragraphs'][2]['text'] = text_str_3
             for p in note_json['paragraphs']:
                if 'results' in p: # clear previous results
@@ -166,7 +166,7 @@ def main():
                 ApplicationName=zeppelin_app_name
             )
             while zeppelin_app_status['ApplicationDetail']['ApplicationStatus'] == 'STARTING':
-                print(f"{datetime.datetime.now()} - ZEPPELIN_APP_STATUS: {zeppelin_app_status['ApplicationDetail']['ApplicationStatus']}")
+                print(f"{datetime.now()} - ZEPPELIN_APP_STATUS: {zeppelin_app_status['ApplicationDetail']['ApplicationStatus']}")
                 zeppelin_app_status = kda.describe_application(
                     ApplicationName=zeppelin_app_name
                 )
@@ -199,8 +199,8 @@ def main():
 
             # import Simulation Zeppelin Note (from /export output)
             print('Start importing notebook')
-            SIMULATION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{simulation_note_name}.zpln', simulation_note_name, simulation_endpoint_name, region_name)
-            ANOMALY_DETECTION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{ad_note_name}.zpln', ad_note_name, ad_endpoint_name, region_name)
+            SIMULATION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{simulation_note_name}.zpln', simulation_note_name, simulation_endpoint_name, region_name, sample_content_start_time)
+            ANOMALY_DETECTION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{ad_note_name}.zpln', ad_note_name, ad_endpoint_name, region_name, sample_content_start_time)
             headers = {'Cookie': VERIFIED_COOKIE, 'Content-Type': 'application/json'}
             requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=ANOMALY_DETECTION_EXPORT_BODY)
             requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=SIMULATION_EXPORT_BODY)
@@ -231,6 +231,14 @@ def main():
         print('simulation_endpoint_name: ' + simulation_endpoint_name)
         print('anomaly_detection_endpoint_name: ' + ad_endpoint_name)
         return simulation_endpoint_name, ad_endpoint_name
+    
+    def get_sample_content_start_time():
+        workspace_description = iottwinmaker.get_workspace(workspaceId=workspace_id)
+        workspace_tags = iottwinmaker.list_tags_for_resource(resourceARN=workspace_description.get('arn'))
+        timestamp = int(workspace_tags.get('tags').get('samples_content_start_time'))
+        sample_content_start_time = f"{datetime.utcfromtimestamp(timestamp/1000).isoformat(timespec='seconds')}-00:00"
+        print('sample_content_start_time: ' + sample_content_start_time)
+        return sample_content_start_time
 
     args = parse_args()
 
@@ -246,6 +254,8 @@ def main():
     zeppelin_app_name = get_zepplin_app_name()
 
     simulation_endpoint_name, ad_endpoint_name = get_sagemaker_endpoints()
+
+    sample_content_start_time = get_sample_content_start_time()
 
     mixers = get_mixer_entities()
 
