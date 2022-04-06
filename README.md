@@ -218,6 +218,8 @@ In this section we'll add SiteWise assets and telemetry, and then update the Coo
 
 ### S3 Document Connector
 
+In this section we'll add an S3 connector to allow IoT TwinMaker entities to link to data stored in S3.
+
 Go to the `s3` modules directory and check the [README](./src/modules/s3/README.md).
 
 ```
@@ -225,6 +227,13 @@ cd $GETTING_STARTED_DIR/src/modules/s3
 ```
 
 ### AWS IoT TwinMaker Insights and Simulation
+
+In this section we'll use the AWS IoT TwinMaker Flink library to connect our Mixers' telemetry data to two services to enrich our entity data for deeper insights:
+
+* A Maplesoft simulation to calculate Mixer power consumption based on RPM
+* A pre-trained machine learning model for RPM anomaly detection
+
+Both services will be exposed as SageMaker endpoints that this Add-on will setup in your account.
 
 Go to the `insights` modules directory and check the [README](./src/modules/insights/README.md).
 
