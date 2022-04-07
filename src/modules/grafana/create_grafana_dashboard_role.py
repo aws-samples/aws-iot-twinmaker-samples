@@ -20,6 +20,9 @@ def parse_args():
     parser.add_argument('--workspace-id',
                         help='workspace to be used on a Grafana dashboard',
                         required=True, default='CookieFactory')
+    parser.add_argument('--auth-provider',
+                        help="(optional) If you are using Amazon Managed Grafana, enter the Workspace IAM Role ARN in this field.",
+                        required=False, default=None)
     parser.add_argument('--region',
                         help="(optional) AWS region you are creating the sample in. Defaults to 'us-east-1'",
                         required=False, default='us-east-1')
@@ -37,6 +40,11 @@ def main():
     profile = args.profile
     workspaceId = args.workspace_id
     endpoint_url = args.endpoint_url
+    auth_provider = args.auth_provider
+    accountId = os.getenv('CDK_DEFAULT_ACCOUNT')
+
+    if accountId == '':
+      raise RuntimeError('Specify your accountId in the CDK_DEFAULT_ACCOUNT environment variable.')
 
     session = boto3.session.Session(profile_name=profile)
     iam = session.client(service_name='iam', region_name=region)
@@ -45,6 +53,8 @@ def main():
     identifier = uuid.uuid4().hex
 
     userArn = sts.get_caller_identity()['Arn']
+    if auth_provider == None:
+      auth_provider = userArn
 
     ws = deploy_utils.WorkspaceUtils(
         workspace_id=workspaceId,
@@ -62,7 +72,7 @@ def main():
                     {{
                         "Effect": "Allow",
                         "Principal": {{
-                            "AWS": "{userArn}"
+                            "AWS": "{auth_provider}"
                         }},
                         "Action": "sts:AssumeRole"
                     }}
@@ -78,7 +88,7 @@ def main():
     s3BucketArn = workspace.get('s3Location')
     workspaceArn = workspace.get('arn')
     create_policy_response = iam.create_policy(
-        PolicyName=f"SceneViewerPolicy-{identifier}",
+        PolicyName=f"{workspaceId}DashboardPolicy-{identifier}",
         PolicyDocument=f"""{{
           "Version": "2012-10-17",
           "Statement": [
@@ -102,62 +112,29 @@ def main():
               "Effect": "Allow",
               "Action": "iottwinmaker:ListWorkspaces",
               "Resource": "*"
+            }},
+            {{
+              "Effect": "Allow",
+              "Action": [
+                "kinesisvideo:GetDataEndpoint",
+                "kinesisvideo:GetHLSStreamingSessionURL"
+              ],
+              "Resource": [
+                "arn:aws:kinesisvideo:{region}:{accountId}:stream/cookiefactory_mixerroom_camera_01/*", 
+                "arn:aws:kinesisvideo:{region}:{accountId}:stream/cookiefactory_mixerroom_camera_02/*"
+              ]
             }}
           ]
 	      }}"""
     )
 
     policy_arn = create_policy_response['Policy']['Arn']
-    print(f"Created dashboard IAM policy for IoT TwinMaker SceneViewer: {policy_arn}")
+    print(f"Created the dashboard IAM policy: {policy_arn}")
     iam.attach_role_policy(
         RoleName=role_name,
         PolicyArn=policy_arn
     )
-    print(f"Attached SceneViewerPolicy to dashboard role.")
-
-    create_policy_response = iam.create_policy(
-        PolicyName=f"VideoPlayerPolicy-{identifier}",
-        PolicyDocument=f"""{{
-          "Version": "2012-10-17",
-          "Statement": [
-            {{
-              "Effect": "Allow",
-              "Action": [
-                "kinesisvideo:Describe*",
-                "kinesisvideo:Get*",
-                "kinesisvideo:List*"
-              ],
-              "Resource": "*"
-            }},
-            {{
-              "Action": [
-                "iotsitewise:Describe*",
-                "iotsitewise:Get*",
-                "iotsitewise:List*"
-              ],
-              "Resource": "*",
-              "Effect": "Allow"
-            }},
-            {{
-              "Action": "iotsitewise:BatchPutAssetPropertyValue",
-              "Resource": "*",
-              "Effect": "Allow",
-              "Condition": {{
-                "StringEquals": {{
-                  "aws:ResourceTag/{workspaceId}": "SiteWatch"
-                }}
-              }}
-            }}
-          ]
-        }}"""
-    )
-    policy_arn = create_policy_response['Policy']['Arn']
-    print(f"Created dashboard IAM policy for IoT TwinMaker VideoPlayer: {policy_arn}")
-    iam.attach_role_policy(
-        RoleName=role_name,
-        PolicyArn=policy_arn
-    )
-    print(f"Attached VideoPlayerPolicy to dashboard role.")
+    print(f"Attached {workspaceId}DashboardPolicy-{identifier} to dashboard role.")
     
     ws.store_sample_metadata("samples_content_dashboard_role_name", role_name)
 
