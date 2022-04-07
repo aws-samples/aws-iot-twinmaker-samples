@@ -218,6 +218,33 @@ aws cloudformation delete-stack --stack-name $KDA_STACK_NAME --region $AWS_DEFAU
 ```
 aws cloudformation delete-stack --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION
 ```
+---
+## Troubleshooting
+
+#### Zeppelin notebook or Grafana dashboard don't show the input data (RPM)
+
+* In Grafana dashboard, please make sure mixer telemetry data is in the applied time range. The start time of the telemetry data is the `source.initpos.timestamp` value in KDA notebook.
+
+* If the time range is correct, check if the RPM data is returned by using the `get-property-value-history` API (update the startDateTime and endDateTime).
+```
+aws iottwinmaker get-property-value-history \
+   --region $AWS_DEFAULT_REGION \
+   --cli-input-json '{"componentName": "MixerComponent","endDateTime": "2022-11-01T00:00:00","entityId": "Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837","orderByTime": "ASCENDING","selectedProperties": ["RPM"],"startDateTime": "2021-11-01T00:00:00","workspaceId": "'${WORKSPACE_ID}'"}'
+```
+
+#### Zeppelin notebook or Grafana dashboard don't show the output data (simulated power/anomaly score)
+
+* Make sure the SageMaker endpoint is working (step 3 in the Setup / Test section above)
+* AWS IoT SiteWise accepts values that have a timestamp of no more than 7 days in the past and no more than 10 minutes in the future (
+  [SiteWise BatchPutAssetPropertyValue API reference](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_BatchPutAssetPropertyValue.html)). Please make sure the telemetry data for the mixer is within the valid range.
+
+#### "NoResourceAvailableException: Could not acquire the minimum required resources" in KDA Studio notebook
+
+This means KDA doesn't have free resource to run the notebook. Please consider stop the execution for some paragraphs, or change the scaling parameter of the KDA app (refer to the Scaling section in the Configuration tab in the app).
+
+#### Other KDA Studio notebook issues
+
+Please refer to [KDA Studio notebook Troubleshooting page](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-zeppelin-troubleshooting.html).
 
 ---
 
