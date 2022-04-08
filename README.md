@@ -132,8 +132,6 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
 
    If you did not complete the dashboard setting steps, run the following script to create a role for accessing the workspace on a Grafana dashboard. This uses scoped-down permissions for ReadOnly access to IoT TwinMaker and other AWS services in Grafana. Note the ARN of the role you create. You will use it when configuring a data source in Grafana.
 
-   Make sure that your current AWS credentials are the same as the ones you use in Grafana. If not, go to the IAM console after running this script and update the trust permissions for the authentication provider you will be using. Read more about your [authentication provider in the documentation](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/dashboard-IAM-role.html#grafana-IAM-role).
-
    ```bash
    python3 $GETTING_STARTED_DIR/src/modules/grafana/create_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
    ```
@@ -143,6 +141,8 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
    ```bash
    --auth-provider <Amazon Managed Grafana Workspace IAM Role ARN>
    ```
+
+   Make sure that your current AWS credentials are the same as the ones you use in Grafana. If not, go to the IAM console after running this script and update the trust permissions for the authentication provider you will be using. Read more about your [authentication provider in the documentation](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/dashboard-IAM-role.html#grafana-IAM-role).
 
    We automatically add permission for TwinMaker and Kinesis Video Streams to enable the basic functionality of the Grafana datasource, Scene Viewer panel, and Video Player panel. If you would like to enable more features of the Video Player (time scrubber bar + video upload request from cache) then you need to manually update your IAM policy by following our [video player policy documentation](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/tm-video-policy.html).
 
