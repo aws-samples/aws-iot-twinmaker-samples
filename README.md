@@ -134,9 +134,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
 
    Make sure that your current AWS credentials are the same as the ones you use in Grafana. If not, go to the IAM console after running this script and update the trust permissions for the authentication provider you will be using. Read more about your [authentication provider in the documentation](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/dashboard-IAM-role.html#grafana-IAM-role).
 
-   ```bash
-   python3 $GETTING_STARTED_DIR/src/modules/grafana/create_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
-   ```
+   Console link for us-east-1: https://us-east-1.console.aws.amazon.com/iottwinmaker/home?region=us-east-1
 
    If you are using Amazon Managed Grafana, add the field:
 
