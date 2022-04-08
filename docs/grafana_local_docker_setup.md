@@ -11,7 +11,7 @@ For a quick start:
 - Set the authentication access to `AWS Single Sign-On` (AWS SSO).
 - Set the permission type to `Service Managed`. This will trigger an IAM role to be created for you that is used to authenticate your Grafana datasources.
 
-TwinMaker will not be listed as a datasource in the Console, but it will already be installed on your Grafana environment.
+IoT TwinMaker will not be listed as a datasource in the Console, but it will already be installed on your Grafana environment.
 
 See you have the following workspace summary when it is created:
 
@@ -59,7 +59,7 @@ If the page is taking a long time to load, it may be that the Ingress rules for 
 
 ### Local
 
-If you ran the `setup_local_grafana_docker.sh` script from above you can see your Grafana instance at http://localhost:3000
+If you ran the `setup_local_grafana_docker.sh` script from above you can see your Grafana instance at http://localhost:3000.
 
 ## Login to Grafana
 
@@ -71,7 +71,7 @@ Once you load the grafana page, you can then logon as Administrator (default use
 
 The next step is to configure Grafana to be able to connect to your IoT TwinMaker Workspace through a data source plugin.
 
-1. From the Grafana home page, select the configuration (gear icon) on the left nav bar and then select 'Data sources'
+1. From the Grafana home page, select the configuration (gear icon) on the left nav bar and then select 'Data sources'.
 2. Select the 'Add data source' button and pick the 'AWS IoT TwinMaker Datasource'.
 3. You can then configure the plugin by filling in your credential settings and select your workspace.
 4. Choose the `Authentication Provider` based on the environment you have set up.
@@ -79,9 +79,9 @@ The next step is to configure Grafana to be able to connect to your IoT TwinMake
 - Amazon Managed Grafana: `Workspace IAM Role`
 - Local setup: `AWS SDK Default`
 
-5. Specify the ARN of the dashboard role you created on step 3 of [deploying a TwinMaker workspace](../README.md#deploying-the-sample-cookie-factory-workspace).
+5. Specify the ARN of the dashboard role you created on step 3 of [deploying an IoT TwinMaker workspace](../README.md#deploying-the-sample-cookie-factory-workspace).
 
-- NOTICE: You must use an AssumeRole ARN when running Grafana in a Cloud9 EC2 instance. This avoids using the EC2 container credentials on the browser when interacting with your TwinMaker dashboards.
+- NOTICE: You must use an AssumeRole ARN when running Grafana in a Cloud9 EC2 instance. This avoids using the EC2 container credentials on the browser when interacting with your IoT TwinMaker dashboards.
 
 6. Click the "Save and Test" button to verify your data source has been configured correctly.
 

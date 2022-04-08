@@ -108,7 +108,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
 
 3. Create an IoT TwinMaker workspace.
 
-   a. Create a TwinMaker execution role
+   a. Create an IoT TwinMaker execution role
 
    Different Digital Twin applications use different resources. Run the following command to create an execution role for our workspace that has the necessary permissions for this sample application. Note that you will use the role name when creating a workspace in the next step.
 
@@ -144,7 +144,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
 
    Make sure that your current AWS credentials are the same as the ones you use in Grafana. If not, go to the IAM console after running this script and update the trust permissions for the authentication provider you will be using. Read more about your [authentication provider in the documentation](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/dashboard-IAM-role.html#grafana-IAM-role).
 
-   We automatically add permission for TwinMaker and Kinesis Video Streams to enable the basic functionality of the Grafana datasource, Scene Viewer panel, and Video Player panel. If you would like to enable more features of the Video Player (time scrubber bar + video upload request from cache) then you need to manually update your IAM policy by following our [video player policy documentation](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/tm-video-policy.html).
+   We automatically add permission for IoT TwinMaker and Kinesis Video Streams to enable the basic functionality of the Grafana datasource, Scene Viewer panel, and Video Player panel. If you would like to enable more features of the Video Player (time scrubber bar + video upload request from cache) then you need to manually update your IAM policy by following our [video player policy documentation](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/tm-video-policy.html).
 
 4. Deploy an Instance of the Timestream Telemetry module.
 
