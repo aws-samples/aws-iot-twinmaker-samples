@@ -48,7 +48,7 @@ The next step is to configure Grafana to be able to connect to your IoT TwinMake
 - Select the 'Add data source' button and pick the 'AWS IoT TwinMaker Datasource'.
 - You can then configure the plugin by filling in your credential settings and select your workspace.
 - Click the "Save and Test" button to verify your data source has been configured correctly.
-- (Optional but recommended) To restrict AWS permissions to be ReadOnly on the IoT TwinMaker workspace of your datasource: enter the IAM role ARN of the dashboard role you created after you created the IoT TwinMaker workspace.
+- (Recommended) To restrict AWS permissions to be ReadOnly on the IoT TwinMaker workspace of your datasource: enter the IAM role ARN of the dashboard role you created after you created the IoT TwinMaker workspace.
 
 Note: the docker setup creates a mapping to your `~/.aws/credentials` file so by using `Authentication Provider: "AWS SDK Default" or "Credentials file"` you can use profiles configured in your environment (or default profile if nothing specified). If running in Cloud9, you can use `AWS SDK Default`.
 
