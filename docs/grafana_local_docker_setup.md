@@ -1,6 +1,33 @@
-# Setup Local Grafana for an AWS IoT TwinMaker Workspace
+# Setup Grafana using Amazon Managed Grafana
 
-We will first walk through the setup of Grafana in a dev environment running in a Docker container on the developer's local desktop. Once Grafana is running, the configuration for running on a local container vs a cloud instance are similar.
+We recommend to get started with Amazon Managed Grafana which is a fully managed service that makes it easy to deploy, operate, and scale Grafana.
+
+## Create an Amazon Managed Grafana workspace
+
+Follow the documentation to create a workspace in the console: https://docs.aws.amazon.com/grafana/latest/userguide/getting-started-with-AMG.html
+
+For a quick start:
+
+- Set the authentication access to `AWS Single Sign-On` (AWS SSO).
+- Set the permission type to `Service Managed`. This will trigger an IAM role to be created for you that is used to authenticate your Grafana datasources.
+
+IoT TwinMaker will not be listed as a datasource in the Console, but it will already be installed on your Grafana environment.
+
+See you have the following workspace summary when it is created:
+
+![Amazon Managed Grafana Workspace](images/amg_workspace_success.png)
+
+## Configure users
+
+Follow the instructions on the console to configure SSO users for your Amazon Managed Grafana workspace. Assign a user for yourself and make it an `Admin` user type.
+
+The "Grafana workspace URL" is the URL of your Grafana environment. Navigate to that endpoint and login using your SSO credentials.
+
+Skip to the the [datasource setup section](#configure-the-aws-iot-twinmaker-datasource) below.
+
+# Quick start: Setup local Grafana
+
+We will walk through the setup of Grafana in a dev environment running in a Docker container on the developer's local desktop. Once Grafana is running, the configuration for running on a local container vs a cloud instance are similar.
 
 ## Create a Docker Container for your Workspace
 
@@ -32,7 +59,7 @@ If the page is taking a long time to load, it may be that the Ingress rules for 
 
 ### Local
 
-If you ran the `setup_local_grafana_docker.sh` script from above you can see your Grafana instance at http://localhost:3000
+If you ran the `setup_local_grafana_docker.sh` script from above you can see your Grafana instance at http://localhost:3000.
 
 ## Login to Grafana
 
@@ -40,23 +67,37 @@ Once you load the grafana page, you can then logon as Administrator (default use
 
 ![Grafana Login](images/grafana_login.png)
 
-## Configure the AWS IoT TwinMaker Datasource
+# Configure the AWS IoT TwinMaker Datasource
 
 The next step is to configure Grafana to be able to connect to your IoT TwinMaker Workspace through a data source plugin.
 
-- From the Grafana home page, select the configuration (gear icon) on the left nav bar and then select 'Data sources'
-- Select the 'Add data source' button and pick the 'AWS IoT TwinMaker Datasource'.
-- You can then configure the plugin by filling in your credential settings and select your workspace.
-- Click the "Save and Test" button to verify your data source has been configured correctly.
-- (Recommended) To restrict AWS permissions to be ReadOnly on the IoT TwinMaker workspace of your datasource: enter the IAM role ARN of the dashboard role you created after you created the IoT TwinMaker workspace.
+1. From the Grafana home page, select the configuration (gear icon) on the left nav bar and then select 'Data sources'.
+2. Select the 'Add data source' button and pick the 'AWS IoT TwinMaker Datasource'.
+3. You can then configure the plugin by filling in your credential settings and select your workspace.
+4. Choose the `Authentication Provider` based on the environment you have set up.
 
-Note: the docker setup creates a mapping to your `~/.aws/credentials` file so by using `Authentication Provider: "AWS SDK Default" or "Credentials file"` you can use profiles configured in your environment (or default profile if nothing specified). If running in Cloud9, you can use `AWS SDK Default`.
+- Amazon Managed Grafana: `Workspace IAM Role`
+- Local setup: `AWS SDK Default`
+
+5. Specify the ARN of the dashboard role you created on step 3 of [deploying an IoT TwinMaker workspace](../README.md#deploying-the-sample-cookie-factory-workspace).
+
+- NOTICE: You must use an AssumeRole ARN when running Grafana in a Cloud9 EC2 instance. This avoids using the EC2 container credentials on the browser when interacting with your IoT TwinMaker dashboards.
+
+6. Click the "Save and Test" button to verify your data source has been configured correctly.
+
+Local docker setup note: the docker setup creates a mapping to your `~/.aws/credentials` file so by using `Authentication Provider: "AWS SDK Default" or "Credentials file"` you can use profiles configured in your environment (or default profile if nothing specified). If running in Cloud9, you can use `AWS SDK Default`.
 
 (Optional) Endpoints for AWS IoT TwinMaker:
 
 Note: if no endpoint is provided, it will default to the `us-east-1` endpoint
 
 - us-east-1: https://iottwinmaker.us-east-1.amazonaws.com
+
+Amazon Managed Grafana example configuration:
+![AMG Datasource](images/amg_datasource.png)
+
+Local environment example configuration:
+![Local Datasource](images/local_datasource.png)
 
 ---
 
@@ -68,7 +109,10 @@ If it does not show up in your list you may need to refresh the page a few times
 
 ### User: arn:aws:sts::[accountId]:assumed-role/iottwinmaker_development_role/[instance_id] is not authorized to perform: sts:AssumeRole on resource: ...Dashboard IAM role...
 
-You will need to edit your Dashboard IAM role to grant permissions to grant assume role permissions to the instance. For quick troubleshooting, you can also temporarily leave the `Assume Role ARN` field blank to default to your SDK credentials. (not recommended for production use-cases)
+You will need to edit your Dashboard IAM role to grant permissions to grant assume role permissions to the instance. Go to the trust relationships of the IAM role and add the authentication provider ARN:
+
+- Amazon Managed Grafana: workspace IAM role ARN
+- Local setup: your IAM user/role ARN
 
 ### could not create "var/lib/grafana/plugins/grafana-iot-twinmaker-app", permission denied
 
