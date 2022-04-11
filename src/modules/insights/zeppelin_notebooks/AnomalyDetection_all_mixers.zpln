@@ -2,7 +2,7 @@
   "paragraphs": [
     {
       "title": "Register Anomaly Detection Function",
-      "text": "%flink\nstenv.getConfig().addJobParameter(\"aws.region\", \"us-west-2\");\nstenv.getConfig().addJobParameter(\"sagemaker.endpoint.name\", \"AnomalyDetectionEndpoint-8bqWuay46mKf\")\nstenv.dropTemporarySystemFunction(\"callAnomalyDetectionFunc\");\nstenv.createTemporarySystemFunction(\"callAnomalyDetectionFunc\", classOf[com.amazonaws.services.iottwinmaker.udf.SageMakerMixerAnomalyDetectionFunction])",
+      "text": "%flink\nstenv.getConfig().addJobParameter(\"aws.region\", \"{0}\");\nstenv.getConfig().addJobParameter(\"sagemaker.endpoint.name\", \"{1}\")\nstenv.dropTemporarySystemFunction(\"callAnomalyDetectionFunc\");\nstenv.createTemporarySystemFunction(\"callAnomalyDetectionFunc\", classOf[com.amazonaws.services.iottwinmaker.udf.SageMakerMixerAnomalyDetectionFunction])",
       "user": "anonymous",
       "dateUpdated": "2022-03-23T19:44:14+0000",
       "progress": 0,
@@ -38,7 +38,7 @@
     },
     {
       "title": "Create Input Table",
-      "text": "%flink.ssql\nDROP TABLE IF EXISTS anomaly_detection_input_table;\nCREATE TABLE anomaly_detection_input_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `RPM` DOUBLE,\n  `timestamp` TIMESTAMP(3),\n  WATERMARK FOR `timestamp` AS `timestamp` - INTERVAL '2' SECOND\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = 'us-west-2',\n  'iottwinmaker.workspace_id' = 'CookieFactory2',\n  'iottwinmaker.component_type_id' = 'com.example.cookiefactory.mixer',\n  'iottwinmaker.property_name' = 'RPM',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '2022-03-23T17:10:39-00:00'\n);\n",
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS anomaly_detection_input_table;\nCREATE TABLE anomaly_detection_input_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `RPM` DOUBLE,\n  `timestamp` TIMESTAMP(3),\n  WATERMARK FOR `timestamp` AS `timestamp` - INTERVAL '2' SECOND\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = '{0}',\n  'iottwinmaker.workspace_id' = '{1}',\n  'iottwinmaker.component_type_id' = 'com.example.cookiefactory.mixer',\n  'iottwinmaker.property_name' = 'RPM',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '{2}'\n);\n",
       "user": "anonymous",
       "dateUpdated": "2022-03-23T19:22:19+0000",
       "progress": 0,
@@ -73,7 +73,7 @@
     },
     {
       "title": "Create Output Table",
-      "text": "%flink.ssql\nDROP TABLE IF EXISTS anomaly_detection_output_table;\nCREATE TABLE anomaly_detection_output_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `AnomalyScore` DOUBLE,\n  `timestamp` TIMESTAMP(3)\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = 'us-west-2',\n  'iottwinmaker.workspace_id' = 'CookieFactory2',\n  'iottwinmaker.component_type_id' = 'com.amazon.iotsitewise.connector',\n  'iottwinmaker.property_name' = 'AnomalyScore',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '2022-03-23T17:10:39-00:00'\n);\n",
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS anomaly_detection_output_table;\nCREATE TABLE anomaly_detection_output_table (\n  `entity_id` STRING,\n  `component_name` STRING,\n  `AnomalyScore` DOUBLE,\n  `timestamp` TIMESTAMP(3)\n) WITH (\n  'connector' = 'iot-twinmaker',\n  'aws.region' = '{0}',\n  'iottwinmaker.workspace_id' = '{1}',\n  'iottwinmaker.component_type_id' = 'com.amazon.iotsitewise.connector',\n  'iottwinmaker.property_name' = 'AnomalyScore',\n  'source.initpos' = 'AT_TIMESTAMP',\n  'source.initpos.timestamp' = '{2}'\n);\n",
       "user": "anonymous",
       "dateUpdated": "2022-03-23T19:22:47+0000",
       "progress": 0,

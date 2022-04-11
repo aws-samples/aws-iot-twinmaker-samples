@@ -3,15 +3,20 @@
 
 import boto3
 import time
-import datetime
+from datetime import datetime
 import requests
 import json
 import argparse
 import sys
 import os
+from enum import Enum
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../modules'))
 from sitewise.lib.util.SiteWiseTelemetryUtils import SiteWiseTelemetryImporter
+
+class UpdateType(Enum):
+    CREATE = 'CREATE'
+    DELETE = 'DELETE'
 
 def parse_args():
     parser = argparse.ArgumentParser( description='Imports the Simulation content into a specified workspace.')
@@ -34,16 +39,16 @@ def parse_args():
     return parser.parse_args()
 
 def main():
-    def import_notebook(file_path, note_name, sagemaker_endpoint, region_name):
+    def import_notebook(file_path, note_name, sagemaker_endpoint, region_name, start_time):
         with open(file_path, 'r') as f:
             export_body_json = f.read().encode().decode('utf-8-sig')
             note_json = json.loads(export_body_json)
             note_json['name'] = note_name
             text_str_1 = note_json['paragraphs'][0]['text'].encode().decode('utf-8-sig').format(region_name, sagemaker_endpoint)
             note_json['paragraphs'][0]['text'] = text_str_1
-            text_str_2 = note_json['paragraphs'][1]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id)
+            text_str_2 = note_json['paragraphs'][1]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id, start_time)
             note_json['paragraphs'][1]['text'] = text_str_2
-            text_str_3 = note_json['paragraphs'][2]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id)
+            text_str_3 = note_json['paragraphs'][2]['text'].encode().decode('utf-8-sig').format(region_name, workspace_id, start_time)
             note_json['paragraphs'][2]['text'] = text_str_3
             for p in note_json['paragraphs']:
                if 'results' in p: # clear previous results
@@ -67,30 +72,35 @@ def main():
     def create_sitewise_asset_for_insights(sitewise_model_id, asset_name):
         asset = sitewiseImporter.create_asset(asset_name, sitewise_model_id)
         return asset['assetId']
-
-    def update_entity_with_sitewise_components(entity_id, component_name, asset_id, asset_model_id):
-        try:
-            update_entity = iottwinmaker.update_entity(
-                componentUpdates={
-                    component_name: {
-                        "updateType": "CREATE",
-                        "componentTypeId": "com.amazon.iotsitewise.connector",
-                        "propertyUpdates": {
-                            "sitewiseAssetId": {
-                                "updateType": "UPDATE",
-                                "value": {
-                                    "stringValue": asset_id
-                                }
-                            },
-                            "sitewiseAssetModelId": {
-                                "updateType": "UPDATE",
-                                "value": {
-                                    "stringValue": asset_model_id
-                                }
-                            }
-                        }
+    
+    def get_sitewise_component_updates(update_type: UpdateType, component_name, asset_id, asset_model_id):
+        component_updates = {
+            component_name: {
+                "updateType": update_type.value,
+                "componentTypeId": "com.amazon.iotsitewise.connector"
+            }
+        }
+        if update_type is UpdateType.CREATE:
+            component_updates[component_name]['propertyUpdates'] = {
+                "sitewiseAssetId": {
+                    "updateType": "UPDATE",
+                    "value": {
+                        "stringValue": asset_id
                     }
                 },
+                "sitewiseAssetModelId": {
+                    "updateType": "UPDATE",
+                    "value": {
+                        "stringValue": asset_model_id
+                    }
+                }
+            }
+        return component_updates
+
+    def update_entity_with_sitewise_components(entity_id, component_updates):
+        try:
+            update_entity = iottwinmaker.update_entity(
+                componentUpdates = component_updates,
                 entityId = entity_id,
                 workspaceId = workspace_id)
             print(update_entity)
@@ -101,7 +111,7 @@ def main():
                 state = entity_description['status']['state']
             print('Updating finished')
         except Exception as e:
-            if 'Component '+ component_name + ' in entity ' + entity_id + ' in workspace' in str(e):
+            if list(component_updates.keys())[0] + ' in entity ' + entity_id + ' in workspace' in str(e):
                 print("entity updated")
             else:
                 raise e
@@ -133,7 +143,7 @@ def main():
             for mixer_name in mixers:
                 mixer_entity_id = mixers[mixer_name]
                 simulation_sitewise_asset_id = create_sitewise_asset_for_insights(simulation_sitewise_model_id, f'{workspace_id}_{mixer_name}_Simulation_Output')
-                update_entity_with_sitewise_components(mixer_entity_id, 'PowerSimulationOutputComponent', simulation_sitewise_asset_id, simulation_sitewise_model_id)
+                update_entity_with_sitewise_components(mixer_entity_id, get_sitewise_component_updates(UpdateType.CREATE, POWER_SIMULATION_COMPONENT_NAME, simulation_sitewise_asset_id, simulation_sitewise_model_id))
 
         # Import SiteWise component for storing Anomaly Detection Output.
         if args.import_anomaly_detection_sitewise or args.import_all:
@@ -141,7 +151,7 @@ def main():
             for mixer_name in mixers:
                 mixer_entity_id = mixers[mixer_name]
                 anomaly_detection_sitewise_asset_id = create_sitewise_asset_for_insights(anomaly_detection_sitewise_model_id, f'{workspace_id}_{mixer_name}_Anomaly_Detection_Output')
-                update_entity_with_sitewise_components(mixer_entity_id, 'AnomalyDetectionOutputComponent', anomaly_detection_sitewise_asset_id, anomaly_detection_sitewise_model_id)
+                update_entity_with_sitewise_components(mixer_entity_id, get_sitewise_component_updates(UpdateType.CREATE, ANOMALY_DETECTION_COMPONENT_NAME, anomaly_detection_sitewise_asset_id, anomaly_detection_sitewise_model_id))
 
     def start_kda_app(zeppelin_app_name):
         ## START
@@ -166,7 +176,7 @@ def main():
                 ApplicationName=zeppelin_app_name
             )
             while zeppelin_app_status['ApplicationDetail']['ApplicationStatus'] == 'STARTING':
-                print(f"{datetime.datetime.now()} - ZEPPELIN_APP_STATUS: {zeppelin_app_status['ApplicationDetail']['ApplicationStatus']}")
+                print(f"{datetime.now()} - ZEPPELIN_APP_STATUS: {zeppelin_app_status['ApplicationDetail']['ApplicationStatus']}")
                 zeppelin_app_status = kda.describe_application(
                     ApplicationName=zeppelin_app_name
                 )
@@ -199,8 +209,8 @@ def main():
 
             # import Simulation Zeppelin Note (from /export output)
             print('Start importing notebook')
-            SIMULATION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{simulation_note_name}.zpln', simulation_note_name, simulation_endpoint_name, region_name)
-            ANOMALY_DETECTION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{ad_note_name}.zpln', ad_note_name, ad_endpoint_name, region_name)
+            SIMULATION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{simulation_note_name}.zpln', simulation_note_name, simulation_endpoint_name, region_name, sample_content_start_time)
+            ANOMALY_DETECTION_EXPORT_BODY = import_notebook(f'./zeppelin_notebooks/{ad_note_name}.zpln', ad_note_name, ad_endpoint_name, region_name, sample_content_start_time)
             headers = {'Cookie': VERIFIED_COOKIE, 'Content-Type': 'application/json'}
             requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=ANOMALY_DETECTION_EXPORT_BODY)
             requests.post(f"{url_prefix}/api/notebook/import", headers=headers, data=SIMULATION_EXPORT_BODY)
@@ -211,9 +221,18 @@ def main():
         if args.delete_simulation_sitewise or args.delete_all:
             print('Deleting sitewise data for simulation...')
             sitewiseImporter.cleanup_sitewise(simulation_output_asset_model_name)
+            print('Deleting sitewise components for simulation...')
+            for mixer_name in mixers:
+                mixer_entity_id = mixers[mixer_name]
+                update_entity_with_sitewise_components(mixer_entity_id, get_sitewise_component_updates(UpdateType.DELETE, POWER_SIMULATION_COMPONENT_NAME, None, None))
+
         if args.delete_anomaly_detection_sitewise or args.delete_all:
             print('Deleting sitewise data for anomaly detection...')
             sitewiseImporter.cleanup_sitewise(anomaly_detection_output_asset_model_name)
+            print('Deleting sitewise components for anomaly detection...')
+            for mixer_name in mixers:
+                mixer_entity_id = mixers[mixer_name]
+                update_entity_with_sitewise_components(mixer_entity_id, get_sitewise_component_updates(UpdateType.DELETE, ANOMALY_DETECTION_COMPONENT_NAME, None, None))
 
     def get_zepplin_app_name():
         cfn_stack_description = cfn_client.describe_stacks(StackName=args.kda_stack_name)
@@ -231,6 +250,14 @@ def main():
         print('simulation_endpoint_name: ' + simulation_endpoint_name)
         print('anomaly_detection_endpoint_name: ' + ad_endpoint_name)
         return simulation_endpoint_name, ad_endpoint_name
+    
+    def get_sample_content_start_time():
+        workspace_description = iottwinmaker.get_workspace(workspaceId=workspace_id)
+        workspace_tags = iottwinmaker.list_tags_for_resource(resourceARN=workspace_description.get('arn'))
+        timestamp = int(workspace_tags.get('tags').get('samples_content_start_time'))
+        sample_content_start_time = f"{datetime.utcfromtimestamp(timestamp/1000).isoformat(timespec='seconds')}-00:00"
+        print('sample_content_start_time: ' + sample_content_start_time)
+        return sample_content_start_time
 
     args = parse_args()
 
@@ -247,8 +274,11 @@ def main():
 
     simulation_endpoint_name, ad_endpoint_name = get_sagemaker_endpoints()
 
+    sample_content_start_time = get_sample_content_start_time()
+
     mixers = get_mixer_entities()
 
+    POWER_SIMULATION_COMPONENT_NAME, ANOMALY_DETECTION_COMPONENT_NAME = ('PowerSimulationOutputComponent', 'AnomalyDetectionOutputComponent')
     import_sitewise_components(mixers)
 
     start_kda_app(zeppelin_app_name)

@@ -2,11 +2,11 @@
 
 ## Summary
 
-The module provides a sample integration with simulation functionality via Maplesoft, as well as a sample integration with a pretrained machine learning model for anomaly detection (using the sample data in the Cookie Factory). 
+The module provides a sample integration with simulation functionality via Maplesoft, as well as a sample integration with a pre-trained machine learning model for anomaly detection (using the sample data in the Cookie Factory). 
 
 It deploys the following 2 stacks:
 
-* CookieFactorySageMakerStack - Deploys two SageMaker endpoints, one as a sample simulation service for running MapleSoft simulation, the other as an inference endpoint using a pretrained anomaly detection model. Both endpoints accept HTTP POST requests. See a sample request in the "Test SageMaker Endpoints" section below. 
+* CookieFactorySageMakerStack - Deploys two SageMaker endpoints, one as a sample simulation service for running MapleSoft simulation, the other as an inference endpoint using a pre-trained anomaly detection model. Both endpoints accept HTTP POST requests. See a sample request in the "Test SageMaker Endpoints" section below. 
 * CookieFactoryKdaStack - Contains a KDA Studio notebook application configured with the AWS IoT TwinMaker Flink library. In this notebook you can write Flink SQL streaming applications against AWS IoT TwinMaker data sources. The notebook application also interacts with the simulation/anomaly detection features hosted in SageMaker.
 
 **Note**
@@ -58,7 +58,7 @@ It deploys the following 2 stacks:
       export SIMULATION_ENDPOINT_NAME=$(echo $SAGEMAKER_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="SimulationEndpointName").OutputValue')
       export ENDPOINT_URL=https://runtime.sagemaker.${AWS_DEFAULT_REGION}.amazonaws.com/endpoints/${SIMULATION_ENDPOINT_NAME}/invocations
       ```
-    - Send test request against Maplesoft simulation running in Sagemaker.
+    - Send test request against Maplesoft simulation running in SageMaker.
       ```
       awscurl --service sagemaker -X POST -H "Content-Type: application/json" -d '{           
         "inputs": {
@@ -75,38 +75,38 @@ It deploys the following 2 stacks:
       export AD_ENDPOINT_NAME=$(echo $SAGEMAKER_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="AnomalyDetectionEndpointName").OutputValue')
       export AD_ENDPOINT_URL=https://runtime.sagemaker.${AWS_DEFAULT_REGION}.amazonaws.com/endpoints/${AD_ENDPOINT_NAME}/invocations
       ```
-    - Send test request against Maplesoft simulation running in Sagemaker.
+    - Send test request against Maplesoft simulation running in SageMaker.
       ```
       awscurl --service sagemaker -X POST -H "Content-Type: application/json" -d '{"instances": [{"features": [58.00]}]}' $AD_ENDPOINT_URL
       ```
       The response should look something like the following: ```{"scores":[{"score":1.019143498}]}```.    
 4. Set up KDA Studio, SiteWise resources for insights
-  - Start and bootstrap KDA notebook. (Notebook startup can take ~5 minutes.)
+  - Start and bootstrap KDA notebook. (Setting up assets for all Mixers can take ~7 minutes and Zeppelin Notebook startup can take ~5 minutes.)
 
     ```
     cd $INSIGHT_DIR
     ```
 
-    Note: by default, the insights module updates all mixers in the cookie factory with simulation and anomaly detection components, and
-    run Flink jobs for all mixers. If you only want to run analysis for a single mixer, add `--analyze-one-mixer` to the command below.
+    Note: by default, the insights module updates all mixers in the cookie factory with simulation and anomaly detection components, and run Flink jobs for all mixers. If you only want to run analysis for a single mixer, add `--analyze-one-mixer` to the command below.
 
     ```
     python3 $INSIGHT_DIR/install_insights_module.py --workspace-id $WORKSPACE_ID --region-name $AWS_DEFAULT_REGION --kda-stack-name $KDA_STACK_NAME --sagemaker-stack-name $SAGEMAKER_STACK_NAME --import-all
     ```
 
   - Navigate to the link output by the preceding command. (This may contain a long pre-signed url token). Please copy the full length of link output.
-  - Update the paragraphs in each notebook (MaplesoftSimulation_all_mixers and AnomalyDetection_all_mixers) as needed:
-    - update the timestamp in the `CREATE TABLE` call if needed based on when your data was ingested.
-    - if your data was ingested using the CookieFactory sample, we store a tag on the workspace indicating when data was ingested for the sample. You can use the following to lookup the data ingestion time (in milliseconds from epoch):
-      ```
-      aws iottwinmaker list-tags-for-resource --resource-arn $(aws iottwinmaker get-workspace --workspace-id $WORKSPACE_ID | jq -r '.arn') | jq -r .tags.samples_content_start_time
-      ```
-  - Execute all the paragraphs sequentially in the notebook to see data streamed from AWS IoT TwinMaker into the Maplesoft simulation/Anomaly Detection and results output to the notebook.
+
+5. Run Power Simulation Notebook
+  - Open the MaplesoftSimulation_all_mixers notebook on the "Welcome to Zeppelin!" page from the previous step.
+  - Execute all the paragraphs sequentially in the notebook to see data streamed from AWS IoT TwinMaker into the Maplesoft simulation to produce power consumption results from RPM.
+
+6. Run Anomaly Detection Notebook
+  - Open the MaplesoftSimulation_all_mixers notebook on the "Welcome to Zeppelin!" page from the previous step.
+  - Execute all the paragraphs sequentially in the notebook to see data streamed from AWS IoT TwinMaker into the Anomaly Detection machine learning model to calculate RPM anomaly scores.
 
 ## Set up AWS IoT TwinMaker Insight Dashboard
 ![Grafana Import CookieFactory](../../../docs/images/grafana_import_result_insights_module.png)
 
-This section should be similar to setting up the main Cookie Factory dashboard described in [GettingStarted/README.md](../../../README.md). If you have aleady finished setting up the main Cookie Factory dashboard. You can skip step 1 below.
+This section will be similar to setting up the main Cookie Factory dashboard described in [GettingStarted/README.md](../../../README.md). If you have already finished setting up the main Cookie Factory dashboard. You can skip step 1 below.
 1. AWS IoT TwinMaker provides a Grafana plugin that allows you to build dashboards using IoT TwinMaker scenes and modeled data sources. Grafana is deployable as a docker container. We recommend that new users follow these instructions to set up Grafana as a local container: [Instructions](../../../docs/grafana_local_docker_setup.md) (If this link doesn't work in Cloud9, open `docs/grafana_local_docker_setup.md`.)
     For advanced users aiming to set up a production Grafana installation in their account, we recommend checking out https://github.com/aws-samples/aws-cdk-grafana.
 2. Import Grafana dashboards for the Cookie Factory.
@@ -201,11 +201,50 @@ public class SageMakerMixerSimulationFunction extends ScalarFunction {
 
 ## Cleanup
 
-1. Go to CloudFormation console and delete the 2 stacks.
-2. Run scripts to delete SiteWise components created for anomaly detection and simulation.
+Run the following to remove content installed by the above steps. Note: The stacks may take several minutes to delete.
+
+Delete installed assets
+
 ```
-python3 $INSIGHT_DIR/install_insights_module.py --workspace-id $WORKSPACE_ID --region-name $AWS_DEFAULT_REGION --delete-all
+python3 $INSIGHT_DIR/install_insights_module.py --workspace-id $WORKSPACE_ID --region-name $AWS_DEFAULT_REGION --kda-stack-name $KDA_STACK_NAME --sagemaker-stack-name $SAGEMAKER_STACK_NAME --delete-all
 ```
+
+Delete cloudformation stacks
+
+```
+aws cloudformation delete-stack --stack-name $KDA_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $KDA_STACK_NAME --region $AWS_DEFAULT_REGION
+```
+
+```
+aws cloudformation delete-stack --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION
+```
+---
+## Troubleshooting
+
+#### Zeppelin notebook or Grafana dashboard don't show the input data (RPM)
+
+* In Grafana dashboard, please make sure mixer telemetry data is in the applied time range. The start time of the telemetry data is the `source.initpos.timestamp` value in KDA notebook.
+
+* If the time range is correct, check if the RPM data is returned by using the `get-property-value-history` API (update the startDateTime and endDateTime).
+```
+aws iottwinmaker get-property-value-history \
+   --region $AWS_DEFAULT_REGION \
+   --cli-input-json '{"componentName": "MixerComponent","endDateTime": "2022-11-01T00:00:00","entityId": "Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837","orderByTime": "ASCENDING","selectedProperties": ["RPM"],"startDateTime": "2021-11-01T00:00:00","workspaceId": "'${WORKSPACE_ID}'"}'
+```
+
+#### Zeppelin notebook or Grafana dashboard don't show the output data (simulated power/anomaly score)
+
+* Make sure the SageMaker endpoint is working (step 3 in the Setup / Test section above)
+* AWS IoT SiteWise accepts values that have a timestamp of no more than 7 days in the past and no more than 10 minutes in the future (
+  [SiteWise BatchPutAssetPropertyValue API reference](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_BatchPutAssetPropertyValue.html)). Please make sure the telemetry data for the mixer is within the valid range.
+
+#### "NoResourceAvailableException: Could not acquire the minimum required resources" in KDA Studio notebook
+
+This means KDA doesn't have free resource to run the notebook. Please consider stop the execution for some paragraphs, or change the scaling parameter of the KDA app (refer to the Scaling section in the Configuration tab in the app).
+
+#### Other KDA Studio notebook issues
+
+Please refer to [KDA Studio notebook Troubleshooting page](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-zeppelin-troubleshooting.html).
 
 ---
 
