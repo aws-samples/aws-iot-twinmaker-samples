@@ -23,7 +23,7 @@ This module provides a sample implementation of an Amazon S3 connector for AWS I
 
 1. Init current path
     
-    If you came here from the base cookie
+    If you came here from the base cookie factory README
 
     ```
     export S3_MODULE_DIR=$PWD

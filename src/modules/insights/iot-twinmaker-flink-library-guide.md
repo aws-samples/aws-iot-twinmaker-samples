@@ -1,10 +1,7 @@
 
 ---
-**NOTE**
 
-IoT TwinMaker is currently in public preview. This service is subject to change.
-
-Currently IoT TwinMaker Flink library only supports Flink version 1.13.
+Currently, IoT TwinMaker Flink library only supports Flink version 1.13.
 
 ---
 
