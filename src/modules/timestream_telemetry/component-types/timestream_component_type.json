@@ -23,7 +23,7 @@
             "dataType": {
                 "type": "STRING"
             },
-            "isExternalId": false,
+            "isExternalId": true,
             "isStoredExternally": false,
             "isTimeSeries": false,
             "isRequiredInEntity": true
