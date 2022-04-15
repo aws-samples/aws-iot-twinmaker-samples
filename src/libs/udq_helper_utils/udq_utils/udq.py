@@ -56,12 +56,18 @@ class IoTTwinMakerDataRow(ABC):
         """
         raise NotImplementedError("get_iottwinmaker_reference not implemented")
 
-    @abstractmethod
     def get_timestamp(self) -> datetime:
         """
         :return: the timestamp for this row as a datetime object
         """
         raise NotImplementedError("get_timestamp not implemented")
+
+    @abstractmethod
+    def get_iso8601_timestamp(self) -> str:
+        """
+        :return: the timestamp for this row as an ISO8601 string
+        """
+        return None
 
     @abstractmethod
     def get_value(self):

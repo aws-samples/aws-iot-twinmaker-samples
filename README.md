@@ -25,7 +25,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
      ```bash
      aws sts get-caller-identity
      ```
-   - Ensure your AWS CLI version is at least 1.22.17. (or 2.4.21+ for AWS CLI v2)
+   - Ensure your AWS CLI version is at least 1.22.94. (or 2.5.5+ for AWS CLI v2)
      ```bash
      aws --version
      ```
@@ -194,7 +194,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
    ```
    aws iottwinmaker get-property-value-history \
       --region $AWS_DEFAULT_REGION \
-      --cli-input-json '{"componentName": "AlarmComponent","endDateTime": "2022-11-01T00:00:00","entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef","orderByTime": "ASCENDING","selectedProperties": ["alarm_status"],"startDateTime": "2021-11-01T00:00:00","workspaceId": "'${WORKSPACE_ID}'"}'
+      --cli-input-json '{"componentName": "AlarmComponent","endTime": "2022-11-01T00:00:00Z","entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef","orderByTime": "ASCENDING","selectedProperties": ["alarm_status"],"startTime": "2021-11-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
    ```
 
 7. Set up Grafana for the Cookie Factory.
@@ -238,7 +238,7 @@ In this section we'll add SiteWise assets and telemetry, and then update the Coo
    ```
    aws iottwinmaker get-property-value-history \
      --region $AWS_DEFAULT_REGION \
-     --cli-input-json '{"componentName": "WaterTankVolume","endDateTime": "2022-11-01T00:00:00","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startDateTime": "2021-11-01T00:00:00","workspaceId": "'${WORKSPACE_ID}'"}'
+     --cli-input-json '{"componentName": "WaterTankVolume","endTime": "2022-11-01T00:00:00Z","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startTime": "2021-11-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
    ```
 
 ### S3 Document Connector
@@ -281,36 +281,6 @@ TIMESTREAM_TELEMETRY_STACK_NAME=__see_above__
 AWS_DEFAULT_REGION=us-east-1
 ```
 
-Change directory
-
-```
-cd $GETTING_STARTED_DIR/src/workspaces/cookiefactory
-```
-
-Delete grafana dashboard role (if exists)
-
-```
-python3 $GETTING_STARTED_DIR/src/modules/grafana/cleanup_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
-```
-
-Delete AWS IoT TwinMaker workspace + contents
-
-```
-# this script is safe to terminate and restart if entities seem stuck in deletion
-python3 -m setup_content \
-     --telemetry-stack-name $TIMESTREAM_TELEMETRY_STACK_NAME \
-     --workspace-id $WORKSPACE_ID \
-     --region-name $AWS_DEFAULT_REGION \
-     --delete-all \
-     --delete-workspace-role-and-bucket
-```
-
-Delete the Telemetry CFN stack + wait
-
-```
-aws cloudformation delete-stack --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION
-```
-
 ### Add-on Teardown: SiteWise Connector
 
 Run the following if you installed the add-on SiteWise content and would like to remove it
@@ -345,6 +315,38 @@ aws cloudformation delete-stack --stack-name $KDA_STACK_NAME --region $AWS_DEFAU
 
 ```
 aws cloudformation delete-stack --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION
+```
+
+### Delete Base Content
+
+Change directory
+
+```
+cd $GETTING_STARTED_DIR/src/workspaces/cookiefactory
+```
+
+Delete grafana dashboard role (if exists)
+
+```
+python3 $GETTING_STARTED_DIR/src/modules/grafana/cleanup_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
+```
+
+Delete AWS IoT TwinMaker workspace + contents
+
+```
+# this script is safe to terminate and restart if entities seem stuck in deletion
+python3 -m setup_content \
+     --telemetry-stack-name $TIMESTREAM_TELEMETRY_STACK_NAME \
+     --workspace-id $WORKSPACE_ID \
+     --region-name $AWS_DEFAULT_REGION \
+     --delete-all \
+     --delete-workspace-role-and-bucket
+```
+
+Delete the Telemetry CFN stack + wait
+
+```
+aws cloudformation delete-stack --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION
 ```
 
 ### (Optional) Delete local Grafana configuration

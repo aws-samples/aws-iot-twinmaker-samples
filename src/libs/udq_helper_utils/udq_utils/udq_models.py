@@ -104,8 +104,11 @@ class IoTTwinMakerUnifiedDataQuery(ABC):
             ref = row.get_iottwinmaker_reference()
             if ref not in entity_prop_ref_to_values:
                 entity_prop_ref_to_values[ref] = []
+            ts = row.get_iso8601_timestamp()
+            if ts is None:
+                ts = row.get_timestamp().strftime('%Y-%m-%dT%H:%M:%S.000Z')
             entity_prop_ref_to_values[ref].append({
-                'timestamp': int(row.get_timestamp().timestamp()),
+                'time': ts,
                 'value': serialize_value(row.get_value())
             })
 
@@ -174,15 +177,20 @@ class IoTTwinMakerUdqRequest():
             if selectedProperty not in allowed_props and selectedProperty != 'alarm_status':
                 raise Exception(f"selectedProperty: {selectedProperty} not found in entity/component definition. Allowed properties: {allowed_props}")
 
-        def get_required_datetime_field(event, field_name):
+        # deprecated: only used while startDateTime/endDateTime not yet replaced with startTime/endTime
+        def get_optional_datetime_field(event, field_name):
             time_in_sec = IoTTwinMakerUdqRequest.get_required_field(event, field_name)
             try:
                 return datetime.utcfromtimestamp(time_in_sec)
             except:
-                raise Exception(f"Timestamp[{time_in_sec}] could not be converted to IS8601")
+                return None
 
-        self._startDateTime = get_required_datetime_field(self._event, 'startDateTime')
-        self._endDateTime = get_required_datetime_field(self._event, 'endDateTime')
+        # optional since these fields are being replaced with startTime / endTime for better time precision
+        self._startDateTime = get_optional_datetime_field(self._event, 'startDateTime')
+        self._endDateTime = get_optional_datetime_field(self._event, 'endDateTime')
+
+        self._startTime = IoTTwinMakerUdqRequest.get_required_field(self._event, 'startTime')
+        self._endTime = IoTTwinMakerUdqRequest.get_required_field(self._event, 'endTime')
 
         self._nextToken = event.get('nextToken')
         self._maxRows = event.get('maxResults')
@@ -235,6 +243,7 @@ class IoTTwinMakerUdqRequest():
         """
         return self._selectedProperties
 
+    # deprecated, used start_time instead, which supports higher precision
     @property
     def start_datetime(self) -> datetime:
         """
@@ -242,12 +251,27 @@ class IoTTwinMakerUdqRequest():
         """
         return self._startDateTime
 
+    # deprecated, used end_time instead, which supports higher precision
     @property
     def end_datetime(self) -> datetime:
         """
         The inclusive end time of the query
         """
         return self._endDateTime
+
+    @property
+    def start_time(self) -> str:
+        """
+        The exclusive start time of the query as ISO8601 basic string
+        """
+        return self._startTime
+
+    @property
+    def end_time(self) -> str:
+        """
+        The inclusive end time of the query as ISO8601 basic string
+        """
+        return self._endTime
 
     @property
     def next_token(self) -> str:

@@ -131,7 +131,7 @@ Upgrade pip
 sudo python3 -m pip install --upgrade pip
 ```
 
-Upgrade AWS CLI (should output `aws-cli/1.22.17` or greater)
+Upgrade AWS CLI (should output `aws-cli/1.22.94` or greater)
 
 ```
 sudo pip3 install awscli --ignore-installed docutils --force-reinstall --upgrade && source ~/.bashrc && aws --version
