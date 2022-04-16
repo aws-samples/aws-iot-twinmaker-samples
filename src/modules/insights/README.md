@@ -29,7 +29,7 @@ It deploys the following 2 stacks:
     ```
   - Set directory for later instructions.
     ```
-    INSIGHT_DIR=$PWD
+    export INSIGHT_DIR=$PWD
     ```
   - Set stack names
     ```
@@ -102,6 +102,16 @@ It deploys the following 2 stacks:
 6. Run Anomaly Detection Notebook
   - Open the MaplesoftSimulation_all_mixers notebook on the "Welcome to Zeppelin!" page from the previous step.
   - Execute all the paragraphs sequentially in the notebook to see data streamed from AWS IoT TwinMaker into the Anomaly Detection machine learning model to calculate RPM anomaly scores.
+
+7. (Optional) Promote KDA notebook to KDA app
+  - Once you're satisfied with the results in the notebook. You can promote it as a **KDA app with durable state** with following steps.
+  - Select paragrah `Query Input` and disable run (Ctrl+ Option+R). Do the same thing for paragraph `Query Output`.
+  - Click the dropdown on the right top corner of each note in your notebook with the name of the notebook.
+  - Choose **Build [note name] and export to Amazon S3**. (You may need to truncate the application name when you see "Application names can only contain uppercase and lowercase letters, numbers, underscores, hyphens, and periods.").
+  - Once the build is complete, use the dropdown and choose **Deploy [note name] as Kinesis streaming application**. Review the application name and choose **Deploy via AWS Console**.
+  - This will lead you to the AWS Management Console page for creating a Kinesis Data Analytics application. Use the default setting for now and choose **Create application**.
+  - You can choose **Configure** and modify any settings, and choose **Run** to start your streaming application.
+  - You can check KDA documentation [Deploying as an application with durable state](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-notebook-durable.html) and [its tutorial](https://docs.aws.amazon.com/kinesisanalytics/latest/java/example-notebook-deploy.html#example-notebook-deploy-console) for more information.
 
 ## Set up AWS IoT TwinMaker Insight Dashboard
 ![Grafana Import CookieFactory](../../../docs/images/grafana_import_result_insights_module.png)

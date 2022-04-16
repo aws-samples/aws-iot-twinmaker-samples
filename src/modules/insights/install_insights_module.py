@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import boto3
+import botocore
 import time
 from datetime import datetime
 import requests
@@ -30,8 +31,9 @@ def parse_args():
     parser.add_argument('--analyze-one-mixer', default=False, required=False, action='store_true', dest="analyze_one_mixer", help='Run insights analysis only on mixer 0 (only mixer 0 will be updated with insights related components).')
     parser.add_argument('--import-simulation-sitewise', default=False, required=False, action='store_true', dest="import_simulation_sitewise", help='Import all sitewise data for simulation from the workspace.')
     parser.add_argument('--import-anomaly-detection-sitewise', default=False, required=False, action='store_true', dest="import_anomaly_detection_sitewise", help='Import all sitewise data for anomaly detection from the workspace.')
-    parser.add_argument('--import-kda-app', default=False, required=False, action='store_true', dest="import_kda_app", help='Delete all sitewise data for simulation from the workspace.')
+    parser.add_argument('--import-kda-app', default=False, required=False, action='store_true', dest="import_kda_app", help='Import and start kda app. Then create notes inside it')
 
+    parser.add_argument('--delete-promoted-kda-app', default=False, required=False, action='store_true', dest="delete_promoted_kda_app", help='Delete promoted kda app and s3 bucket')
     parser.add_argument('--delete-simulation-sitewise', default=False, required=False, action='store_true', dest="delete_simulation_sitewise", help='Delete all sitewise data for simulation from the workspace.')
     parser.add_argument('--delete-anomaly-detection-sitewise', default=False, required=False, action='store_true', dest="delete_anomaly_detection_sitewise", help='Delete all sitewise data for anomaly detection from the workspace.')
     parser.add_argument('--delete-all', default=False, required=False, action='store_true', dest="delete_all", help='Delete all simulation data from the workspace.')
@@ -157,7 +159,6 @@ def main():
         ## START
         # aws kinesisanalyticsv2 start-application --application-name $ZEPPELIN_APP_NAME --region us-west-2
         if args.import_kda_app or args.import_all:
-            kda = session.client(service_name='kinesisanalyticsv2', region_name=region_name)
             try:
                 kda.start_application(
                     ApplicationName=zeppelin_app_name
@@ -233,6 +234,18 @@ def main():
             for mixer_name in mixers:
                 mixer_entity_id = mixers[mixer_name]
                 update_entity_with_sitewise_components(mixer_entity_id, get_sitewise_component_updates(UpdateType.DELETE, ANOMALY_DETECTION_COMPONENT_NAME, None, None))
+        
+        if args.delete_promoted_kda_app or args.delete_all:
+            print('Deleting promoted kda app...')
+            kda_applications = kda.list_applications()
+            for kda_application in kda_applications.get('ApplicationSummaries'):
+                application_name = kda_application.get('ApplicationName')
+                if isinstance(application_name, str) and application_name.startswith(f"{args.kda_stack_name}-"):
+                    create_timestamp = kda.describe_application(ApplicationName=application_name).get('ApplicationDetail').get('CreateTimestamp')
+                    kda.delete_application(ApplicationName=application_name, CreateTimestamp=create_timestamp)
+            print('Deleting s3 bucket for kda app...')
+            bucket_name = f"{args.kda_stack_name.lower()}-{account_id}-{region_name}"
+            delete_s3_bucket(bucket_name)
 
     def get_zepplin_app_name():
         cfn_stack_description = cfn_client.describe_stacks(StackName=args.kda_stack_name)
@@ -258,6 +271,19 @@ def main():
         sample_content_start_time = f"{datetime.utcfromtimestamp(timestamp/1000).isoformat(timespec='seconds')}-00:00"
         print('sample_content_start_time: ' + sample_content_start_time)
         return sample_content_start_time
+    
+    def delete_s3_bucket(bucket_name):
+        try:
+            bucket = s3.Bucket(bucket_name)
+            bucket.object_versions.delete()
+            print(f"  bucket emptied: {bucket_name}")
+            bucket.delete()
+            print(f"  bucket deleted: {bucket_name}")
+        except botocore.exceptions.ClientError as e:
+            if "NoSuchBucket" in str(e):
+                print(f"  bucket not found: {bucket_name}")
+            else:
+                raise e
 
     args = parse_args()
 
@@ -267,7 +293,10 @@ def main():
     simulation_output_asset_model_name = args.workspace_id + '__PowerSimulationOutputModel'
     anomaly_detection_output_asset_model_name = args.workspace_id + '__AnomalyDetectionOutputModel'
     sitewiseImporter = SiteWiseTelemetryImporter(args.region_name, asset_model_prefix=workspace_id)
+    account_id = session.client("sts").get_caller_identity()["Account"]
     iottwinmaker = session.client(service_name='iottwinmaker', endpoint_url=args.endpoint_url, region_name=args.region_name)
+    s3 = session.resource('s3')
+    kda = session.client(service_name='kinesisanalyticsv2', region_name=region_name)
     cfn_client = session.client(service_name='cloudformation', region_name=region_name)
 
     zeppelin_app_name = get_zepplin_app_name()

@@ -5,6 +5,7 @@ import * as cdk from '@aws-cdk/core';
 import * as kda from "@aws-cdk/aws-kinesisanalytics";
 import * as glue from "@aws-cdk/aws-glue";
 import * as iam from "@aws-cdk/aws-iam";
+import * as s3 from '@aws-cdk/aws-s3';
 import { LogGroup, LogStream, RetentionDays } from '@aws-cdk/aws-logs';
 
 export class IotTwinMakerKdaStack extends cdk.Stack {
@@ -83,8 +84,13 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
     });
 
     const zeppelinRole = iam.Role.fromRoleArn(this, 'zeppelinRole', serviceExecutionRole.attrArn);
-
-    const zeppelinAppName = `ZeppelinGettingStartedApp-${this.stackName}`
+    const zeppelinAppName = stackName;
+    const zeppelinBucket = new s3.Bucket(this, 'zeppelinBucket', {
+      accessControl: s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
+      bucketName: `${zeppelinAppName.toLowerCase()}-${accountId}-${region}`,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+    });
     const zeppelinApplication = new kda.CfnApplicationV2(this, zeppelinAppName, {
       applicationName: zeppelinAppName,
       applicationMode: "INTERACTIVE",
@@ -143,7 +149,13 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
                 fileKey: 'aws-iot-twinmaker-flink-1.13.0.jar'
               }
             }
-          ]
+          ],
+          deployAsApplicationConfiguration: {
+            s3ContentLocation: {
+              bucketArn: zeppelinBucket.bucketArn,
+              basePath: 'deployAsApp'
+            }
+          }
         }
       }
     });
