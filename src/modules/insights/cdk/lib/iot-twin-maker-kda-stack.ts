@@ -146,7 +146,7 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
               artifactType: "DEPENDENCY_JAR",
               s3ContentLocation: {
                 bucketArn: 'arn:aws:s3:::aws-iot-twinmaker-flink-downloads-us-east-1',
-                fileKey: 'aws-iot-twinmaker-flink-1.13.0.jar'
+                fileKey: 'aws-iot-twinmaker-flink-1.13.1.jar'
               }
             }
           ],
