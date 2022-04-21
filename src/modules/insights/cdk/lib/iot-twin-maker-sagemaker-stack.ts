@@ -255,6 +255,10 @@ export class IotTwinMakerSagemakerStack extends cdk.Stack {
         return "438346466558.dkr.ecr.eu-west-1.amazonaws.com/randomcutforest:1";
       case "ap-southeast-1":
         return "475088953585.dkr.ecr.ap-southeast-1.amazonaws.com/randomcutforest:1";
+      case "eu-central-1":
+        return "664544806723.dkr.ecr.eu-central-1.amazonaws.com/randomcutforest:1";
+      case "ap-southeast-2":
+        return "712309505854.dkr.ecr.ap-southeast-2.amazonaws.com/randomcutforest:1";
       default:
         throw new Error(`AWS region ${region} not supported by this demo.`);
     }
