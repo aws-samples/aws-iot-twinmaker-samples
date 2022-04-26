@@ -152,6 +152,7 @@ def main():
     if args.import_scenes or args.import_all:
         print('Importing scenes...')
         ws.import_scene(file_name=content_path('scenes/CookieFactory.json'), scene_name='CookieFactory')
+        ws.import_scene(file_name=content_path('scenes/Mixer.json'), scene_name='Mixer')
 
     # Import models
     if args.import_models or args.import_all:
