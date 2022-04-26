@@ -1,0 +1,314 @@
+{
+  "specVersion": "1.0",
+  "version": "1",
+  "unit": "meters",
+  "properties": {
+    "environmentPreset": "neutral",
+    "dataBindingConfig": {
+      "fieldMapping": {
+        "entityId": [
+          "sel_entity"
+        ],
+        "componentName": [
+          "sel_comp"
+        ]
+      },
+      "template": {
+        "sel_entity": "Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837",
+        "sel_comp": "MixerComponent"
+      }
+    }
+  },
+  "nodes": [
+    {
+      "name": "CookieFactoryMixer",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "transformConstraint": {
+        
+      },
+      "children": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "components": [
+        {
+          "type": "ModelRef",
+          "uri": "CookieFactoryMixer.glb",
+          "modelType": "GLB",
+          "receiveShadow": false
+        },
+        {
+          "type": "ModelShader",
+          "valueDataBinding": {
+            "dataBindingContext": {
+              "entityId": "${sel_entity}",
+              "componentName": "MixerComponent",
+              "propertyName": "RPM",
+              "entityPath": "Equipment/Mixers/Mixer_0"
+            },
+            "dataFrameLabel": "component%3DMixerComponent%26entity%3D%2524%257Bsel_entity%257D%26property%3DRPM,component%3DMixerComponent%26entityPath%3DEquipment%252FMixers%252FMixer_0%26property%3DRPM"
+          },
+          "ruleBasedMapId": "sampleRpmColorRule"
+        }
+      ],
+      "properties": {
+        
+      }
+    },
+    {
+      "name": "Temperature Tag",
+      "transform": {
+        "position": [
+          -0.55,
+          1.093,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "transformConstraint": {
+        
+      },
+      "components": [
+        {
+          "type": "Tag",
+          "icon": "iottwinmaker.common.icon:Info",
+          "ruleBasedMapId": "sampleTemperatureIconRule",
+          "valueDataBinding": {
+            "dataBindingContext": {
+              "entityId": "${sel_entity}",
+              "componentName": "MixerComponent",
+              "propertyName": "Temperature",
+              "entityPath": "Equipment/Mixers/Mixer_0"
+            }
+          }
+        }
+      ],
+      "properties": {
+        
+      }
+    },
+    {
+      "name": "Alarm Tag",
+      "transform": {
+        "position": [
+          0,
+          2.4,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "transformConstraint": {
+        
+      },
+      "components": [
+        {
+          "type": "Tag",
+          "icon": "iottwinmaker.common.icon:Info",
+          "ruleBasedMapId": "sampleAlarmIconRule",
+          "valueDataBinding": {
+            "dataBindingContext": {
+              "entityId": "${sel_entity}",
+              "componentName": "AlarmComponent",
+              "propertyName": "alarm_status",
+              "entityPath": "Equipment/Mixers/Mixer_0"
+            }
+          }
+        }
+      ],
+      "properties": {
+        
+      }
+    },
+    {
+      "name": "RPM Tag",
+      "transform": {
+        "position": [
+          -0.55,
+          1.093,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "transformConstraint": {
+        
+      },
+      "components": [
+        {
+          "type": "Tag",
+          "icon": "iottwinmaker.common.icon:Info",
+          "ruleBasedMapId": "sampleRpmIconRule",
+          "valueDataBinding": {
+            "dataBindingContext": {
+              "entityId": "${sel_entity}",
+              "componentName": "MixerComponent",
+              "propertyName": "RPM",
+              "entityPath": "Equipment/Mixers/Mixer_0"
+            }
+          }
+        }
+      ],
+      "properties": {
+        
+      }
+    },
+    {
+      "name": "MotionIndicator",
+      "transform": {
+        "position": [
+          -0.5,
+          0.709,
+          -0.084
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.3,
+          1,
+          1.3
+        ]
+      },
+      "transformConstraint": {
+        
+      },
+      "components": [
+        {
+          "type": "MotionIndicator",
+          "shape": "CircularCylinder",
+          "valueDataBindings": {
+            "foregroundColor": {
+              
+            },
+            "speed": {
+              "valueDataBinding": {
+                "dataBindingContext": {
+                  "entityId": "${sel_entity}",
+                  "componentName": "MixerComponent",
+                  "propertyName": "RPM",
+                  "entityPath": "Equipment/Mixers/Mixer_0"
+                },
+                "dataFrameLabel": "component%3DMixerComponent%26entity%3D%2524%257Bsel_entity%257D%26property%3DRPM,component%3DMixerComponent%26entityPath%3DEquipment%252FMixers%252FMixer_0%26property%3DRPM"
+              },
+              "ruleBasedMapId": "sampleMotionIndicatorSpeedRule"
+            }
+          },
+          "config": {
+            "numOfRepeatInY": 3,
+            "backgroundColorOpacity": 0.26,
+            "defaultForegroundColor": "#01ff33"
+          }
+        }
+      ],
+      "properties": {
+        
+      }
+    }
+  ],
+  "rootNodeIndexes": [
+    0
+  ],
+  "cameras": [
+    
+  ],
+  "rules": {
+    "sampleAlarmIconRule": {
+      "statements": [
+        {
+          "expression": "alarm_status == 'ACTIVE'",
+          "target": "iottwinmaker.common.icon:Error"
+        },
+        {
+          "expression": "alarm_status == 'ACKNOWLEDGED'",
+          "target": "iottwinmaker.common.icon:Warning"
+        },
+        {
+          "expression": "alarm_status == 'SNOOZE_DISABLED'",
+          "target": "iottwinmaker.common.icon:Warning"
+        },
+        {
+          "expression": "alarm_status == 'NORMAL'",
+          "target": "iottwinmaker.common.icon:Info"
+        }
+      ]
+    },
+    "sampleTemperatureIconRule": {
+      "statements": [
+        {
+          "expression": "Temperature >= 100",
+          "target": "iottwinmaker.common.icon:Error"
+        }
+      ]
+    },
+    "sampleRpmIconRule": {
+      "statements": [
+        {
+          "expression": "RPM >= 60",
+          "target": "iottwinmaker.common.icon:Error"
+        }
+      ]
+    },
+    "sampleRpmColorRule": {
+      "statements": [
+        {
+          "expression": "RPM >= 60",
+          "target": "iottwinmaker.common.color:#d85b12"
+        }
+      ]
+    },
+    "sampleMotionIndicatorSpeedRule": {
+      "statements": [
+        {
+          "expression": "(RPM - 55) / 10",
+          "target": "iottwinmaker.common.number"
+        }
+      ]
+    }
+  }
+}
