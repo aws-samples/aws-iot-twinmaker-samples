@@ -21,19 +21,57 @@
   "description": "",
   "editable": true,
   "fiscalYearStartMonth": 0,
+  "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1650938759667,
+  "iteration": 1637731351082,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "id": 49,
+      "panels": [],
+      "title": "Introduction",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 45,
+      "options": {
+        "content": "(feel free to click on the \"Introduction\" bar above this text to collapse this content)\n\n# AWS IoT TwinMaker Mixer Alarm Dashboard\n\nThis dashboard sample contains the following groups of panels:\n\n* Alarm List panel (top-left) - this provides a summary view of alarm states retrieved from the Timestream database you've set up\n  \n  * try clicking on Mixer entity entries to see detail metrics appear in the other panels\n\n* Equipment information panels (top-right) - this set of panels provides historic alarm activity, equipment metrics, equipment metadata, and links to technical documents for the selected Mixer entity\n  \n* Scene Viewer (bottom-left) - this provides a 3D view of where the select entity is located in the CookieFactory floor, you can also click on the Tags (floating blue icons) to select Mixer entities\n\n  * Mixer_1 is configured with a ModelShader linked to the Mixer's temperature readings. Try selecting Mixer_1 then selecting different time ranges in the \"Motor Temperature\" panel in the top-right. Try selecting different time ranges where the last data point is greater than 100 and less 100\n\n* Video Feeds (bottom-right) - this provides a video view of the CookieFactory stored in Amazon Kinesis Video Streams\n\n  * Mixers 0 through 12 are linked to one feed and Mixers 13 through 25 are linked to another. Try clicking different entities to see the video feed update\n\n  * Note: if you see a message regarding no fragments found, try expanding the time range by using the time selector (top-right of page) to select last 24 hours",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "queryType": "GetAlarms",
+          "refId": "A"
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
       },
       "id": 47,
       "panels": [],
@@ -41,10 +79,7 @@
       "type": "row"
     },
     {
-      "datasource": {
-        "type": "grafana-iot-twinmaker-datasource",
-        "uid": "wlKGlzwnk"
-      },
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -75,17 +110,10 @@
         "h": 13,
         "w": 13,
         "x": 0,
-        "y": 1
+        "y": 14
       },
       "id": 41,
       "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true,
         "sortBy": [
           {
@@ -94,13 +122,9 @@
           }
         ]
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.2.5",
       "targets": [
         {
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "wlKGlzwnk"
-          },
           "queryType": "GetAlarms",
           "refId": "A"
         }
@@ -131,10 +155,7 @@
       "type": "table"
     },
     {
-      "datasource": {
-        "type": "grafana-iot-twinmaker-datasource",
-        "uid": "wlKGlzwnk"
-      },
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -142,8 +163,7 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 0,
-            "spanNulls": false
+            "lineWidth": 0
           },
           "displayName": "${sel_entity_name}",
           "mappings": [
@@ -189,7 +209,7 @@
         "h": 4,
         "w": 8,
         "x": 13,
-        "y": 1
+        "y": 14
       },
       "id": 4,
       "options": {
@@ -202,17 +222,12 @@
         "rowHeight": 0.9,
         "showValue": "auto",
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "single"
         }
       },
       "targets": [
         {
-          "componentName": "AlarmComponent",
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "wlKGlzwnk"
-          },
+          "componentName": "${sel_comp}",
           "entityId": "${sel_entity}",
           "properties": [
             "alarm_status"
@@ -225,10 +240,7 @@
       "type": "state-timeline"
     },
     {
-      "datasource": {
-        "type": "grafana-iot-twinmaker-datasource",
-        "uid": "wlKGlzwnk"
-      },
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -259,17 +271,10 @@
         "h": 7,
         "w": 3,
         "x": 21,
-        "y": 1
+        "y": 14
       },
       "id": 30,
       "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true,
         "sortBy": [
           {
@@ -278,14 +283,10 @@
           }
         ]
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.2.5",
       "targets": [
         {
           "componentName": "AlarmComponent",
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "wlKGlzwnk"
-          },
           "entityId": "${sel_entity}",
           "properties": [
             "alarm_key"
@@ -299,10 +300,7 @@
       "type": "table"
     },
     {
-      "datasource": {
-        "type": "grafana-iot-twinmaker-datasource",
-        "uid": "wlKGlzwnk"
-      },
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -357,7 +355,7 @@
         "h": 4,
         "w": 8,
         "x": 13,
-        "y": 5
+        "y": 18
       },
       "id": 37,
       "options": {
@@ -367,18 +365,13 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "single"
         }
       },
       "pluginVersion": "8.2.0",
       "targets": [
         {
           "componentName": "MixerComponent",
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "wlKGlzwnk"
-          },
           "entityId": "${sel_entity}",
           "properties": [
             "RPM"
@@ -391,10 +384,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "grafana-iot-twinmaker-datasource",
-        "uid": "wlKGlzwnk"
-      },
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -425,27 +415,16 @@
         "h": 6,
         "w": 3,
         "x": 21,
-        "y": 8
+        "y": 21
       },
       "id": 34,
       "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.2.5",
       "targets": [
         {
           "componentName": "SpecSheets",
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "wlKGlzwnk"
-          },
           "entityId": "${sel_entity}",
           "properties": [
             "documents"
@@ -458,10 +437,7 @@
       "type": "table"
     },
     {
-      "datasource": {
-        "type": "grafana-iot-twinmaker-datasource",
-        "uid": "wlKGlzwnk"
-      },
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -516,7 +492,7 @@
         "h": 5,
         "w": 8,
         "x": 13,
-        "y": 9
+        "y": 22
       },
       "id": 38,
       "options": {
@@ -526,18 +502,13 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "single"
         }
       },
       "pluginVersion": "8.2.0",
       "targets": [
         {
           "componentName": "MixerComponent",
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "wlKGlzwnk"
-          },
           "entityId": "${sel_entity}",
           "properties": [
             "Temperature"
@@ -550,15 +521,12 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "grafana-iot-twinmaker-datasource",
-        "uid": "wlKGlzwnk"
-      },
+      "datasource": null,
       "gridPos": {
-        "h": 19,
+        "h": 25,
         "w": 13,
         "x": 0,
-        "y": 14
+        "y": 27
       },
       "id": 6,
       "options": {
@@ -570,33 +538,43 @@
       "targets": [
         {
           "componentTypeId": "com.example.cookiefactory.alarm",
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "wlKGlzwnk"
-          },
-          "filter": [
-            {
-              "name": "alarm_status",
-              "op": "=",
-              "value": "ACTIVE"
-            }
-          ],
           "properties": [
             "alarm_status"
           ],
           "queryType": "ComponentHistory",
           "refId": "A"
+        },
+        {
+          "componentName": "WaterTank",
+          "entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab",
+          "hide": false,
+          "properties": [
+            "flowRate1"
+          ],
+          "queryType": "EntityHistory",
+          "refId": "B"
+        },
+        {
+          "componentName": "MixerComponent",
+          "entityId": "Mixer_1_4b57cbee-c391-4de6-b882-622c633a697e",
+          "hide": false,
+          "properties": [
+            "Temperature"
+          ],
+          "queryType": "EntityHistory",
+          "refId": "C"
         }
       ],
       "title": "Scene Viewer",
       "type": "grafana-iot-twinmaker-sceneviewer-panel"
     },
     {
+      "datasource": null,
       "gridPos": {
-        "h": 11,
+        "h": 25,
         "w": 11,
         "x": 13,
-        "y": 14
+        "y": 27
       },
       "id": 8,
       "options": {
@@ -613,69 +591,10 @@
       ],
       "title": "Video Feeds",
       "type": "grafana-iot-twinmaker-videoplayer-panel"
-    },
-    {
-      "datasource": {
-        "type": "grafana-iot-twinmaker-datasource",
-        "uid": "lhvz6ZQnz"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 11,
-        "x": 13,
-        "y": 25
-      },
-      "id": 49,
-      "options": {
-        "customSelCompVarName": "${sel_comp}",
-        "customSelEntityVarName": "${sel_entity}",
-        "datasource": "",
-        "sceneId": "Mixer"
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "lhvz6ZQnz"
-          },
-          "queryType": "GetAlarms",
-          "refId": "A"
-        },
-        {
-          "componentName": "MixerComponent",
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "lhvz6ZQnz"
-          },
-          "entityId": "${sel_entity}",
-          "hide": false,
-          "properties": [
-            "RPM"
-          ],
-          "queryType": "EntityHistory",
-          "refId": "B"
-        },
-        {
-          "componentName": "MixerComponent",
-          "datasource": {
-            "type": "grafana-iot-twinmaker-datasource",
-            "uid": "lhvz6ZQnz"
-          },
-          "entityId": "${sel_entity}",
-          "hide": false,
-          "properties": [
-            "Temperature"
-          ],
-          "queryType": "EntityHistory",
-          "refId": "C"
-        }
-      ],
-      "title": "Panel Title",
-      "type": "grafana-iot-twinmaker-sceneviewer-panel"
     }
   ],
   "refresh": false,
-  "schemaVersion": 35,
+  "schemaVersion": 32,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -683,10 +602,13 @@
       {
         "current": {
           "selected": false,
-          "text": "Mixer_12",
-          "value": "Mixer_12"
+          "text": "",
+          "value": ""
         },
+        "description": null,
+        "error": null,
         "hide": 2,
+        "label": null,
         "name": "sel_entity_name",
         "options": [
           {
@@ -695,36 +617,42 @@
             "value": ""
           }
         ],
-        "query": "Mixer_12",
+        "query": "",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "Mixer_12_87c19fdf-e824-472d-a2e3-15012e8fc7a8",
-          "value": "Mixer_12_87c19fdf-e824-472d-a2e3-15012e8fc7a8"
+          "text": "",
+          "value": ""
         },
+        "description": null,
+        "error": null,
         "hide": 2,
+        "label": null,
         "name": "sel_entity",
         "options": [
           {
             "selected": true,
-            "text": "Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837",
-            "value": "Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837"
+            "text": "",
+            "value": ""
           }
         ],
-        "query": "Mixer_12_87c19fdf-e824-472d-a2e3-15012e8fc7a8",
+        "query": "",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "AlarmComponent",
-          "value": "AlarmComponent"
+          "text": "",
+          "value": ""
         },
+        "description": null,
+        "error": null,
         "hide": 2,
+        "label": null,
         "name": "sel_comp",
         "options": [
           {
@@ -733,16 +661,18 @@
             "value": ""
           }
         ],
-        "query": "AlarmComponent",
+        "query": "",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "cookiefactory_mixerroom_camera_02",
-          "value": "cookiefactory_mixerroom_camera_02"
+          "text": "",
+          "value": ""
         },
+        "description": null,
+        "error": null,
         "hide": 2,
         "label": "",
         "name": "kvs_stream_name",
@@ -753,7 +683,7 @@
             "value": ""
           }
         ],
-        "query": "cookiefactory_mixerroom_camera_02",
+        "query": "",
         "skipUrlSync": false,
         "type": "textbox"
       }
@@ -767,6 +697,5 @@
   "timezone": "",
   "title": "AWS IoT TwinMaker Mixer Alarm Dashboard",
   "uid": "y1FGfj57z",
-  "version": 15,
-  "weekStart": ""
+  "version": 5
 }
