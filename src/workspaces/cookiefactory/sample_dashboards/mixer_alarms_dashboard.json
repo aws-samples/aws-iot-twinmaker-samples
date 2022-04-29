@@ -571,7 +571,7 @@
     {
       "datasource": null,
       "gridPos": {
-        "h": 25,
+        "h": 12,
         "w": 11,
         "x": 13,
         "y": 27
@@ -591,6 +591,37 @@
       ],
       "title": "Video Feeds",
       "type": "grafana-iot-twinmaker-videoplayer-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 11,
+        "x": 13,
+        "y": 39
+      },
+      "id": 51,
+      "options": {
+        "customSelCompVarName": "${sel_comp}",
+        "customSelEntityVarName": "${sel_entity}",
+        "datasource": "",
+        "sceneId": "Mixer"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "queryType": "GetAlarms",
+          "refId": "A"
+        }
+      ],
+      "title": "Panel Title",
+      "type": "grafana-iot-twinmaker-sceneviewer-panel"
     }
   ],
   "refresh": false,
