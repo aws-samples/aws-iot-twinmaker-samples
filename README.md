@@ -238,7 +238,7 @@ In this section we'll add SiteWise assets and telemetry, and then update the Coo
    ```
    aws iottwinmaker get-property-value-history \
      --region $AWS_DEFAULT_REGION \
-     --cli-input-json '{"componentName": "WaterTankVolume","endTime": "2022-11-01T00:00:00Z","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startTime": "2021-11-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
+     --cli-input-json '{"componentName": "WaterTankVolume","endDateTime": "2022-11-01T00:00:00Z","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startDateTime": "2021-11-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
    ```
 
 ### S3 Document Connector
