@@ -207,7 +207,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_0"
             }
           }
         }
@@ -294,7 +295,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_1"
             }
           }
         }
@@ -368,7 +370,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_2"
             }
           }
         }
@@ -442,7 +445,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_3"
             }
           }
         }
@@ -516,7 +520,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_4"
             }
           }
         }
@@ -590,7 +595,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_5"
             }
           }
         }
@@ -664,7 +670,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_6"
             }
           }
         }
@@ -738,7 +745,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_7"
             }
           }
         }
@@ -812,7 +820,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_8"
             }
           }
         }
@@ -886,7 +895,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_9"
             }
           }
         }
@@ -960,7 +970,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_10"
             }
           }
         }
@@ -1034,7 +1045,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_11"
             }
           }
         }
@@ -1108,7 +1120,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_02"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+              "sel_entity_name": "Mixer_12"
             }
           }
         }
@@ -1182,7 +1195,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_13"
             }
           }
         }
@@ -1256,7 +1270,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_14"
             }
           }
         }
@@ -1330,7 +1345,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_15"
             }
           }
         }
@@ -1405,7 +1421,8 @@
           "navLink": {
             "destination": "",
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_16"
             }
           }
         }
@@ -1479,7 +1496,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_17"
             }
           }
         }
@@ -1553,7 +1571,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_18"
             }
           }
         }
@@ -1627,7 +1646,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_19"
             }
           }
         }
@@ -1701,7 +1721,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_20"
             }
           }
         }
@@ -1775,7 +1796,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_21"
             }
           }
         }
@@ -1849,7 +1871,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_22"
             }
           }
         }
@@ -1923,7 +1946,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_23"
             }
           }
         }
@@ -1997,7 +2021,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_24"
             }
           }
         }
@@ -2071,7 +2096,8 @@
           },
           "navLink": {
             "params": {
-              "kvs_stream_name": "cookiefactory_mixerroom_camera_01"
+              "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+              "sel_entity_name": "Mixer_25"
             }
           }
         }
@@ -2272,7 +2298,11 @@
               "propertyName": "alarm_status"
             }
           },
-          "navLink": null
+          "navLink": {
+            "params": {
+              "sel_entity_name": "WaterTank"
+            }
+          }
         }
       ]
     }
