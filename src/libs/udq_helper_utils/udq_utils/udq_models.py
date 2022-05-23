@@ -13,7 +13,7 @@ class EntityComponentPropertyRef():
     consists of an entityId, componentName, and propertyName
     """
 
-    def __init__(self, entity_id: str, component_name: str, property_name: str):
+    def __init__(self, property_name: str, entity_id: str = None, component_name: str = None):
         self.entity_id = entity_id
         self.component_name = component_name
         self.property_name = property_name
@@ -43,12 +43,13 @@ class IoTTwinMakerReference():
     def serialize(self):
         ret = {}
         if self.ecp:
-            ret['entityId'] = self.ecp.entity_id
-            ret['componentName'] = self.ecp.component_name
+            if self.ecp.entity_id:
+                ret['entityId'] = self.ecp.entity_id
+            if self.ecp.component_name:
+                ret['componentName'] = self.ecp.component_name
             ret['propertyName'] = self.ecp.property_name
         if self.external_id_property:
             ret['externalIdProperty'] = self.external_id_property
-            ret['propertyName'] = self.external_id_property['propertyName']
         return ret
 
 

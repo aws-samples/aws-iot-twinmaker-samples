@@ -175,12 +175,12 @@ class TimestreamDataRow(IoTTwinMakerDataRow):
         """
         property_name = self._row_as_dict['measure_name']
         if self._entity_id and self._component_name:
-            return IoTTwinMakerReference(ecp=EntityComponentPropertyRef(self._entity_id, self._component_name, property_name))
+            return IoTTwinMakerReference(ecp=EntityComponentPropertyRef(property_name, self._entity_id, self._component_name))
         else:
-            return IoTTwinMakerReference(external_id_property={
+            return IoTTwinMakerReference(ecp=EntityComponentPropertyRef(property_name), 
+            external_id_property={
                 # special case Alarm and map the externalId to alarm_key
                 'alarm_key' if self._telemetry_asset_type == 'Alarm' else 'telemetryAssetId': self._row_as_dict['TelemetryAssetId'],
-                'propertyName': property_name if property_name != 'Status' else 'alarm_status'  # AWS IoT TwinMaker's alarm component in Grafana expects a particular property name for alarm telemetry
             })
 
     # overrides IoTTwinMakerDataRow.get_timestamp abstractmethod
