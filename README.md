@@ -183,6 +183,8 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
 
    If you want to import only parts of the sample content, you can use individual import flags instead of --import-all (such as --import-telemetry and --import-entities).
 
+   Note: on initial import the script will save the starting timestamp used for generating sample telemetry and video. This is stored in the TwinMaker workspace in the `samples_content_start_time` Tag. On subsequent re-runs of the scripts, this starting timestamp will be re-used for consistent data generation. If you would like to recreate the data using the current time instead, please delete the Tag from the workspace.
+
 6. (Optional) Verify connectivity for entities, scenes, and Unified Data Query (UDQ) Test data by using UDQ.
 
    After importing all content, you can go to the IoT TwinMaker console to view the entities and scenes that you created.
@@ -252,6 +254,8 @@ cd $GETTING_STARTED_DIR/src/modules/s3
 ```
 
 ### AWS IoT TwinMaker Insights and Simulation
+
+Note: this add-on will create running Amazon Kinesis Data Analytics (KDA) compute resources that may incur AWS charges. We recommend stopping or deleting the KDA notebook resources with the steps in [Add-on Teardown: AWS IoT TwinMaker Insights and Simulation](#add-on-teardown-aws-iot-twinmaker-insights-and-simulation) once you are finished using them.
 
 In this section we'll use the AWS IoT TwinMaker Flink library to connect our Mixers' telemetry data to two services to enrich our entity data for deeper insights:
 
