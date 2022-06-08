@@ -1,16 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2021
 // SPDX-License-Identifier: Apache-2.0
 
-import * as cdk from '@aws-cdk/core';
-import * as logs from '@aws-cdk/aws-logs';
-import * as lambda from "@aws-cdk/aws-lambda";
-import * as lambdapython from "@aws-cdk/aws-lambda-python";
 import * as path from 'path';
-import * as timestream from "@aws-cdk/aws-timestream";
-import * as iam from "@aws-cdk/aws-iam";
+import { Stack, StackProps, CfnOutput, Duration } from 'aws-cdk-lib'
+import { Construct } from 'constructs';
+import { PythonFunction, PythonLayerVersion } from '@aws-cdk/aws-lambda-python-alpha';
+import { aws_iam as iam } from 'aws-cdk-lib';
+import { aws_logs as logs } from 'aws-cdk-lib';
+import { aws_lambda as lambda } from 'aws-cdk-lib';
+import { aws_timestream as timestream } from 'aws-cdk-lib';
 
-export class TimestreamTelemetryCdkLambdasStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+export class TimestreamTelemetryCdkLambdasStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
 
@@ -35,14 +36,14 @@ export class TimestreamTelemetryCdkLambdasStack extends cdk.Stack {
         }
       });
       timestreamTable.node.addDependency(timestreamDB);
-      new cdk.CfnOutput(this, "TimestreamDatabaseName", { value: `${timestreamDB.databaseName}` });
-      new cdk.CfnOutput(this, "TimestreamTableName", { value: `${timestreamTable.tableName}` });
+      new CfnOutput(this, "TimestreamDatabaseName", { value: `${timestreamDB.databaseName}` });
+      new CfnOutput(this, "TimestreamTableName", { value: `${timestreamTable.tableName}` });
 
       // udq reader lambda
-      const timestreamReaderUDQ = new lambdapython.PythonFunction(this, 'timestreamReaderUDQ', {
+      const timestreamReaderUDQ = new PythonFunction(this, 'timestreamReaderUDQ', {
         entry: path.join(__dirname, '..', '..', 'lambda_function'),
         layers: [
-          new lambdapython.PythonLayerVersion(this, 'udq_utils_layer', {
+          new PythonLayerVersion(this, 'udq_utils_layer', {
             entry: path.join(__dirname, '..', '..', '..', '..', 'libs', 'udq_helper_utils'),
           }),
         ],
@@ -51,14 +52,14 @@ export class TimestreamTelemetryCdkLambdasStack extends cdk.Stack {
         memorySize: 256,
         role: timestreamUdqRole,
         runtime: lambda.Runtime.PYTHON_3_7,
-        timeout: cdk.Duration.minutes(15),
+        timeout: Duration.minutes(15),
         logRetention: logs.RetentionDays.ONE_DAY,
         environment: {
           "TIMESTREAM_DATABASE_NAME": `${timestreamDB.databaseName}`,
           "TIMESTREAM_TABLE_NAME": `${timestreamTable.tableName}`,
         }
       });
-      new cdk.CfnOutput(this, "TimestreamReaderUDQLambdaArn", { value: timestreamReaderUDQ.functionArn });
+      new CfnOutput(this, "TimestreamReaderUDQLambdaArn", { value: timestreamReaderUDQ.functionArn });
     }
   }
 }
