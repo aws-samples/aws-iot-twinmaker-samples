@@ -11,7 +11,7 @@ It deploys the following 2 stacks:
 
 **Note**
 * For the general guide on AWS IoT TwinMaker Flink library, see [IoT TwinMaker Flink Library Guide](./iot-twinmaker-flink-library-guide.md).
-* The KDA notebook may incur AWS charges, so we recommend that you stop the instance when it is not needed.
+* Note: this add-on will create running Amazon Kinesis Data Analytics (KDA) compute resources that may incur AWS charges. We recommend stopping or deleting the KDA notebook resources with the steps in [Add-on Teardown: AWS IoT TwinMaker Insights and Simulation](../../../README.md#add-on-teardown-aws-iot-twinmaker-insights-and-simulation) once you are finished using them.
 
 ## Prerequisites
 
