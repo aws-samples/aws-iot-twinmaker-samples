@@ -255,7 +255,7 @@ cd $GETTING_STARTED_DIR/src/modules/s3
 
 ### AWS IoT TwinMaker Insights and Simulation
 
-Note: this add-on will create running Amazon Kinesis Data Analytics (KDA) compute resources that may incur AWS charges. We recommend stopping or deleting the KDA notebook resources with the steps in the `Add-on Teardown: AWS IoT TwinMaker Insights and Simulation` once you are finished using them.
+Note: this add-on will create running Amazon Kinesis Data Analytics (KDA) compute resources that may incur AWS charges. We recommend stopping or deleting the KDA notebook resources with the steps in [Add-on Teardown: AWS IoT TwinMaker Insights and Simulation](#add-on-teardown-aws-iot-twinmaker-insights-and-simulation) once you are finished using them.
 
 In this section we'll use the AWS IoT TwinMaker Flink library to connect our Mixers' telemetry data to two services to enrich our entity data for deeper insights:
 
