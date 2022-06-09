@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import "source-map-support/register";
-import * as cdk from "@aws-cdk/core";
+import {App} from 'aws-cdk-lib'
 import { IotTwinMakerSagemakerStack } from "../lib/iot-twin-maker-sagemaker-stack";
 import { SimulationType } from "../lib/utils";
 import { IotTwinMakerKdaStack } from "../lib/iot-twin-maker-kda-stack";
 
-const app = new cdk.App();
+const app = new App();
 const simulationType = SimulationType.MAPLESOFT;
 new IotTwinMakerSagemakerStack(
   app,

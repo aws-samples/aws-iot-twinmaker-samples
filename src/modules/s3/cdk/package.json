@@ -11,19 +11,20 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-cdk/assertions": "1.133.0",
-    "@types/jest": "^26.0.10",
-    "@types/node": "10.17.27",
-    "jest": "^26.4.2",
-    "ts-jest": "^26.2.0",
-    "aws-cdk": "1.133.0",
+    "@aws-cdk/assert": "^2.1.0",
+    "@types/jest": "27.0.2",
+    "@types/node": "^10.17.27",
+    "aws-cdk-lib": "^2.0.0",
+    "constructs": "^10.0.0",
+    "jest": "27.0.2",
+    "ts-jest": "27.0.2",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/aws-lambda": "1.133.0",
-    "@aws-cdk/aws-lambda-python": "1.133.0",
-    "@aws-cdk/core": "1.133.0",
+    "aws-cdk-lib": "^2.27.0",
+    "@aws-cdk/aws-lambda-python-alpha": "^2.0.0-alpha.11",
+    "constructs": "^10.0.0",
     "path": "^0.12.7",
     "source-map-support": "^0.5.16"
   }

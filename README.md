@@ -39,7 +39,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
      python3 --version
      ```
    - **Optional**: [Pyenv](https://github.com/pyenv/pyenv) and [Pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv). Use `pyenv` and `pyenv-virtualenv` to ensure that you have correct Python dependencies. They are optional as long as you have a system-wide Python3 installation, but highly recommended for avoiding conflicts between multiple python projects.
-4. [Node.js & NPM](https://nodejs.org/en/) with node v14.18.1+ and npm version 6.14.15+. (This should be pre-installed in Cloud9.) Use the following commands to verify.
+4. [Node.js & NPM](https://nodejs.org/en/) with node v14.18.1+ and npm version 8.10.0+. (This should be pre-installed in Cloud9.) Use the following commands to verify.
 
    ```
    node --version
@@ -49,7 +49,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
    npm --version
    ```
 
-5. [AWS CDK toolkit](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_install) with version at least `1.145.0`. (The CDK should be pre-installed in Cloud9, but you may need to bootstrap your account.) Use the following command to verify.
+5. [AWS CDK toolkit](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_install) with version at least `2.27.0`. (The CDK should be pre-installed in Cloud9, but you may need to bootstrap your account.) Use the following command to verify.
 
    ```
    cdk --version
@@ -196,7 +196,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
    ```
    aws iottwinmaker get-property-value-history \
       --region $AWS_DEFAULT_REGION \
-      --cli-input-json '{"componentName": "AlarmComponent","endTime": "2022-11-01T00:00:00Z","entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef","orderByTime": "ASCENDING","selectedProperties": ["alarm_status"],"startTime": "2021-11-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
+      --cli-input-json '{"componentName": "AlarmComponent","endTime": "2023-06-01T00:00:00Z","entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef","orderByTime": "ASCENDING","selectedProperties": ["alarm_status"],"startTime": "2022-06-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
    ```
 
 7. Set up Grafana for the Cookie Factory.
@@ -240,7 +240,7 @@ In this section we'll add SiteWise assets and telemetry, and then update the Coo
    ```
    aws iottwinmaker get-property-value-history \
      --region $AWS_DEFAULT_REGION \
-     --cli-input-json '{"componentName": "WaterTankVolume","endTime": "2022-11-01T00:00:00Z","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startTime": "2021-11-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
+     --cli-input-json '{"componentName": "WaterTankVolume","endTime": "2023-06-01T00:00:00Z","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startTime": "2022-06-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
    ```
 
 ### S3 Document Connector
