@@ -10,7 +10,7 @@ import boto3
 
 from udq_utils.udq import SingleEntityReader, MultiEntityReader, IoTTwinMakerDataRow, IoTTwinMakerUdqResponse
 from udq_utils.udq_models import IoTTwinMakerUDQEntityRequest, IoTTwinMakerUDQComponentTypeRequest, OrderBy, IoTTwinMakerReference, \
-    EntityComponentPropertyRef
+    EntityComponentPropertyRef, ExternalIdPropertyRef
 
 from udq_utils.sql_detector import SQLDetector
 
@@ -175,13 +175,13 @@ class TimestreamDataRow(IoTTwinMakerDataRow):
         """
         property_name = self._row_as_dict['measure_name']
         if self._entity_id and self._component_name:
-            return IoTTwinMakerReference(ecp=EntityComponentPropertyRef(property_name, self._entity_id, self._component_name))
+            return IoTTwinMakerReference(ecp=EntityComponentPropertyRef(self._entity_id, self._component_name, property_name))
         else:
-            return IoTTwinMakerReference(ecp=EntityComponentPropertyRef(property_name), 
-            external_id_property={
+            external_id_property = {
                 # special case Alarm and map the externalId to alarm_key
                 'alarm_key' if self._telemetry_asset_type == 'Alarm' else 'telemetryAssetId': self._row_as_dict['TelemetryAssetId'],
-            })
+            }
+            return IoTTwinMakerReference(eip=ExternalIdPropertyRef(external_id_property, property_name))
 
     # overrides IoTTwinMakerDataRow.get_timestamp abstractmethod
     def get_timestamp(self) -> datetime:

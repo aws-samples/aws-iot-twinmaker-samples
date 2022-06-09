@@ -9,11 +9,11 @@ from typing import List
 
 class EntityComponentPropertyRef():
     """
-    Represents a unique entity-component-property reference to a property in AWS IoT TwinMaker
-    consists of an entityId, componentName, and propertyName
+    Represents an entity-component-property reference that uniquely identifies an AWS IoT TwinMaker property
+    Consists of an entityId, componentName, and propertyName
     """
 
-    def __init__(self, property_name: str, entity_id: str = None, component_name: str = None):
+    def __init__(self, entity_id: str, component_name: str, property_name: str):
         self.entity_id = entity_id
         self.component_name = component_name
         self.property_name = property_name
@@ -24,32 +24,47 @@ class EntityComponentPropertyRef():
     def __eq__(self, other):
         return (self.entity_id, self.component_name, self.property_name) == (other.entity_id, other.component_name, other.property_name)
 
+class ExternalIdPropertyRef():
+    """
+    Represents an externalIdProperty reference that uniquely identifies an AWS IoT TwinMaker property across entities
+    Consists of a key-value map externalIdProperty and propertyName
+    """
+
+    def __init__(self, external_id_property: dict, property_name: str):
+        self.external_id_property = external_id_property
+        self.property_name = property_name
+
+    def __hash__(self):
+        return hash((json.dumps(self.external_id_property), self.property_name))
+
+    def __eq__(self, other):
+        return (self.external_id_property, self.property_name) == (other.external_id_property, other.property_name)
+
 class IoTTwinMakerReference():
     """
     Represents a unique reference to a property in AWS IoT TwinMaker
-    may include one or both of an EntityComponentPropertyRef or a free-form external_id_property
+    May include an EntityComponentPropertyRef or an ExternalIdPropertyRef
     """
 
-    def __init__(self, ecp: EntityComponentPropertyRef = None, external_id_property: dict = None):
+    def __init__(self, ecp: EntityComponentPropertyRef = None, eip: ExternalIdPropertyRef = None):
         self.ecp = ecp
-        self.external_id_property = external_id_property
+        self.eip = eip
 
     def __hash__(self):
-        return hash((self.ecp, json.dumps(self.external_id_property)))
+        return hash((self.ecp, self.eip))
 
     def __eq__(self, other):
-        return (self.ecp, self.external_id_property) == (other.ecp, other.external_id_property)
+        return (self.ecp, self.eip) == (other.ecp, other.eip)
 
     def serialize(self):
         ret = {}
         if self.ecp:
-            if self.ecp.entity_id:
-                ret['entityId'] = self.ecp.entity_id
-            if self.ecp.component_name:
-                ret['componentName'] = self.ecp.component_name
+            ret['entityId'] = self.ecp.entity_id
+            ret['componentName'] = self.ecp.component_name
             ret['propertyName'] = self.ecp.property_name
-        if self.external_id_property:
-            ret['externalIdProperty'] = self.external_id_property
+        if self.eip:
+            ret['externalIdProperty'] = self.eip.external_id_property
+            ret['propertyName'] = self.eip.property_name
         return ret
 
 
