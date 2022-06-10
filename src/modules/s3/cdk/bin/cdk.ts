@@ -4,10 +4,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
+import { App } from 'aws-cdk-lib'
 import { CdkStack } from '../lib/cdk-stack';
 
-const app = new cdk.App();
+const app = new App();
 new CdkStack(app, 'CdkStack', {
     env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
 
