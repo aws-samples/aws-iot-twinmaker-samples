@@ -20,6 +20,9 @@ def parse_args():
     parser.add_argument('--workspace-id',
                         help='workspace to be used on a Grafana dashboard',
                         required=True, default='CookieFactory')
+    parser.add_argument('--account-id',
+                        help='accountId for workspace',
+                        required=True)
     parser.add_argument('--auth-provider',
                         help="(optional) If you are using Amazon Managed Grafana, enter the Workspace IAM Role ARN in this field.",
                         required=False, default=None)
@@ -41,10 +44,7 @@ def main():
     workspaceId = args.workspace_id
     endpoint_url = args.endpoint_url
     auth_provider = args.auth_provider
-    accountId = os.getenv('CDK_DEFAULT_ACCOUNT')
-
-    if accountId == '':
-      raise RuntimeError('Specify your accountId in the CDK_DEFAULT_ACCOUNT environment variable.')
+    accountId = args.account_id
 
     session = boto3.session.Session(profile_name=profile)
     iam = session.client(service_name='iam', region_name=region)

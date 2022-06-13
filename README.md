@@ -133,7 +133,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
    If you did not complete the dashboard setting steps, run the following script to create a role for accessing the workspace on a Grafana dashboard. This uses scoped-down permissions for ReadOnly access to IoT TwinMaker and other AWS services in Grafana. Note the ARN of the role you create. You will use it when configuring a data source in Grafana.
 
    ```bash
-   python3 $GETTING_STARTED_DIR/src/modules/grafana/create_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
+   python3 $GETTING_STARTED_DIR/src/modules/grafana/create_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION --account-id $CDK_DEFAULT_ACCOUNT
    ```
 
    If you are using Amazon Managed Grafana, add the field:
