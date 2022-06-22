@@ -1,2 +1,2 @@
 sqlparse==0.4.2
-numpy==1.21.3
+numpy==1.22.0
