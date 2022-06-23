@@ -1,14 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2021
 # SPDX-License-Identifier: Apache-2.0
 
-import numpy as np 
 import sqlparse
 
 class SQLDetector:
     
     def getSubTokenCount(self, token):
         count = 0
-        for s in token.flatten():
+        for _ in token.flatten():
             count += 1
         return count
 
@@ -50,7 +49,7 @@ class SQLDetector:
         """
         sampleTokenContext = self.getQueryContext(sampleQuery)
         tokenContext = self.getQueryContext(query)
-        if not np.array_equal(sampleTokenContext, tokenContext):
+        if not sampleTokenContext == tokenContext:
             raise Exception(f'Detected potential injection from query: {query}')
 
     
