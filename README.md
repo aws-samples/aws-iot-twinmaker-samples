@@ -25,7 +25,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
      ```bash
      aws sts get-caller-identity
      ```
-   - Ensure your AWS CLI version is at least 1.22.17. (or 2.4.21+ for AWS CLI v2)
+   - Ensure your AWS CLI version is at least 1.22.94. (or 2.5.5+ for AWS CLI v2)
      ```bash
      aws --version
      ```
@@ -39,7 +39,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
      python3 --version
      ```
    - **Optional**: [Pyenv](https://github.com/pyenv/pyenv) and [Pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv). Use `pyenv` and `pyenv-virtualenv` to ensure that you have correct Python dependencies. They are optional as long as you have a system-wide Python3 installation, but highly recommended for avoiding conflicts between multiple python projects.
-4. [Node.js & NPM](https://nodejs.org/en/) with node v14.18.1+ and npm version 6.14.15+. (This should be pre-installed in Cloud9.) Use the following commands to verify.
+4. [Node.js & NPM](https://nodejs.org/en/) with node v14.18.1+ and npm version 8.10.0+. (This should be pre-installed in Cloud9.) Use the following commands to verify.
 
    ```
    node --version
@@ -49,7 +49,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
    npm --version
    ```
 
-5. [AWS CDK toolkit](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_install) with version at least `1.145.0`. (The CDK should be pre-installed in Cloud9, but you may need to bootstrap your account.) Use the following command to verify.
+5. [AWS CDK toolkit](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_install) with version at least `2.27.0`. (The CDK should be pre-installed in Cloud9, but you may need to bootstrap your account.) Use the following command to verify.
 
    ```
    cdk --version
@@ -133,7 +133,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
    If you did not complete the dashboard setting steps, run the following script to create a role for accessing the workspace on a Grafana dashboard. This uses scoped-down permissions for ReadOnly access to IoT TwinMaker and other AWS services in Grafana. Note the ARN of the role you create. You will use it when configuring a data source in Grafana.
 
    ```bash
-   python3 $GETTING_STARTED_DIR/src/modules/grafana/create_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
+   python3 $GETTING_STARTED_DIR/src/modules/grafana/create_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION --account-id $CDK_DEFAULT_ACCOUNT
    ```
 
    If you are using Amazon Managed Grafana, add the field:
@@ -183,6 +183,8 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
 
    If you want to import only parts of the sample content, you can use individual import flags instead of --import-all (such as --import-telemetry and --import-entities).
 
+   Note: on initial import the script will save the starting timestamp used for generating sample telemetry and video. This is stored in the TwinMaker workspace in the `samples_content_start_time` Tag. On subsequent re-runs of the scripts, this starting timestamp will be re-used for consistent data generation. If you would like to recreate the data using the current time instead, please delete the Tag from the workspace.
+
 6. (Optional) Verify connectivity for entities, scenes, and Unified Data Query (UDQ) Test data by using UDQ.
 
    After importing all content, you can go to the IoT TwinMaker console to view the entities and scenes that you created.
@@ -194,7 +196,7 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
    ```
    aws iottwinmaker get-property-value-history \
       --region $AWS_DEFAULT_REGION \
-      --cli-input-json '{"componentName": "AlarmComponent","endDateTime": "2022-11-01T00:00:00","entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef","orderByTime": "ASCENDING","selectedProperties": ["alarm_status"],"startDateTime": "2021-11-01T00:00:00","workspaceId": "'${WORKSPACE_ID}'"}'
+      --cli-input-json '{"componentName": "AlarmComponent","endTime": "2023-06-01T00:00:00Z","entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef","orderByTime": "ASCENDING","selectedProperties": ["alarm_status"],"startTime": "2022-06-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
    ```
 
 7. Set up Grafana for the Cookie Factory.
@@ -238,7 +240,7 @@ In this section we'll add SiteWise assets and telemetry, and then update the Coo
    ```
    aws iottwinmaker get-property-value-history \
      --region $AWS_DEFAULT_REGION \
-     --cli-input-json '{"componentName": "WaterTankVolume","endDateTime": "2022-11-01T00:00:00","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startDateTime": "2021-11-01T00:00:00","workspaceId": "'${WORKSPACE_ID}'"}'
+     --cli-input-json '{"componentName": "WaterTankVolume","endTime": "2023-06-01T00:00:00Z","entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab","orderByTime": "ASCENDING","selectedProperties": ["tankVolume1"],"startTime": "2022-06-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
    ```
 
 ### S3 Document Connector
@@ -252,6 +254,8 @@ cd $GETTING_STARTED_DIR/src/modules/s3
 ```
 
 ### AWS IoT TwinMaker Insights and Simulation
+
+Note: this add-on will create running Amazon Kinesis Data Analytics (KDA) compute resources that may incur AWS charges. We recommend stopping or deleting the KDA notebook resources with the steps in [Add-on Teardown: AWS IoT TwinMaker Insights and Simulation](#add-on-teardown-aws-iot-twinmaker-insights-and-simulation) once you are finished using them.
 
 In this section we'll use the AWS IoT TwinMaker Flink library to connect our Mixers' telemetry data to two services to enrich our entity data for deeper insights:
 
@@ -279,36 +283,6 @@ GETTING_STARTED_DIR=__see_above__
 WORKSPACE_ID=__see_above__
 TIMESTREAM_TELEMETRY_STACK_NAME=__see_above__
 AWS_DEFAULT_REGION=us-east-1
-```
-
-Change directory
-
-```
-cd $GETTING_STARTED_DIR/src/workspaces/cookiefactory
-```
-
-Delete grafana dashboard role (if exists)
-
-```
-python3 $GETTING_STARTED_DIR/src/modules/grafana/cleanup_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
-```
-
-Delete AWS IoT TwinMaker workspace + contents
-
-```
-# this script is safe to terminate and restart if entities seem stuck in deletion
-python3 -m setup_content \
-     --telemetry-stack-name $TIMESTREAM_TELEMETRY_STACK_NAME \
-     --workspace-id $WORKSPACE_ID \
-     --region-name $AWS_DEFAULT_REGION \
-     --delete-all \
-     --delete-workspace-role-and-bucket
-```
-
-Delete the Telemetry CFN stack + wait
-
-```
-aws cloudformation delete-stack --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION
 ```
 
 ### Add-on Teardown: SiteWise Connector
@@ -345,6 +319,38 @@ aws cloudformation delete-stack --stack-name $KDA_STACK_NAME --region $AWS_DEFAU
 
 ```
 aws cloudformation delete-stack --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $SAGEMAKER_STACK_NAME --region $AWS_DEFAULT_REGION
+```
+
+### Delete Base Content
+
+Change directory
+
+```
+cd $GETTING_STARTED_DIR/src/workspaces/cookiefactory
+```
+
+Delete grafana dashboard role (if exists)
+
+```
+python3 $GETTING_STARTED_DIR/src/modules/grafana/cleanup_grafana_dashboard_role.py --workspace-id $WORKSPACE_ID --region $AWS_DEFAULT_REGION
+```
+
+Delete AWS IoT TwinMaker workspace + contents
+
+```
+# this script is safe to terminate and restart if entities seem stuck in deletion
+python3 -m setup_content \
+     --telemetry-stack-name $TIMESTREAM_TELEMETRY_STACK_NAME \
+     --workspace-id $WORKSPACE_ID \
+     --region-name $AWS_DEFAULT_REGION \
+     --delete-all \
+     --delete-workspace-role-and-bucket
+```
+
+Delete the Telemetry CFN stack + wait
+
+```
+aws cloudformation delete-stack --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION && aws cloudformation wait stack-delete-complete --stack-name $TIMESTREAM_TELEMETRY_STACK_NAME --region $AWS_DEFAULT_REGION
 ```
 
 ### (Optional) Delete local Grafana configuration

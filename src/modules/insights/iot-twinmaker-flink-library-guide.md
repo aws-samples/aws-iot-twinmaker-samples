@@ -1,10 +1,7 @@
 
 ---
-**NOTE**
 
-IoT TwinMaker is currently in public preview. This service is subject to change.
-
-Currently IoT TwinMaker Flink library only supports Flink version 1.13.
+Currently, IoT TwinMaker Flink library only supports Flink version 1.13.
 
 ---
 
@@ -36,9 +33,10 @@ The following steps describe how to install theIoT TwinMaker Flink library.
 
 1. Create a Kinesis Data Analytics Studio notebook by following the instructions in [Creating a Studio notebook](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-zeppelin-creating.html).
 
-1. Add a customer connector by following the instructions in [Dependencies and custom connectors](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-zeppelin-connectors.html#zeppelin-custom-connectors)\.
+2. Add a customer connector by following the instructions in [Dependencies and custom connectors](https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-zeppelin-connectors.html#zeppelin-custom-connectors)\.
 
-   The IoT TwinMaker Flink library (for Flink 1.13) can be downloaded from https://aws-iot-twinmaker-flink-downloads-us-east-1.s3.amazonaws.com/aws-iot-twinmaker-flink-1.13.0.jar  
+   The IoT TwinMaker Flink library (for Flink 1.13) can be downloaded from https://aws-iot-twinmaker-flink-downloads-us-east-1.s3.amazonaws.com/aws-iot-twinmaker-flink-1.13.1.jar  
+   
    Enter the bucket value in the **Location of custom connector in S3** field, and the S3 object key in the **Path to S3 object** field. You can also upload the library and use your own S3 location. 
 
 ## Using the library
@@ -208,3 +206,9 @@ The following example shows how to read data from a table.
 %flink.ssql(type=update)
 select * from output_table;
 ```
+
+## Library Releases
+| Version      | Flink Version |  Release Date | S3 URL |   Comment |
+| ----------- | ----------- | ----------- | ----------- | ----------- |
+| 1.13.1      | 1.13 | Apr 15, 2022 | https://aws-iot-twinmaker-flink-downloads-us-east-1.s3.amazonaws.com/aws-iot-twinmaker-flink-1.13.1.jar       |Recommended |
+| 1.13.0   | 1.13 | Nov 29, 2021 | https://aws-iot-twinmaker-flink-downloads-us-east-1.s3.amazonaws.com/aws-iot-twinmaker-flink-1.13.0.jar         | |

@@ -10,7 +10,7 @@ import boto3
 
 from udq_utils.udq import SingleEntityReader, MultiEntityReader, IoTTwinMakerDataRow, IoTTwinMakerUdqResponse
 from udq_utils.udq_models import IoTTwinMakerUDQEntityRequest, IoTTwinMakerUDQComponentTypeRequest, OrderBy, IoTTwinMakerReference, \
-    EntityComponentPropertyRef
+    EntityComponentPropertyRef, ExternalIdPropertyRef
 
 from udq_utils.sql_detector import SQLDetector
 
@@ -58,8 +58,8 @@ class TimestreamReader(SingleEntityReader, MultiEntityReader):
 
         query_string = f"SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar" \
             f" FROM {self.database_name}.{self.table_name} " \
-            f" WHERE time > from_iso8601_timestamp('{request.start_datetime.isoformat()}')" \
-            f" AND time <= from_iso8601_timestamp('{request.end_datetime.isoformat()}')" \
+            f" WHERE time > from_iso8601_timestamp('{request.start_time}')" \
+            f" AND time <= from_iso8601_timestamp('{request.end_time}')" \
             f" AND TelemetryAssetType = '{telemetry_asset_type}'" \
             f" AND TelemetryAssetId = '{telemetry_asset_id}'" \
             f" AND measure_name = '{selected_property}'" \
@@ -91,8 +91,8 @@ class TimestreamReader(SingleEntityReader, MultiEntityReader):
 
         query_string = f"SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar" \
             f" FROM {self.database_name}.{self.table_name} " \
-            f" WHERE time > from_iso8601_timestamp('{request.start_datetime.isoformat()}')" \
-            f" AND time <= from_iso8601_timestamp('{request.end_datetime.isoformat()}')" \
+            f" WHERE time > from_iso8601_timestamp('{request.start_time}')" \
+            f" AND time <= from_iso8601_timestamp('{request.end_time}')" \
             f" AND TelemetryAssetType = '{telemetry_asset_type}'" \
             f" AND measure_name = '{selected_property}'" \
             f" {filter_clause} " \
@@ -177,21 +177,19 @@ class TimestreamDataRow(IoTTwinMakerDataRow):
         if self._entity_id and self._component_name:
             return IoTTwinMakerReference(ecp=EntityComponentPropertyRef(self._entity_id, self._component_name, property_name))
         else:
-            return IoTTwinMakerReference(external_id_property={
+            external_id_property = {
                 # special case Alarm and map the externalId to alarm_key
                 'alarm_key' if self._telemetry_asset_type == 'Alarm' else 'telemetryAssetId': self._row_as_dict['TelemetryAssetId'],
-                'propertyName': property_name if property_name != 'Status' else 'alarm_status'  # AWS IoT TwinMaker's alarm component in Grafana expects a particular property name for alarm telemetry
-            })
+            }
+            return IoTTwinMakerReference(eip=ExternalIdPropertyRef(external_id_property, property_name))
 
-    # overrides IoTTwinMakerDataRow.get_timestamp abstractmethod
-    def get_timestamp(self) -> datetime:
+    # overrides IoTTwinMakerDataRow.get_iso8601_timestamp abstractmethod
+    def get_iso8601_timestamp(self) -> str:
         """
-        This function extracts the timestamp from a Timestream row
-
-        Since IoT TwinMaker doesn't support nanosecond granularity, we take the ISO-formatted string from Timestream, remove the
-        nanosecond values, and return a datetime object for more convenient date manipulation
+        This function extracts the timestamp from a Timestream row and returns in ISO8601 basic format
+        e.g. '2022-04-06 00:17:45.419000000' -> '2022-04-06T00:17:45.419000000Z'
         """
-        return datetime.strptime(self._row_as_dict['time'][:-4], '%Y-%m-%d %H:%M:%S.%f')
+        return self._row_as_dict['time'].replace(' ', 'T') + 'Z'
 
     # overrides IoTTwinMakerDataRow.get_value abstractmethod
     def get_value(self):
@@ -304,11 +302,11 @@ aws iottwinmaker get-property-value-history \
       --region $AWS_DEFAULT_REGION \
       --cli-input-json '{
         "componentName": "AlarmComponent",
-        "endDateTime": "2022-11-01T00:00:00",
+        "endTime": "2022-11-01T00:00:00Z",
         "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
         "orderByTime": "ASCENDING",
         "selectedProperties": ["alarm_status"],
-        "startDateTime": "2021-11-01T00:00:00",
+        "startTime": "2021-11-01T00:00:00Z",
         "workspaceId": "CookieFactory"}'
 
 
@@ -321,8 +319,8 @@ aws iottwinmaker get-property-value-history \
   "selectedProperties": [
     "alarm_status"
   ],
-  "startDateTime": 1635724800,
-  "endDateTime": 1667260800,
+  "startTime": "2021-11-01T00:00:00Z"
+  "endTime": "2022-11-01T00:00:00Z"
   "properties": {
     "alarm_status": {
       "definition": {
@@ -450,7 +448,7 @@ aws iottwinmaker get-property-value-history \
 {
     "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
     "entityName": "Mixer_2",
-    "arn": "arn:aws:iottwinmaker:us-east-1:261053700147:workspace/CookieFactory/entity/Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+    "arn": "arn:aws:iottwinmaker:us-east-1:123456789012:workspace/CookieFactory/entity/Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
     "status": {
         "state": "ACTIVE",
         "error": {}

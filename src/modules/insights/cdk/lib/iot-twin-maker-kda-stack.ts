@@ -1,33 +1,34 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2021
 // SPDX-License-Identifier: Apache-2.0
 
-import * as cdk from '@aws-cdk/core';
-import * as kda from "@aws-cdk/aws-kinesisanalytics";
-import * as glue from "@aws-cdk/aws-glue";
-import * as iam from "@aws-cdk/aws-iam";
-import { LogGroup, LogStream, RetentionDays } from '@aws-cdk/aws-logs';
+import {App, Fn, Stack, StackProps, CfnOutput} from 'aws-cdk-lib'
+import { aws_iam as iam } from 'aws-cdk-lib';
+import { aws_logs as logs } from 'aws-cdk-lib';
+import { aws_kinesisanalytics as kda } from 'aws-cdk-lib';
+import { aws_glue as glue } from 'aws-cdk-lib';
+import { aws_s3 as s3 } from 'aws-cdk-lib';
 
-export class IotTwinMakerKdaStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+export class IotTwinMakerKdaStack extends Stack {
+  constructor(scope: App, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const stack = cdk.Stack.of(this);
+    const stack = Stack.of(this);
     const stackName = stack.stackName;
     const region = stack.region;
     const accountId = stack.account;
 
     const glueDatabase = new glue.CfnDatabase(this, "glueDatabase", {
-      catalogId: cdk.Fn.ref("AWS::AccountId"),
+      catalogId: Fn.ref("AWS::AccountId"),
       databaseInput: {
         description: "My glue database"
       }
     });
 
-    const logGroup = new LogGroup(this, `kda-flink-LogGroup`, {
-      retention: RetentionDays.INFINITE,
+    const logGroup = new logs.LogGroup(this, `kda-flink-LogGroup`, {
+      retention: logs.RetentionDays.INFINITE,
     });
 
-    const logStream = new LogStream(this, `kda-clink-LogStream`, {
+    const logStream = new logs.LogStream(this, `kda-clink-LogStream`, {
       logGroup: logGroup,
     });
 
@@ -83,8 +84,13 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
     });
 
     const zeppelinRole = iam.Role.fromRoleArn(this, 'zeppelinRole', serviceExecutionRole.attrArn);
-
-    const zeppelinAppName = `ZeppelinGettingStartedApp-${this.stackName}`
+    const zeppelinAppName = stackName;
+    const zeppelinBucket = new s3.Bucket(this, 'zeppelinBucket', {
+      accessControl: s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
+      bucketName: `${zeppelinAppName.toLowerCase()}-${accountId}-${region}`,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+    });
     const zeppelinApplication = new kda.CfnApplicationV2(this, zeppelinAppName, {
       applicationName: zeppelinAppName,
       applicationMode: "INTERACTIVE",
@@ -105,7 +111,7 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
         zeppelinApplicationConfiguration: {
           catalogConfiguration: {
             glueDataCatalogConfiguration: {
-              databaseArn: cdk.Fn.sub(`arn:aws:glue:\${AWS::Region}:\${AWS::AccountId}:database/\${${glueDatabase.logicalId}}`)
+              databaseArn: Fn.sub(`arn:aws:glue:\${AWS::Region}:\${AWS::AccountId}:database/\${${glueDatabase.logicalId}}`)
             }
           },
           monitoringConfiguration: {
@@ -140,10 +146,16 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
               artifactType: "DEPENDENCY_JAR",
               s3ContentLocation: {
                 bucketArn: 'arn:aws:s3:::aws-iot-twinmaker-flink-downloads-us-east-1',
-                fileKey: 'aws-iot-twinmaker-flink-1.13.0.jar'
+                fileKey: 'aws-iot-twinmaker-flink-1.13.1.jar'
               }
             }
-          ]
+          ],
+          deployAsApplicationConfiguration: {
+            s3ContentLocation: {
+              bucketArn: zeppelinBucket.bucketArn,
+              basePath: 'deployAsApp'
+            }
+          }
         }
       }
     });
@@ -160,7 +172,7 @@ export class IotTwinMakerKdaStack extends cdk.Stack {
     );
     kdaLogGroup.node.addDependency(zeppelinApplication)
 
-    new cdk.CfnOutput(this, "ZeppelinAppName", {
+    new CfnOutput(this, "ZeppelinAppName", {
       value: zeppelinAppName,
     });
   }
