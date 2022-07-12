@@ -10,7 +10,7 @@ import boto3
 
 from udq_utils.udq import SingleEntityReader, MultiEntityReader, IoTTwinMakerDataRow, IoTTwinMakerUdqResponse
 from udq_utils.udq_models import IoTTwinMakerUDQEntityRequest, IoTTwinMakerUDQComponentTypeRequest, OrderBy, IoTTwinMakerReference, \
-    EntityComponentPropertyRef
+    EntityComponentPropertyRef, ExternalIdPropertyRef
 
 from udq_utils.sql_detector import SQLDetector
 
@@ -177,11 +177,11 @@ class TimestreamDataRow(IoTTwinMakerDataRow):
         if self._entity_id and self._component_name:
             return IoTTwinMakerReference(ecp=EntityComponentPropertyRef(self._entity_id, self._component_name, property_name))
         else:
-            return IoTTwinMakerReference(external_id_property={
+            external_id_property = {
                 # special case Alarm and map the externalId to alarm_key
                 'alarm_key' if self._telemetry_asset_type == 'Alarm' else 'telemetryAssetId': self._row_as_dict['TelemetryAssetId'],
-                'propertyName': property_name if property_name != 'Status' else 'alarm_status'  # AWS IoT TwinMaker's alarm component in Grafana expects a particular property name for alarm telemetry
-            })
+            }
+            return IoTTwinMakerReference(eip=ExternalIdPropertyRef(external_id_property, property_name))
 
     # overrides IoTTwinMakerDataRow.get_iso8601_timestamp abstractmethod
     def get_iso8601_timestamp(self) -> str:
