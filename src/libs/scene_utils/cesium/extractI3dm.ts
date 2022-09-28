@@ -1,6 +1,9 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { defined, DeveloperError } from 'cesium';
 import { bufferToJson } from './bufferToJson';
-import { getMagic } from './getMagic';
+import { getTileFormat } from './getTileFormat';
 
 /**
  * Extracts information and sections from an i3dm buffer.
@@ -12,9 +15,9 @@ export function extractI3dm(buffer: Buffer): Object {
   if (!defined(buffer)) {
     throw new DeveloperError('buffer is not defined.');
   }
-  const magic = getMagic(buffer);
-  if (magic !== 'i3dm') {
-    throw new DeveloperError('Invalid magic, expected "i3dm", got: "' + magic + '".');
+  const tileFormat = getTileFormat(buffer);
+  if (tileFormat !== 'i3dm') {
+    throw new DeveloperError('Invalid tile format, expected "i3dm", got: "' + tileFormat + '".');
   }
   const version = buffer.readUInt32LE(4);
   if (version !== 1) {
@@ -56,7 +59,7 @@ export function extractI3dm(buffer: Buffer): Object {
 
   return {
     header: {
-      magic: magic,
+      magic: tileFormat,
       version: version,
       gltfFormat: gltfFormat,
     },

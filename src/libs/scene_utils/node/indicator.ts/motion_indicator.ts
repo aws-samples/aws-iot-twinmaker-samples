@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { MotionIndicatorShape } from '../../utils/types';
 import { MotionIndicator } from '../../components/motion_indicator_component';
 import { SceneNode } from '../scene_node';

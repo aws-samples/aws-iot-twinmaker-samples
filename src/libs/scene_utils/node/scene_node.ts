@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { Transform, Vector3 } from '../utils/types';
 import { ModelShader } from '../components/model_shader_component';
 import { ComponentType } from '../components/component_type';

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { readdirSync, readFileSync, statSync } from 'fs';
 import { S3 } from 'aws-sdk';
 import { String } from 'aws-sdk/clients/appstream';

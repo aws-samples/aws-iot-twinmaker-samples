@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 export type CesiumModelType = '3D_MODEL' | 'POINT_CLOUD';
 
 export type CesiumUploadLocation = {

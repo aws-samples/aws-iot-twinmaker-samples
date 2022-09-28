@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { ModelRef } from '../components/model_ref_component';
 import { ModelShader } from '../components/model_shader_component';
 import { MotionIndicator } from '../components/motion_indicator_component';

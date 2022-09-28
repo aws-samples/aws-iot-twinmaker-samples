@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { DataBinding } from '../node/tag/data_binding';
 import { NavLink, Target } from '../utils/types';
 import { Component } from './component';

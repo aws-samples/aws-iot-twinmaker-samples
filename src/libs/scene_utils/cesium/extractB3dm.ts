@@ -1,6 +1,9 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { defined, DeveloperError } from 'cesium';
 import { bufferToJson } from './bufferToJson';
-import { getMagic } from './getMagic';
+import { getTileFormat } from './getTileFormat';
 
 /**
  * Extracts information and sections from a b3dm buffer.
@@ -12,9 +15,9 @@ export function extractB3dm(b3dmBuffer: Buffer): Object {
   if (!defined(b3dmBuffer)) {
     throw new DeveloperError('b3dmBuffer is not defined.');
   }
-  const magic = getMagic(b3dmBuffer);
-  if (magic !== 'b3dm') {
-    throw new DeveloperError('Invalid magic, expected "b3dm", got: "' + magic + '".');
+  const tileFormat = getTileFormat(b3dmBuffer);
+  if (tileFormat !== 'b3dm') {
+    throw new DeveloperError('Invalid tile format, expected "b3dm", got: "' + tileFormat + '".');
   }
   const version = b3dmBuffer.readUInt32LE(4);
   if (version !== 1) {
@@ -77,7 +80,7 @@ export function extractB3dm(b3dmBuffer: Buffer): Object {
 
   return {
     header: {
-      magic: magic,
+      magic: tileFormat,
       version: version,
     },
     featureTable: {

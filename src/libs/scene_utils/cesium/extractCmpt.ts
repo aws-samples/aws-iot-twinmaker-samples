@@ -1,5 +1,8 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { defined, DeveloperError } from 'cesium';
-import { getMagic } from './getMagic';
+import { getTileFormat } from './getTileFormat';
 
 /**
  * Extracts interior tiles from a cmpt buffer. This operates recursively on interior cmpt tiles.
@@ -18,9 +21,9 @@ function extractCmptInner(buffer: Buffer, results: Buffer[]) {
     throw new DeveloperError('buffer is not defined.');
   }
 
-  const magic = getMagic(buffer);
-  if (magic !== 'cmpt') {
-    throw new DeveloperError('Invalid magic, expected "cmpt", got: "' + magic + '".');
+  const tileFormat = getTileFormat(buffer);
+  if (tileFormat !== 'cmpt') {
+    throw new DeveloperError('Invalid tile format, expected "cmpt", got: "' + tileFormat + '".');
   }
 
   const version = buffer.readUInt32LE(4);
@@ -32,12 +35,12 @@ function extractCmptInner(buffer: Buffer, results: Buffer[]) {
   let byteOffset = 16;
 
   for (var i = 0; i < tilesLength; ++i) {
-    const innerMagic = getMagic(buffer, byteOffset);
+    const innerTileFormat = getTileFormat(buffer, byteOffset);
     const innerByteLength = buffer.readUInt32LE(byteOffset + 8);
     const innerBuffer = buffer.slice(byteOffset, byteOffset + innerByteLength);
     byteOffset += innerByteLength;
 
-    if (innerMagic === 'cmpt') {
+    if (innerTileFormat === 'cmpt') {
       extractCmptInner(innerBuffer, results);
     } else {
       results.push(innerBuffer);

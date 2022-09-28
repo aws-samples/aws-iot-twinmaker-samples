@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { AmbientLight } from '../../components/light/ambient_light';
 import { LightNode } from './light';
 

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 export const LIGHT_TYPE = 'Light';
 export const MODEL_REF_TYPE = 'ModelRef';
 export const MODEL_SHADER_TYPE = 'ModelShader';

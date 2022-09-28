@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { EntitySummary, ListEntitiesFilter } from 'aws-sdk/clients/iottwinmaker';
 import { ModelShader } from '../../components/model_shader_component';
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';

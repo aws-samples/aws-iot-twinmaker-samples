@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { parseArgs } from './sample_utils';
 

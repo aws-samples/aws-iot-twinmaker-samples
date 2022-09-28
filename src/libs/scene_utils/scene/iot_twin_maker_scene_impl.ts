@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { ComponentType } from '../components/component_type';
 import { SceneNode } from '../node/scene_node';
 import { DistanceUnit, EnvironmentPreset, Rule } from '../utils/types';

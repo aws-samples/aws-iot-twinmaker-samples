@@ -1,4 +1,7 @@
-import minimist from "minimist";
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
+import minimist from 'minimist';
 
 export interface CesiumSampleArguments {
   workspaceId: string;
@@ -35,35 +38,35 @@ export const help = () => {
 // Parses command-line arguments for the sample files to extract the supported settings.
 export const parseArgs = (): CesiumSampleArguments => {
   const args: CesiumSampleArguments = {
-    workspaceId: "",
-    sceneId: "",
-    assetFilePath: "",
-    cesiumAccessToken: "",
-    cesiumAssetId: "",
+    workspaceId: '',
+    sceneId: '',
+    assetFilePath: '',
+    cesiumAccessToken: '',
+    cesiumAssetId: '',
   };
   const parsedArgs = minimist(process.argv.slice(2));
   for (const arg of Object.keys(parsedArgs)) {
     switch (arg) {
-      case "h":
-      case "help":
+      case 'h':
+      case 'help':
         help();
         process.exit(0);
-      case "workspaceId":
+      case 'workspaceId':
         args.workspaceId = parsedArgs[arg];
         break;
-      case "sceneId":
+      case 'sceneId':
         args.sceneId = parsedArgs[arg];
         break;
-      case "assetFilePath":
+      case 'assetFilePath':
         args.assetFilePath = parsedArgs[arg];
         break;
-      case "cesiumAccessToken":
+      case 'cesiumAccessToken':
         args.cesiumAccessToken = parsedArgs[arg];
         break;
-      case "cesiumAssetId":
+      case 'cesiumAssetId':
         args.cesiumAssetId = parsedArgs[arg];
         break;
-      case "_":
+      case '_':
         break;
       default:
         console.error(`unknown arg "--${arg}"`);
@@ -72,11 +75,10 @@ export const parseArgs = (): CesiumSampleArguments => {
     }
   }
 
-  const hasCesiumAssetId = args.cesiumAssetId !== "";
-  const hasAssetFilePath = args.assetFilePath !== "";
-  const isInvalid =
-    args.cesiumAccessToken === "" || hasCesiumAssetId == hasAssetFilePath;
-  if (args.workspaceId === "" || args.sceneId === "" || isInvalid) {
+  const hasCesiumAssetId = args.cesiumAssetId !== '';
+  const hasAssetFilePath = args.assetFilePath !== '';
+  const isInvalid = args.cesiumAccessToken === '' || hasCesiumAssetId == hasAssetFilePath;
+  if (args.workspaceId === '' || args.sceneId === '' || isInvalid) {
     help();
     process.exit(1);
   }

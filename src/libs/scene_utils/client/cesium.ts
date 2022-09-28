@@ -1,9 +1,12 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { extname } from 'path';
 import { createReadStream, createWriteStream, PathLike, PathOrFileDescriptor, writeFile } from 'fs';
 import { request } from 'https';
 import { createGunzip } from 'zlib';
 import JsonStreamStringify from 'json-stream-stringify';
-import { getMagic } from '../cesium/getMagic';
+import { getTileFormat } from '../cesium/getTileFormat';
 import { extractB3dm } from '../cesium/extractB3dm';
 import { extractI3dm } from '../cesium/extractI3dm';
 import { extractCmpt } from '../cesium/extractCmpt';
@@ -391,11 +394,11 @@ export class CesiumClient {
     const promises: Promise<void>[] = [];
     for (var i = 0; i < tiles.length; ++i) {
       var tile = tiles[i];
-      var magic = getMagic(tile);
-      if (magic === 'b3dm') {
+      var tileFormat = getTileFormat(tile);
+      if (tileFormat === 'b3dm') {
         const b3dmData = extractB3dm(tile);
         promises.push(this.writeAssetToFeatureTableBatchTableAndGlb(outputPath, assetUri, b3dmData));
-      } else if (magic === 'i3dm') {
+      } else if (tileFormat === 'i3dm') {
         const i3dmData = extractI3dm(tile);
         promises.push(this.writeAssetToFeatureTableBatchTableAndGlb(outputPath, assetUri, i3dmData));
       }

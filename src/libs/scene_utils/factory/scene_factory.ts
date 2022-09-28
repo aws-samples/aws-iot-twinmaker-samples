@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { EntitySummary, ListEntitiesFilters } from 'aws-sdk/clients/iottwinmaker';
 import { IotTwinMakerScene } from '../scene/iot_twin_maker_scene';
 import { IotTwinMakerSceneImpl } from '../scene/iot_twin_maker_scene_impl';
@@ -10,7 +13,7 @@ export interface SceneFactory {
   
   The method will fail if the workspace does not exist and ResourceNotFoundException
   error will be thrown.
-*/
+  */
   loadOrCreateSceneIfNotExists(workspaceId: string, sceneId: string): Promise<IotTwinMakerSceneImpl>;
 
   /**

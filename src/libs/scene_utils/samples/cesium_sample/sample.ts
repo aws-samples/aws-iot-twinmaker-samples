@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
+// SPDX-License-Identifier: Apache-2.0
+
 import { CesiumClient } from '../../client/cesium';
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { ModelRefNode } from '../../node/model.ts/model_ref';
