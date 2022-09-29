@@ -9,7 +9,6 @@ Check out the latest code from https://github.com/aws-samples/aws-iot-twinmaker-
 
 ## Execute as stand-alone script
 ```
-export AWS_ENDPOINT=<Specific AWS endpoint> ## OR beta or prod or whichever environment
 export IoTTwinMakerHome=<Directory where your checked out the code>
 export PYTHONPATH=.:${IoTTwinMakerHome}/src/modules/sitewise/sync-connector-lambda:${IoTTwinMakerHome}/src/libs/connector_utils/python/:$PYTHONPATH # where IoTTwinMakerHome is the directory where you checked out the code.
 ```
