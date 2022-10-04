@@ -6,6 +6,7 @@ import { S3 } from 'aws-sdk';
 import { String } from 'aws-sdk/clients/appstream';
 import { join } from 'path';
 import { DeleteObjectRequest, PutObjectRequest } from 'aws-sdk/clients/s3';
+import { getFileNameFromPath } from '../utils/file_utils';
 
 export class S3Client {
   private s3: S3;
@@ -14,46 +15,42 @@ export class S3Client {
     this.s3 = new S3();
   }
 
-  public async uploadModelRelatedFiles(bucketName: string, localDirectoryPath: string) {
-    this.uploadDir(localDirectoryPath, bucketName);
+  public async uploadModelRelatedFiles(bucketName: string, localPath: string) {
+    this.walkSync(localPath, bucketName);
   }
 
-  private uploadDir(localDirectoryPath: string, bucketName: string): void {
-    this.walkSync(localDirectoryPath, bucketName);
-  }
-
-  private uploadFile(dirPath: string, localFilePath: string, bucketName: string) {
-    let bucketPath = localFilePath.substring(dirPath.length + 1);
-    let params = {
+  private uploadFile(localFilePath: string, bucketName: string) {
+    const fileName = getFileNameFromPath(localFilePath);
+    const params = {
       Bucket: bucketName,
-      Key: bucketPath,
+      Key: fileName,
       Body: readFileSync(localFilePath),
     };
     this.s3.putObject(params, (err, data) => {
       if (err) {
         throw err;
       } else {
-        console.log(`Successfully uploaded ${bucketPath} to ${bucketName}`);
+        console.log(`Successfully uploaded ${fileName} to ${bucketName}`);
       }
     });
   }
 
-  private walkSync(currentDirPath: String, bucketName: string): void {
-    const files: string[] = readdirSync(currentDirPath);
+  private walkSync(currentPath: String, bucketName: string): void {
+    const stat = statSync(currentPath);
+    if (stat.isFile()) {
+      this.uploadFile(currentPath, bucketName);
+    } else if (stat.isDirectory()) {
+      const files: string[] = readdirSync(currentPath);
 
-    for (const fileName of files) {
-      var filePath = join(currentDirPath, fileName);
-      var stat = statSync(filePath);
-      if (stat.isFile()) {
-        this.uploadFile(currentDirPath, filePath, bucketName);
-      } else if (stat.isDirectory()) {
+      for (const fileName of files) {
+        const filePath = join(currentPath, fileName);
         this.walkSync(filePath, bucketName);
       }
     }
   }
 
   public async doesFileExist(bucketName: string, remotePath: string): Promise<boolean> {
-    var params = {
+    const params = {
       Bucket: bucketName,
       Key: remotePath,
     };

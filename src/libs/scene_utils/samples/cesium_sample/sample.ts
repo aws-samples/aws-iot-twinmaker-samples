@@ -6,6 +6,7 @@ import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { ModelRefNode } from '../../node/model.ts/model_ref';
 import { parseArgs } from './sample_utils';
 import { getFileNameFromPath } from '../../utils/file_utils';
+import { GeometryCompression } from '../../cesium/types';
 
 const args = parseArgs();
 const workspaceId = args.workspaceId;
@@ -13,6 +14,7 @@ const sceneId = args.sceneId;
 const assetPath = args.assetFilePath;
 const cesiumAccessToken = args.cesiumAccessToken!;
 let cesiumAssetId = args.cesiumAssetId;
+const dracoCompression = args.dracoCompression;
 
 const factory = new SceneFactoryImpl();
 
@@ -32,7 +34,8 @@ factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMaker
     console.log('Uploading asset to Cesium Ion...');
     // Submit asset upload request
     const description = 'Asset to be visualized in AWS IoT TwinMaker';
-    [cesiumAssetId, tilingDone] = await cesiumClient.upload(cesiumAccessToken, assetPath, description);
+    const compression: GeometryCompression = dracoCompression === true ? 'DRACO' : 'NONE';
+    [cesiumAssetId, tilingDone] = await cesiumClient.upload(cesiumAccessToken, assetPath, description, compression);
   }
 
   // Only download Cesium tiles and edit the scene if the tiling on the asset is finished

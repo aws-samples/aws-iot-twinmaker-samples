@@ -34,7 +34,7 @@ function extractCmptInner(buffer: Buffer, results: Buffer[]) {
   const tilesLength = buffer.readUInt32LE(12);
   let byteOffset = 16;
 
-  for (var i = 0; i < tilesLength; ++i) {
+  for (let i = 0; i < tilesLength; ++i) {
     const innerTileFormat = getTileFormat(buffer, byteOffset);
     const innerByteLength = buffer.readUInt32LE(byteOffset + 8);
     const innerBuffer = buffer.slice(byteOffset, byteOffset + innerByteLength);

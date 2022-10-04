@@ -8,7 +8,7 @@ import { SceneNode } from '../scene_node';
 export class ModelRefNode extends SceneNode {
   modelRef: ModelRef;
   needUploadModel: boolean;
-  modelLocalDirectoryPath: string;
+  modelLocalPath: string;
   overrideModel: boolean;
   cesiumAssetId: string;
 
@@ -24,13 +24,13 @@ export class ModelRefNode extends SceneNode {
 
   public uploadModelFromLocalIfNotExist(localPath: string): void {
     this.needUploadModel = true;
-    this.modelLocalDirectoryPath = localPath;
+    this.modelLocalPath = localPath;
     this.overrideModel = false;
   }
 
   public uploadModelFromLocal(localPath: string): void {
     this.needUploadModel = true;
-    this.modelLocalDirectoryPath = localPath;
+    this.modelLocalPath = localPath;
     this.overrideModel = true;
   }
 

@@ -13,7 +13,7 @@ import { extractCmpt } from '../cesium/extractCmpt';
 import { Stream } from 'stream';
 import { S3Client } from './s3';
 import { IncomingMessage } from 'http';
-import { CesiumModelType, CesiumOnComplete, CesiumUploadLocation } from '../cesium/types';
+import { GeometryCompression, ModelType, OnComplete, UploadAssetRequest, UploadLocation } from '../cesium/types';
 import { Credentials, S3 } from 'aws-sdk';
 import { getFileNameFromPath, logProgress } from '../utils/file_utils';
 import * as status from 'http-status';
@@ -63,19 +63,11 @@ export class CesiumClient {
   }
 
   // Tell Cesium we want to upload a file
-  private async uploadAssetRequest(accessToken: string, name: string, description: string, modelType: CesiumModelType) {
+  private async uploadAssetRequest(accessToken: string, request: UploadAssetRequest) {
     const url = 'https://api.cesium.com/v1/assets';
     const urlObject = new URL(url);
 
-    const postBody = {
-      name,
-      description,
-      type: '3DTILES', // Output a tileset
-      options: {
-        sourceType: modelType,
-      },
-    };
-    const bodyJSON = JSON.stringify(postBody);
+    const bodyJSON = JSON.stringify(request);
 
     // Issue a POST request to upload local file
     const options = {
@@ -99,7 +91,7 @@ export class CesiumClient {
   }
 
   // Upload file to S3 location provided by Cesium
-  private async uploadAssetToS3Location(assetPath: string, uploadLocation: CesiumUploadLocation) {
+  private async uploadAssetToS3Location(assetPath: string, uploadLocation: UploadLocation) {
     const cesiumS3 = new S3({
       region: 'us-east-1',
       signatureVersion: 'v4',
@@ -122,7 +114,7 @@ export class CesiumClient {
   }
 
   // Tell Cesium the file has been uploaded to S3 and start tiling
-  private async startTilingForAsset(accessToken: string, onComplete: CesiumOnComplete) {
+  private async startTilingForAsset(accessToken: string, onComplete: OnComplete) {
     const urlObject = new URL(onComplete.url);
     const port = urlObject.protocol.toLowerCase() === 'https:' ? 443 : 80;
     const body = JSON.stringify(onComplete.fields);
@@ -210,7 +202,7 @@ export class CesiumClient {
   }
 
   // Upload a local file to Cesium and wait for tiling
-  public async upload(accessToken: string, assetPath: string, description: string) {
+  public async upload(accessToken: string, assetPath: string, description: string, compression?: GeometryCompression) {
     const fileName = getFileNameFromPath(assetPath);
     const fileNameSplit = fileName.split('.');
     let assetName: string | undefined;
@@ -228,7 +220,16 @@ export class CesiumClient {
        * Cesium gives us the credentials and S3 location to upload to, and a
        * callback function to trigger tiling on the asset.
        */
-      const responseBuffer = await this.uploadAssetRequest(accessToken, assetName, description, cesiumModelType);
+      const request: UploadAssetRequest = {
+        name: assetName,
+        description,
+        type: '3DTILES', // Output a tileset
+        options: {
+          sourceType: cesiumModelType,
+          geometryCompression: compression ?? 'NONE',
+        },
+      };
+      const responseBuffer = await this.uploadAssetRequest(accessToken, request);
       const response = JSON.parse(responseBuffer.toString());
 
       cesiumAssetId = response.assetMetadata.id;
@@ -389,12 +390,12 @@ export class CesiumClient {
   }
 
   private async writeCmptToGlbs(outputPath: string, assetUri: string, data: any) {
-    var tiles = extractCmpt(data);
+    const tiles = extractCmpt(data);
 
     const promises: Promise<void>[] = [];
-    for (var i = 0; i < tiles.length; ++i) {
-      var tile = tiles[i];
-      var tileFormat = getTileFormat(tile);
+    for (let i = 0; i < tiles.length; ++i) {
+      const tile = tiles[i];
+      const tileFormat = getTileFormat(tile);
       if (tileFormat === 'b3dm') {
         const b3dmData = extractB3dm(tile);
         promises.push(this.writeAssetToFeatureTableBatchTableAndGlb(outputPath, assetUri, b3dmData));
@@ -407,8 +408,8 @@ export class CesiumClient {
     return Promise.all(promises);
   }
 
-  private getCesiumModelType(assetPath: string | undefined): CesiumModelType | undefined {
-    let modelType: CesiumModelType | undefined;
+  private getCesiumModelType(assetPath: string | undefined): ModelType | undefined {
+    let modelType: ModelType | undefined;
     if (!!assetPath) {
       const fileName = getFileNameFromPath(assetPath);
       const fileNameSplit = fileName.split('.');

@@ -98,7 +98,7 @@ export class SceneNode {
   public findChildNodesByName(name: string): SceneNode[] {
     const targetNodes: SceneNode[] = [];
 
-    for (var node of this.childrenNodes) {
+    for (const node of this.childrenNodes) {
       if (node.name === name) {
         targetNodes.push(node);
       }
@@ -109,8 +109,8 @@ export class SceneNode {
   public findChildNodesByType(type: ComponentType): SceneNode[] {
     const targetNodes: SceneNode[] = [];
 
-    for (var node of this.childrenNodes) {
-      for (var component of node.components) {
+    for (const node of this.childrenNodes) {
+      for (const component of node.components) {
         if (component.type === type) {
           targetNodes.push(node);
         }
@@ -120,17 +120,17 @@ export class SceneNode {
   }
 
   public findAllNodesByName(name: string): SceneNode[] {
-    var targetNodes: SceneNode[] = [];
+    let targetNodes: SceneNode[] = [];
 
     if (this.name === name) {
       targetNodes.push(this);
     }
 
-    for (var node of this.childrenNodes) {
+    for (const node of this.childrenNodes) {
       if (node.name === name) {
         targetNodes.push(node);
       }
-      for (var childNode of node.childrenNodes) {
+      for (const childNode of node.childrenNodes) {
         targetNodes = targetNodes.concat(childNode.findAllNodesByName(name));
       }
     }
@@ -138,23 +138,23 @@ export class SceneNode {
   }
 
   public findAllNodesByType(type: ComponentType): SceneNode[] {
-    var targetNodes: SceneNode[] = [];
+    let targetNodes: SceneNode[] = [];
 
-    for (var component of this.components) {
+    for (const component of this.components) {
       if (component.type === type) {
         targetNodes.push(this);
         break;
       }
     }
 
-    for (var node of this.childrenNodes) {
-      for (var component of node.components) {
+    for (const node of this.childrenNodes) {
+      for (const component of node.components) {
         if (component.type === type) {
           targetNodes.push(node);
           break;
         }
       }
-      for (var childNode of node.childrenNodes) {
+      for (const childNode of node.childrenNodes) {
         targetNodes = targetNodes.concat(childNode.findAllNodesByType(type));
       }
     }
@@ -162,9 +162,9 @@ export class SceneNode {
   }
 
   public addChildNodeIfNameNotExist(node: SceneNode): void {
-    var sameNameNodeExists: Boolean = false;
+    let sameNameNodeExists: Boolean = false;
 
-    for (var existingNode of this.childrenNodes) {
+    for (const existingNode of this.childrenNodes) {
       if (node.name === existingNode.name) {
         sameNameNodeExists = true;
         break;
@@ -177,7 +177,7 @@ export class SceneNode {
   }
 
   public deleteNode(node: SceneNode): boolean {
-    for (var i = 0; i < this.childrenNodes.length; i++) {
+    for (let i = 0; i < this.childrenNodes.length; i++) {
       if (node == this.childrenNodes[i]) {
         this.childrenNodes.slice(i, 1);
         return true;

@@ -100,7 +100,7 @@ export class Serializer {
 
     const indexes: any[] = [];
 
-    for (var node of nodes) {
+    for (const node of nodes) {
       indexes.push(map.get(node));
     }
 
@@ -111,7 +111,7 @@ export class Serializer {
     if (!nodes || nodes.length == 0) {
       return startIndex;
     }
-    for (var node of nodes) {
+    for (const node of nodes) {
       map.set(node, startIndex);
       startIndex = this.getNodeIndexMap(map, node.getChildrenNodes(), startIndex + 1);
     }
@@ -125,10 +125,10 @@ export class Serializer {
 
     const serializedNodes: any[] = [];
 
-    for (var node of rootNodes) {
+    for (const node of rootNodes) {
       serializedNodes.push(this.serializeNode(node, map, bucketName));
       const serializedChildrenNodes = this.serializeNodes(node.getChildrenNodes(), map, bucketName);
-      for (var childNode of serializedChildrenNodes) {
+      for (const childNode of serializedChildrenNodes) {
         serializedNodes.push(childNode);
       }
     }
@@ -167,7 +167,7 @@ export class Serializer {
   private serializeComponents(components: Component[], bucketName: string) {
     const serializedComponents: any[] = [];
 
-    for (var component of components) {
+    for (const component of components) {
       if (component.type === MODEL_REF_TYPE) {
         const modelRef: ModelRef = component as ModelRef;
         serializedComponents.push({

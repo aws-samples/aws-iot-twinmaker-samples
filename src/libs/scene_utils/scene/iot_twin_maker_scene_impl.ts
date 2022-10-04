@@ -100,7 +100,7 @@ export class IotTwinMakerSceneImpl implements IotTwinMakerScene {
   public findRootNodesByName(name: string): SceneNode[] {
     const targetNodes: SceneNode[] = [];
 
-    for (var node of this.rootNodes) {
+    for (const node of this.rootNodes) {
       if (node.name === name) {
         targetNodes.push(node);
       }
@@ -111,8 +111,8 @@ export class IotTwinMakerSceneImpl implements IotTwinMakerScene {
   public findRootNodesByType(type: ComponentType): SceneNode[] {
     const targetNodes: SceneNode[] = [];
 
-    for (var node of this.rootNodes) {
-      for (var component of node.getComponents()) {
+    for (const node of this.rootNodes) {
+      for (const component of node.getComponents()) {
         if (component.type === type) {
           targetNodes.push(node);
         }
@@ -122,18 +122,18 @@ export class IotTwinMakerSceneImpl implements IotTwinMakerScene {
   }
 
   public findAllNodesByName(name: string): SceneNode[] {
-    var targetNodes: SceneNode[] = [];
+    let targetNodes: SceneNode[] = [];
 
-    for (var node of this.rootNodes) {
+    for (const node of this.rootNodes) {
       targetNodes = targetNodes.concat(node.findAllNodesByName(name));
     }
     return targetNodes;
   }
 
   public findAllNodesByType(type: ComponentType): SceneNode[] {
-    var targetNodes: SceneNode[] = [];
+    let targetNodes: SceneNode[] = [];
 
-    for (var node of this.rootNodes) {
+    for (const node of this.rootNodes) {
       targetNodes = targetNodes.concat(node.findAllNodesByType(type));
     }
     return targetNodes;
@@ -141,9 +141,9 @@ export class IotTwinMakerSceneImpl implements IotTwinMakerScene {
 
   public selfCheck(): void {
     // Check if there is circle
-    var seen = new Set<SceneNode>();
+    const seen = new Set<SceneNode>();
 
-    for (var rootNode of this.rootNodes) {
+    for (const rootNode of this.rootNodes) {
       this.selfCheckInternal(rootNode, seen);
     }
   }
@@ -153,15 +153,15 @@ export class IotTwinMakerSceneImpl implements IotTwinMakerScene {
       throw new Error('circle detected in node:' + node.name);
     }
     seen.add(node);
-    for (var childNode of node.childrenNodes) {
+    for (const childNode of node.childrenNodes) {
       this.selfCheckInternal(childNode, seen);
     }
   }
 
   public addRootNodeIfNameNotExist(node: SceneNode): void {
-    var sameNameNodeExists: Boolean = false;
+    let sameNameNodeExists: Boolean = false;
 
-    for (var existingNode of this.rootNodes) {
+    for (const existingNode of this.rootNodes) {
       if (node.name === existingNode.name) {
         sameNameNodeExists = true;
         break;
@@ -178,7 +178,7 @@ export class IotTwinMakerSceneImpl implements IotTwinMakerScene {
   }
 
   public deleteNode(rootNode: SceneNode): boolean {
-    for (var i = 0; i < this.rootNodes.length; i++) {
+    for (let i = 0; i < this.rootNodes.length; i++) {
       if (rootNode == this.rootNodes[i]) {
         this.rootNodes.splice(i, 1);
         return true;

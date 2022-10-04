@@ -16,7 +16,7 @@ if (deleteAll) {
   factory.loadScene(args.workspaceId, args.sceneId).then((twinMakerScene) => {
     // Find and delete all nodes
     const targetNodes = twinMakerScene.getRootNodes();
-    for (var nodeToBeDeleted of targetNodes) {
+    for (const nodeToBeDeleted of targetNodes) {
       twinMakerScene.deleteNode(nodeToBeDeleted);
       console.log('Deleted root node: ', nodeToBeDeleted.name);
     }

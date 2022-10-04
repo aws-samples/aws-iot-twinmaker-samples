@@ -9,6 +9,7 @@ export interface CesiumSampleArguments {
   assetFilePath?: string;
   cesiumAccessToken?: string;
   cesiumAssetId?: string;
+  dracoCompression?: boolean;
 }
 
 export const help = () => {
@@ -26,9 +27,13 @@ export const help = () => {
       --cesiumAccessToken   REQUIRED
       --assetFilePath       OPTIONAL
       --cesiumAssetId       OPTIONAL
+      --dracoCompression    OPTIONAL
     
-    Cesium Ion sample upload from local source file:
+    Cesium Ion sample upload from local point cloud source file:
       npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAccessToken "eyJASDF..." --assetFilePath ~/Documents/LaserScan.las
+
+    Cesium Ion sample upload from local 3D model source file:
+      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAccessToken "eyJASDF..." --assetFilePath ~/Documents/Building.gltf --dracoCompression
   
     Cesium Ion sample download tiles into scene:
       npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAccessToken "eyJASDF..." --cesiumAssetId 1234567
@@ -43,6 +48,7 @@ export const parseArgs = (): CesiumSampleArguments => {
     assetFilePath: '',
     cesiumAccessToken: '',
     cesiumAssetId: '',
+    dracoCompression: false,
   };
   const parsedArgs = minimist(process.argv.slice(2));
   for (const arg of Object.keys(parsedArgs)) {
@@ -65,6 +71,9 @@ export const parseArgs = (): CesiumSampleArguments => {
         break;
       case 'cesiumAssetId':
         args.cesiumAssetId = parsedArgs[arg];
+        break;
+      case 'dracoCompression':
+        args.dracoCompression = true;
         break;
       case '_':
         break;

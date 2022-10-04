@@ -4,6 +4,15 @@
 
 This package provides sample command line scripts that automate the creation of IoT TwinMaker scenes. Upload 3D assets and place them in a 3D scene connected to IoT data via augmented widgets (tag, motion indicator, etc.).
 
+## Install
+
+Make sure you are running the script in the `scene_utils` folder:
+
+```
+cd $GETTING_STARTED_DIR/src/libs/scene_utils
+npm install
+```
+
 # Samples:
 
 ## 1. COOKIE FACTORY `samples/cookie_factory_sample/`
@@ -12,10 +21,8 @@ Use the models in the `scenes` directory for the `--assetDirPath` input.
 
 ### Example
 
-If running this script from the root of `aws-iot-twinmaker-samples`:
-
 ```
-npx ts-node src/libs/scene_utils/samples/cookie_factory_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetDirPath src/workspaces/cookiefactory/scenes/
+npx ts-node samples/cookie_factory_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetDirPath $GETTING_STARTED_DIR/src/workspaces/cookiefactory/scenes/
 ```
 
 ### Output
@@ -39,7 +46,7 @@ Automates the Cesium Ion pipeline to export directly to TwinMaker.
 1. Upload a 3D asset to Cesium
 
 ```
-npx ts-node src/libs/scene_utils/samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetFilePath [3D_ASSET_PATH] --cesiumAccessToken [ACCESS_TOKEN]
+npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetFilePath [3D_ASSET_PATH] --cesiumAccessToken [ACCESS_TOKEN]
 ```
 
 The script will wait up to 5 minutes for Cesium to process the asset's tiles. If it takes more than 5 minutes then run the next command below.
@@ -47,7 +54,7 @@ The script will wait up to 5 minutes for Cesium to process the asset's tiles. If
 2. Download Cesium tiles and export them into a TwinMaker scene
 
 ```
-npx ts-node src/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAccessToken [ACCESS_TOKEN] --cesiumAssetId [ASSET_ID]
+npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAccessToken [ACCESS_TOKEN] --cesiumAssetId [ASSET_ID]
 ```
 
 ### Output
@@ -71,11 +78,11 @@ Delete nodes in your scene or the entire scene file.
 1. Delete all nodes in your scene
 
 ```
-npx ts-node src/delete_sample/sample_delete.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID]
+npx ts-node samples/delete_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID]
 ```
 
 2. Delete the scene in TwinMaker and S3
 
 ```
-npx ts-node src/delete_sample/sample_delete.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --deleteAll
+npx ts-node samples/delete_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --deleteAll
 ```

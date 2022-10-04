@@ -86,12 +86,12 @@ export class SceneFactoryImpl implements SceneFactory {
     cesiumAccessToken?: string,
   ): Promise<void> {
     const modelRefNodes: SceneNode[] = iotTwinMakerScene.findAllNodesByType(MODEL_REF_TYPE);
-    for (var node of modelRefNodes) {
+    for (const node of modelRefNodes) {
       const modelRefNode = node as ModelRefNode;
 
       const shouldUpload = modelRefNode.needUploadModel;
       const shouldOverride = modelRefNode.overrideModel;
-      for (var component of node.getComponents()) {
+      for (const component of node.getComponents()) {
         if (component.type === MODEL_REF_TYPE) {
           const modelRefComponent = component as ModelRef;
           const exist: boolean = await SceneFactoryImpl.s3Client.doesFileExist(
@@ -104,7 +104,7 @@ export class SceneFactoryImpl implements SceneFactory {
             if (modelRefComponent.modelType === 'Tiles3D' && cesiumAccessToken) {
               await this.uploadCesiumTilesToS3(bucketName, cesiumAccessToken, modelRefNode.cesiumAssetId);
             } else {
-              await SceneFactoryImpl.s3Client.uploadModelRelatedFiles(bucketName, modelRefNode.modelLocalDirectoryPath);
+              await SceneFactoryImpl.s3Client.uploadModelRelatedFiles(bucketName, modelRefNode.modelLocalPath);
             }
           }
         }
