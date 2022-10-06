@@ -15,16 +15,25 @@ import { S3Client } from './s3';
 import { IncomingMessage } from 'http';
 import { GeometryCompression, ModelType, OnComplete, UploadAssetRequest, UploadLocation } from '../cesium/types';
 import { Credentials, S3 } from 'aws-sdk';
-import { getFileNameFromPath, logProgress } from '../utils/file_utils';
+import { logProgress } from '../utils/file_utils';
 import * as status from 'http-status';
+import { basename } from 'path';
 
 export class CesiumClient {
-  private s3BucketName: string | undefined;
-  private s3Client: S3Client;
+  private _s3BucketName: string | undefined;
+  private _s3Client: S3Client;
 
-  constructor(s3BucketName?: string) {
-    this.s3BucketName = s3BucketName;
-    this.s3Client = new S3Client();
+  constructor(s3Client?: S3Client, s3BucketName?: string) {
+    this._s3Client = s3Client ?? new S3Client();
+    this._s3BucketName = s3BucketName;
+  }
+
+  public set s3Client(client: S3Client) {
+    this._s3Client = client;
+  }
+
+  public set s3BucketName(name: string) {
+    this._s3BucketName = name;
   }
 
   // Process a request and resolve the response data
@@ -103,7 +112,7 @@ export class CesiumClient {
       ),
     });
 
-    const fileName = getFileNameFromPath(assetPath);
+    const fileName = basename(assetPath);
     return cesiumS3
       .upload({
         Body: createReadStream(assetPath),
@@ -203,7 +212,7 @@ export class CesiumClient {
 
   // Upload a local file to Cesium and wait for tiling
   public async upload(accessToken: string, assetPath: string, description: string, compression?: GeometryCompression) {
-    const fileName = getFileNameFromPath(assetPath);
+    const fileName = basename(assetPath);
     const fileNameSplit = fileName.split('.');
     let assetName: string | undefined;
     if (fileNameSplit.length > 0) {
@@ -323,8 +332,8 @@ export class CesiumClient {
 
   public writeJsonToFile(json: any, outputFile: PathLike) {
     // Upload directly to S3 if an S3 bucket name was provided
-    if (!!this.s3BucketName) {
-      return this.s3Client.uploadData(this.s3BucketName, outputFile.toString(), JSON.stringify(json));
+    if (!!this._s3BucketName) {
+      return this._s3Client.uploadData(this._s3BucketName, outputFile.toString(), JSON.stringify(json));
     } else {
       // Write to local file otherwise
       return new Promise<void>((resolve) => {
@@ -341,8 +350,8 @@ export class CesiumClient {
 
   public writeBinaryToFile(data: string | NodeJS.ArrayBufferView, outputFile: PathOrFileDescriptor) {
     // Upload directly to S3 if an S3 bucket name was provided
-    if (!!this.s3BucketName) {
-      return this.s3Client.uploadData(this.s3BucketName, outputFile.toString(), data);
+    if (!!this._s3BucketName) {
+      return this._s3Client.uploadData(this._s3BucketName, outputFile.toString(), data);
     } else {
       // Write to local file otherwise
       return new Promise<void>((resolve, reject) => {
@@ -411,7 +420,7 @@ export class CesiumClient {
   private getCesiumModelType(assetPath: string | undefined): ModelType | undefined {
     let modelType: ModelType | undefined;
     if (!!assetPath) {
-      const fileName = getFileNameFromPath(assetPath);
+      const fileName = basename(assetPath);
       const fileNameSplit = fileName.split('.');
       if (fileNameSplit.length > 1) {
         switch (fileNameSplit[1].toUpperCase()) {

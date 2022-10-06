@@ -4,9 +4,10 @@
 import { readFileSync } from 'fs';
 import minimist from 'minimist';
 import { ModelRefNode } from '../../node/model.ts/model_ref';
-import { getFileNameFromPath, isWin } from '../../utils/file_utils';
+import { withTrailingSlash } from '../../utils/file_utils';
 import { parse } from 'csv-parse/sync';
 import { ModelType } from '../../utils/types';
+import { basename } from 'path';
 
 export interface CookieFactorySampleArguments {
   workspaceId: string;
@@ -54,10 +55,8 @@ export const parseArgs = (): CookieFactorySampleArguments => {
         args.sceneId = parsedArgs[arg];
         break;
       case 'assetDirPath':
-        let assetDirPath = parsedArgs[arg] as string;
-        const trailingChar = isWin ? '\\' : '/';
-        assetDirPath += assetDirPath.endsWith(trailingChar) ? '' : trailingChar;
-        args.assetDirPath = assetDirPath;
+        const assetDirPath = parsedArgs[arg] as string;
+        args.assetDirPath = withTrailingSlash(assetDirPath);
         break;
       case '_':
         break;
@@ -77,7 +76,7 @@ export const parseArgs = (): CookieFactorySampleArguments => {
 
 // Convert 3D file to a ModelRef object
 export const assetToModelRef = (assetPath: string, nodeName?: string): ModelRefNode => {
-  const fileName = getFileNameFromPath(assetPath);
+  const fileName = basename(assetPath);
   const fileNameSplit = fileName.split('.');
   return new ModelRefNode(nodeName ?? fileNameSplit[0], fileName, fileNameSplit[1].toUpperCase() as ModelType);
 };

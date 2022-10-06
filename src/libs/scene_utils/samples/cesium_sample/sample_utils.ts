@@ -6,8 +6,8 @@ import minimist from 'minimist';
 export interface CesiumSampleArguments {
   workspaceId: string;
   sceneId: string;
+  cesiumAccessToken: string;
   assetFilePath?: string;
-  cesiumAccessToken?: string;
   cesiumAssetId?: string;
   dracoCompression?: boolean;
 }
@@ -45,8 +45,8 @@ export const parseArgs = (): CesiumSampleArguments => {
   const args: CesiumSampleArguments = {
     workspaceId: '',
     sceneId: '',
-    assetFilePath: '',
     cesiumAccessToken: '',
+    assetFilePath: '',
     cesiumAssetId: '',
     dracoCompression: false,
   };
@@ -63,11 +63,11 @@ export const parseArgs = (): CesiumSampleArguments => {
       case 'sceneId':
         args.sceneId = parsedArgs[arg];
         break;
-      case 'assetFilePath':
-        args.assetFilePath = parsedArgs[arg];
-        break;
       case 'cesiumAccessToken':
         args.cesiumAccessToken = parsedArgs[arg];
+        break;
+      case 'assetFilePath':
+        args.assetFilePath = parsedArgs[arg];
         break;
       case 'cesiumAssetId':
         args.cesiumAssetId = parsedArgs[arg];

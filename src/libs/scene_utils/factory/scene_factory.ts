@@ -7,48 +7,47 @@ import { IotTwinMakerSceneImpl } from '../scene/iot_twin_maker_scene_impl';
 
 export interface SceneFactory {
   /**
-  A method to create scene if the scene does not exist, or load the scene
-  if the scene already exists in the workspace specified by workspaceId. 
-  A promise of IotTwinMakerScene will be returned.
-  
-  The method will fail if the workspace does not exist and ResourceNotFoundException
-  error will be thrown.
-  */
+   * A method to create scene if the scene does not exist, or load the scene
+   * if the scene already exists in the workspace specified by workspaceId.
+   * A promise of IotTwinMakerScene will be returned.
+   *
+   * @thrown ResourceNotFoundException if the workspace or scene do not exist.
+   */
   loadOrCreateSceneIfNotExists(workspaceId: string, sceneId: string): Promise<IotTwinMakerSceneImpl>;
 
   /**
-  A method ot load the existing scene. A promise of IotTwinMakerScene will
-  be returned.
-  
-  The method will fail if workspace or scene do not exist, and ResourceNotFoundException
-  will be thrown.
-  */
+   * Load the existing scene. A promise of IotTwinMakerScene will be returned.
+   *
+   * @thrown ResourceNotFoundException if the workspace or scene do not exist.
+   */
   loadScene(workspaceId: string, sceneId: string): Promise<IotTwinMakerSceneImpl>;
 
   /**
-  A method to create scene. A promise of IotTwinMakerScene will
-  be returned.
-  
-  The method will fail when workspace does not exist or scene already exists.
-  
-  @thrown ResourceNotFoundException error when the workspace does not exist.
-  @thrown SceneAlreadyExists error when the scene already exists.
-  */
+   * Create a new scene. A promise of IotTwinMakerScene will be returned.
+   *
+   * @thrown ResourceNotFoundException error when the workspace does not exist.
+   * @thrown SceneAlreadyExists error when the scene already exists.
+   */
   createScene(workspaceId: string, sceneId: string): Promise<IotTwinMakerSceneImpl>;
 
   /**
-   * A method to save the scene.
+   * Save the scene by uploading the scene JSON to S3. Will override the scene
+   * if it already exists.
+   *
+   * @param iotTwinMakerScene is the scene stored in memory to save in S3
+   * @param cesiumAccessToken is the optional access token to Cesium Ion for
+   *                          using a Cesium tileset in the scene
    *
    * @thrown SceneHasBeenModifed error when the scene has been modified by someone else.
    */
-  save(iotTwinMakerScene: IotTwinMakerScene): void;
+  save(iotTwinMakerScene: IotTwinMakerScene, cesiumAccessToken?: string): void;
 
   /**
-   * Save the scene to the workspace regardless if original scene has been modified by
-   * someone else or not.
-   * @param iotTwinMakerScene
+   * Save the scene JSON locally to @param localPath
+   *
+   * @thrown SceneHasBeenModifed error when the scene has been modified by someone else.
    */
-  overrideSave(iotTwinMakerScene: IotTwinMakerScene): void;
+  saveLocal(iotTwinMakerScene: IotTwinMakerScene, localPath: string): void;
 
   /**
    * Update the scene based on the workspace's list of entities. TwinMaker.ListEntities

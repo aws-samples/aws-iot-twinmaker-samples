@@ -4,9 +4,8 @@
 import { readdirSync, readFileSync, statSync } from 'fs';
 import { S3 } from 'aws-sdk';
 import { String } from 'aws-sdk/clients/appstream';
-import { join } from 'path';
+import { basename, join } from 'path';
 import { DeleteObjectRequest, PutObjectRequest } from 'aws-sdk/clients/s3';
-import { getFileNameFromPath } from '../utils/file_utils';
 
 export class S3Client {
   private s3: S3;
@@ -20,7 +19,7 @@ export class S3Client {
   }
 
   private uploadFile(localFilePath: string, bucketName: string) {
-    const fileName = getFileNameFromPath(localFilePath);
+    const fileName = basename(localFilePath);
     const params = {
       Bucket: bucketName,
       Key: fileName,

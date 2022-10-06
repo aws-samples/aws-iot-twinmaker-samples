@@ -4,16 +4,15 @@
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { parseArgs } from './sample_utils';
 
-const args = parseArgs();
-const deleteAll = args.deleteAll;
+const { workspaceId, sceneId, deleteAll } = parseArgs();
 
 const factory = new SceneFactoryImpl();
 
 if (deleteAll) {
-  factory.deleteScene(args.workspaceId, args.sceneId);
+  factory.deleteScene(workspaceId, sceneId);
 } else {
   // Load an existing scene for updates
-  factory.loadScene(args.workspaceId, args.sceneId).then((twinMakerScene) => {
+  factory.loadScene(workspaceId, sceneId).then((twinMakerScene) => {
     // Find and delete all nodes
     const targetNodes = twinMakerScene.getRootNodes();
     for (const nodeToBeDeleted of targetNodes) {

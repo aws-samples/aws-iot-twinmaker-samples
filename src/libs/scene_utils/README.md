@@ -4,24 +4,53 @@
 
 This package provides sample command line scripts that automate the creation of IoT TwinMaker scenes. Upload 3D assets and place them in a 3D scene connected to IoT data via augmented widgets (tag, motion indicator, etc.).
 
+## Prerequisites
+
+You will need an IoT TwinMaker workspace to run the sample scripts. Complete steps 1-3 of Deploying the Sample Cookie Factory Workspace [here](https://github.com/aws-samples/aws-iot-twinmaker-samples/blob/main/README.md).
+
+In order to run the Cookie Factory sample script you need to complete steps 4-6 to have entities in your workspace.
+
 ## Install
 
 Make sure you are running the script in the `scene_utils` folder:
 
-```
+```bash
 cd $GETTING_STARTED_DIR/src/libs/scene_utils
 npm install
+```
+
+Set the following environment variables before running any sample script:
+
+```bash
+AWS_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY
+AWS_SESSION_TOKEN
+AWS_REGION
+```
+
+You need to set your AWS account credentials and the region of your workspace for the AWS SDK used in these scripts. Even if you configured the variable `AWS_DEFAULT_REGION` you still need to set `AWS_REGION` because it is a key variable used by all clients in the AWS SDK.
+
+### Usage
+
+Run the following command in the directory of the sample script to see its usage.
+
+For example, to understand the usage of the Cookie Factory sample:
+
+```bash
+npx ts-node samples/cookie_factory_sample/sample.ts -h
 ```
 
 # Samples:
 
 ## 1. COOKIE FACTORY `samples/cookie_factory_sample/`
 
+Create a Cookie Factory example scene in your workspace.
+
 Use the models in the `scenes` directory for the `--assetDirPath` input.
 
 ### Example
 
-```
+```bash
 npx ts-node samples/cookie_factory_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetDirPath $GETTING_STARTED_DIR/src/workspaces/cookiefactory/scenes/
 ```
 
@@ -45,7 +74,7 @@ Automates the Cesium Ion pipeline to export directly to TwinMaker.
 
 1. Upload a 3D asset to Cesium
 
-```
+```bash
 npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetFilePath [3D_ASSET_PATH] --cesiumAccessToken [ACCESS_TOKEN]
 ```
 
@@ -53,7 +82,7 @@ The script will wait up to 5 minutes for Cesium to process the asset's tiles. If
 
 2. Download Cesium tiles and export them into a TwinMaker scene
 
-```
+```bash
 npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAccessToken [ACCESS_TOKEN] --cesiumAssetId [ASSET_ID]
 ```
 
@@ -77,12 +106,12 @@ Delete nodes in your scene or the entire scene file.
 
 1. Delete all nodes in your scene
 
-```
+```bash
 npx ts-node samples/delete_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID]
 ```
 
 2. Delete the scene in TwinMaker and S3
 
-```
+```bash
 npx ts-node samples/delete_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --deleteAll
 ```

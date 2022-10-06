@@ -5,37 +5,33 @@ import { CesiumClient } from '../../client/cesium';
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { ModelRefNode } from '../../node/model.ts/model_ref';
 import { parseArgs } from './sample_utils';
-import { getFileNameFromPath } from '../../utils/file_utils';
 import { GeometryCompression } from '../../cesium/types';
+import { basename } from 'path';
 
-const args = parseArgs();
-const workspaceId = args.workspaceId;
-const sceneId = args.sceneId;
-const assetPath = args.assetFilePath;
-const cesiumAccessToken = args.cesiumAccessToken!;
-let cesiumAssetId = args.cesiumAssetId;
-const dracoCompression = args.dracoCompression;
+const { workspaceId, sceneId, assetFilePath, cesiumAccessToken, cesiumAssetId, dracoCompression } = parseArgs();
+let assetId = cesiumAssetId;
+let assetName = '';
 
 const factory = new SceneFactoryImpl();
 
 // Create a scene or load an existing scene for updates
 factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMakerScene) => {
-  // If requested, upload an asset to Cesium
-  const fileName = getFileNameFromPath(assetPath);
-  const fileNameSplit = fileName.split('.');
-  let assetName = !!fileNameSplit ? fileNameSplit[0] : '';
-
   // Wait for a tiled asset - if there's no path then assume tiling is done
-  let tilingDone = assetPath === '';
+  let tilingDone = assetFilePath === '';
 
   const cesiumClient: CesiumClient = new CesiumClient();
 
-  if (!!assetPath) {
+  if (!!assetFilePath) {
+    // If requested, upload an asset to Cesium
+    const fileName = basename(assetFilePath);
+    const fileNameSplit = fileName.split('.');
+    assetName = !!fileNameSplit ? fileNameSplit[0] : '';
+
     console.log('Uploading asset to Cesium Ion...');
     // Submit asset upload request
     const description = 'Asset to be visualized in AWS IoT TwinMaker';
     const compression: GeometryCompression = dracoCompression === true ? 'DRACO' : 'NONE';
-    [cesiumAssetId, tilingDone] = await cesiumClient.upload(cesiumAccessToken, assetPath, description, compression);
+    [assetId, tilingDone] = await cesiumClient.upload(cesiumAccessToken, assetFilePath, description, compression);
   }
 
   // Only download Cesium tiles and edit the scene if the tiling on the asset is finished

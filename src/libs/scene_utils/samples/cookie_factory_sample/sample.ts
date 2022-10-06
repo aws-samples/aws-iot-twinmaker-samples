@@ -3,19 +3,17 @@
 
 import { EntitySummary, ListEntitiesFilter } from 'aws-sdk/clients/iottwinmaker';
 import { ModelShader } from '../../components/model_shader_component';
+import { Tag } from '../../components/tag_component';
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { EmptyNode } from '../../node/empty_node';
 import { MotionIndicatorNode } from '../../node/indicator.ts/motion_indicator';
 import { ModelRefNode } from '../../node/model.ts/model_ref';
 import { DataBinding } from '../../node/tag/data_binding';
 import { TagNode } from '../../node/tag/tag';
-import { Rule, Statement, Target } from '../../utils/types';
+import { NavLink, Rule, Statement, Target } from '../../utils/types';
 import { assetToModelRef, parseArgs, parseCsv, processMixerTransform } from './sample_utils';
 
-const args = parseArgs();
-const workspaceId = args.workspaceId;
-const sceneId = args.sceneId;
-const assetPath = args.assetDirPath;
+const { workspaceId, sceneId, assetDirPath } = parseArgs();
 
 const factory = new SceneFactoryImpl();
 
@@ -56,8 +54,9 @@ factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMaker
   twinMakerScene.addRule(waterTankFlowRuleName, waterTankFlowRuleMap);
 
   // Add Environment Model
-  const environmentAssetFile = `${assetPath}CookieFactoryEnvironment.glb`;
+  const environmentAssetFile = `${assetDirPath}CookieFactoryEnvironment.glb`;
   const environmentNode: ModelRefNode = assetToModelRef(environmentAssetFile, 'Environment');
+  environmentNode.withCastShadow(true).withReceiveShadow(true);
 
   // Upload the Asset for 3D Model
   environmentNode.uploadModelFromLocalIfNotExist(environmentAssetFile);
@@ -77,10 +76,13 @@ factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMaker
 
   // Add Cookie Lines
   console.log('Adding Cookie Lines...');
-  const cookieLineAssetFile = `${assetPath}CookieFactoryLine.glb`;
+  const cookieLineAssetFile = `${assetDirPath}CookieFactoryLine.glb`;
   const cookieLineNode: ModelRefNode = assetToModelRef(cookieLineAssetFile, 'COOKIE_LINE');
+  cookieLineNode.withCastShadow(true).withReceiveShadow(true);
   const cookieLineNode1: ModelRefNode = assetToModelRef(cookieLineAssetFile, 'COOKIE_LINE_1');
+  cookieLineNode1.withCastShadow(true).withReceiveShadow(true);
   const cookieLineNode2: ModelRefNode = assetToModelRef(cookieLineAssetFile, 'COOKIE_LINE_2');
+  cookieLineNode2.withCastShadow(true).withReceiveShadow(true);
   cookieLineNode.uploadModelFromLocalIfNotExist(cookieLineAssetFile);
 
   cookieLineNode.withPosition({ x: 26, y: -2.5, z: 45 });
@@ -120,9 +122,22 @@ factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMaker
         .withRuleId(alarmRuleName)
         .withPosition({ x: 0, y: 2.84, z: 0 });
 
+      // Set Nav Link parameters on the tag
+      // Expect entity name to be "Mixer_{NUM}"
+      const cameraNum = Number(entitySummary.entityName.slice(6)) > 12 ? '1' : '2';
+      tagNode.withNavLink(
+        new NavLink().withParams(
+          new Map([
+            ['kvs_stream_name', `cookiefactory_mixerroom_camera_0${cameraNum}`],
+            ['sel_entity_name', entitySummary.entityName],
+          ]),
+        ),
+      );
+
       // Prepare 3D Model
-      const mixerAssetFile = `${assetPath}CookieFactoryMixer.glb`;
+      const mixerAssetFile = `${assetDirPath}CookieFactoryMixer.glb`;
       const modelRefNode: ModelRefNode = assetToModelRef(mixerAssetFile, entitySummary.entityName);
+      modelRefNode.withCastShadow(true).withReceiveShadow(true);
       modelRefNode.uploadModelFromLocalIfNotExist(mixerAssetFile);
 
       // Add Tag to 3D Model node
@@ -150,9 +165,12 @@ factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMaker
         .withRuleId(alarmRuleName)
         .withPosition({ x: 0, y: 0.86, z: 0 });
 
+      tagNode.withNavLink(new NavLink().withParams(new Map([['sel_entity_name', entitySummary.entityName]])));
+
       // Prepare 3D Model
-      const waterTankAssetFile = `${assetPath}CookieFactoryWaterTank.glb`;
+      const waterTankAssetFile = `${assetDirPath}CookieFactoryWaterTank.glb`;
       const waterTankNode: ModelRefNode = assetToModelRef(waterTankAssetFile, 'WaterTank');
+      waterTankNode.withCastShadow(true).withReceiveShadow(true);
       waterTankNode.uploadModelFromLocalIfNotExist(waterTankAssetFile);
 
       waterTankNode.withPosition({ x: 32.6, y: 0, z: 47 });

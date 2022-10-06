@@ -3,13 +3,9 @@
 
 export const isWin = process.platform === 'win32';
 
-export const getFileNameFromPath = (assetPath: string | undefined): string => {
-  if (!!assetPath) {
-    const sep = isWin ? '\\' : '/';
-    const pathSplit = assetPath.split(sep);
-    return pathSplit[pathSplit.length - 1];
-  }
-  return '';
+export const withTrailingSlash = (dirPath: string) => {
+  const trailingChar = isWin ? '\\' : '/';
+  return dirPath.endsWith(trailingChar) ? dirPath : `${dirPath}${trailingChar}`;
 };
 
 export const logProgress = (logString: string) => {

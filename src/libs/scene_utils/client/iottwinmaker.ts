@@ -10,12 +10,20 @@ import {
   ListEntitiesRequest,
   DeleteSceneRequest,
 } from 'aws-sdk/clients/iottwinmaker';
+import osName from 'os-name';
+import { name, version } from '../package.json';
 
 export class IotTwinMakerClient {
   private twinmakerClient: IoTTwinMaker;
 
   constructor() {
-    this.twinmakerClient = new IoTTwinMaker();
+    this.twinmakerClient = new IoTTwinMaker({
+      customUserAgent: this.userAgentString(),
+    });
+  }
+
+  private userAgentString(): string {
+    return `Node.js/${process.version.slice(1)} (${osName()}; ${process.arch}) ${name}/${version}`;
   }
 
   public async createScene(workspaceId: string, sceneId: string): Promise<void> {
