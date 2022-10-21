@@ -44,17 +44,20 @@ class TimestreamReader(SingleEntityReader, MultiEntityReader):
         """
         LOGGER.info("TimestreamReader entity_query")
 
-        selected_property = request.selected_properties[0]
+        selected_properties = request.selected_properties
         property_filter = request.property_filters[0] if request.property_filters else None
         filter_clause = f"AND measure_value::varchar {property_filter['operator']} '{property_filter['value']['stringValue']}'" if property_filter else ""
 
         telemetry_asset_type = request.udq_context['properties']['telemetryAssetType']['value']['stringValue']
         telemetry_asset_id = request.udq_context['properties']['telemetryAssetId']['value']['stringValue']
 
-        if property_filter: 
-            sample_query = f"""SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar FROM CookieFactoryTelemetry.Telemetry  WHERE time > from_iso8601_timestamp('2021-10-18T21:42:58') AND time <= from_iso8601_timestamp('2021-10-18T21:43:35') AND TelemetryAssetType = 'test' AND TelemetryAssetId = 'test' AND measure_name = 'alarm_status' AND measure_value::varchar {property_filter['operator']} 'abc'  ORDER BY time ASC"""
+        sample_sel_properties = [f"p{x}" for x in range(0, len(selected_properties))] # e.g. "p0", "p1", ...
+        sample_measure_name_clause = " OR ".join([f"measure_name = '{x}'" for x in sample_sel_properties])
+        measure_name_clause = " OR ".join([f"measure_name = '{x}'" for x in selected_properties])
+        if property_filter:
+            sample_query = f"""SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar FROM CookieFactoryTelemetry.Telemetry  WHERE time > from_iso8601_timestamp('2021-10-18T21:42:58') AND time <= from_iso8601_timestamp('2021-10-18T21:43:35') AND TelemetryAssetType = 'test' AND TelemetryAssetId = 'test' AND ({sample_measure_name_clause}) AND measure_value::varchar {property_filter['operator']} 'abc'  ORDER BY time ASC"""
         else:
-            sample_query = """SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar FROM CookieFactoryTelemetry.Telemetry  WHERE time > from_iso8601_timestamp('2021-10-18T21:42:58') AND time <= from_iso8601_timestamp('2021-10-18T21:43:35') AND TelemetryAssetType = 'test' AND TelemetryAssetId = 'test' AND measure_name = 'alarm_status'   ORDER BY time ASC"""
+            sample_query = f"""SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar FROM CookieFactoryTelemetry.Telemetry  WHERE time > from_iso8601_timestamp('2021-10-18T21:42:58') AND time <= from_iso8601_timestamp('2021-10-18T21:43:35') AND TelemetryAssetType = 'test' AND TelemetryAssetId = 'test' AND ({sample_measure_name_clause})   ORDER BY time ASC"""
 
         query_string = f"SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar" \
             f" FROM {self.database_name}.{self.table_name} " \
@@ -62,7 +65,7 @@ class TimestreamReader(SingleEntityReader, MultiEntityReader):
             f" AND time <= from_iso8601_timestamp('{request.end_time}')" \
             f" AND TelemetryAssetType = '{telemetry_asset_type}'" \
             f" AND TelemetryAssetId = '{telemetry_asset_id}'" \
-            f" AND measure_name = '{selected_property}'" \
+            f" AND ({measure_name_clause})" \
             f" {filter_clause} " \
             f" ORDER BY time {'ASC' if request.order_by == OrderBy.ASCENDING else 'DESC'}"
 
@@ -79,22 +82,25 @@ class TimestreamReader(SingleEntityReader, MultiEntityReader):
         """
         LOGGER.info("TimestreamReader component_type_query")
 
-        selected_property = request.selected_properties[0]
+        selected_properties = request.selected_properties
         property_filter = request.property_filters[0] if request.property_filters else None
         filter_clause = f"AND measure_value::varchar {property_filter['operator']} '{property_filter['value']['stringValue']}'" if property_filter else ""
         telemetry_asset_type = request.udq_context['properties']['telemetryAssetType']['value']['stringValue']
 
-        if property_filter: 
-            sample_query = f"""SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar FROM CookieFactoryTelemetry.Telemetry  WHERE time > from_iso8601_timestamp('2021-10-18T21:42:58') AND time <= from_iso8601_timestamp('2021-10-18T21:43:35') AND TelemetryAssetType = 'test' AND measure_name = 'alarm_status' AND measure_value::varchar {property_filter['operator']} 'abc'  ORDER BY time ASC"""
+        sample_sel_properties = [f"p{x}" for x in range(0, len(selected_properties))] # e.g. "p0", "p1", ...
+        sample_measure_name_clause = " OR ".join([f"measure_name = '{x}'" for x in sample_sel_properties])
+        measure_name_clause = " OR ".join([f"measure_name = '{x}'" for x in selected_properties])
+        if property_filter:
+            sample_query = f"""SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar FROM CookieFactoryTelemetry.Telemetry  WHERE time > from_iso8601_timestamp('2021-10-18T21:42:58') AND time <= from_iso8601_timestamp('2021-10-18T21:43:35') AND TelemetryAssetType = 'test' AND ({sample_measure_name_clause}) AND measure_value::varchar {property_filter['operator']} 'abc'  ORDER BY time ASC"""
         else:
-            sample_query = """SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar FROM CookieFactoryTelemetry.Telemetry  WHERE time > from_iso8601_timestamp('2021-10-18T21:42:58') AND time <= from_iso8601_timestamp('2021-10-18T21:43:35') AND TelemetryAssetType = 'test' AND measure_name = 'alarm_status'   ORDER BY time ASC"""
+            sample_query = f"""SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar FROM CookieFactoryTelemetry.Telemetry  WHERE time > from_iso8601_timestamp('2021-10-18T21:42:58') AND time <= from_iso8601_timestamp('2021-10-18T21:43:35') AND TelemetryAssetType = 'test' AND ({sample_measure_name_clause})   ORDER BY time ASC"""
 
         query_string = f"SELECT TelemetryAssetId, measure_name, time, measure_value::double, measure_value::varchar" \
             f" FROM {self.database_name}.{self.table_name} " \
             f" WHERE time > from_iso8601_timestamp('{request.start_time}')" \
             f" AND time <= from_iso8601_timestamp('{request.end_time}')" \
             f" AND TelemetryAssetType = '{telemetry_asset_type}'" \
-            f" AND measure_name = '{selected_property}'" \
+            f" AND ({measure_name_clause})" \
             f" {filter_clause} " \
             f" ORDER BY time {'ASC' if request.order_by == OrderBy.ASCENDING else 'DESC'}"
         

@@ -113,7 +113,6 @@ def main():
     if args.delete_models or args.delete_all:
         print('Deleting models...')
         ws.delete_resource(destination='CookieFactoryMixer.glb')
-        ws.delete_resource(destination='CookieFactoryMixer.glb')
         ws.delete_resource(destination='CookieFactoryWaterTank.glb')
         ws.delete_resource(destination='CookieFactoryLine.glb')
         ws.delete_resource(destination='CookieFactoryEnvironment.glb')
@@ -157,7 +156,6 @@ def main():
     # Import models
     if args.import_models or args.import_all:
         print('Importing models...')
-        ws.import_resource(file_name=content_path('scenes/CookieFactoryEnvironment.glb'), destination='CookieFactoryMixer.glb')
         ws.import_resource(file_name=content_path('scenes/CookieFactoryMixer.glb'), destination='CookieFactoryMixer.glb')
         ws.import_resource(file_name=content_path('scenes/CookieFactoryWaterTank.glb'), destination='CookieFactoryWaterTank.glb')
         ws.import_resource(file_name=content_path('scenes/CookieFactoryLine.glb'), destination='CookieFactoryLine.glb')

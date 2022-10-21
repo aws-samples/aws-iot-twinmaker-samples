@@ -53,7 +53,11 @@ def main():
     
     # get role arn
     print(f"roleName: {dashboard_role_name_for_workspace}")
-    dashboard_role_arn_for_workspace =iam.get_role(RoleName=dashboard_role_name_for_workspace)['Role']['Arn']
+    try:
+        dashboard_role_arn_for_workspace =iam.get_role(RoleName=dashboard_role_name_for_workspace)['Role']['Arn']
+    except iam.exceptions.NoSuchEntityException:
+        print(f"No dashboard role to delete was found for workspace {workspaceId}.")
+        return
     print(f"roleArn: {dashboard_role_arn_for_workspace}")
 
     account_id = dashboard_role_arn_for_workspace.split(":")[4]
