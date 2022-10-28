@@ -190,7 +190,8 @@ class IoTTwinMakerUdqRequest():
         if(len(self._selectedProperties) < 1):
             raise Exception('Unexpected selectedProperties[{}]'.format(self._selectedProperties))
         for selectedProperty in self._selectedProperties:
-            if selectedProperty not in allowed_props and selectedProperty != 'alarm_status':
+            # Note: component definition only provided from TwinMaker for single-entity requests
+            if self._componentTypeId is None and selectedProperty not in allowed_props:
                 raise Exception(f"selectedProperty: {selectedProperty} not found in entity/component definition. Allowed properties: {allowed_props}")
 
         # deprecated: only used while startDateTime/endDateTime not yet replaced with startTime/endTime

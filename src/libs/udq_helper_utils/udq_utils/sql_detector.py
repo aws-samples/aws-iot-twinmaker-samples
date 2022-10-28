@@ -22,7 +22,8 @@ class SQLDetector:
 
 
     def detectInjection(self, sampleQuery, query):
-        """Detection potential SQL Injection by comparing token context of sample query and real time query. 
+        """Detection potential SQL Injection by comparing token context of sample query and real time query.
+        Note: whitespace tokens expected to match as well.
 
         Parameters
         ----------
