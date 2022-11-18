@@ -1,3 +1,7 @@
+2022/11/17 - For a sample Digital Twin application highlighting [TwinMaker Knowledge Graph](https://aws.amazon.com/about-aws/whats-new/2022/11/twinmaker-knowledge-graph-generally-available-aws-iot-twinmaker/), check out our guided [SmartBuilding workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/93076d98-bdf1-48b8-bfe8-f4039ca1bf25/en-US)!
+
+---
+
 Note: if you are just looking for sample IAM policies to use when creating an AWS IoT TwinMaker workspace, please see these sample [permission](./docs/sample_workspace_role_permission_policy.json) and [trust relationship](./docs/sample_workspace_role_trust_policy.json) policies. If you would like to create this role [using AWS CloudFormation](https://console.aws.amazon.com/cloudformation/home#/stacks/create/template), please use [this template](./docs/sample_workspace_role.yml) .
 
 The role permission policy will only grant AWS IoT TwinMaker access to manage workspace resources in your S3 buckets. We recommend you scope down the bucket permissions to your specific S3 bucket once it is created. You will also need to update the role to grant further permissions for your use-case, such as invoking AWS IoT TwinMaker custom AWS Lambda connectors you've implemented or accessing video stream metadata in AWS IoT SiteWise and Amazon Kinesis Video Streams. For an end-to-end setup experience (including auto-generation of these roles with all necessary permissions for the sample use-case) we recommend following the getting started guide below.
