@@ -1,3 +1,7 @@
+2022/11/17 - For a sample Digital Twin application highlighting [TwinMaker Knowledge Graph](https://aws.amazon.com/about-aws/whats-new/2022/11/twinmaker-knowledge-graph-generally-available-aws-iot-twinmaker/), check out our guided [SmartBuilding workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/93076d98-bdf1-48b8-bfe8-f4039ca1bf25/en-US)!
+
+---
+
 Note: if you are just looking for sample IAM policies to use when creating an AWS IoT TwinMaker workspace, please see these sample [permission](./docs/sample_workspace_role_permission_policy.json) and [trust relationship](./docs/sample_workspace_role_trust_policy.json) policies. If you would like to create this role [using AWS CloudFormation](https://console.aws.amazon.com/cloudformation/home#/stacks/create/template), please use [this template](./docs/sample_workspace_role.yml) .
 
 The role permission policy will only grant AWS IoT TwinMaker access to manage workspace resources in your S3 buckets. We recommend you scope down the bucket permissions to your specific S3 bucket once it is created. You will also need to update the role to grant further permissions for your use-case, such as invoking AWS IoT TwinMaker custom AWS Lambda connectors you've implemented or accessing video stream metadata in AWS IoT SiteWise and Amazon Kinesis Video Streams. For an end-to-end setup experience (including auto-generation of these roles with all necessary permissions for the sample use-case) we recommend following the getting started guide below.
@@ -199,6 +203,8 @@ Note: These instructions have primarily been tested for Mac/Linux/WSL environmen
       --cli-input-json '{"componentName": "AlarmComponent","endTime": "2023-06-01T00:00:00Z","entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef","orderByTime": "ASCENDING","selectedProperties": ["alarm_status"],"startTime": "2022-06-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
    ```
 
+   See [Additional UDQ Sample Requests](#additional-udq-sample-requests) for other supported request examples.
+
 7. Set up Grafana for the Cookie Factory.
 
    AWS IoT TwinMaker provides a Grafana plugin that you can use to build dashboards using IoT TwinMaker scenes and modeled data sources. Grafana is deployable as a docker container. We recommend that new users follow these instructions to set up Grafana as a local container: [Instructions](./docs/grafana_local_docker_setup.md). (If the link doesn't work in Cloud9, open `docs/grafana_local_docker_setup.md`.)
@@ -269,6 +275,34 @@ Go to the `insights` modules directory and check the [README](./src/modules/insi
 ```
 cd $GETTING_STARTED_DIR/src/modules/insights
 ```
+
+### Additional UDQ Sample Requests
+
+This section contains additional sample requests supported by `get-property-value-history` in the CookieFactory workspace.
+
+1. Single-entity, multi-property request (mixer data)
+   
+   ```
+   aws iottwinmaker get-property-value-history \
+      --region $AWS_DEFAULT_REGION \
+      --cli-input-json '{"componentName": "MixerComponent","endTime": "2023-06-01T00:00:00Z","entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef","orderByTime": "ASCENDING","selectedProperties": ["Temperature", "RPM"],"startTime": "2022-06-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
+   ```
+
+2. Multi-entity, single-property request (alarm data)
+
+   ```
+   aws iottwinmaker get-property-value-history \
+     --region $AWS_DEFAULT_REGION \
+     --cli-input-json '{"componentTypeId": "com.example.cookiefactory.alarm","endTime": "2023-06-01T00:00:00Z","orderByTime": "ASCENDING","selectedProperties": ["alarm_status"],"startTime": "2022-06-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
+   ```
+ 
+3. Multi-entity, multi-property request (mixer data)
+
+   ```
+   aws iottwinmaker get-property-value-history \
+     --region $AWS_DEFAULT_REGION \
+     --cli-input-json '{"componentTypeId": "com.example.cookiefactory.mixer","endTime": "2023-06-01T00:00:00Z","orderByTime": "ASCENDING","selectedProperties": ["Temperature", "RPM"],"startTime": "2022-06-01T00:00:00Z","workspaceId": "'${WORKSPACE_ID}'"}'
+   ```
 
 ---
 
