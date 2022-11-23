@@ -41,6 +41,7 @@ export class TimestreamTelemetryCdkLambdasStack extends Stack {
 
       // udq reader lambda
       const timestreamReaderUDQ = new PythonFunction(this, 'timestreamReaderUDQ', {
+        functionName: `iottwinmaker-${this.stackName}-tsDataReader`,
         entry: path.join(__dirname, '..', '..', 'lambda_function'),
         layers: [
           new PythonLayerVersion(this, 'udq_utils_layer', {

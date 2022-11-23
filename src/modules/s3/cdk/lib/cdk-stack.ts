@@ -21,6 +21,7 @@ export class CdkStack extends Stack {
     s3UdqRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonS3ReadOnlyAccess"))
 
     const s3ReaderUDQ = new PythonFunction(this, 's3ReaderUDQ', {
+      functionName: `iottwinmaker-${this.stackName}-s3ReaderUDQ`,
       entry: path.join(__dirname, '..', '..', 'lambda_function'),
       layers: [
         new PythonLayerVersion(this, 'udq_utils_layer', {
