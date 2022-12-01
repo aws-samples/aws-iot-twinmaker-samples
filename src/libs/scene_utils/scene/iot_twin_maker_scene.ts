@@ -51,8 +51,7 @@ export interface IotTwinMakerScene {
   findAllNodesByName(name: string): SceneNode[];
 
   /**
-   * Add the root node to the root nodes if there is no root node with
-   * the same name.
+   * Add the root node if there is no root node with the same name.
    * @param node
    */
   addRootNodeIfNameNotExist(node: SceneNode): void;

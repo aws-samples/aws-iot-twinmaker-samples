@@ -29,3 +29,12 @@ export type OnComplete = {
   url: string;
   fields: any;
 };
+
+export type ExportAssetRequest = {
+  type: string;
+  bucket: string;
+  prefix: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+  sessionToken: string;
+};

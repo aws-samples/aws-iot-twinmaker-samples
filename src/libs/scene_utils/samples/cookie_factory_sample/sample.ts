@@ -3,7 +3,6 @@
 
 import { EntitySummary, ListEntitiesFilter } from 'aws-sdk/clients/iottwinmaker';
 import { ModelShader } from '../../components/model_shader_component';
-import { Tag } from '../../components/tag_component';
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { EmptyNode } from '../../node/empty_node';
 import { MotionIndicatorNode } from '../../node/indicator.ts/motion_indicator';
@@ -19,8 +18,11 @@ const factory = new SceneFactoryImpl();
 
 // Create a scene or load an existing scene for updates
 factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMakerScene) => {
+  // Clear scene to fully overwrite it
+  twinMakerScene.clear();
+
   // Add a Root Node to the Scene
-  console.log('Creating/Editing Cookie Factory scene...');
+  console.log('Building Cookie Factory scene...');
   const rootNode = new EmptyNode('AWSIoTTwinMakerScene');
 
   // Set the Environmental Preset in the Scene settings

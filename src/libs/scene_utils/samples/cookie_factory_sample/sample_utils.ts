@@ -17,7 +17,7 @@ export interface CookieFactorySampleArguments {
 
 export const help = () => {
   console.log(`Configure the AWS credentials and AWS region in your environment by setting env variables:
-    * AWS_ACCESS_KEY
+    * AWS_ACCESS_KEY_ID
     * AWS_SECRET_ACCESS_KEY
     * AWS_SESSION_TOKEN
     * AWS_REGION (e.g. us-east-1)

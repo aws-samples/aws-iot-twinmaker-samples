@@ -15,7 +15,7 @@ import { IotTwinMakerScene } from '../scene/iot_twin_maker_scene';
 import { EntitySummary, ListEntitiesFilters } from 'aws-sdk/clients/iottwinmaker';
 import { CesiumClient } from '../client/cesium';
 import pLimit from 'p-limit';
-import { logProgress, withTrailingSlash } from '../utils/file_utils';
+import { withTrailingSlash } from '../utils/file_utils';
 import { writeFileSync } from 'fs';
 
 const limit = pLimit(10);
@@ -115,7 +115,11 @@ export class SceneFactoryImpl implements SceneFactory {
           // Upload files to S3 if indicated
           if ((exist && shouldOverride && shouldUpload) || (!exist && shouldUpload)) {
             if (modelRefComponent.modelType === 'Tiles3D' && cesiumAccessToken) {
-              await this.uploadCesiumTilesToS3(bucketName, cesiumAccessToken, modelRefNode.cesiumAssetId);
+              await SceneFactoryImpl.cesiumClient.exportTileset(
+                bucketName,
+                cesiumAccessToken,
+                modelRefNode.cesiumAssetId,
+              );
             } else {
               await SceneFactoryImpl.s3Client.uploadModelRelatedFiles(bucketName, modelRefNode.modelLocalPath);
             }
@@ -132,50 +136,5 @@ export class SceneFactoryImpl implements SceneFactory {
   ) {
     const entitySummaries = await SceneFactoryImpl.iotTwinMaker.listEntities(workspaceId, filters);
     entitySummaries.forEach(callback);
-  }
-
-  private async uploadCesiumTilesToS3(bucketName: string, accessToken: string, assetId: string) {
-    console.log(`Uploading tiles to S3 for Cesium asset ID ${assetId}...`);
-    // Set the S3 bucket used to upload tiles
-    SceneFactoryImpl.cesiumClient.s3BucketName = bucketName;
-
-    const assetMetadata = await SceneFactoryImpl.cesiumClient.getAsset(accessToken, assetId);
-    const assetJson = JSON.parse(assetMetadata.toString());
-    const assetName = assetJson.name;
-    const outputPath = `${assetName}-${assetId}`;
-
-    // Get access to tileset
-    const data = await SceneFactoryImpl.cesiumClient.download(
-      accessToken,
-      `https://api.cesium.com/v1/assets/${assetId}/endpoint`,
-      false,
-    );
-
-    const jsonEndpoint = JSON.parse(data.toString());
-    const jsonAccessToken = jsonEndpoint.accessToken;
-    // Get tileset info
-    const assetData = await SceneFactoryImpl.cesiumClient.download(jsonAccessToken, jsonEndpoint.url, true);
-
-    const jsonData = JSON.parse(assetData.toString());
-    await SceneFactoryImpl.cesiumClient.writeJsonToFile(jsonData, `${outputPath}/tileset.json`);
-
-    const assetUris = SceneFactoryImpl.cesiumClient.getAssetUris(jsonData);
-
-    // Upload asset related content (assume all of them are gzipped and in binary format after de-compressed)
-    const promises = assetUris.map((assetUri: string) => {
-      return limit(async () => {
-        logProgress(`processing ${assetUri}`);
-        const url = `https://assets.cesium.com/${assetId}/${assetUri}`;
-        const data = await SceneFactoryImpl.cesiumClient.download(jsonAccessToken, url, true);
-        const assetOutputPath = `${outputPath}/${assetUri}`;
-        await SceneFactoryImpl.cesiumClient.writeBinaryToFile(data, assetOutputPath);
-        await SceneFactoryImpl.cesiumClient.writeAssetToJsonAndGlb(outputPath, assetUri, data);
-        return Promise.resolve();
-      });
-    });
-
-    await Promise.all(promises);
-    process.stdout.clearLine(0);
-    console.log(`\nUploaded ${assetUris.length} files to the S3 bucket ${bucketName}`);
   }
 }

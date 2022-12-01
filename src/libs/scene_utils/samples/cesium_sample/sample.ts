@@ -5,7 +5,6 @@ import { CesiumClient } from '../../client/cesium';
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { ModelRefNode } from '../../node/model.ts/model_ref';
 import { parseArgs } from './sample_utils';
-import { GeometryCompression } from '../../cesium/types';
 import { basename } from 'path';
 
 const { workspaceId, sceneId, assetFilePath, cesiumAccessToken, cesiumAssetId, dracoCompression } = parseArgs();
@@ -30,8 +29,7 @@ factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMaker
     console.log('Uploading asset to Cesium Ion...');
     // Submit asset upload request
     const description = 'Asset to be visualized in AWS IoT TwinMaker';
-    const compression: GeometryCompression = dracoCompression === true ? 'DRACO' : 'NONE';
-    [assetId, tilingDone] = await cesiumClient.upload(cesiumAccessToken, assetFilePath, description, compression);
+    [assetId, tilingDone] = await cesiumClient.upload(cesiumAccessToken, assetFilePath, description, dracoCompression);
   }
 
   // Only download Cesium tiles and edit the scene if the tiling on the asset is finished
@@ -43,18 +41,18 @@ factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMaker
     twinMakerScene.setEnviromentPreset('neutral');
 
     // If an asset wasn't uploaded in this script then get the asset name from the asset metadata
-    if (assetName.length == 0 && !!cesiumAssetId) {
+    if (assetName.length == 0 && !!assetId) {
       const cesiumClient: CesiumClient = new CesiumClient();
-      const assetMetadata = await cesiumClient.getAsset(cesiumAccessToken, cesiumAssetId);
+      const assetMetadata = await cesiumClient.getAsset(cesiumAccessToken, assetId);
       const assetJson = JSON.parse(assetMetadata.toString());
       assetName = assetJson.name;
     }
 
-    if (!!cesiumAssetId) {
+    if (!!assetId) {
       // Add Tiles to the Scene
-      const tilesetPath = `${assetName}-${cesiumAssetId}/tileset.json`;
+      const tilesetPath = `${assetName}-${assetId}/tileset.json`;
       const tileNode = new ModelRefNode(assetName, tilesetPath, 'Tiles3D');
-      tileNode.uploadModelFromCesium(cesiumAssetId);
+      tileNode.uploadModelFromCesium(assetId);
 
       twinMakerScene.addRootNodeIfNameNotExist(tileNode);
 

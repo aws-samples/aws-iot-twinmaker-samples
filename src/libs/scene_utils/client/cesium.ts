@@ -1,41 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
 // SPDX-License-Identifier: Apache-2.0
 
-import { extname } from 'path';
-import { createReadStream, createWriteStream, PathLike, PathOrFileDescriptor, writeFile } from 'fs';
+import { createReadStream } from 'fs';
 import { request } from 'https';
-import { createGunzip } from 'zlib';
-import JsonStreamStringify from 'json-stream-stringify';
-import { getTileFormat } from '../cesium/getTileFormat';
-import { extractB3dm } from '../cesium/extractB3dm';
-import { extractI3dm } from '../cesium/extractI3dm';
-import { extractCmpt } from '../cesium/extractCmpt';
-import { Stream } from 'stream';
-import { S3Client } from './s3';
 import { IncomingMessage } from 'http';
-import { GeometryCompression, ModelType, OnComplete, UploadAssetRequest, UploadLocation } from '../cesium/types';
+import { ExportAssetRequest, ModelType, OnComplete, UploadAssetRequest, UploadLocation } from '../cesium/types';
 import { Credentials, S3 } from 'aws-sdk';
 import { logProgress } from '../utils/file_utils';
 import * as status from 'http-status';
 import { basename } from 'path';
 
 export class CesiumClient {
-  private _s3BucketName: string | undefined;
-  private _s3Client: S3Client;
-
-  constructor(s3Client?: S3Client, s3BucketName?: string) {
-    this._s3Client = s3Client ?? new S3Client();
-    this._s3BucketName = s3BucketName;
-  }
-
-  public set s3Client(client: S3Client) {
-    this._s3Client = client;
-  }
-
-  public set s3BucketName(name: string) {
-    this._s3BucketName = name;
-  }
-
   // Process a request and resolve the response data
   private standardRequestHandler(options, errorMessage: (result: IncomingMessage) => string, body?): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -170,13 +145,12 @@ export class CesiumClient {
       } else if (status === 'ERROR') {
         console.error('An unknown tiling error occurred, please contact support@cesium.com.');
         break;
+      } else if (status === 'NOT_STARTED') {
+        logProgress('Tiling pipeline initializing.');
+      } else if (status === 'IN_PROGRESS') {
+        logProgress(`Asset is ${assetMetadata.percentComplete}% complete.`);
       } else {
-        if (status === 'NOT_STARTED') {
-          logProgress('Tiling pipeline initializing.');
-        } else {
-          // IN_PROGRESS
-          logProgress(`Asset is ${assetMetadata.percentComplete}% complete.`);
-        }
+        console.error(`Unrecognized response when requesting the tiling status of asset ${assetId}`);
       }
       await new Promise((resolve) => setTimeout(resolve, timeout));
     }
@@ -211,7 +185,7 @@ export class CesiumClient {
   }
 
   // Upload a local file to Cesium and wait for tiling
-  public async upload(accessToken: string, assetPath: string, description: string, compression?: GeometryCompression) {
+  public async upload(accessToken: string, assetPath: string, description: string, dracoCompression?: boolean) {
     const fileName = basename(assetPath);
     const fileNameSplit = fileName.split('.');
     let assetName: string | undefined;
@@ -235,7 +209,7 @@ export class CesiumClient {
         type: '3DTILES', // Output a tileset
         options: {
           sourceType: cesiumModelType,
-          geometryCompression: compression ?? 'NONE',
+          geometryCompression: dracoCompression ? 'DRACO' : 'NONE',
         },
       };
       const responseBuffer = await this.uploadAssetRequest(accessToken, request);
@@ -258,163 +232,132 @@ export class CesiumClient {
     return [cesiumAssetId, tilingDone] as const;
   }
 
-  // Download tile asset into a data buffer in memory
-  public async download(accessToken: string, url: string, isGzip: boolean): Promise<Buffer> {
+  // Request a Cesium asset to be exported to an S3 bucket
+  private async exportAssetRequest(accessToken: string, assetId: string, request: ExportAssetRequest) {
+    const url = `https://api.cesium.com/v1/assets/${assetId}/exports`;
     const urlObject = new URL(url);
-    const port = urlObject.protocol.toLowerCase() === 'https:' ? 443 : 80;
 
-    return new Promise<Buffer>((resolve, reject) => {
-      const options = {
-        hostname: urlObject.hostname,
-        port,
-        path: urlObject.pathname,
-        method: 'GET',
-        gzip: true,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const bodyJSON = JSON.stringify(request);
+
+    // Issue a POST request to export an asset
+    const options = {
+      hostname: urlObject.hostname,
+      port: 443,
+      path: urlObject.pathname,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': bodyJSON.length,
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    return this.standardRequestHandler(
+      options,
+      (res: IncomingMessage) =>
+        `[Error ${res.statusCode}] Failed to process asset export request with error: ${res.statusMessage}`,
+      bodyJSON,
+    );
+  }
+
+  // Call exports API to get the export status
+  private async getExportStatus(accessToken: string, assetId: string, exportId: string): Promise<any> {
+    const url = `https://api.cesium.com/v1/assets/${assetId}/exports/${exportId}`;
+    const urlObject = new URL(url);
+
+    const options = {
+      hostname: urlObject.hostname,
+      port: 443,
+      path: urlObject.pathname,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${accessToken}` },
+      json: true,
+    };
+
+    return this.standardRequestHandler(
+      options,
+      (res: IncomingMessage) =>
+        `[Error ${res.statusCode}] Failed to get export status for ${exportId} with error: ${res.statusMessage}`,
+    );
+  }
+
+  // Log progress of Cesium asset export to S3
+  private async waitForExport(accessToken: string, assetId: string, exportId: string) {
+    const timeout = 10000; // 10 seconds
+    let maxChecks = 30; // Will wait for 5 minutes
+    let done = false;
+
+    while (!done && maxChecks-- > 0) {
+      // Issue a GET request for the metadata
+      const response = await this.getExportStatus(accessToken, assetId, exportId);
+      const exportMetadata = JSON.parse(response.toString());
+      const status = exportMetadata.status;
+      const bytesExported = exportMetadata.bytesExported;
+      const s3BucketPath = `${exportMetadata.to.bucket}/${exportMetadata.to.prefix}`;
+
+      if (status === 'COMPLETE') {
+        process.stdout.clearLine(0);
+        console.log('\nExport completed successfully!');
+        console.log(`Exported ${bytesExported} bytes to the S3 path ${s3BucketPath}`);
+        done = true;
+      } else if (status === 'QUEUED') {
+        logProgress('The asset export request is in the server queue.');
+      } else if (status === 'ERROR') {
+        console.error('An unknown export error occurred, please contact support@cesium.com.');
+        break;
+      } else if (status === 'NOT_STARTED') {
+        logProgress('Server has not started the export process, make sure the asset tiling is complete.');
+      } else if (status === 'IN_PROGRESS') {
+        logProgress(`Asset export is in progress.`);
+      } else {
+        console.error(`Unrecognized response when requesting the export status of asset ${assetId}`);
+      }
+      await new Promise((resolve) => setTimeout(resolve, timeout));
+    }
+
+    if (!done) {
+      console.log(`Export for asset ${assetId} is still in progress.`);
+      console.log(`Check your workspace's S3 bucket for the tileset to confirm the completion of the export.`);
+    }
+
+    return done;
+  }
+
+  public async exportTileset(bucketName: string, accessToken: string, assetId: string) {
+    console.log(`Uploading tileset to S3 bucket ${bucketName} for Cesium asset ID ${assetId}...`);
+
+    const assetMetadata = await this.getAsset(accessToken, assetId);
+    const assetJson = JSON.parse(assetMetadata.toString());
+    const assetName = assetJson.name;
+    const outputPath = `${assetName}-${assetId}`;
+
+    if (
+      process.env.AWS_ACCESS_KEY_ID !== undefined &&
+      process.env.AWS_SECRET_ACCESS_KEY !== undefined &&
+      process.env.AWS_SESSION_TOKEN !== undefined
+    ) {
+      const request: ExportAssetRequest = {
+        type: 'S3',
+        bucket: bucketName,
+        prefix: outputPath,
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        sessionToken: process.env.AWS_SESSION_TOKEN,
       };
 
-      let data: Buffer[] = [];
-      const req = request(options, (res) => {
-        if (res.statusCode !== 200) {
-          reject(`[Error ${res.statusCode}] Failed to download ${url} with error: ${res.statusMessage}`);
-          return;
-        }
-
-        let stream: Stream;
-        if (!isGzip) {
-          stream = res;
-        } else {
-          const gunzip = createGunzip();
-          res.pipe(gunzip);
-          stream = gunzip;
-        }
-
-        stream.on('data', (chunk: Buffer) => {
-          data.push(chunk);
-        });
-
-        stream.on('end', () => {
-          const buffer = Buffer.concat(data);
-          resolve(buffer);
-        });
-      });
-
-      req.on('error', (error) => {
-        console.error(error);
-        reject(error);
-      });
-
-      req.end();
-    });
-  }
-
-  public getAssetUris(json: any) {
-    // Collect asset related content
-    const assetUris: string[] = [];
-    const queue = [json.root];
-    while (queue.length > 0) {
-      const node = queue.pop();
-      if (node.content && node.content.uri) {
-        assetUris.push(node.content.uri);
-      }
-
-      if (node.children) {
-        node.children.forEach((child) => {
-          queue.push(child);
-        });
-      }
-    }
-    return assetUris;
-  }
-
-  public writeJsonToFile(json: any, outputFile: PathLike) {
-    // Upload directly to S3 if an S3 bucket name was provided
-    if (!!this._s3BucketName) {
-      return this._s3Client.uploadData(this._s3BucketName, outputFile.toString(), JSON.stringify(json));
+      // Submit export job
+      const response = await this.exportAssetRequest(accessToken, assetId, request);
+      console.log(`Submitted request to export asset ${assetId} to the S3 path ${bucketName}/${outputPath}`);
+      const exportMetadata = JSON.parse(response.toString());
+      const exportId = exportMetadata.id;
+      // Wait for export to complete
+      await this.waitForExport(accessToken, assetId, exportId);
     } else {
-      // Write to local file otherwise
-      return new Promise<void>((resolve) => {
-        const outputStream = createWriteStream(outputFile);
-        const jsonStream = new JsonStreamStringify(json);
-        jsonStream.once('error', (err) => console.error('Error', err));
-        jsonStream.once('end', () => {
-          resolve();
-        });
-        jsonStream.pipe(outputStream);
-      });
+      console.error(`
+      Cannot find temporary AWS credentials for exporting asset ${assetId}. 
+      Set the following environment variables: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN
+      `);
     }
-  }
-
-  public writeBinaryToFile(data: string | NodeJS.ArrayBufferView, outputFile: PathOrFileDescriptor) {
-    // Upload directly to S3 if an S3 bucket name was provided
-    if (!!this._s3BucketName) {
-      return this._s3Client.uploadData(this._s3BucketName, outputFile.toString(), data);
-    } else {
-      // Write to local file otherwise
-      return new Promise<void>((resolve, reject) => {
-        writeFile(outputFile, data, 'binary', function (err) {
-          if (err) {
-            console.log(err);
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      });
-    }
-  }
-
-  private async writeAssetToFeatureTableBatchTableAndGlb(outputPath: string, assetUri: string, data: any) {
-    // Write Feature Table
-    await this.writeJsonToFile(data.featureTable.json, `${outputPath}/${assetUri}_featureTable.json`);
-    // Write Batch Table
-    await this.writeJsonToFile(data.batchTable.json, `${outputPath}/${assetUri}_batchTable.json`);
-    // Write GLB
-    await this.writeBinaryToFile(data.glb, `${outputPath}/${assetUri}.glb`);
-  }
-
-  public async writeAssetToJsonAndGlb(outputPath: string, assetUri: string, data: any) {
-    const fileExt = extname(assetUri).toLowerCase();
-    switch (fileExt) {
-      case '.b3dm': {
-        const b3dmData = extractB3dm(data);
-        await this.writeAssetToFeatureTableBatchTableAndGlb(outputPath, assetUri, b3dmData);
-        break;
-      }
-
-      case '.i3dm': {
-        const i3dmData = extractI3dm(data);
-        await this.writeAssetToFeatureTableBatchTableAndGlb(outputPath, assetUri, i3dmData);
-        break;
-      }
-
-      case '.cmpt': {
-        this.writeCmptToGlbs(outputPath, assetUri, data);
-        break;
-      }
-    }
-  }
-
-  private async writeCmptToGlbs(outputPath: string, assetUri: string, data: any) {
-    const tiles = extractCmpt(data);
-
-    const promises: Promise<void>[] = [];
-    for (let i = 0; i < tiles.length; ++i) {
-      const tile = tiles[i];
-      const tileFormat = getTileFormat(tile);
-      if (tileFormat === 'b3dm') {
-        const b3dmData = extractB3dm(tile);
-        promises.push(this.writeAssetToFeatureTableBatchTableAndGlb(outputPath, assetUri, b3dmData));
-      } else if (tileFormat === 'i3dm') {
-        const i3dmData = extractI3dm(tile);
-        promises.push(this.writeAssetToFeatureTableBatchTableAndGlb(outputPath, assetUri, i3dmData));
-      }
-    }
-
-    return Promise.all(promises);
   }
 
   private getCesiumModelType(assetPath: string | undefined): ModelType | undefined {

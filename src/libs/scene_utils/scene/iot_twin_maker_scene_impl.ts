@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ComponentType } from '../components/component_type';
+import { ModelRefNode } from '../node/model.ts/model_ref';
 import { SceneNode } from '../node/scene_node';
 import { DistanceUnit, EnvironmentPreset, Rule } from '../utils/types';
 import { IotTwinMakerScene } from './iot_twin_maker_scene';

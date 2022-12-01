@@ -35,7 +35,7 @@ export class Serializer {
       rules: this.serializeRules(scene.getRules()),
     };
 
-    return JSON.stringify(sceneJson);
+    return JSON.stringify(sceneJson, null, 2);
   }
 
   private serializeRules(rules: Map<string, Rule>) {

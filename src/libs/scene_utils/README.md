@@ -8,8 +8,6 @@ This package provides sample command line scripts that automate the creation of 
 
 You will need an IoT TwinMaker workspace to run the sample scripts. Complete steps 1-3 of Deploying the Sample Cookie Factory Workspace [here](https://github.com/aws-samples/aws-iot-twinmaker-samples/blob/main/README.md).
 
-In order to run the Cookie Factory sample script you need to complete steps 4-6 to have entities in your workspace.
-
 ## Install
 
 Make sure you are running the script in the `scene_utils` folder:
@@ -22,7 +20,7 @@ npm install
 Set the following environment variables before running any sample script:
 
 ```bash
-AWS_ACCESS_KEY
+AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 AWS_SESSION_TOKEN
 AWS_REGION
@@ -48,6 +46,10 @@ Create a Cookie Factory example scene in your workspace.
 
 Use the models in the `scenes` directory for the `--assetDirPath` input.
 
+### Prerequisites
+
+In order to run the Cookie Factory sample script you need to complete steps 4-6 to have entities and components with property data in your workspace.
+
 ### Example
 
 ```bash
@@ -58,29 +60,50 @@ npx ts-node samples/cookie_factory_sample/sample.ts --workspaceId [WORKSPACE_ID]
 
 CookieFactory TwinMaker scene with Mixer nodes tied to data, Cookie Line nodes, and a WaterTank with a Motion Indicator widget.
 
-You will need to finish the Getting Started sample [setup](https://github.com/aws-samples/aws-iot-twinmaker-samples/blob/main/README.md) for the scene to be connected to data.
+You will need to finish the Getting Started sample [setup](https://github.com/aws-samples/aws-iot-twinmaker-samples/blob/main/README.md) for Mixers to be added with tags connected to data.
 
 ---
 
 ## 2. CESIUM `samples/cesium_sample/`
 
-Automates the Cesium Ion pipeline to export directly to TwinMaker.
+Automates the Cesium Ion pipeline to export directly to IoT TwinMaker.
 
 1. Upload your 3D asset to Cesium and wait for it to perform a tiling optimization.
-2. Download the tileset for the asset and upload it to your workspace's S3 bucket.
+2. Export the tileset directly to your workspace's S3 bucket.
 3. Create/edit a TwinMaker scene with the 3D tileset
+
+### Prerequisites
+
+1. Register Cesium and choose the appropriate [subscription plan](https://cesium.com/platform/cesium-ion/pricing/) based on your business requirement
+2. Create a Cesium asset token
+
+   a. Go to the [tokens page](https://cesium.com/ion/tokens)
+
+   b. Click “Create token”
+
+   c. Name it “TwinMaker token”
+
+   d. Toggle on the following permission scopes: 1. assets:list 2. assets:read 3. assets:write 4. exports:read 5. exports:write
+
+   e. Click “Create”
+
+   f. Copy and use this asset token for the `--cesiumAccessToken` parameter in the commands below
 
 ### Example
 
 1. Upload a 3D asset to Cesium
 
 ```bash
-npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetFilePath [3D_ASSET_PATH] --cesiumAccessToken [ACCESS_TOKEN]
+npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetFilePath [3D_ASSET_PATH] --cesiumAccessToken [ACCESS_TOKEN] --dracoCompression
 ```
 
-The script will wait up to 5 minutes for Cesium to process the asset's tiles. If it takes more than 5 minutes then run the next command below.
+The script will wait up to 5 minutes for Cesium to process the asset's tiles. When an asset is uploaded to Cesium it is assigned a random assetId. If it takes more than 5 minutes to tile the asset then run the next command below with its assetId to export its 3D tileset to your workspace's S3 bucket.
 
-2. Download Cesium tiles and export them into a TwinMaker scene
+It is recommended to use the optional `--dracoCompression` parameter to enable compression on your asset during tiling. Read more about the benefits of Draco for rendering your 3D model [here](https://cesium.com/blog/2018/04/09/draco-compression/).
+
+2. Export a Cesium tileset into a TwinMaker scene
+
+Find the assetId of your asset on the "My Assets" tab of your [Cesium account](https://cesium.com/ion/assets).
 
 ```bash
 npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAccessToken [ACCESS_TOKEN] --cesiumAssetId [ASSET_ID]
@@ -88,7 +111,7 @@ npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --scene
 
 ### Output
 
-TwinMaker scene with a node for the Cesium tileset of your 3D asset
+TwinMaker scene with a node for the Cesium tileset of your 3D asset.
 
 ### Supported file formats
 
