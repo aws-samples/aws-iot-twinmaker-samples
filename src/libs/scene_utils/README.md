@@ -87,14 +87,14 @@ Automates the Cesium Ion pipeline to export directly to IoT TwinMaker.
 
    e. Click “Create”
 
-   f. Copy and use this asset token for the `--cesiumAccessToken` parameter in the commands below
+   f. Set the environment variable CESIUM_ACCESS_TOKEN with this token
 
 ### Example
 
 1. Upload a 3D asset to Cesium
 
 ```bash
-npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetFilePath [3D_ASSET_PATH] --cesiumAccessToken [ACCESS_TOKEN] --dracoCompression
+npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetFilePath [3D_ASSET_PATH] --dracoCompression
 ```
 
 The script will wait up to 5 minutes for Cesium to process the asset's tiles. When an asset is uploaded to Cesium it is assigned a random assetId. If it takes more than 5 minutes to tile the asset then run the next command below with its assetId to export its 3D tileset to your workspace's S3 bucket.
@@ -106,7 +106,7 @@ It is recommended to use the optional `--dracoCompression` parameter to enable c
 Find the assetId of your asset on the "My Assets" tab of your [Cesium account](https://cesium.com/ion/assets).
 
 ```bash
-npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAccessToken [ACCESS_TOKEN] --cesiumAssetId [ASSET_ID]
+npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAssetId [ASSET_ID]
 ```
 
 ### Output

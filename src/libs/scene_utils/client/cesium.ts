@@ -124,9 +124,12 @@ export class CesiumClient {
   }
 
   // Log progress of tiling for a Cesium asset
-  private async waitForTiles(accessToken: string, assetId: string) {
-    const timeout = 10000; // 10 seconds
-    let maxChecks = 30; // Will wait for 5 minutes
+  private async waitForTiles(
+    accessToken: string,
+    assetId: string,
+    timeoutInMs: number = 10000, // Default 10 seconds
+    maxChecks: number = 30, // Default wait for 5 minutes
+  ) {
     let done = false;
 
     while (!done && maxChecks-- > 0) {
@@ -150,9 +153,9 @@ export class CesiumClient {
       } else if (status === 'IN_PROGRESS') {
         logProgress(`Asset is ${assetMetadata.percentComplete}% complete.`);
       } else {
-        console.error(`Unrecognized response when requesting the tiling status of asset ${assetId}`);
+        console.error(`Unrecognized response when requesting the tiling status of asset ${assetId}: ${status}`);
       }
-      await new Promise((resolve) => setTimeout(resolve, timeout));
+      await new Promise((resolve) => setTimeout(resolve, timeoutInMs));
     }
 
     if (!done) {
@@ -282,9 +285,13 @@ export class CesiumClient {
   }
 
   // Log progress of Cesium asset export to S3
-  private async waitForExport(accessToken: string, assetId: string, exportId: string) {
-    const timeout = 10000; // 10 seconds
-    let maxChecks = 30; // Will wait for 5 minutes
+  private async waitForExport(
+    accessToken: string,
+    assetId: string,
+    exportId: string,
+    timeoutInMs: number = 10000, // Default 10 seconds
+    maxChecks: number = 30, // Default wait for 5 minutes
+  ) {
     let done = false;
 
     while (!done && maxChecks-- > 0) {
@@ -310,9 +317,9 @@ export class CesiumClient {
       } else if (status === 'IN_PROGRESS') {
         logProgress(`Asset export is in progress.`);
       } else {
-        console.error(`Unrecognized response when requesting the export status of asset ${assetId}`);
+        console.error(`Unrecognized response when requesting the export status of asset ${assetId}: ${status}`);
       }
-      await new Promise((resolve) => setTimeout(resolve, timeout));
+      await new Promise((resolve) => setTimeout(resolve, timeoutInMs));
     }
 
     if (!done) {

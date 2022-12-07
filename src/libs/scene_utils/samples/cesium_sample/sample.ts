@@ -7,7 +7,7 @@ import { ModelRefNode } from '../../node/model.ts/model_ref';
 import { parseArgs } from './sample_utils';
 import { basename } from 'path';
 
-const { workspaceId, sceneId, assetFilePath, cesiumAccessToken, cesiumAssetId, dracoCompression } = parseArgs();
+const { workspaceId, sceneId, assetFilePath, cesiumAssetId, dracoCompression } = parseArgs();
 let assetId = cesiumAssetId;
 let assetName = '';
 
@@ -17,6 +17,11 @@ const factory = new SceneFactoryImpl();
 factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMakerScene) => {
   // Wait for a tiled asset - if there's no path then assume tiling is done
   let tilingDone = assetFilePath === '';
+
+  if (process.env.CESIUM_ACCESS_TOKEN === undefined) {
+    throw 'ERROR: Environment variable CESIUM_ACCESS_TOKEN has not been configured. Run this script with "-h" to see usage details.';
+  }
+  const cesiumAccessToken = process.env.CESIUM_ACCESS_TOKEN;
 
   const cesiumClient: CesiumClient = new CesiumClient();
 

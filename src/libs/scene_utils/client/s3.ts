@@ -3,7 +3,6 @@
 
 import { readdirSync, readFileSync, statSync } from 'fs';
 import { S3 } from 'aws-sdk';
-import { String } from 'aws-sdk/clients/appstream';
 import { basename, join } from 'path';
 import { DeleteObjectRequest, PutObjectRequest } from 'aws-sdk/clients/s3';
 
@@ -34,7 +33,7 @@ export class S3Client {
     });
   }
 
-  private walkSync(currentPath: String, bucketName: string): void {
+  private walkSync(currentPath: string, bucketName: string): void {
     const stat = statSync(currentPath);
     if (stat.isFile()) {
       this.uploadFile(currentPath, bucketName);

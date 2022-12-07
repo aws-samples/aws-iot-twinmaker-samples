@@ -6,7 +6,6 @@ import minimist from 'minimist';
 export interface CesiumSampleArguments {
   workspaceId: string;
   sceneId: string;
-  cesiumAccessToken: string;
   assetFilePath?: string;
   cesiumAssetId?: string;
   dracoCompression?: boolean;
@@ -19,24 +18,28 @@ export const help = () => {
     * AWS_SESSION_TOKEN
     * AWS_REGION (e.g. us-east-1)
   
+  For this sample you must also configure an environment variable with an access token to your Cesium Ion account:
+    * CESIUM_ACCESS_TOKEN
+  The token must have a minimum of the following permissions:
+    * assets:list, assets:read, assets:write, exports:read, exports:write
+  
   Usage: 
     
     arguments:
       --workspaceId         REQUIRED
       --sceneId             REQUIRED
-      --cesiumAccessToken   REQUIRED
       --assetFilePath       OPTIONAL
       --cesiumAssetId       OPTIONAL
       --dracoCompression    OPTIONAL
     
     Cesium Ion sample upload from local point cloud source file:
-      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAccessToken "eyJASDF..." --assetFilePath ~/Documents/LaserScan.las
+      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --assetFilePath ~/Documents/LaserScan.las
 
     Cesium Ion sample upload from local 3D model source file:
-      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAccessToken "eyJASDF..." --assetFilePath ~/Documents/Building.gltf --dracoCompression
+      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --assetFilePath ~/Documents/Building.gltf --dracoCompression
   
     Cesium Ion sample download tiles into scene:
-      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAccessToken "eyJASDF..." --cesiumAssetId 1234567
+      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAssetId 1234567
     `);
 };
 
@@ -45,7 +48,6 @@ export const parseArgs = (): CesiumSampleArguments => {
   const args: CesiumSampleArguments = {
     workspaceId: '',
     sceneId: '',
-    cesiumAccessToken: '',
     assetFilePath: '',
     cesiumAssetId: '',
     dracoCompression: false,
@@ -62,9 +64,6 @@ export const parseArgs = (): CesiumSampleArguments => {
         break;
       case 'sceneId':
         args.sceneId = parsedArgs[arg];
-        break;
-      case 'cesiumAccessToken':
-        args.cesiumAccessToken = parsedArgs[arg];
         break;
       case 'assetFilePath':
         args.assetFilePath = parsedArgs[arg];
@@ -86,7 +85,7 @@ export const parseArgs = (): CesiumSampleArguments => {
 
   const hasCesiumAssetId = args.cesiumAssetId !== '';
   const hasAssetFilePath = args.assetFilePath !== '';
-  const isInvalid = args.cesiumAccessToken === '' || hasCesiumAssetId == hasAssetFilePath;
+  const isInvalid = hasCesiumAssetId == hasAssetFilePath;
   if (args.workspaceId === '' || args.sceneId === '' || isInvalid) {
     help();
     process.exit(1);
