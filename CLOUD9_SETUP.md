@@ -25,7 +25,7 @@ Note: If you encounter any issues, try checking the Troubleshooting section at t
 - "Next Step" > "Configure settings" setting (can leave as defaults)
     ```
     [Environment type] Create a new EC2 instance for environment (direct access)
-    [Instance type] t2.micro (1 GiB RAM + 1 vCPU)
+    [Instance type] m4.4xlarge (64 GiB RAM + 16 vCPU)
     [Platform] Amazon Linux 2 (recommended)
     ```
 - "Next Step" > "Create environment"
@@ -42,15 +42,40 @@ The instance provisioned by AWS Cloud9 will need to be modified to have a larger
 - Attach Instance Role
     - "Actions" (top right) > "Security" > "Modify IAM role"
     - (if you haven't already created a role for IoT TwinMaker development) "Create new IAM role"
-        - "Create Role" (top right)
+        - "Create Role" (top right) > "Select trust entity" > "Custom trust policy" > Enter the following JSON
             ```
-            [Select type of trusted entity] EC2
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": [
+                                "cloud9.amazonaws.com",
+                                "ec2.amazonaws.com"
+                            ]
+                        },
+                        "Action": "sts:AssumeRole"
+                    }
+                ]
+            }
             ```
         - "Next: Permissions" > "Create Policy" > "JSON" (tab to right of "Visual editor") > Enter the following JSON
             ```
             {
                 "Version": "2012-10-17",
                 "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Action": [
+                            "ssmmessages:CreateControlChannel",
+                            "ssmmessages:CreateDataChannel",
+                            "ssmmessages:OpenControlChannel",
+                            "ssmmessages:OpenDataChannel",
+                            "ssm:UpdateInstanceInformation"
+                        ],
+                        "Resource": "*"
+                    },
                     {
                         "Action": [
                             "iottwinmaker:*",

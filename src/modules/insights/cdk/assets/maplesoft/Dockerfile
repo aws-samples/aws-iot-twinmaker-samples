@@ -7,11 +7,14 @@
 
 FROM ubuntu:18.04
 
-RUN apt-get -y update && apt-get install -y --no-install-recommends \
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -y update && apt-get -y install --reinstall build-essential && apt-get install -y --no-install-recommends \
          wget \
          python3-pip \
          python3-matplotlib \
          python3-setuptools \
+         python3-dev \
          nginx \
          cmake \
          ca-certificates \
@@ -27,7 +30,7 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip
 # linking them together. Likewise, pip leaves the install caches populated which uses
 # a significant amount of space. These optimizations save a fair amount of space in the
 # image, which reduces start up time.
-RUN pip --no-cache-dir install matplotlib pathlib numpy==1.16.2 scipy==1.2.1 scikit-learn==0.20.2 pandas flask gunicorn gevent==1.4 fmpy==0.3.1
+RUN pip --no-cache-dir install matplotlib pathlib numpy==1.16.2 scipy==1.2.1 scikit-learn==0.20.2 pandas flask gunicorn gevent fmpy==0.3.1
 
 # Set some environment variables. PYTHONUNBUFFERED keeps Python from buffering our standard
 # output stream, which means that logs can be delivered to the user quickly. PYTHONDONTWRITEBYTECODE
