@@ -64,7 +64,7 @@ You will need to finish the Getting Started sample [setup](https://github.com/aw
 
 ---
 
-## 2. CESIUM `samples/cesium_sample/`
+## 2. CESIUM `samples/cesium_sample/sample.ts`
 
 Automates the Cesium Ion pipeline to export directly to IoT TwinMaker.
 
@@ -108,6 +108,15 @@ Find the assetId of your asset on the "My Assets" tab of your [Cesium account](h
 ```bash
 npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAssetId [ASSET_ID]
 ```
+
+3. Add a 3D tileset into a TwinMaker scene
+
+Assumes the tileset was already uploaded to your workspace's S3 bucket.
+
+```bash
+npx ts-node samples/cesium_sample/add_tiles_to_scene.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --tilesName [TILES_FOLDER_NAME_IN_S3]
+```
+
 
 ### Output
 

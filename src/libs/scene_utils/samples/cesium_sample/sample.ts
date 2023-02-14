@@ -40,7 +40,7 @@ factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMaker
   // Only download Cesium tiles and edit the scene if the tiling on the asset is finished
   if (tilingDone) {
     // Add a Root Node to the Scene
-    console.log('Creating/Editing Cookie Factory scene...');
+    console.log('Creating/Editing scene...');
 
     // Set the Environmental Preset in the Scene settings
     twinMakerScene.setEnviromentPreset('neutral');

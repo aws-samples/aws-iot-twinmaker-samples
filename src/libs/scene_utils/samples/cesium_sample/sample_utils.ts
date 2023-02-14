@@ -33,13 +33,13 @@ export const help = () => {
       --dracoCompression    OPTIONAL
     
     Cesium Ion sample upload from local point cloud source file:
-      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --assetFilePath ~/Documents/LaserScan.las
+      npx ts-node cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --assetFilePath ~/Documents/LaserScan.las
 
     Cesium Ion sample upload from local 3D model source file:
-      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --assetFilePath ~/Documents/Building.gltf --dracoCompression
+      npx ts-node cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --assetFilePath ~/Documents/Building.gltf --dracoCompression
   
     Cesium Ion sample download tiles into scene:
-      npx ts-node src/cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAssetId 1234567
+      npx ts-node cesium_sample/sample.ts --workspaceId Factory --sceneId FactoryScene --cesiumAssetId 1234567
     `);
 };
 
@@ -92,3 +92,70 @@ export const parseArgs = (): CesiumSampleArguments => {
   }
   return args;
 };
+
+export interface TilesToSceneArguments {
+  workspaceId: string;
+  sceneId: string;
+  tilesName: string;
+}
+
+export const helpTilesToScene = () => {
+  console.log(`Configure the AWS credentials and AWS region in your environment by setting env variables:
+    * AWS_ACCESS_KEY_ID
+    * AWS_SECRET_ACCESS_KEY
+    * AWS_SESSION_TOKEN
+    * AWS_REGION (e.g. us-east-1)
+  
+  Prerequisite:
+    * Upload 3D Tiles to your workspace S3 bucket - use the name of the 3D Tiles folder for the tilesName argument
+
+  Usage: 
+    
+    arguments:
+      --workspaceId   REQUIRED
+      --sceneId       REQUIRED
+      --tilesName     REQUIRED
+
+    npx ts-node cesium_sample/add_tiles_to_scene.ts --workspaceId Factory --sceneId FactoryScene --tilesName FactoryTileset
+    `);
+};
+
+// Parses command-line arguments for the sample files to extract the supported settings.
+export const parseArgsTilesToScene = (): TilesToSceneArguments => {
+  const args: TilesToSceneArguments = {
+    workspaceId: '',
+    sceneId: '',
+    tilesName: '',
+  };
+  const parsedArgs = minimist(process.argv.slice(2));
+  for (const arg of Object.keys(parsedArgs)) {
+    switch (arg) {
+      case 'h':
+      case 'help':
+        help();
+        process.exit(0);
+      case 'workspaceId':
+        args.workspaceId = parsedArgs[arg];
+        break;
+      case 'sceneId':
+        args.sceneId = parsedArgs[arg];
+        break;
+      case 'tilesName':
+        args.tilesName = parsedArgs[arg];
+        break;
+      case '_':
+        break;
+      default:
+        console.error(`unknown arg "--${arg}"`);
+        help();
+        process.exit(1);
+    }
+  }
+
+  if (args.workspaceId === '' || args.sceneId === '' || args.tilesName === '') {
+    help();
+    process.exit(1);
+  }
+  return args;
+};
+
