@@ -34,12 +34,6 @@ export class ModelRefNode extends SceneNode {
     this.overrideModel = true;
   }
 
-  public uploadModelFromCesium(assetId: string): void {
-    this.needUploadModel = true;
-    this.cesiumAssetId = assetId;
-    this.overrideModel = true;
-  }
-
   public withUnitOfMeasure(unitOfMeasure: DistanceUnit): ModelRefNode {
     this.modelRef.unitOfMeasure = unitOfMeasure;
     return this;

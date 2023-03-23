@@ -35,12 +35,10 @@ export interface SceneFactory {
    * if it already exists.
    *
    * @param iotTwinMakerScene is the scene stored in memory to save in S3
-   * @param cesiumAccessToken is the optional access token to Cesium Ion for
-   *                          using a Cesium tileset in the scene
    *
    * @thrown SceneHasBeenModifed error when the scene has been modified by someone else.
    */
-  save(iotTwinMakerScene: IotTwinMakerScene, cesiumAccessToken?: string): void;
+  save(iotTwinMakerScene: IotTwinMakerScene): void;
 
   /**
    * Save the scene JSON locally to @param localPath

@@ -66,11 +66,13 @@ You will need to finish the Getting Started sample [setup](https://github.com/aw
 
 ## 2. CESIUM `samples/cesium_sample/sample.ts`
 
-Automates the Cesium Ion pipeline to export directly to IoT TwinMaker.
+Automates the Cesium Ion pipeline to convert 3D assets to 3D Tiles and upload directly to IoT TwinMaker.
 
-1. Upload your 3D asset to Cesium and wait for it to perform a tiling optimization.
-2. Export the tileset directly to your workspace's S3 bucket.
-3. Create/edit a TwinMaker scene with the 3D tileset
+1. Upload your 3D asset to Cesium and wait for it to perform the conversion to a 3D Tiles tileset.
+2. Create an archive for the tileset to prepare for download.
+3. Download archive for tileset.
+4. Upload tileset to your TwinMaker workspace S3 bucket.
+5. Create/edit a TwinMaker scene with the 3D tileset.
 
 ### Prerequisites
 
@@ -83,7 +85,7 @@ Automates the Cesium Ion pipeline to export directly to IoT TwinMaker.
 
    c. Name it “TwinMaker token”
 
-   d. Toggle on the following permission scopes: 1. assets:list 2. assets:read 3. assets:write 4. exports:read 5. exports:write
+   d. Toggle on the following permission scopes: 1. assets:list 2. assets:read 3. assets:write 4. archives:read 5. archives:write
 
    e. Click “Create”
 
@@ -91,17 +93,19 @@ Automates the Cesium Ion pipeline to export directly to IoT TwinMaker.
 
 ### Example
 
+This script runs up to 5 steps to convert your 3D asset into 3D Tiles for use in an IoT TwinMaker scene. When you start on any example below, the script will continue with all 5 steps. For example, if you have an asset already uploaded to Cesium Ion, start on step 2 to archive, download, and add the tileset to your scene.
+
 1. Upload a 3D asset to Cesium
 
 ```bash
 npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --assetFilePath [3D_ASSET_PATH] --dracoCompression
 ```
 
-The script will wait up to 5 minutes for Cesium to process the asset's tiles. When an asset is uploaded to Cesium it is assigned a random assetId. If it takes more than 5 minutes to tile the asset then run the next command below with its assetId to export its 3D tileset to your workspace's S3 bucket.
+The script will wait up to 5 minutes for Cesium to convert the asset to 3D Tiles and assign it a unique assetId. If it takes more than 5 minutes to tile the asset then run the command below with its assetId to continue downloading the tileset to your workspace's S3 bucket.
 
 It is recommended to use the optional `--dracoCompression` parameter to enable compression on your asset during tiling. Read more about the benefits of Draco for rendering your 3D model [here](https://cesium.com/blog/2018/04/09/draco-compression/).
 
-2. Export a Cesium tileset into a TwinMaker scene
+2. Create an archive for the tileset
 
 Find the assetId of your asset on the "My Assets" tab of your [Cesium account](https://cesium.com/ion/assets).
 
@@ -109,14 +113,36 @@ Find the assetId of your asset on the "My Assets" tab of your [Cesium account](h
 npx ts-node samples/cesium_sample/sample.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAssetId [ASSET_ID]
 ```
 
-3. Add a 3D tileset into a TwinMaker scene
+This will output the archiveId for your asset's tileset. The script will continue to download the archive in the next step.
+
+3. Download the archive for the tileset
+
+Use the assetId and archiveId from the previous step to run the following command:
+
+```bash
+npx ts-node samples/cesium_sample/sample.ts [WORKSPACE_ID] --sceneId [SCENE_ID] --cesiumAssetId [ASSET_ID] --cesiumArchiveId [ARCHIVE_ID]
+```
+
+A .zip of your tileset will be downloaded and saved on the current working directory. The script will continue to upload this zip to S3 in the next step.
+
+4. Upload tileset to your TwinMaker workspace S3 bucket
+
+Pass in the path of the downloaded tileset .zip in the following command:
+
+```bash
+npx ts-node samples/cesium_sample/sample.ts [WORKSPACE_ID] --sceneId [SCENE_ID] --localArchivePath [ZIP_PATH]
+```
+
+The zip archive will be uncompressed and uploaded to S3. The script will continue to add the tileset to a TwinMaker scene in the next step.
+
+
+5. Add a 3D tileset to a TwinMaker scene
 
 Assumes the tileset was already uploaded to your workspace's S3 bucket.
 
 ```bash
-npx ts-node samples/cesium_sample/add_tiles_to_scene.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --tilesName [TILES_FOLDER_NAME_IN_S3]
+npx ts-node samples/cesium_sample/add_tiles_to_scene.ts --workspaceId [WORKSPACE_ID] --sceneId [SCENE_ID] --s3TilesName [TILES_FOLDER_NAME_IN_S3]
 ```
-
 
 ### Output
 

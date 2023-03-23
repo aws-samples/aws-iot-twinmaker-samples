@@ -1,77 +1,64 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
 // SPDX-License-Identifier: Apache-2.0
 
-import { createReadStream } from 'fs';
-import { request } from 'https';
-import { IncomingMessage } from 'http';
-import { ExportAssetRequest, ModelType, OnComplete, UploadAssetRequest, UploadLocation } from '../cesium/types';
+import { createReadStream, createWriteStream } from 'fs';
+import { ArchiveCreationRequest, ModelType, OnComplete, UploadAssetRequest, UploadLocation } from '../cesium/types';
 import { Credentials, S3 } from 'aws-sdk';
 import { logProgress } from '../utils/file_utils';
-import * as status from 'http-status';
-import { basename } from 'path';
+import { basename, join } from 'path';
+import fetch, { RequestInit, Response } from 'node-fetch';
 
 export class CesiumClient {
-  // Process a request and resolve the response data
-  private standardRequestHandler(options, errorMessage: (result: IncomingMessage) => string, body?): Promise<any> {
+  private checkStatus(res: Response, errorMessage: (res: Response) => string) {
+      if (res.ok) { // res.status >= 200 && res.status < 300
+          return res;
+      } else {
+          throw new Error(errorMessage(res));
+      }
+  }
+
+  private handleRequest(url: string, options: RequestInit, errorMessage: (res: Response) => string): Promise<any> {
+    return fetch(url, options).then((res: Response) => this.checkStatus(res, errorMessage));
+  }
+
+  private handleResponse(responseStream): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       let data: Buffer[] = [];
-      const req = request(options, (res) => {
-        // Reject statusCode that is not 2xx
-        if (status[`${res.statusCode}_CLASS`] !== status.classes.SUCCESSFUL) {
-          reject(errorMessage(res));
-          return;
-        }
-
-        res.on('data', (chunk: Buffer) => {
-          data.push(chunk);
-        });
-
-        res.on('end', () => {
-          const buffer = Buffer.concat(data);
-          resolve(buffer);
-        });
-      });
-
-      req.on('error', (error) => {
+      responseStream.on('data', (chunk) => {
+        data.push(Buffer.from(chunk))
+      }).on('end', () => {
+        const buffer = Buffer.concat(data);
+        resolve(buffer); 
+      }).on('error', (error) => {
         console.error(error);
         reject(error);
       });
-
-      // Handle POST requests
-      if (options.method === 'POST' && !!body) {
-        req.write(body);
-      }
-
-      req.end();
     });
+  }
+
+  private async handleCesiumAPI(url: string, options: RequestInit, errorMessage: (res: Response) => string): Promise<any> {
+    const response = await this.handleRequest(url, { ...options, compress: false }, errorMessage);
+    return this.handleResponse(response.body);
   }
 
   // Tell Cesium we want to upload a file
   private async uploadAssetRequest(accessToken: string, request: UploadAssetRequest) {
     const url = 'https://api.cesium.com/v1/assets';
-    const urlObject = new URL(url);
-
-    const bodyJSON = JSON.stringify(request);
-
-    // Issue a POST request to upload local file
-    const options = {
-      hostname: urlObject.hostname,
-      port: 443,
-      path: urlObject.pathname,
+    const body = JSON.stringify(request);
+    const options: RequestInit = {
       method: 'POST',
-      headers: {
+      body,
+      headers: { 
         'Content-Type': 'application/json',
-        'Content-Length': bodyJSON.length,
-        Authorization: `Bearer ${accessToken}`,
+        'Content-Length': body.length.toString(),
+        Authorization: `Bearer ${accessToken}`,  
       },
     };
+    const errorMessage = (res: Response) => {
+      return `[Error ${res.status}] Failed to process asset upload request with error: ${res.statusText}`;
+    }
 
-    return this.standardRequestHandler(
-      options,
-      (res: IncomingMessage) =>
-        `[Error ${res.statusCode}] Failed to process asset upload request with error: ${res.statusMessage}`,
-      bodyJSON,
-    );
+    return this.handleCesiumAPI(url, options, errorMessage);
   }
 
   // Upload file to S3 location provided by Cesium
@@ -99,35 +86,24 @@ export class CesiumClient {
 
   // Tell Cesium the file has been uploaded to S3 and start tiling
   private async startTilingForAsset(accessToken: string, onComplete: OnComplete) {
-    const urlObject = new URL(onComplete.url);
-    const port = urlObject.protocol.toLowerCase() === 'https:' ? 443 : 80;
-    const body = JSON.stringify(onComplete.fields);
-
-    const options = {
-      hostname: urlObject.hostname,
-      port,
-      path: urlObject.pathname,
+    const url = onComplete.url;
+    const options: RequestInit = {
       method: onComplete.method,
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': body.length,
-        Authorization: `Bearer ${accessToken}`,
-      },
+      body: JSON.stringify(onComplete.fields),
+      headers: { Authorization: `Bearer ${accessToken}` },
     };
+    const errorMessage = (res: Response) => {
+      return `[Error ${res.status}] Failed to request tiling on Cesium asset with error: ${res.statusText}`;
+    }
 
-    return this.standardRequestHandler(
-      options,
-      (res: IncomingMessage) =>
-        `[Error ${res.statusCode}] Failed to request tiling on Cesium asset with error: ${res.statusMessage}`,
-      body,
-    );
+    return this.handleCesiumAPI(url, options, errorMessage);
   }
 
   // Log progress of tiling for a Cesium asset
   private async waitForTiles(
     accessToken: string,
     assetId: string,
-    timeoutInMs: number = 10000, // Default 10 seconds
+    timeoutInMs: number = 10000, // Default refresh every 10 seconds
     maxChecks: number = 30, // Default wait for 5 minutes
   ) {
     let done = false;
@@ -169,22 +145,15 @@ export class CesiumClient {
   // Call assets API to get the asset metadata
   public async getAsset(accessToken: string, assetId: string): Promise<any> {
     const url = `https://api.cesium.com/v1/assets/${assetId}`;
-    const urlObject = new URL(url);
-
-    const options = {
-      hostname: urlObject.hostname,
-      port: 443,
-      path: urlObject.pathname,
+    const options: RequestInit = {
       method: 'GET',
       headers: { Authorization: `Bearer ${accessToken}` },
-      json: true,
     };
+    const errorMessage = (res: Response) => {
+      return `[Error ${res.status}] Failed to get asset ID ${assetId} with error: ${res.statusText}`;
+    }
 
-    return this.standardRequestHandler(
-      options,
-      (res: IncomingMessage) =>
-        `[Error ${res.statusCode}] Failed to get asset ID ${assetId} with error: ${res.statusMessage}`,
-    );
+    return this.handleCesiumAPI(url, options, errorMessage);
   }
 
   // Upload a local file to Cesium and wait for tiling
@@ -235,136 +204,171 @@ export class CesiumClient {
     return [cesiumAssetId, tilingDone] as const;
   }
 
-  // Request a Cesium asset to be exported to an S3 bucket
-  private async exportAssetRequest(accessToken: string, assetId: string, request: ExportAssetRequest) {
-    const url = `https://api.cesium.com/v1/assets/${assetId}/exports`;
-    const urlObject = new URL(url);
-
-    const bodyJSON = JSON.stringify(request);
-
-    // Issue a POST request to export an asset
-    const options = {
-      hostname: urlObject.hostname,
-      port: 443,
-      path: urlObject.pathname,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': bodyJSON.length,
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-
-    return this.standardRequestHandler(
-      options,
-      (res: IncomingMessage) =>
-        `[Error ${res.statusCode}] Failed to process asset export request with error: ${res.statusMessage}`,
-      bodyJSON,
-    );
-  }
-
-  // Call exports API to get the export status
-  private async getExportStatus(accessToken: string, assetId: string, exportId: string): Promise<any> {
-    const url = `https://api.cesium.com/v1/assets/${assetId}/exports/${exportId}`;
-    const urlObject = new URL(url);
-
-    const options = {
-      hostname: urlObject.hostname,
-      port: 443,
-      path: urlObject.pathname,
+  // List existing archives for a Cesium asset
+  public listArchivesRequest(accessToken: string, assetId: string) {
+    const url = `https://api.cesium.com/v1/assets/${assetId}/archives`;
+    const options: RequestInit = {
       method: 'GET',
       headers: { Authorization: `Bearer ${accessToken}` },
-      json: true,
     };
+    const errorMessage = (res: Response) => {
+      return `[Error ${res.status}] Failed to list archives with error: ${res.statusText}`;
+    }
 
-    return this.standardRequestHandler(
-      options,
-      (res: IncomingMessage) =>
-        `[Error ${res.statusCode}] Failed to get export status for ${exportId} with error: ${res.statusMessage}`,
-    );
+    return this.handleCesiumAPI(url, options, errorMessage);
   }
 
-  // Log progress of Cesium asset export to S3
-  private async waitForExport(
+  // Request a Cesium asset to be archived for download
+  private createArchiveRequest(accessToken: string, assetId: string, request: ArchiveCreationRequest) {
+    const url = `https://api.cesium.com/v1/assets/${assetId}/archives`;
+    const body = JSON.stringify(request);
+    const options: RequestInit = {
+      method: 'POST',
+      body,
+      headers: { 
+        'Content-Type': 'application/json',
+        'Content-Length': body.length.toString(),
+        Authorization: `Bearer ${accessToken}`,  
+      },
+    };
+    const errorMessage = (res: Response) => {
+      return `[Error ${res.status}] Failed to process asset archive request with error: ${res.statusText}`;
+    }
+
+    return this.handleCesiumAPI(url, options, errorMessage);
+  }
+
+  // Call archive API to get the archive status
+  private getArchiveStatus(accessToken: string, assetId: string, archiveId: string): Promise<any> {
+    const url = `https://api.cesium.com/v1/assets/${assetId}/archives/${archiveId}`;
+    const options: RequestInit = {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+    const errorMessage = (res: Response) => {
+      return `[Error ${res.status}] Failed to get archive status for archive ID ${archiveId} with error: ${res.statusText}`;
+    }
+
+    return this.handleCesiumAPI(url, options, errorMessage);
+  }
+
+  // Log progress of archive creation
+  private async waitForArchive(
     accessToken: string,
     assetId: string,
-    exportId: string,
-    timeoutInMs: number = 10000, // Default 10 seconds
+    archiveId: string,
+    timeoutInMs: number = 10000, // Default refresh every 10 seconds
     maxChecks: number = 30, // Default wait for 5 minutes
   ) {
     let done = false;
 
     while (!done && maxChecks-- > 0) {
       // Issue a GET request for the metadata
-      const response = await this.getExportStatus(accessToken, assetId, exportId);
-      const exportMetadata = JSON.parse(response.toString());
-      const status = exportMetadata.status;
-      const bytesExported = exportMetadata.bytesExported;
-      const s3BucketPath = `${exportMetadata.to.bucket}/${exportMetadata.to.prefix}`;
+      const response = await this.getArchiveStatus(accessToken, assetId, archiveId);
+      const archiveMetadata = JSON.parse(response.toString());
+      const status = archiveMetadata.status;
+      const bytesArchived = archiveMetadata.bytesArchived;
 
       if (status === 'COMPLETE') {
         process.stdout.clearLine(0);
-        console.log('\nExport completed successfully!');
-        console.log(`Exported ${bytesExported} bytes to the S3 path ${s3BucketPath}`);
+        console.log(`\nArchive with id ${archiveId} completed successfully!`);
+        console.log(`Archived ${bytesArchived} bytes. Ready to download.`);
         done = true;
-      } else if (status === 'QUEUED') {
-        logProgress('The asset export request is in the server queue.');
       } else if (status === 'ERROR') {
-        console.error('An unknown export error occurred, please contact support@cesium.com.');
+        console.error('An unknown archive error occurred, please contact support@cesium.com.');
         break;
+      } else if (status === 'QUEUED') {
+        logProgress('Archive request has been queued.');
       } else if (status === 'NOT_STARTED') {
-        logProgress('Server has not started the export process, make sure the asset tiling is complete.');
+        logProgress('Server has not started the archive process, make sure the asset tiling is complete.');
       } else if (status === 'IN_PROGRESS') {
-        logProgress(`Asset export is in progress.`);
+        logProgress(`Asset archive is in progress.`);
       } else {
-        console.error(`Unrecognized response when requesting the export status of asset ${assetId}: ${status}`);
+        console.error(`Unrecognized response when requesting the archive status of asset ${assetId}: ${status}`);
       }
       await new Promise((resolve) => setTimeout(resolve, timeoutInMs));
     }
 
     if (!done) {
-      console.log(`Export for asset ${assetId} is still in progress.`);
-      console.log(`Check your workspace's S3 bucket for the tileset to confirm the completion of the export.`);
+      console.log(`Archive for asset ${assetId} is still in progress.`);
+      console.log(`Rerun this script with the parameter --cesiumArchiveId ${archiveId} to continue downloading the archived tileset.`);
     }
 
     return done;
   }
 
-  public async exportTileset(bucketName: string, accessToken: string, assetId: string) {
-    console.log(`Uploading tileset to S3 bucket ${bucketName} for Cesium asset ID ${assetId}...`);
+  // Request for a Cesium archive to be downloaded
+  private archiveDownloadRequest(accessToken: string, assetId: string, archiveId: string): Promise<any> {
+    const url = `https://api.cesium.com/v1/assets/${assetId}/archives/${archiveId}/download`;
+    const options: RequestInit = {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+    const errorMessage = (res: Response) => {
+      return `[Error ${res.status}] Failed to request archive download for archive ID ${archiveId} with error: ${res.statusText}`;
+    }
 
+    return this.handleRequest(url, options, errorMessage);
+  }
+
+  // Cesium provides archives through an S3 presigned URL
+  private archiveDownloadS3Presigned(presignedUrl: string, archiveId: string): Promise<any> {
+    const options: RequestInit = { method: 'GET' };
+    const errorMessage = (res: Response) => {
+      return `[Error ${res.status}] Failed to download archive for archive ID ${archiveId} with error: ${res.statusText}`;
+    }
+
+    return this.handleRequest(presignedUrl, options, errorMessage);
+  }
+
+  public async downloadArchive(accessToken: string, assetId: string, archiveId: string): Promise<string> {
+    // Get archive
+    console.log(`Downloading archive ${archiveId} of asset ID ${assetId}`);
+    const archiveDownload = await this.archiveDownloadRequest(accessToken, assetId, archiveId);
+    // Cesium provides archives through an S3 presigned URL
+    const s3PresignedUrl = archiveDownload.url;
+    const archiveResult = await this.archiveDownloadS3Presigned(s3PresignedUrl, archiveId);
+
+    // Get asset name
     const assetMetadata = await this.getAsset(accessToken, assetId);
     const assetJson = JSON.parse(assetMetadata.toString());
     const assetName = assetJson.name;
-    const outputPath = `${assetName}-${assetId}`;
 
-    if (
-      process.env.AWS_ACCESS_KEY_ID !== undefined &&
-      process.env.AWS_SECRET_ACCESS_KEY !== undefined &&
-      process.env.AWS_SESSION_TOKEN !== undefined
-    ) {
-      const request: ExportAssetRequest = {
-        type: 'S3',
-        bucket: bucketName,
-        prefix: outputPath,
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        sessionToken: process.env.AWS_SESSION_TOKEN,
-      };
+    // Prepare local archive path
+    const archiveName = `${assetId}-${assetName}-tileset`;
+    const archivePath = join(process.cwd(), `${archiveName}.zip`);
+    const dest = createWriteStream(archivePath);
 
-      // Submit export job
-      const response = await this.exportAssetRequest(accessToken, assetId, request);
-      console.log(`Submitted request to export asset ${assetId} to the S3 path ${bucketName}/${outputPath}`);
-      const exportMetadata = JSON.parse(response.toString());
-      const exportId = exportMetadata.id;
-      // Wait for export to complete
-      await this.waitForExport(accessToken, assetId, exportId);
-    } else {
-      console.error(`
-      Cannot find temporary AWS credentials for exporting asset ${assetId}. 
-      Set the following environment variables: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN
-      `);
+    // Stream result to local file
+    const stream = archiveResult.body?.pipe(dest);
+    await new Promise((resolve, reject) => {
+      stream.on('finish', () => {
+        console.log(`Finished downloading archive to local path ${archivePath}`);
+        resolve(() => {});
+      }).on('error', err => reject(err));
+    });
+
+    return archivePath;
+  }
+
+  public async createArchive(accessToken: string, assetId: string) {
+    // Submit archive creation job
+    const creationRequest: ArchiveCreationRequest = {
+      format: 'ZIP',
+    };
+    const response = await this.createArchiveRequest(accessToken, assetId, creationRequest);
+    console.log(`Submitted request to creation archive of asset ID ${assetId}`);
+
+    const archiveMetadata = JSON.parse(response.toString());
+    const archiveId = archiveMetadata.id;
+
+    let archiveCreated = false;
+    if (!!archiveId) {
+      // Wait for archive to complete
+      archiveCreated = await this.waitForArchive(accessToken, assetId, archiveId);
     }
+    
+    return [archiveId, archiveCreated] as const;
   }
 
   private getCesiumModelType(assetPath: string | undefined): ModelType | undefined {

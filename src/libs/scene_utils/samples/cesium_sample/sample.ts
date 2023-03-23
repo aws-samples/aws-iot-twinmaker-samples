@@ -4,67 +4,97 @@
 import { CesiumClient } from '../../client/cesium';
 import { SceneFactoryImpl } from '../../factory/scene_factory_impl';
 import { ModelRefNode } from '../../node/model.ts/model_ref';
-import { parseArgs } from './sample_utils';
-import { basename } from 'path';
+import { createArchiveForAsset, downloadArchive, getCesiumAccessToken, parseArgs, uploadAssetForTiling } from './sample_utils';
+import { parse } from 'path';
 
-const { workspaceId, sceneId, assetFilePath, cesiumAssetId, dracoCompression } = parseArgs();
-let assetId = cesiumAssetId;
-let assetName = '';
+const { 
+  workspaceId, 
+  sceneId, 
+  assetFilePath, 
+  dracoCompression, 
+  cesiumAssetId, 
+  cesiumArchiveId, 
+  localArchivePath, 
+  s3TilesName 
+} = parseArgs();
 
 const factory = new SceneFactoryImpl();
 
+const parseArchivePath = (archivePath: string | undefined) => {
+  return archivePath ? parse(archivePath).name : archivePath;
+}
+
 // Create a scene or load an existing scene for updates
 factory.loadOrCreateSceneIfNotExists(workspaceId, sceneId).then(async (twinMakerScene) => {
-  // Wait for a tiled asset - if there's no path then assume tiling is done
-  let tilingDone = assetFilePath === '';
+  // twinMakerScene.clear();
 
-  if (process.env.CESIUM_ACCESS_TOKEN === undefined) {
-    throw 'ERROR: Environment variable CESIUM_ACCESS_TOKEN has not been configured. Run this script with "-h" to see usage details.';
-  }
-  const cesiumAccessToken = process.env.CESIUM_ACCESS_TOKEN;
+  const cesiumAccessToken = getCesiumAccessToken();
 
-  const cesiumClient: CesiumClient = new CesiumClient();
-
+  // Step 1:  Upload 3D asset to Cesium Ion, wait for tiling
+  // If a local path is provided then upload the file
+  let isTilingDone = false;
+  let assetId = cesiumAssetId;
   if (!!assetFilePath) {
-    // If requested, upload an asset to Cesium
-    const fileName = basename(assetFilePath);
-    const fileNameSplit = fileName.split('.');
-    assetName = !!fileNameSplit ? fileNameSplit[0] : '';
-
-    console.log('Uploading asset to Cesium Ion...');
-    // Submit asset upload request
-    const description = 'Asset to be visualized in AWS IoT TwinMaker';
-    [assetId, tilingDone] = await cesiumClient.upload(cesiumAccessToken, assetFilePath, description, dracoCompression);
-  }
-
-  // Only download Cesium tiles and edit the scene if the tiling on the asset is finished
-  if (tilingDone) {
-    // Add a Root Node to the Scene
-    console.log('Creating/Editing scene...');
-
-    // Set the Environmental Preset in the Scene settings
-    twinMakerScene.setEnviromentPreset('neutral');
-
-    // If an asset wasn't uploaded in this script then get the asset name from the asset metadata
-    if (assetName.length == 0 && !!assetId) {
-      const cesiumClient: CesiumClient = new CesiumClient();
-      const assetMetadata = await cesiumClient.getAsset(cesiumAccessToken, assetId);
-      const assetJson = JSON.parse(assetMetadata.toString());
-      assetName = assetJson.name;
-    }
-
-    if (!!assetId) {
-      // Add Tiles to the Scene
-      const tilesetPath = `${assetName}-${assetId}/tileset.json`;
-      const tileNode = new ModelRefNode(assetName, tilesetPath, 'Tiles3D');
-      tileNode.uploadModelFromCesium(assetId);
-
-      twinMakerScene.addRootNodeIfNameNotExist(tileNode);
-
-      // Save the changes to the Scene
-      await factory.save(twinMakerScene, cesiumAccessToken);
-    } else {
-      console.log('Missing Cesium asset ID');
+    [assetId, isTilingDone] = await uploadAssetForTiling(assetFilePath, dracoCompression, cesiumAccessToken);
+    if (!isTilingDone) {
+      console.error(`Check the asset tiling status in Cesium Ion: https://cesium.com/ion/assets/${assetId}`)
+      return;
     }
   }
+
+  // Step 2: Create archive for tileset
+  // If only an assetId is provided or tiling is done on that asset from the previous step then create an archive
+  let isArchiveCreated = false;
+  let archiveId = cesiumArchiveId;
+  if ((!!assetId && !archiveId) || isTilingDone) {
+    [archiveId, isArchiveCreated] = await createArchiveForAsset(assetId!, cesiumAccessToken);
+    if (!isArchiveCreated) {
+      console.error(`Archive could not be created for asset with ID ${assetId}`);
+      return;
+    }
+  }
+  
+  // Step 3: Download archive for tileset
+  // If an assetId and archiveId is provided or an archive is created from the previous step then download the archive
+  let archivePath = localArchivePath;
+  if ((!!assetId && !!archiveId) || isArchiveCreated) {
+    archivePath = await downloadArchive(assetId!, archiveId!, cesiumAccessToken);
+    if (!archivePath) {
+      console.error(`Archive with ID ${archiveId} could not be downloaded for asset with ID ${assetId}`);
+      return;
+    }
+  }
+
+  // Steps 4 and 5 to upload the tileset are handled in factory/scene_factory.save(), but prepped below
+  // Step 4: If an archive path is provided or generated from the previous step then it will be uploaded to S3
+  // Step 5: If the tileset name is provided and already uploaded to S3 then it will be added to your TwinMaker scene
+
+  if (!archivePath && !s3TilesName) {
+    console.error('Missing local tileset archive or tileset name in S3. Rerun this script with -h for more details.');
+    return;
+  }
+
+  const tilesetFolderName = !!s3TilesName ? s3TilesName : parseArchivePath(archivePath);
+
+  // Edit the scene
+  console.log('Creating/Editing scene...');
+
+  // Set the Environmental Preset in the Scene settings
+  twinMakerScene.setEnviromentPreset('neutral');
+
+  // Add 3D Tiles to the Scene
+  const tilesetPath = `${tilesetFolderName}/tileset.json`;
+  const tileNode = new ModelRefNode(tilesetFolderName!, tilesetPath, 'Tiles3D');
+
+  // Upload tileset to S3 if there is a local path prepared
+  if (!!archivePath) {
+    tileNode.uploadModelFromLocalIfNotExist(archivePath);
+  }
+
+  twinMakerScene.addRootNodeIfNameNotExist(tileNode);
+
+  // Save the changes to the Scene
+  await factory.save(twinMakerScene);
+}).catch(err => {
+  console.error(err);
 });

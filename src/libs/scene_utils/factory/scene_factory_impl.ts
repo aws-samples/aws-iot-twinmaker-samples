@@ -13,7 +13,6 @@ import { MODEL_REF_TYPE } from '../components/component_type';
 import { ModelRef } from '../components/model_ref_component';
 import { IotTwinMakerScene } from '../scene/iot_twin_maker_scene';
 import { EntitySummary, ListEntitiesFilters } from 'aws-sdk/clients/iottwinmaker';
-import { CesiumClient } from '../client/cesium';
 import pLimit from 'p-limit';
 import { withTrailingSlash } from '../utils/file_utils';
 import { writeFileSync } from 'fs';
@@ -23,7 +22,6 @@ const limit = pLimit(10);
 export class SceneFactoryImpl implements SceneFactory {
   private static readonly iotTwinMaker: IotTwinMakerClient = new IotTwinMakerClient();
   private static readonly s3Client: S3Client = new S3Client();
-  private static readonly cesiumClient: CesiumClient = new CesiumClient();
 
   private readonly deserializer: Deserializer = new Deserializer();
   private readonly serializer: Serializer = new Serializer();
@@ -68,10 +66,10 @@ export class SceneFactoryImpl implements SceneFactory {
     console.log('Scene deleted!');
   }
 
-  public async save(iotTwinMakerScene: IotTwinMakerScene, cesiumAccessToken?: string) {
+  public async save(iotTwinMakerScene: IotTwinMakerScene) {
     iotTwinMakerScene.selfCheck();
     const bucketName = await SceneFactoryImpl.iotTwinMaker.getWorkspaceBucketName(iotTwinMakerScene.getWorkspaceId());
-    await this.uploadModelFilesIfNeeded(iotTwinMakerScene, bucketName, cesiumAccessToken);
+    await this.uploadModelFilesIfNeeded(iotTwinMakerScene, bucketName);
 
     console.log(`Saving scene ${iotTwinMakerScene.getSceneId()}...`);
     await SceneFactoryImpl.s3Client.uploadScene(
@@ -96,7 +94,6 @@ export class SceneFactoryImpl implements SceneFactory {
   private async uploadModelFilesIfNeeded(
     iotTwinMakerScene: IotTwinMakerScene,
     bucketName: string,
-    cesiumAccessToken?: string,
   ): Promise<void> {
     const modelRefNodes: SceneNode[] = iotTwinMakerScene.findAllNodesByType(MODEL_REF_TYPE);
     for (const node of modelRefNodes) {
@@ -114,15 +111,11 @@ export class SceneFactoryImpl implements SceneFactory {
 
           // Upload files to S3 if indicated
           if ((exist && shouldOverride && shouldUpload) || (!exist && shouldUpload)) {
-            if (modelRefComponent.modelType === 'Tiles3D' && cesiumAccessToken) {
-              await SceneFactoryImpl.cesiumClient.exportTileset(
-                bucketName,
-                cesiumAccessToken,
-                modelRefNode.cesiumAssetId,
-              );
-            } else {
-              await SceneFactoryImpl.s3Client.uploadModelRelatedFiles(bucketName, modelRefNode.modelLocalPath);
-            }
+            await SceneFactoryImpl.s3Client.uploadModelRelatedFiles(bucketName, modelRefNode.modelLocalPath);
+          } else if (shouldUpload && exist && !shouldOverride) {
+            console.log(`File already exists in S3: ${modelRefComponent.modelFileName}`);
+          } else if (!shouldUpload && !exist) {
+            throw new Error(`File does not exist in S3 ${modelRefComponent.modelFileName}`);
           }
         }
       }

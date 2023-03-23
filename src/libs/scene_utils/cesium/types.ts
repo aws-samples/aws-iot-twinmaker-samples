@@ -30,11 +30,6 @@ export type OnComplete = {
   fields: any;
 };
 
-export type ExportAssetRequest = {
-  type: string;
-  bucket: string;
-  prefix: string;
-  accessKeyId: string;
-  secretAccessKey: string;
-  sessionToken: string;
+export type ArchiveCreationRequest = {
+  format: string;
 };
