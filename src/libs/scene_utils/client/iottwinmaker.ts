@@ -14,10 +14,10 @@ import osName from 'os-name';
 import { name, version } from '../package.json';
 
 export class IotTwinMakerClient {
-  private twinmakerClient: IoTTwinMaker;
+  private iottwinmakerClient: IoTTwinMaker;
 
   constructor() {
-    this.twinmakerClient = new IoTTwinMaker({
+    this.iottwinmakerClient = new IoTTwinMaker({
       customUserAgent: this.userAgentString(),
     });
   }
@@ -35,7 +35,7 @@ export class IotTwinMakerClient {
       workspaceId,
     };
 
-    await this.twinmakerClient.createScene(request).promise();
+    await this.iottwinmakerClient.createScene(request).promise();
   }
 
   public createSceneIfNotExist(workspaceId: string, sceneId: string): void {
@@ -48,7 +48,7 @@ export class IotTwinMakerClient {
       workspaceId,
     };
 
-    await this.twinmakerClient.deleteScene(request).promise();
+    await this.iottwinmakerClient.deleteScene(request).promise();
   }
 
   public async getWorkspaceBucketName(workspaceId: string): Promise<string> {
@@ -56,7 +56,7 @@ export class IotTwinMakerClient {
       workspaceId,
     };
 
-    const getWorkspaceResponse = await this.twinmakerClient.getWorkspace(getWorkspaceResquest).promise();
+    const getWorkspaceResponse = await this.iottwinmakerClient.getWorkspace(getWorkspaceResquest).promise();
 
     const segments = getWorkspaceResponse.s3Location.split(':');
     return segments[segments.length - 1];
@@ -72,7 +72,7 @@ export class IotTwinMakerClient {
     let nextToken: string | undefined = '';
 
     while (nextToken !== undefined) {
-      const listEntitiesResponse = await this.twinmakerClient.listEntities(listEntitiesRequest).promise();
+      const listEntitiesResponse = await this.iottwinmakerClient.listEntities(listEntitiesRequest).promise();
       if (listEntitiesResponse.entitySummaries) {
         entitySummaries = entitySummaries.concat(listEntitiesResponse.entitySummaries);
       }

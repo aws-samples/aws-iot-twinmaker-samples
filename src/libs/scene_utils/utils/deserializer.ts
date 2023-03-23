@@ -239,10 +239,14 @@ export class Deserializer {
 
   private deserializeModelRef(modelRefJson: JSON): ModelRef {
     const modelRef = new ModelRef();
-    const uri = modelRefJson['uri'];
+    const uri: string = modelRefJson['uri'];
     const unitOfMeasure = modelRefJson['unitOfMeasure'];
     if (uri) {
-      modelRef.modelFileName = parse(uri).base;
+      if (modelRefJson['modelType'] === 'Tiles3D') {
+        modelRef.modelFileName = this.deserializeTiles3DUri(uri);
+      } else {
+        modelRef.modelFileName = parse(uri).base;
+      }
     }
 
     modelRef.modelType = modelRefJson['modelType'];
@@ -252,6 +256,18 @@ export class Deserializer {
     modelRef.castShadow = modelRefJson['castShadow'];
     modelRef.receiveShadow = modelRefJson['receiveShadow'];
     return modelRef;
+  }
+
+  /**
+   * Tiles3D model path is a tileset.json within a directory of the bucket. Need the full path from the root of that directory.
+   * @param uri example: s3://<BUCKET_NAME>/<Tiles3D_ROOT>/tileset.json
+   * @returns <Tiles3D_ROOT>/tileset.json
+   */
+  private deserializeTiles3DUri(uri: string): string {
+    const parsedUri = parse(uri);
+    const parsedUriDir = parse(parsedUri.dir);
+    const modelFilePath = `${parsedUriDir.base}/${parsedUri.base}`;
+    return modelFilePath;
   }
 
   private deserializeTagComponent(tagJson: JSON): Tag {

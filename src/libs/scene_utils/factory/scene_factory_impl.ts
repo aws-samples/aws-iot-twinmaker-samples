@@ -88,7 +88,10 @@ export class SceneFactoryImpl implements SceneFactory {
     console.log(`${sceneId}.json saved to ${localPath}`);
   }
 
-  private async uploadModelFilesIfNeeded(iotTwinMakerScene: IotTwinMakerScene, bucketName: string): Promise<void> {
+  private async uploadModelFilesIfNeeded(
+    iotTwinMakerScene: IotTwinMakerScene,
+    bucketName: string,
+  ): Promise<void> {
     const modelRefNodes: SceneNode[] = iotTwinMakerScene.findAllNodesByType(MODEL_REF_TYPE);
     for (const node of modelRefNodes) {
       const modelRefNode = node as ModelRefNode;
@@ -106,6 +109,10 @@ export class SceneFactoryImpl implements SceneFactory {
           // Upload files to S3 if indicated
           if ((exist && shouldOverride && shouldUpload) || (!exist && shouldUpload)) {
             await SceneFactoryImpl.s3Client.uploadModelRelatedFiles(bucketName, modelRefNode.modelLocalPath);
+          } else if (shouldUpload && exist && !shouldOverride) {
+            console.log(`File already exists in S3: ${modelRefComponent.modelFileName}`);
+          } else if (!shouldUpload && !exist) {
+            throw new Error(`File does not exist in S3 ${modelRefComponent.modelFileName}`);
           }
         }
       }

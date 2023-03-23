@@ -1,10 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2022
 // SPDX-License-Identifier: Apache-2.0
 
-import { readdirSync, readFileSync, statSync } from 'fs';
+import { createReadStream, readdirSync, readFileSync, statSync } from 'fs';
 import { S3 } from 'aws-sdk';
 import { basename, join } from 'path';
 import { DeleteObjectRequest, PutObjectRequest } from 'aws-sdk/clients/s3';
+import { parse } from 'path';
+import { Parse } from 'unzipper';
+import { PassThrough } from 'stream';
 
 export class S3Client {
   private s3: S3;
@@ -14,7 +17,7 @@ export class S3Client {
   }
 
   public async uploadModelRelatedFiles(bucketName: string, localPath: string) {
-    this.walkSync(localPath, bucketName);
+    await this.walkPath(localPath, bucketName);
   }
 
   private uploadFile(localFilePath: string, bucketName: string) {
@@ -24,25 +27,68 @@ export class S3Client {
       Key: fileName,
       Body: readFileSync(localFilePath),
     };
-    this.s3.putObject(params, (err, data) => {
+    const putObjectRequest = this.s3.putObject(params, (err, data) => {
       if (err) {
         throw err;
       } else {
         console.log(`Successfully uploaded ${fileName} to ${bucketName}`);
       }
     });
+    
+    return putObjectRequest.promise();
   }
 
-  private walkSync(currentPath: string, bucketName: string): void {
+  private streamFile(filePath: string, bucketName: string) {
+    const pass = new PassThrough();
+    const params = {
+      Bucket: bucketName,
+      Key: filePath,
+      Body: pass,
+    }
+
+    const promise = this.s3.upload(params, (err, data) => {
+      if (err) {
+        throw err;
+      }
+    }).promise();
+
+    return { pass, promise };
+  }
+
+  // Assumes a compressed folder with no sub-folders
+  private async unZipAndUpload(zipFilePath: string, bucketName: string): Promise<void> {
+    const key = parse(zipFilePath).name;
+    const stream = createReadStream(zipFilePath).pipe(Parse({forceStream: true}));
+
+    console.log('Uploading uncompressed zip to S3');
+
+    // Wait for all S3 uploads to finish
+    const openStreams: any[] = [];
+    for await (const entry of stream) {
+      const { pass, promise } = this.streamFile(`${key}/${entry.path}`, bucketName);
+      entry.pipe(pass);
+      openStreams.push(promise);
+    }
+
+    await Promise.allSettled(openStreams);
+
+    console.log('Finished uploading uncompressed zip to S3');
+  }
+
+  private async walkPath(currentPath: string, bucketName: string): Promise<void> {
     const stat = statSync(currentPath);
     if (stat.isFile()) {
-      this.uploadFile(currentPath, bucketName);
+      if (parse(currentPath).ext.toLowerCase() === '.zip') {
+        await this.unZipAndUpload(currentPath, bucketName);
+      } else {
+        await this.uploadFile(currentPath, bucketName);
+      }
     } else if (stat.isDirectory()) {
       const files: string[] = readdirSync(currentPath);
 
       for (const fileName of files) {
         const filePath = join(currentPath, fileName);
-        this.walkSync(filePath, bucketName);
+        await this.walkPath(filePath, bucketName);
       }
     }
   }
