@@ -48,7 +48,7 @@ export interface SceneFactory {
   saveLocal(iotTwinMakerScene: IotTwinMakerScene, localPath: string): void;
 
   /**
-   * Update the scene based on the workspace's list of entities. TwinMaker.ListEntities
+   * Update the scene based on the workspace's list of entities. IoTTwinMaker.ListEntities
    * is called with the provided filters. The callback function is then called on each
    * entity in the resulting list.
    * @param workspaceId
