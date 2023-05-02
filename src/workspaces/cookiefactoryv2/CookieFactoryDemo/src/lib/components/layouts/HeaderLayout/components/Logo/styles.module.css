@@ -1,0 +1,9 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  box-sizing: content-box;
+  color: var(--icon-color);
+  width: 160rem;
+  height: 100%;
+  padding: 0 20px;
+}

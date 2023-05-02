@@ -27,4 +27,4 @@ docker run -d \
   -v ~/.aws:/usr/share/grafana/.aws \
   -v ${SCRIPT_DIR}/local_grafana_data:/var/lib/grafana \
   -e "GF_INSTALL_PLUGINS=grafana-iot-twinmaker-app" \
-  grafana/grafana:8.2.5
+  grafana/grafana:8.4.0

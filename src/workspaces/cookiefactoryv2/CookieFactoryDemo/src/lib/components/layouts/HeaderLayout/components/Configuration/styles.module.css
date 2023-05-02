@@ -1,0 +1,22 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background-color: var(--background-color);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.root:hover {
+  --icon-color: var(--icon-hover-color);
+}
+
+.icon {
+  display: flex;
+  width: 20rem;
+  height: 20rem;
+  color: var(--icon-color);
+  transition: var(--transition);
+}

@@ -1,0 +1,36 @@
+{
+    "componentTypeId": "com.example.cookiefactory.equipment",
+    "isSingleton": false,
+    "propertyDefinitions": {
+        "belongTo": {
+            "dataType": {
+                "nestedType": {
+                    "type": "RELATIONSHIP"
+                },
+                "type": "LIST"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        },
+        "feed": {
+            "dataType": {
+                "nestedType": {
+                    "type": "RELATIONSHIP"
+                },
+                "type": "LIST"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        }
+    }
+}

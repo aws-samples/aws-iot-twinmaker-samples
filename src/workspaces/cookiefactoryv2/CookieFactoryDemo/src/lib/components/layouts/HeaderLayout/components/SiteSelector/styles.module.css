@@ -1,0 +1,119 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  --health-color: var(--color-health-offline);
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  padding: 0 20px;
+  background-color: var(--background-color);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.trigger:hover {
+  --background-color: var(--background-hover-color);
+  --icon-color: var(--icon-hover-color);
+  --text-color: var(--text-hover-color);
+}
+
+.triggerActive {
+  --background-color: var(--background-hover-color);
+  --icon-color: var(--icon-hover-color);
+  --text-color: var(--text-hover-color);
+}
+
+.triggerActive>.triggerIcon {
+  rotate: 180deg;
+}
+
+.healthIcon {
+  display: flex;
+  width: 14rem;
+  height: 14rem;
+  color: var(--health-color);
+}
+
+.name {
+  position: relative;
+  top: -1px;
+  font-size: 16rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.menuItem {
+  gap: 12px;
+}
+
+.menuItemLabel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 6px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--menu-item-text-color);
+}
+
+.menuItemName {
+  font-size: 14rem;
+}
+
+.menuItemLocation {
+  font-size: 11rem;
+}
+
+.menuItemIcon {
+  display: flex;
+  align-items: center;
+  width: 13rem;
+  height: 13rem;
+  color: var(--health-color);
+}
+
+.menuItemIconSelected {
+  color: var(--menu-item-text-selected-color);
+}
+
+.triggerIcon {
+  display: flex;
+  align-items: center;
+  width: 13rem;
+  height: 13rem;
+  color: var(--icon-color);
+  transition: var(--transition);
+}
+
+.healthNormal {
+  --health-color: var(--color-health-ok);
+}
+
+.healthHigh {
+  --health-color: var(--color-health-high);
+}
+
+.healthMedium {
+  --health-color: var(--color-health-medium);
+}
+
+.healthLow {
+  --health-color: var(--color-health-low);
+}
+
+.healthOffline {
+  --health-color: var(--color-health-unknown);
+}
+
+.healthUnknown {
+  --health-color: var(--color-health-unknown);
+}

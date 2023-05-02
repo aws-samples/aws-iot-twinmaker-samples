@@ -1,0 +1,97 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  --logo-color: var(--color-gray-50);
+  flex: 1;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 6px;
+  margin: 0 20px 20px;
+}
+
+.panels {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 6px;
+  position: relative;
+}
+
+.panels[data-count="1"]>* {
+  width: 100%;
+}
+
+.panels[data-count="2"]>* {
+  width: calc(100% / 2);
+}
+
+.panels[data-count="3"]>* {
+  width: calc(100% / 3);
+}
+
+.canvasHidden {
+  visibility: hidden;
+}
+
+.isHidden {
+  /* display: none; */
+  position: absolute;
+  visibility: hidden;
+  /* flex-shrink: 1;
+  visibility: hidden;
+  width: 0;
+  height: 0; */
+  /* scale: 0; */
+}
+
+/* .panels>section {
+  flex: 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 6px;
+}
+
+.panels>section>* {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+} */
+.closeAllIcon {
+  display: flex;
+  width: 16rem;
+  height: 16rem;
+  color: var(--icon-color);
+  transition: var(--transition);
+}
+
+.closeAllIcon:hover {
+  color: var(--icon-hover-color);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin: 0 20px;
+  user-select: none;
+}
+
+.controlGroup {
+  display: flex;
+  gap: 6px;
+  /* border-radius: var(--border-radius);
+  overflow: hidden; */
+}
+
+.emptyState {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.emptyStateLogo {
+  color: var(--logo-color);
+  width: 60%;
+}
