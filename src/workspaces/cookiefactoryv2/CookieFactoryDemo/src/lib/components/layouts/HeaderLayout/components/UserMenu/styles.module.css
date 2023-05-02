@@ -1,0 +1,85 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  padding: 0 20px;
+  cursor: pointer;
+  background-color: var(--background-color);
+  transition: var(--transition);
+}
+
+.trigger:hover {
+  --background-color: var(--background-hover-color);
+  --icon-color: var(--icon-hover-color);
+  --text-color: var(--text-hover-color);
+}
+
+.triggerActive {
+  --background-color: var(--background-hover-color);
+  --icon-color: var(--icon-hover-color);
+  --text-color: var(--text-hover-color);
+}
+
+.triggerActive>.triggerIcon {
+  rotate: 180deg;
+}
+
+.menuItemName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3px;
+  font-size: 14rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--menu-item-text-color);
+}
+
+.icon {
+  display: flex;
+  width: 26rem;
+  height: 26rem;
+  color: var(--icon-color);
+  transition: var(--transition);
+}
+
+.group {
+  position: relative;
+  top: -1px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  font-size: 15rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.title {
+  font-size: 12rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--icon-color);
+  transition: var(--transition);
+}
+
+.triggerIcon {
+  display: flex;
+  width: 13rem;
+  height: 13rem;
+  color: var(--icon-color);
+  transition: var(--transition);
+}

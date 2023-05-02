@@ -111,6 +111,14 @@ class IoTTwinMakerUnifiedDataQuery(ABC):
                 return {
                     'booleanValue': str(val)
                 }
+            elif type(val) is int:
+                return {
+                    'integerValue': str(val)
+                }
+            elif type(val) is dict:
+                return {
+                    'mapValue': {k: serialize_value(v) for (k,v) in val.items()}
+                }
             else:
                 assert False
 
@@ -190,7 +198,7 @@ class IoTTwinMakerUdqRequest():
         if(len(self._selectedProperties) < 1):
             raise Exception('Unexpected selectedProperties[{}]'.format(self._selectedProperties))
         for selectedProperty in self._selectedProperties:
-            # Note: component definition only provided from TwinMaker for single-entity requests
+            # Note: component definition only provided from IoT TwinMaker for single-entity requests
             if self._componentTypeId is None and selectedProperty not in allowed_props:
                 raise Exception(f"selectedProperty: {selectedProperty} not found in entity/component definition. Allowed properties: {allowed_props}")
 

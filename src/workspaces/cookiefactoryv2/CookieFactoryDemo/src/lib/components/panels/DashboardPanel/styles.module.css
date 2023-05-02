@@ -1,0 +1,109 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  display: grid;
+  grid-template-rows: 30rem 1fr;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 30px 50px 10px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.name {
+  /* padding: 30rem 30rem 0 30rem; */
+  color: var(--color-gray-10);
+  font-size: 20rem;
+  font-weight: 600;
+}
+
+.charts {
+  display: flex;
+  flex-direction: column;
+  /* grid-template-rows: 1fr; */
+  /* gap: 20rem; */
+  /* justify-content: center; */
+  /* position: relative;
+  height: 100%; */
+}
+
+.multi {
+  grid-template-rows: 40rem 180rem 40rem repeat(2, auto);
+}
+
+.root:not(.multi) {
+  grid-template-rows: 50rem 1fr;
+  padding: 30px 50px 50px;
+}
+
+.multi iot-app-kit-vis-status-timeline iot-app-kit-vis-data-stream-name {
+  display: none;
+}
+
+/* 
+.item {
+  position: relative;
+  color: var(--color-gray-30);
+}
+
+iot-app-kit-vis-status-timeline iot-app-kit-vis-data-stream-name {
+  margin-bottom: 3rem;
+}
+
+.two iot-app-kit-vis-status-timeline iot-app-kit-vis-data-stream-name {
+  display: none;
+}
+
+.item [data-test-tag=expandable-input] {
+  color: var(--color-gray-10);
+  font-size: 13rem;
+}
+
+.item [class=legend-value] h4 {
+  color: var(--color-gray-10) !important;
+  font-size: 18rem;
+  font-weight: 400;
+  margin-top: 5rem;
+}
+
+.item [class=legend-value] small {
+  color: var(--color-gray-15) !important;
+  font-size: 14rem;
+  font-weight: 400;
+  margin-top: 5rem;
+}
+
+.item [class=y-axis-label] {
+  fill: var(--color-gray-20) !important;
+}
+
+.item [class=x-axis-separator] {
+  stroke: none;
+}
+
+.item [class=axis] [class=tick] line {
+  stroke: var(--color-gray-34) !important;
+}
+
+.item [class=axis] [class=tick] text {
+  fill: var(--color-gray-30) !important;
+}
+
+iot-app-kit-vis-status-timeline-overlay-row [class=value] {
+  visibility: hidden !important;
+}
+
+iot-app-kit-vis-error-badge {
+  margin-top: -15rem;
+}
+
+iot-app-kit-vis-error-badge div {
+  color: var(--color-gray-10);
+}
+
+iot-app-kit-vis-error-badge [class=warning-symbol] {
+  color: var(--color-health-critical);
+  font-size: 12rem;
+  font-weight: 400;
+} */

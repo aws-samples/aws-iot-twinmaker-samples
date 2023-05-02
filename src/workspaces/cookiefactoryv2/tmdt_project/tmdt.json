@@ -1,0 +1,59 @@
+{
+    "version": "0.0.2",
+    "component_types": [
+        "com.example.cookiefactory.alarm.json",
+        "com.example.cookiefactory.cookie-former.json",
+        "com.example.cookiefactory.cookieline.json",
+        "com.example.cookiefactory.equipment.json",
+        "com.example.cookiefactory.mixer.json",
+        "com.example.cookiefactory.processstep.json",
+        "com.example.cookiefactory.space.json",
+        "com.example.cookiefactory.watertank.json",
+        "com.example.synthetic-telemetry.json",
+        "com.example.timestream-telemetry.json"
+    ],
+    "scenes": [
+        "Mixer.json",
+        "CookieFactory.json"
+    ],
+    "models": [
+        "../../cookiefactory/scenes/CookieFactoryEnvironment.glb",
+        "../../cookiefactory/scenes/CookieFactoryMixer.glb",
+        "../../cookiefactory/scenes/CookieFactoryLine.glb",
+        "../../cookiefactory/scenes/CookieFactoryWaterTank.glb"
+    ],
+    "entities": "entities.json",
+    "data": [
+        {
+            "type": "video",
+            "source": "../../cookiefactory/sample_data/video/cookiefactory_mixerroom_camera_01_1635724800000.mkv",
+            "destination": {
+                "type": "kvs",
+                "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                "configuration": {
+                    "start_time_offset_in_seconds": -600
+                }
+            }
+        },
+        {
+            "type": "video",
+            "source": "../../cookiefactory/sample_data/video/cookiefactory_mixerroom_camera_02_1635724800000.mkv",
+            "destination": {
+                "type": "kvs",
+                "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                "configuration": {
+                    "start_time_offset_in_seconds": -600
+                }
+            }
+        },
+        {
+            "type": "timestream-timeseries",
+            "source": "../../cookiefactory/sample_data/telemetry/telemetry.csv",
+            "destination": {
+                "type": "timestream",
+                "database": "__FILL_IN_TS_DB__",
+                "table": "Telemetry"
+            }
+        }
+    ]
+}

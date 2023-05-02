@@ -1,0 +1,48 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.menu {
+  --menu-background-color: var(--background-hover-color);
+  --menu-item-background-color: transparent;
+  --menu-item-text-color: var(--text-color);
+  --menu-item-background-hover-color: var(--color-gray-40);
+  --menu-item-text-hover-color: var(--text-hover-color);
+  --menu-item-background-active-color: var(--color-blue);
+  --menu-item-text-active-color: var(--color-white);
+  --menu-item-background-selected-color: var(--color-blue);
+  --menu-item-text-selected-color: var(--color-blue-150);
+  box-sizing: content-box;
+  position: absolute;
+  left: -2px;
+  min-width: 100%;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: var(--z-max);
+  background-color: var(--menu-background-color);
+  border: solid 2px var(--color-gray-54);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.menuItem {
+  width: 100%;
+  background-color: var(--menu-item-background-color);
+}
+
+.menuItem:hover {
+  --menu-item-background-color: var(--menu-item-background-hover-color);
+  --menu-item-text-color: var(--menu-item-text-hover-color);
+}
+
+.menuItem:active {
+  --menu-item-background-color: var(--menu-item-background-active-color);
+  --menu-item-text-color: var(--menu-item-text-active-color);
+}
+
+.menuItem.selected {
+  --menu-item-background-color: var(--menu-item-background-selected-color);
+  --menu-item-text-color: var(--menu-item-text-selected-color);
+  pointer-events: none;
+}

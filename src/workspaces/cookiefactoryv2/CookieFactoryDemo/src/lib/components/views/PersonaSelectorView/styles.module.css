@@ -1,0 +1,102 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  --background-hover-color: var(--color-blue);
+  --background-active-color: var(--color-blue);
+  --border-color: var(--color-gray-46);
+  --border-hover-color: var(--color-blue);
+  --icon-hover-color: #E2E7F2;
+  --text-hover-color: #E2E7F2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50rem;
+  background-color: var(--color-gray-54);
+  user-select: none;
+}
+
+.rootActive {
+  transition: var(--transition);
+  background-color: var(--background-active-color);
+  pointer-events: none;
+}
+
+.head {
+  font-size: 56rem;
+  font-weight: 300;
+  letter-spacing: -2rem;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+.rootActive .head {
+  visibility: hidden;
+}
+
+.rootActive .personas .persona:not(.personaActive) {
+  visibility: hidden;
+}
+
+.personas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80rem;
+}
+
+.persona {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30rem;
+  padding: 60px 30px;
+  background-color: var(--background-color);
+  border: solid 4px var(--border-color);
+  border-radius: 16px;
+}
+
+.persona:hover {
+  --background-color: var(--background-hover-color);
+  --border-color: var(--border-hover-color);
+  --icon-color: var(--icon-hover-color);
+  --text-color: var(--text-hover-color);
+}
+
+.personaActive {
+  --background-color: var(--background-hover-color);
+  --border-color: var(--border-hover-color);
+  --icon-color: var(--icon-hover-color);
+  --text-color: var(--text-hover-color);
+}
+
+.personaIcon {
+  width: 150px;
+  height: 150px;
+  color: var(--icon-color);
+}
+
+.personaGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+}
+
+.personaName {
+  font-size: 26rem;
+  font-weight: 400;
+  letter-spacing: -.2rem;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+.personaTitle {
+  font-size: 16rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--icon-color);
+}

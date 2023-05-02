@@ -1,0 +1,71 @@
+{
+    "componentTypeId": "com.example.cookiefactory.mixer",
+    "extendsFrom": [
+        "com.example.timestream-telemetry"
+    ],
+    "functions": {
+        "dataReader": {
+            "implementedBy": {
+                "isNative": false,
+                "lambda": {
+                    "arn": "__TO_FILL_IN_TIMESTREAM_LAMBDA_ARN__"
+                }
+            },
+            "isInherited": false
+        }
+    },
+    "isSingleton": false,
+    "propertyDefinitions": {
+        "RPM": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": true,
+            "isTimeSeries": true
+        },
+        "Temperature": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": true,
+            "isTimeSeries": true
+        },
+        "telemetryAssetId": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isExternalId": true,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": true,
+            "isRequiredInEntity": true,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        },
+        "telemetryAssetType": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "defaultValue": {
+                "stringValue": "Mixer"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": true,
+            "isRequiredInEntity": true,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        }
+    }
+}
