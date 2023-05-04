@@ -161,8 +161,8 @@ Note: These instructions have primarily been tested for OSX/Linux/WSL environmen
     npm run dev
     ```
 
-1.  Navigate to `localhost:5000` to view the application, which may take a minute to load the first time.
-    - **Note: set the localhost port to your preference in `webpack.dev.js`. Defaults to `5000`.**
+1.  Navigate to `https://localhost:8080` to view the application, which may take a minute to load the first time.
+    - **Note: set the localhost port to your preference in `webpack.dev.js`. Defaults to `8080`.**
 
 ## Cleanup
 

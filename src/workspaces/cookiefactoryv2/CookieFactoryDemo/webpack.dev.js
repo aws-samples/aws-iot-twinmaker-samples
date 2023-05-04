@@ -11,8 +11,9 @@ export default merge(common, {
   mode: 'development',
 
   devServer: {
+    https: true,
     hot: true,
-    port: 5000,
+    port: 8080,
     static: './public/'
   },
 
