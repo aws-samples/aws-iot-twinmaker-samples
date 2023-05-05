@@ -80,7 +80,7 @@ Note: These instructions have primarily been tested for OSX/Linux/WSL environmen
 
 ### Setup application AWS resources (e.g. AWS IoT TwinMaker, Sample Lambdas, Sample Data, etc.)
 
-- Set environment variables for convenience
+- Set environment variables for convenience. Note: "WORKSPACE_ID" is the same as "Workspace Name" on some console pages. Also, WORKSPACE_BUCKET_NAME is the bucket name for the workspace, not the ARN.
   ```shell
   export WORKSPACE_ID=__FILL_IN__
   export WORKSPACE_BUCKET_NAME=__FILL_IN__
@@ -89,7 +89,7 @@ Note: These instructions have primarily been tested for OSX/Linux/WSL environmen
   ```shell
   cd cdk && npm install
   ```
-- Deploy CDK stack containing application resources. Fill-in parameters based on your AWS IoT TwinMaker workspace and update the stack name as needed. Note: that `iottwinmakerWorkspaceBucket` should be the bucket name, not the ARN.
+- Deploy CDK stack containing application resources.
   ```shell
   cdk deploy \
     --context stackName="CookieFactoryDemo" \
