@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
-import type { EntitySummary } from '@aws-sdk/client-iottwinmaker';
 import type { Primitive, StyleSettingsMap, TimeSeriesDataQuery, Timestamp } from '@iot-app-kit/core';
 import type { initialize, PropertyQueryInfo } from '@iot-app-kit/source-iottwinmaker';
 import type { ReactNode } from 'react';

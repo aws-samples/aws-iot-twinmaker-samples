@@ -57,7 +57,10 @@ export default {
   ],
 
   resolve: {
-    alias: { '@': path.resolve(__dirname, './src/') },
+    alias: {
+      '@': path.resolve(__dirname, './src/'),
+      'package.json': path.resolve(__dirname, './package.json')
+    },
     extensions: ['.tsx', '.ts', '.js', '.css', '.scss']
   }
 };

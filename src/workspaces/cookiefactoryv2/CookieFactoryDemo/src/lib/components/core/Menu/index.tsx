@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
-import { ReactNode, useCallback, type PointerEventHandler } from 'react';
+import { useCallback, type PointerEventHandler, type ReactNode } from 'react';
 import type { ValueOf } from 'type-fest';
 
 import { createClassName, type ClassName } from '@/lib/utils/element';

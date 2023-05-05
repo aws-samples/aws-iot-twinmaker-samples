@@ -1,43 +1,31 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 import { ExecuteQueryCommand } from '@aws-sdk/client-iottwinmaker';
-import { useFloating } from '@floating-ui/react';
-import { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { COMPONENT_NAMES } from '@/config/iottwinmaker';
 import { FitIcon, MinusIcon, PlusIcon, TargetIcon, TrendIcon } from '@/lib/components/svgs/icons';
 import { isIgnoredEntity, normalizedEntityData } from '@/lib/entities';
 import { createGraph, getElementsDefinition, type EdgeData, type NodeData, type NodeRenderData } from '@/lib/graph';
 import { createQueryByEquipment, fullEquipmentAndProcessQuery } from '@/lib/processQueries';
-import { TimeSeriesContext } from '@/lib/providers';
 import { useAlarmState, useLatestValueState } from '@/lib/state/data';
-import {
-  selectedState,
-  useAlarmHistoryQueryState,
-  useDataHistoryQueryState,
-  useSelectedState,
-  useSummaryState,
-  summaryState
-} from '@/lib/state/entity';
-import { hopState, useHopState } from '@/lib/state/graph';
+import { selectedState, useSelectedState, useSummaryState, summaryState } from '@/lib/state/entity';
+import { useHopState } from '@/lib/state/graph';
 import { usePanelState } from '@/lib/state/panel';
 import { useSiteState } from '@/lib/state/site';
 import { useClientState } from '@/lib/state/twinMaker';
 import type {
   AlarmState,
   LatestValue,
-  Primitive,
   TwinMakerQueryData,
   TwinMakerQueryEdgeData,
   TwinMakerQueryNodeData
 } from '@/lib/types';
 import { createClassName, type ClassName } from '@/lib/utils/element';
-import { isPlainObject } from '@/lib/utils/lang';
+import { isNumber, isPlainObject } from '@/lib/utils/lang';
 import { compareStrings } from '@/lib/utils/string';
 
 import styles from './styles.module.css';
-import type { NodeSingular } from 'cytoscape';
-import { isNil, isNotNil, nextTick } from '@/lib/utils/lang';
 
 const GRAPH_CANVAS_PADDING = 30;
 
@@ -54,7 +42,6 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
   const ref = useRef<HTMLElement>(null);
   const lastKnowledgeGraphQuery = useRef<string | null>(null);
   const shouldFitGraph = useRef(true);
-  const [isShowingComponents, setIsShowingComponents] = useState(false);
 
   const loadData = useCallback(
     async (queryStatement: string) => {
@@ -294,14 +281,16 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
               if (isPlainObject(threshold)) {
                 const { upper, lower } = threshold;
 
-                if (upper) {
-                  thresholdUpperValue = upper;
-                  thresholdBreached = y > upper;
-                }
+                if (isNumber(y)) {
+                  if (upper) {
+                    thresholdUpperValue = upper;
+                    thresholdBreached = y > upper;
+                  }
 
-                if (!thresholdBreached && lower) {
-                  thresholdLowerValue = lower;
-                  thresholdBreached = y < lower;
+                  if (!thresholdBreached && lower) {
+                    thresholdLowerValue = lower;
+                    thresholdBreached = y < lower;
+                  }
                 }
               }
 
@@ -323,7 +312,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
                         <ThresholdIndicator
                           value={thresholdLowerValue}
                           limit="lower"
-                          isActive={y < thresholdLowerValue}
+                          isActive={isNumber(y) && y < thresholdLowerValue}
                         />
                       )}
                       <TrendIcon
@@ -336,7 +325,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
                         <ThresholdIndicator
                           value={thresholdUpperValue}
                           limit="upper"
-                          isActive={y > thresholdUpperValue}
+                          isActive={isNumber(y) && y > thresholdUpperValue}
                         />
                       )}
                     </div>
@@ -364,24 +353,6 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
 
     return null;
   }, [graph, selectedEntity, alarmState, latestValueState, panels]);
-
-  // useEffect(() => {
-  //   if (graph && isShowingComponents && selectedEntity.entityData) {
-  //     const { entityId } = selectedEntity.entityData;
-
-  //     if (!graph.nodesInView(entityId)) {
-  //       graph.center(entityId);
-  //     }
-  //   }
-  // }, [graph, isShowingComponents, selectedEntity]);
-
-  // useEffect(() => {
-  //   setIsShowingComponents((state) => {
-  //     const nextState = isNotNil(latestValue);
-  //     if (state !== nextState) return nextState;
-  //     return state;
-  //   });
-  // }, [latestValue]);
 
   return (
     <main className={createClassName(styles.root, className)}>

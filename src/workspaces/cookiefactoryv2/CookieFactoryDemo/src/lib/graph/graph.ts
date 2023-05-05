@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
-import cytoscape, { EventObject, EventObjectCore, EventObjectEdge } from 'cytoscape';
+import cytoscape, { type EventObjectCore, type EventObjectEdge } from 'cytoscape';
 import type {
   Css,
   EdgeDefinition,
@@ -10,10 +10,7 @@ import type {
   NodeDefinition,
   NodeSingular
 } from 'cytoscape';
-// `cytoscape-cise` does not have TypeScript definitions.
-//@ts-ignore
-import cise from 'cytoscape-cise';
-import type { Except, SetRequired, ValueOf } from 'type-fest';
+import type { SetRequired, ValueOf } from 'type-fest';
 
 import type { AlarmState } from '@/lib/types';
 import { isNil, isString } from '@/lib/utils/lang';
@@ -125,13 +122,6 @@ export function createGraph(
     fit: fitOnLoad,
     nodeDimensionsIncludeLabels: true,
     padding: canvasPadding
-  };
-
-  const ciseLayoutOptions = {
-    ...commonLayoutOptions,
-    name: 'cise',
-    idealInterClusterEdgeLengthCoefficient: 2,
-    nodeSeparation: 30
   };
 
   const breadthFirstLayoutOptions = {

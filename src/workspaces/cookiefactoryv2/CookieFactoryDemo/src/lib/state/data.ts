@@ -1,11 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+import type { ValueOf } from 'type-fest';
+
 import { ALARM_PROPERTY_NAME } from '@/config/iottwinmaker';
 import { createState, createStateHook } from '@/lib/creators/state';
 import { normalizedEntityData } from '@/lib/entities';
 import type { AlarmState, DataStream, DataStreamMetaData, LatestValue, Primitive, Threshold } from '@/lib/types';
-import { isPlainObject, lastItem, takeRight } from '@/lib/utils/lang';
-import type { ValueOf } from 'type-fest';
+import { lastItem, takeRight } from '@/lib/utils/lang';
 
 export const alarmState = createState<Record<string, LatestValue<AlarmState>>>({});
 export const dataStreamState = createState<DataStream[]>([]);
