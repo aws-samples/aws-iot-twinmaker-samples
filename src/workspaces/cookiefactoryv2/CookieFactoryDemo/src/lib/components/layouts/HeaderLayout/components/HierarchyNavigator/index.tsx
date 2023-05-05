@@ -1,14 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 import { useMemo } from 'react';
-import type { ValueOf } from 'type-fest';
 
 import { ArrowRightIcon, GlobeIcon } from '@/lib/components/svgs/icons';
 import { useSummaryState, useSelectedState } from '@/lib/state/entity';
 import { useSiteState } from '@/lib/state/site';
-import { isNil } from '@/lib/utils/lang';
 import { createClassName, type ClassName } from '@/lib/utils/element';
-import type { EntitySummary } from '@/lib/types';
+import { isNil } from '@/lib/utils/lang';
 
 import styles from './styles.module.css';
 

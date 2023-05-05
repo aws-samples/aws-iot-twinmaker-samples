@@ -1,12 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
-import { useEffect } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { BellOutlinedIcon, ListIcon, MessagesIcon } from '@/lib/components/svgs/icons';
 import { usePanelState } from '@/lib/state/panel';
-import { createClassName, type ClassName } from '@/lib/utils/element';
 import type { PanelId } from '@/lib/types';
+import { createClassName, type ClassName } from '@/lib/utils/element';
 
 import styles from './styles.module.css';
 

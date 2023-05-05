@@ -1,10 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 import type { Threshold, Viewport } from '@iot-app-kit/core';
+import type { ValueOf } from 'type-fest';
 
 import { ALARM_STATUS_COLORS, STATUS_TIMELINE_TRACK_COLOR } from '@/lib/css/colors';
 import type { AlarmState, EntityData, PanelId } from '@/lib/types';
-import type { ValueOf } from 'type-fest';
+
+import packageJson from 'package.json';
 
 const DATA_PROPERTY_NAME_1 = 'Speed';
 const DATA_PROPERTY_NAME_2 = 'Temperature';
@@ -142,7 +144,7 @@ export const ENTITY_DATA: EntityData[] = [
 
 export const IGNORED_ENTITIES = ['PALLET_98648a84-72da-443a-b625-f671d99a13ba'];
 
-export const SDK_CUSTOM_USER_AGENT = 'cookiefactory_v2/1.0.0';
+export const SDK_CUSTOM_USER_AGENT = `cookiefactory_v2/${packageJson.version}`;
 
 export const VIEWPORT: Viewport = { duration: '15m' };
 
