@@ -7,7 +7,7 @@ import { ALARM_THRESHOLDS, VIEWPORT } from '@/config/iottwinmaker';
 import { LineChart, StatusTimeline } from '@/lib/components/charts';
 import { LINE_CHART_COLORS } from '@/lib/css/colors';
 import { normalizedEntityData } from '@/lib/entities';
-import { useAlarmHistoryQueryState, useSelectedState, useSummaryState } from '@/lib/state/entity';
+import { useAlarmHistoryQueryState, useSelectedState, useSummaryState } from '@/lib/stores/entity';
 import type { StyleSettingsMap } from '@/lib/types';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 

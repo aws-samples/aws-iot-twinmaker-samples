@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import { useCallback, useMemo } from 'react';
 
-import { usePanelState } from '@/lib/state/panel';
+import { usePanelState } from '@/lib/stores/panel';
 import { CloseIcon, ExpandIcon } from '@/lib/components/svgs/icons';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 import type { Panel } from '@/lib/types';

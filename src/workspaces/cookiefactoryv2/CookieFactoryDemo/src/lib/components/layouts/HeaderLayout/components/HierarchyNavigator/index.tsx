@@ -3,8 +3,8 @@
 import { useMemo } from 'react';
 
 import { ArrowRightIcon, GlobeIcon } from '@/lib/components/svgs/icons';
-import { useSummaryState, useSelectedState } from '@/lib/state/entity';
-import { useSiteState } from '@/lib/state/site';
+import { useSummaryState, useSelectedState } from '@/lib/stores/entity';
+import { useSiteState } from '@/lib/stores/site';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 import { isNil } from '@/lib/utils/lang';
 

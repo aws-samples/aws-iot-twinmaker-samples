@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import { FactoryIcon } from '@/lib/components/svgs/icons';
 import { SITES } from '@/lib/sites';
-import { useSiteState } from '@/lib/state/site';
+import { useSiteState } from '@/lib/stores/site';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 import type { Site } from '@/lib/types';
 

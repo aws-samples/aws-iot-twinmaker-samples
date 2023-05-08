@@ -4,7 +4,7 @@ import { useEffect, useMemo } from 'react';
 
 import { ArrowHeadDownIcon, AvatarIcon } from '@/lib/components/svgs/icons';
 import { useMenu } from '@/lib/hooks';
-import { useUserState } from '@/lib/state/user';
+import { useUserState } from '@/lib/stores/user';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 import { isNil } from '@/lib/utils/lang';
 

@@ -3,7 +3,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 
 import { BellOutlinedIcon, ListIcon, MessagesIcon } from '@/lib/components/svgs/icons';
-import { usePanelState } from '@/lib/state/panel';
+import { usePanelState } from '@/lib/stores/panel';
 import type { PanelId } from '@/lib/types';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 

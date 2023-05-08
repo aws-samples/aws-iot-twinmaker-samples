@@ -8,12 +8,12 @@ import { FitIcon, MinusIcon, PlusIcon, TargetIcon, TrendIcon } from '@/lib/compo
 import { isIgnoredEntity, normalizedEntityData } from '@/lib/entities';
 import { createGraph, getElementsDefinition, type EdgeData, type NodeData, type NodeRenderData } from '@/lib/graph';
 import { createQueryByEquipment, fullEquipmentAndProcessQuery } from '@/lib/processQueries';
-import { useAlarmState, useLatestValueState } from '@/lib/state/data';
-import { selectedState, useSelectedState, useSummaryState, summaryState } from '@/lib/state/entity';
-import { useHopState } from '@/lib/state/graph';
-import { usePanelState } from '@/lib/state/panel';
-import { useSiteState } from '@/lib/state/site';
-import { useClientState } from '@/lib/state/twinMaker';
+import { useAlarmState, useLatestValueState } from '@/lib/stores/data';
+import { selectedState, useSelectedState, useSummaryState, summaryState } from '@/lib/stores/entity';
+import { useHopState } from '@/lib/stores/graph';
+import { useClientState } from '@/lib/stores/iottwinmaker';
+import { usePanelState } from '@/lib/stores/panel';
+import { useSiteState } from '@/lib/stores/site';
 import type {
   AlarmState,
   LatestValue,

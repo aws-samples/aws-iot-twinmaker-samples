@@ -7,8 +7,8 @@ import { PanelLayout } from '@/lib/components/layouts';
 import { CloseAllIcon } from '@/lib/components/svgs/icons';
 import { CookieFactoryLogoWide } from '@/lib/components/svgs/logos';
 import { PANELS } from '@/lib/panels';
-import { globalControlState, useGlobalControlState } from '@/lib/state/control';
-import { panelState, usePanelState } from '@/lib/state/panel';
+import { globalControlState, useGlobalControlState } from '@/lib/stores/control';
+import { panelState, usePanelState } from '@/lib/stores/panel';
 import type { GlobalControl, Panel, PanelId } from '@/lib/types';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 

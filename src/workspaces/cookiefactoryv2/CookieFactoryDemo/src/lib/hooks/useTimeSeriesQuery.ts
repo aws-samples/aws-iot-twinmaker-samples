@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import { useMemo, useState } from 'react';
 
-import { useDataSourceState } from '@/lib/state/twinMaker';
+import { useDataSourceState } from '@/lib/stores/iottwinmaker';
 import type { TimeSeriesDataQuery, TwinMakerEntityHistoryQuery } from '@/lib/types';
 import { createTimeSeriesQuery } from '@/lib/utils/entity';
 
