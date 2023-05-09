@@ -3,9 +3,9 @@
 import { useCallback, useState, useMemo, type PointerEventHandler } from 'react';
 import type { Except, ValueOf } from 'type-fest';
 
-import { Menu, type MenuItem } from '@/lib/components/core';
-import { useClickWithin } from '@/lib/hooks';
-import type { ClassName } from '@/lib/utils/element';
+import { Menu, type MenuItem } from '@/lib/core/components';
+import type { ClassName } from '@/lib/core/utils/element';
+import { useClickWithin } from './useClickWithin';
 
 export function useMenu<T>(
   items: Except<MenuItem<T>, 'selected'>[],

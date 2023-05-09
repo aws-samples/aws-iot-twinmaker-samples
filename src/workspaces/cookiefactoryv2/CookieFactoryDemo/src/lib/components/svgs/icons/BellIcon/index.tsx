@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import type { CSSProperties } from 'react';
 
-import { createClassName, type ClassName } from '@/lib/utils/element';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
 
 import baseStyles from '../styles.module.css';
 

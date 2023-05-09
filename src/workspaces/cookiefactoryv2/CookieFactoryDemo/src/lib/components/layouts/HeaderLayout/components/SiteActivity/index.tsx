@@ -3,9 +3,9 @@
 import type { CSSProperties, ReactNode } from 'react';
 
 import { BellOutlinedIcon, ListIcon, MessagesIcon } from '@/lib/components/svgs/icons';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { usePanelState } from '@/lib/stores/panel';
 import type { PanelId } from '@/lib/types';
-import { createClassName, type ClassName } from '@/lib/utils/element';
 
 import styles from './styles.module.css';
 

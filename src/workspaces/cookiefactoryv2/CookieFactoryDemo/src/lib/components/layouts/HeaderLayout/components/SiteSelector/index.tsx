@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 import { useEffect, useMemo } from 'react';
 
-import { SITES } from '@/lib/sites';
 import { ArrowHeadDownIcon } from '@/lib/components/svgs/icons';
 import { Circle, Ring } from '@/lib/components/svgs/shapes';
-import { useMenu } from '@/lib/hooks';
+import { useMenu } from '@/lib/core/hooks';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { isNil } from '@/lib/core/utils/lang';
+import { SITES } from '@/lib/init/sites';
 import { useSiteState } from '@/lib/stores/site';
 import type { AlarmState } from '@/lib/types';
-import { createClassName, type ClassName } from '@/lib/utils/element';
-import { isNil } from '@/lib/utils/lang';
 
 import menuStyles from '../menu.module.css';
 import styles from './styles.module.css';

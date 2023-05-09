@@ -7,7 +7,9 @@ import { useEffect } from 'react';
 
 import { DEFAULT_PANEL_ID, SDK_CUSTOM_USER_AGENT } from '@/config/iottwinmaker';
 import { AppView, PersonaSelectorView, SiteSelectorView } from '@/lib/components/views';
-import { DEFAULT_SELECTED_ENTITY } from '@/lib/entities';
+import { createClassName } from '@/lib/core/utils/element';
+import { isNil } from '@/lib/core/utils/lang';
+import { DEFAULT_SELECTED_ENTITY } from '@/lib/init/entities';
 import { selectedState, summaryState } from '@/lib/stores/entity';
 import { hierarchyState } from '@/lib/stores/hierarchy';
 import { clientState, dataSourceState, sceneLoaderState } from '@/lib/stores/iottwinmaker';
@@ -15,10 +17,8 @@ import { panelState, usePanelState } from '@/lib/stores/panel';
 import { siteState, useSiteState } from '@/lib/stores/site';
 import { userState, useUserState } from '@/lib/stores/user';
 import { viewState } from '@/lib/stores/view';
-import { isNil } from '@/lib/utils/lang';
 
 import styles from './app.module.css';
-import { createClassName } from './lib/utils/element';
 
 export function App() {
   const [panels] = usePanelState();
@@ -110,9 +110,7 @@ export function App() {
 
   return (
     <>
-      <main className={styles.root}>
-        {isNil(user) ? <PersonaSelectorView /> : isNil(site) ? <SiteSelectorView /> : <AppView />}
-      </main>
+      {isNil(user) ? <PersonaSelectorView /> : isNil(site) ? <SiteSelectorView /> : <AppView />}
       <WebglContext className={createClassName({ [styles.canvasHidden]: !panels.includes('dashboard') })} />
     </>
   );

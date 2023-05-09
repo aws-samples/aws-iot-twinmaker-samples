@@ -5,9 +5,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { COMPONENT_NAMES } from '@/config/iottwinmaker';
 import { FitIcon, MinusIcon, PlusIcon, TargetIcon, TrendIcon } from '@/lib/components/svgs/icons';
-import { isIgnoredEntity, normalizedEntityData } from '@/lib/entities';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { isNumber, isPlainObject } from '@/lib/core/utils/lang';
+import { compareStrings } from '@/lib/core/utils/string';
+import { isIgnoredEntity, normalizedEntityData } from '@/lib/init/entities';
 import { createGraph, getElementsDefinition, type EdgeData, type NodeData, type NodeRenderData } from '@/lib/graph';
-import { createQueryByEquipment, fullEquipmentAndProcessQuery } from '@/lib/processQueries';
+import { createQueryByEquipment, fullEquipmentAndProcessQuery } from '@/lib/queries/process';
 import { useAlarmState, useLatestValueState } from '@/lib/stores/data';
 import { selectedState, useSelectedState, useSummaryState, summaryState } from '@/lib/stores/entity';
 import { useHopState } from '@/lib/stores/graph';
@@ -21,9 +24,6 @@ import type {
   TwinMakerQueryEdgeData,
   TwinMakerQueryNodeData
 } from '@/lib/types';
-import { createClassName, type ClassName } from '@/lib/utils/element';
-import { isNumber, isPlainObject } from '@/lib/utils/lang';
-import { compareStrings } from '@/lib/utils/string';
 
 import styles from './styles.module.css';
 

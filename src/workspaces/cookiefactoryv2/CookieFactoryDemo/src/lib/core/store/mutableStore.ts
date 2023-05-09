@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import type { ValueOf } from 'type-fest';
 
-import { isFunction } from '@/lib/utils/lang';
+import { isFunction } from '@/lib/core/utils/lang';
 import type { MutableStore, Subscriber } from './types';
 
 export function createMutableStore<State>(initialState: State): MutableStore<State> {

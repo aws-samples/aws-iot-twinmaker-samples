@@ -4,9 +4,9 @@ import type { ValueOf } from 'type-fest';
 
 import { ALARM_PROPERTY_NAME } from '@/config/iottwinmaker';
 import { createStore, createStoreHook } from '@/lib/core/store';
-import { normalizedEntityData } from '@/lib/entities';
+import { lastItem, takeRight } from '@/lib/core/utils/lang';
+import { normalizedEntityData } from '@/lib/init/entities';
 import type { AlarmState, DataStream, DataStreamMetaData, LatestValue, Primitive, Threshold } from '@/lib/types';
-import { lastItem, takeRight } from '@/lib/utils/lang';
 
 export const alarmState = createStore<Record<string, LatestValue<AlarmState>>>({});
 export const dataStreamState = createStore<DataStream[]>([]);

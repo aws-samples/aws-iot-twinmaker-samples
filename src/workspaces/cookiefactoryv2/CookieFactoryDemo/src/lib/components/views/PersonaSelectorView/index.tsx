@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 import { useEffect, useState } from 'react';
 
-import { getAwsCredentials } from '@/lib/authentication';
-import { AWS_CREDENTIAL_CONFIG } from '@/lib/credentials';
+import { getAwsCredentials } from '@/lib/core/auth/cognito';
+import { AWS_CREDENTIAL_CONFIG } from '@/lib/init/credentials';
+import { USERS } from '@/lib/init/users';
 import { useUserState } from '@/lib/stores/user';
-import { USERS } from '@/lib/users';
-import { createClassName, type ClassName } from '@/lib/utils/element';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import type { User } from '@/lib/types';
 
 import styles from './styles.module.css';

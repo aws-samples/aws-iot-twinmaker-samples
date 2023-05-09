@@ -9,13 +9,13 @@ import {
 import { useCallback, useEffect } from 'react';
 
 import { VIEWPORT } from '@/config/iottwinmaker';
-import { normalizedEntityData } from '@/lib/entities';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { isNil } from '@/lib/core/utils/lang';
+import { normalizedEntityData } from '@/lib/init/entities';
 import { useTimeSeriesQuery } from '@/lib/hooks';
 import { useSelectedState, useAlarmHistoryQueryState } from '@/lib/stores/entity';
 import { useSceneLoaderState } from '@/lib/stores/iottwinmaker';
 import type { DataBindingContext, EntityData } from '@/lib/types';
-import { createClassName, type ClassName } from '@/lib/utils/element';
-import { isNil } from '@/lib/utils/lang';
 
 import styles from './styles.module.css';
 

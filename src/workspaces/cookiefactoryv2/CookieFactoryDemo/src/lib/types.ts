@@ -3,9 +3,9 @@
 import type { Primitive, StyleSettingsMap, TimeSeriesDataQuery, Timestamp } from '@iot-app-kit/core';
 import type { initialize, PropertyQueryInfo } from '@iot-app-kit/source-iottwinmaker';
 import type { ReactNode } from 'react';
-
-import type { AwsCredentials } from '@/lib/authentication';
 import type { ValueOf } from 'type-fest';
+
+import type { AwsCredentials } from '@/lib/core/auth/cognito';
 
 export type { EntitySummary, IoTTwinMakerClient } from '@aws-sdk/client-iottwinmaker';
 export type {

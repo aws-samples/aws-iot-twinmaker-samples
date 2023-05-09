@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
-import type { AwsCredentials } from '@/lib/authentication';
+import type { AwsCredentials } from '@/lib/core/auth/cognito';
 import { createStore, createStoreHook } from '@/lib/core/store';
+import { isNotNil } from '@/lib/core/utils/lang';
 import type { User } from '@/lib/types';
-import { isNotNil } from '@/lib/utils/lang';
 
 /**
  * The time, in milliseconds, the timer should delay between checking credential expiration.

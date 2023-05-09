@@ -4,7 +4,7 @@ import { enableMapSet } from 'immer';
 import { useEffect, useState } from 'react';
 import type { ValueOf } from 'type-fest';
 
-import type { DerivedStore, MutableStore, Store, Transform } from './types';
+import type { AnyStore, DerivedStore, MutableStore, ReadableStore, Store, Transform, WritableStore } from './types';
 
 export function createDerivedStoreHook<State>(store: DerivedStore<State>) {
   return () => {
@@ -54,16 +54,12 @@ export function enableUseOfMapAndSet() {
   enableMapSet();
 }
 
-export function isDerivedStore<State>(
-  store: Store<State> | MutableStore<State> | DerivedStore<State>
-): store is DerivedStore<State> {
-  return Object.keys(store).includes('setState') === false;
+export function isReadableStore<State>(store: AnyStore<State>): store is ReadableStore<State> {
+  return !isWritableStore(store);
 }
 
-export function isStoreOrMutableStore<State>(
-  store: Store<State> | MutableStore<State> | DerivedStore<State>
-): store is Store<State> | MutableStore<State> {
-  return !isDerivedStore(store);
+export function isWritableStore<State>(store: AnyStore<State>): store is WritableStore<State> {
+  return Object.keys(store).includes('setState');
 }
 
 export function transform<SourceState, DestinationState>(

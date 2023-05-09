@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 import { createStore, createStoreHook } from '@/lib/core/store';
-import { DEFAULT_SELECTED_ENTITY } from '@/lib/entities';
+import { DEFAULT_SELECTED_ENTITY } from '@/lib/init/entities';
 import type { EntitySummary, SelectedEntity, TimeSeriesDataQuery, TwinMakerEntityHistoryQuery } from '@/lib/types';
 
 export const alarmHistoryQueryState = createStore<TwinMakerEntityHistoryQuery[]>([]);
