@@ -34,12 +34,8 @@ function InfoItem({
 }) {
   const [, setPanelState] = usePanelState();
 
-  function handleClick() {
-    setPanelState([id]);
-  }
-
   return (
-    <section className={createClassName(styles.group, className)} onPointerDown={handleClick} style={style}>
+    <section className={createClassName(styles.group, className)} onPointerUp={() => setPanelState([id])} style={style}>
       <span className={styles.icon}>{icon}</span>
       <span className={styles.label}>{value}</span>
     </section>

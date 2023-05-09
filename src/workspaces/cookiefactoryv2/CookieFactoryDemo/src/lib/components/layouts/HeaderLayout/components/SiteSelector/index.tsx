@@ -46,7 +46,7 @@ export function SiteSelector({ className }: { className?: ClassName }) {
       <>
         <section
           className={createClassName(styles.trigger, { [styles.triggerActive]: !isNil(menu) })}
-          onPointerDown={handleTrigger}
+          onPointerUp={handleTrigger}
         >
           {getHealthIcon(siteState.health, styles.healthIcon)}
           <span className={styles.name}>{siteState.name}</span>

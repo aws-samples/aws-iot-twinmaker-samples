@@ -23,7 +23,7 @@ export function HierarchyNavigator({ className }: { className?: ClassName }) {
 
       return (
         <>
-          <button className={styles.icon} onPointerDown={() => setSite(null)}>
+          <button className={styles.icon} onPointerUp={() => setSite(null)}>
             <GlobeIcon />
           </button>
 

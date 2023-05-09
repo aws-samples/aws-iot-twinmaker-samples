@@ -20,7 +20,7 @@ export function PanelLayout({
 }) {
   const [, setPanelState] = usePanelState();
 
-  const handleCloseClick = useCallback(() => {
+  const handleClose = useCallback(() => {
     setPanelState((panels) => {
       if (panels.includes(id)) {
         const filtered = panels.filter((panelId) => panelId !== id);
@@ -31,13 +31,13 @@ export function PanelLayout({
     });
   }, []);
 
-  const handleExpandClick = useCallback(() => {
+  const handleExpand = useCallback(() => {
     setPanelState([id]);
   }, []);
 
   const expandControlElement = useMemo(() => {
     return isExpandable ? (
-      <button className={styles.controlIcon} onClick={handleExpandClick}>
+      <button className={styles.controlIcon} onPointerUp={handleExpand}>
         <ExpandIcon />
       </button>
     ) : null;
@@ -52,7 +52,7 @@ export function PanelLayout({
         </section>
         <section className={styles.group}>
           {expandControlElement}
-          <button className={createClassName(styles.controlIcon, styles.closeIcon)} onClick={handleCloseClick}>
+          <button className={createClassName(styles.controlIcon, styles.closeIcon)} onPointerUp={handleClose}>
             <CloseIcon />
           </button>
         </section>

@@ -5,20 +5,21 @@ import { useState, useEffect, useRef } from 'react';
 /**
  * https://stackoverflow.com/a/45323523
  */
-export function useClickWithin(initialIsVisible: boolean) {
-  const [isClickWithin, setClickWithin] = useState(initialIsVisible);
+export function useClickWithin(isVisible: boolean) {
+  const [isClickWithin, setClickWithin] = useState(isVisible);
   const ref = useRef<HTMLElement>(null);
 
-  function handlePointerDown({ target }: MouseEvent) {
+  function handlePointerUp({ target }: PointerEvent) {
     if (ref.current && target && !ref.current.contains(target as HTMLElement)) {
       setClickWithin(false);
     }
   }
 
   useEffect(() => {
-    document.addEventListener('pointerdown', handlePointerDown, true);
+    document.addEventListener('pointerup', handlePointerUp, true);
+
     return () => {
-      document.removeEventListener('pointerdown', handlePointerDown, true);
+      document.removeEventListener('pointerup', handlePointerUp, true);
     };
   }, []);
 

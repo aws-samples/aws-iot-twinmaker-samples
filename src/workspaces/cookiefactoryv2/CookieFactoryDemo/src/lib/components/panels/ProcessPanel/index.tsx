@@ -145,22 +145,22 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
     [graph, hops]
   );
 
-  const handleCenterClick = useCallback(() => {
+  const handleCenter = useCallback(() => {
     graph?.center();
   }, [graph]);
 
-  const handleFitClick = useCallback(() => {
+  const handleFit = useCallback(() => {
     graph?.fit(undefined, GRAPH_CANVAS_PADDING);
   }, [graph]);
 
-  const handleZoomInClick = useCallback(() => {
+  const handleZoomIn = useCallback(() => {
     if (graph) {
       const currentScale = graph.getZoom();
       graph.setZoom(currentScale + 0.1);
     }
   }, [graph]);
 
-  const handleZoomOutClick = useCallback(() => {
+  const handleZoomOut = useCallback(() => {
     if (graph) {
       const currentScale = graph.getZoom();
       graph.setZoom(currentScale - 0.1);
@@ -359,16 +359,16 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
       <section className={styles.canvasContainer}>
         <section ref={ref} className={styles.canvas} />
         <section className={styles.controls}>
-          <button className={styles.button} onPointerDown={handleFitClick}>
+          <button className={styles.button} onPointerUp={handleFit}>
             <FitIcon className={styles.buttonFitIcon} />
           </button>
-          <button className={styles.button} onPointerDown={handleCenterClick}>
+          <button className={styles.button} onPointerUp={handleCenter}>
             <TargetIcon className={styles.buttonCenterIcon} />
           </button>
-          <button className={styles.button} onPointerDown={handleZoomInClick}>
+          <button className={styles.button} onPointerUp={handleZoomIn}>
             <PlusIcon className={styles.buttonZoomInIcon} />
           </button>
-          <button className={styles.button} onPointerDown={handleZoomOutClick}>
+          <button className={styles.button} onPointerUp={handleZoomOut}>
             <MinusIcon className={styles.buttonZoomOutIcon} />
           </button>
         </section>
