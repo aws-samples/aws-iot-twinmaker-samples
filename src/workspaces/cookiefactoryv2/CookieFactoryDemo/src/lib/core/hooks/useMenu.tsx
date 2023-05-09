@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
-import { useCallback, useState, useMemo, type PointerEventHandler } from 'react';
+import { useCallback, useState, useMemo, type PointerEventHandler, useRef } from 'react';
 import type { Except, ValueOf } from 'type-fest';
 
 import { Menu, type MenuItem } from '@/lib/core/components';
@@ -8,8 +8,8 @@ import type { ClassName } from '@/lib/core/utils/element';
 import { useClickWithin } from './useClickWithin';
 
 export function useMenu<T>(
-  items: Except<MenuItem<T>, 'selected'>[],
-  { className, selectedId }: Partial<{ className: ClassName; selectedId: ValueOf<MenuItem<T>, 'id'> }> = {}
+  items: Except<MenuItem, 'selected'>[],
+  { className, selectedId }: Partial<{ className: ClassName; selectedId: ValueOf<MenuItem, 'id'> }> = {}
 ) {
   const { ref: menuContainerRef, isClickWithin, setClickWithin } = useClickWithin(false);
   const [_selectedId, setSelectedId] = useState(selectedId);
@@ -20,21 +20,18 @@ export function useMenu<T>(
     });
   }, [_selectedId]);
 
-  const handleTrigger = useCallback<PointerEventHandler<HTMLButtonElement>>(
-    ({ buttons }) => {
-      buttons === 1 && setClickWithin((isClickWithin) => !isClickWithin);
-    },
-    [isClickWithin]
-  );
+  const handleTrigger = useCallback<PointerEventHandler<HTMLButtonElement>>(() => {
+    setClickWithin((isClickWithin) => !isClickWithin);
+  }, []);
 
-  const handlePointerDown = useCallback((id: ValueOf<MenuItem<T>, 'id'>) => {
+  const handlePointerUp = useCallback((id: ValueOf<MenuItem, 'id'>) => {
     setClickWithin(false);
     setSelectedId(id);
   }, []);
 
   const menu = useMemo(() => {
-    return isClickWithin ? <Menu className={className} items={_items} onPointerDown={handlePointerDown} /> : null;
-  }, [className, isClickWithin, _items, handlePointerDown]);
+    return isClickWithin ? <Menu className={className} items={_items} onPointerUp={handlePointerUp} /> : null;
+  }, [className, isClickWithin, _items, handlePointerUp]);
 
   return { handleTrigger, menu, menuContainerRef, selectedId: _selectedId };
 }

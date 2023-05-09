@@ -7,45 +7,42 @@ import { createClassName, type ClassName } from '@/lib/core/utils/element';
 
 import styles from './styles.module.css';
 
-type Menu<T> = {
+type Menu = {
   className?: ClassName;
-  items: MenuItem<T>[];
-  onPointerDown?: PointerEventCallback<T>;
+  items: MenuItem[];
+  onPointerUp?: PointerEventCallback;
 };
 
-export type MenuItem<T> = {
+export type MenuItem = {
   component: (props: { id: string; hover?: boolean; selected?: boolean }) => ReactNode;
   id: string;
   selected?: boolean;
 };
 
-type PointerEventCallback<T> = (id: ValueOf<MenuItem<T>, 'id'>) => void;
+type PointerEventCallback = (id: ValueOf<MenuItem, 'id'>) => void;
 
-export function Menu<T>({ className, items, onPointerDown }: Menu<T>) {
+export function Menu({ className, items, onPointerUp }: Menu) {
   return (
     <menu className={createClassName(styles.menu, className)}>
       {items.map((item) => (
-        <MenuItem {...item} key={item.id} onPointerDown={onPointerDown} />
+        <MenuItem {...item} key={item.id} onPointerUp={onPointerUp} />
       ))}
     </menu>
   );
 }
 
-function MenuItem<T>({
-  component,
-  id,
-  onPointerDown,
-  selected
-}: MenuItem<T> & { onPointerDown?: PointerEventCallback<T> }) {
-  const handlePointerDown = useCallback<PointerEventHandler<HTMLButtonElement>>(({ buttons }) => {
-    onPointerDown && buttons === 1 && onPointerDown(id);
+function MenuItem({ component, id, onPointerUp, selected }: MenuItem & { onPointerUp?: PointerEventCallback }) {
+  const handlePointerUp = useCallback<PointerEventHandler<HTMLButtonElement>>(() => {
+    if (onPointerUp) {
+      onPointerUp(id);
+    }
   }, []);
 
   return (
     <button
       className={createClassName(styles.menuItem, { [styles.selected]: selected === true })}
       key={id}
-      onMouseDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
     >
       {component({ id: id, selected })}
     </button>

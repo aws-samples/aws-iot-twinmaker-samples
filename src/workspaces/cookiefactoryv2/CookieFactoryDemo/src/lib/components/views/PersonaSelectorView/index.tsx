@@ -17,7 +17,7 @@ export function PersonaSelectorView({ className }: { className?: ClassName }) {
   const [, setUser] = useUserState();
   const [isActive, setIsActive] = useState(false);
 
-  async function handlePointerDown({ firstName, icon, lastName, password, title, email }: User) {
+  async function handlePointerUp({ firstName, icon, lastName, password, title, email }: User) {
     if (!disabled) {
       disabled = true;
       setIsActive(true);
@@ -34,7 +34,7 @@ export function PersonaSelectorView({ className }: { className?: ClassName }) {
   }
 
   const personaElements = USERS.map((user) => {
-    return <PersonaElement key={user.email} handlePointerDown={handlePointerDown} user={user} />;
+    return <PersonaElement key={user.email} handlePointerUp={handlePointerUp} user={user} />;
   });
 
   useEffect(() => setUser(null), []);
@@ -47,15 +47,15 @@ export function PersonaSelectorView({ className }: { className?: ClassName }) {
   );
 }
 
-function PersonaElement({ handlePointerDown, user }: { handlePointerDown: (user: User) => void; user: User }) {
+function PersonaElement({ handlePointerUp, user }: { handlePointerUp: (user: User) => void; user: User }) {
   const [isActive, setIsActive] = useState(false);
 
   return (
     <button
       className={createClassName(styles.persona, { [styles.personaActive]: isActive })}
-      onPointerDown={() => {
+      onPointerUp={() => {
         setIsActive(true);
-        handlePointerDown(user);
+        handlePointerUp(user);
       }}
     >
       <section className={styles.personaIcon}>{user.icon}</section>

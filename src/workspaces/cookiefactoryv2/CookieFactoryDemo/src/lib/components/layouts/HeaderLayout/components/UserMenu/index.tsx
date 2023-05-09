@@ -29,7 +29,7 @@ export function UserMenu({ className }: { className?: ClassName }) {
       <>
         <section
           className={createClassName(styles.trigger, { [styles.triggerActive]: !isNil(menu) })}
-          onPointerDown={handleTrigger}
+          onPointerUp={handleTrigger}
         >
           <AvatarIcon className={styles.icon} />
           <section className={styles.group}>

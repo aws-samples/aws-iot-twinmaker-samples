@@ -12,7 +12,7 @@ export function SiteSelectorView({ className }: { className?: ClassName }) {
   const [, setSiteState] = useSiteState();
 
   const siteElements = SITES.map((site) => {
-    return <SiteElement key={site.id} handlePointerDown={() => setSiteState(site)} site={site} />;
+    return <SiteElement key={site.id} handlePointerUp={() => setSiteState(site)} site={site} />;
   });
 
   return (
@@ -23,9 +23,9 @@ export function SiteSelectorView({ className }: { className?: ClassName }) {
   );
 }
 
-function SiteElement({ handlePointerDown, site }: { handlePointerDown: (site: Site) => void; site: Site }) {
+function SiteElement({ handlePointerUp, site }: { handlePointerUp: (site: Site) => void; site: Site }) {
   return (
-    <button className={styles.site} onPointerDown={() => handlePointerDown(site)}>
+    <button className={styles.site} onPointerUp={() => handlePointerUp(site)}>
       <section className={styles.siteIcon}>
         <FactoryIcon />
       </section>

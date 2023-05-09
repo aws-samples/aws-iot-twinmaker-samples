@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
-import { useCallback, useEffect, useMemo } from 'react';
-import type { MouseEventHandler } from 'react';
+import { useCallback, useEffect, useMemo, type PointerEventHandler } from 'react';
 
 import { PanelLayout } from '@/lib/components/layouts';
 import { CloseAllIcon } from '@/lib/components/svgs/icons';
@@ -16,7 +15,7 @@ import controlStyles from './control.module.css';
 import styles from './styles.module.css';
 
 const closeAllControl = (
-  <button className={styles.closeAllIcon} key={crypto.randomUUID()} onPointerDown={() => panelState.setState([])}>
+  <button className={styles.closeAllIcon} key={crypto.randomUUID()} onPointerUp={() => panelState.setState([])}>
     <CloseAllIcon />
   </button>
 );
@@ -97,7 +96,7 @@ function ControlLayout({ className }: { className?: ClassName }) {
 function Control({ panel: { icon, id, label } }: { panel: Panel }) {
   const [panelState, setPanelState] = usePanelState();
 
-  const handleClick = useCallback<MouseEventHandler<HTMLButtonElement>>(({ nativeEvent: { altKey } }) => {
+  const handlePointerUp = useCallback<PointerEventHandler<HTMLButtonElement>>(({ nativeEvent: { altKey } }) => {
     setPanelState((panels) => {
       const hasPanelId = panels.includes(id);
 
@@ -127,7 +126,7 @@ function Control({ panel: { icon, id, label } }: { panel: Panel }) {
         [controlStyles.active]: panelState.length > 0,
         [controlStyles.selected]: panelState.includes(id)
       })}
-      onClick={handleClick}
+      onPointerUp={handlePointerUp}
     >
       <section className={controlStyles.group}>
         <div className={controlStyles.icon}>{icon}</div>
