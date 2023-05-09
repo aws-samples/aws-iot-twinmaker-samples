@@ -9,9 +9,9 @@ import {
   selectedState,
   useAlarmHistoryQueryState,
   useDataHistoryQueryState
-} from '@/lib/state/entity';
-import { hopState } from '@/lib/state/graph';
-import { useViewState } from '@/lib/state/view';
+} from '@/lib/stores/entity';
+import { hopState } from '@/lib/stores/graph';
+import { useViewState } from '@/lib/stores/view';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 import { createHistoryQueries, createHistoryQuery } from '@/lib/utils/entity';
 import { VIEWS } from '@/lib/views';

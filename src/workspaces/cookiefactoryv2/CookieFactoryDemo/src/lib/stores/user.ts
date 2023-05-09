@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 import type { AwsCredentials } from '@/lib/authentication';
-import { createState, createStateHook } from '@/lib/creators/state';
+import { createStore, createStoreHook } from '@/lib/core/store';
 import type { User } from '@/lib/types';
 import { isNotNil } from '@/lib/utils/lang';
 
@@ -12,9 +12,9 @@ const INTERVAL_DELAY = 1000;
 
 let authCheckInterval: NodeJS.Timeout;
 
-export const userState = createState<User | null>(null);
+export const userState = createStore<User | null>(null);
 
-export const useUserState = createStateHook(userState);
+export const useUserState = createStoreHook(userState);
 
 /**
  * Check if the user credentials have expired and redirect to log in if so.

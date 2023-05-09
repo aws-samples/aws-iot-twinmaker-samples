@@ -3,18 +3,18 @@
 import type { ValueOf } from 'type-fest';
 
 import { ALARM_PROPERTY_NAME } from '@/config/iottwinmaker';
-import { createState, createStateHook } from '@/lib/creators/state';
+import { createStore, createStoreHook } from '@/lib/core/store';
 import { normalizedEntityData } from '@/lib/entities';
 import type { AlarmState, DataStream, DataStreamMetaData, LatestValue, Primitive, Threshold } from '@/lib/types';
 import { lastItem, takeRight } from '@/lib/utils/lang';
 
-export const alarmState = createState<Record<string, LatestValue<AlarmState>>>({});
-export const dataStreamState = createState<DataStream[]>([]);
-export const latestValueState = createState<Record<string, { [key: string]: LatestValue<Primitive> }>>({});
+export const alarmState = createStore<Record<string, LatestValue<AlarmState>>>({});
+export const dataStreamState = createStore<DataStream[]>([]);
+export const latestValueState = createStore<Record<string, { [key: string]: LatestValue<Primitive> }>>({});
 
-export const useAlarmState = createStateHook(alarmState);
-export const useDataStreamState = createStateHook(dataStreamState);
-export const useLatestValueState = createStateHook(latestValueState);
+export const useAlarmState = createStoreHook(alarmState);
+export const useDataStreamState = createStoreHook(dataStreamState);
+export const useLatestValueState = createStoreHook(latestValueState);
 
 /**
  * Set alarm and latest value state on each data stream update.

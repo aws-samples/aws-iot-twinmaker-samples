@@ -6,7 +6,7 @@ import { SITES } from '@/lib/sites';
 import { ArrowHeadDownIcon } from '@/lib/components/svgs/icons';
 import { Circle, Ring } from '@/lib/components/svgs/shapes';
 import { useMenu } from '@/lib/hooks';
-import { useSiteState } from '@/lib/state/site';
+import { useSiteState } from '@/lib/stores/site';
 import type { AlarmState } from '@/lib/types';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 import { isNil } from '@/lib/utils/lang';

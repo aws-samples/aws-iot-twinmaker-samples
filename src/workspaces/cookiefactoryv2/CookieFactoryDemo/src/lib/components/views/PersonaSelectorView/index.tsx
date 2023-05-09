@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { getAwsCredentials } from '@/lib/authentication';
 import { AWS_CREDENTIAL_CONFIG } from '@/lib/credentials';
-import { useUserState } from '@/lib/state/user';
+import { useUserState } from '@/lib/stores/user';
 import { USERS } from '@/lib/users';
 import { createClassName, type ClassName } from '@/lib/utils/element';
 import type { User } from '@/lib/types';

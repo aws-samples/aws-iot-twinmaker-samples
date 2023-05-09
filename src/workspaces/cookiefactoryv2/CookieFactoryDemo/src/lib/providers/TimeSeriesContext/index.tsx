@@ -4,8 +4,8 @@ import { useTimeSeriesData } from '@iot-app-kit/react-components';
 import { useMemo, useEffect } from 'react';
 
 import { VIEWPORT } from '@/config/iottwinmaker';
-import { dataStreamState } from '@/lib/state/data';
-import { useDataSourceState } from '@/lib/state/twinMaker';
+import { dataStreamState } from '@/lib/stores/data';
+import { useDataSourceState } from '@/lib/stores/iottwinmaker';
 import type { TwinMakerEntityHistoryQuery, TimeSeriesDataQuery } from '@/lib/types';
 import { createTimeSeriesQuery } from '@/lib/utils/entity';
 
