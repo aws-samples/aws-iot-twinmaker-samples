@@ -3,10 +3,10 @@
 import { useEffect, useMemo } from 'react';
 
 import { ArrowHeadDownIcon, AvatarIcon } from '@/lib/components/svgs/icons';
-import { useMenu } from '@/lib/hooks';
+import { useMenu } from '@/lib/core/hooks';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { isNil } from '@/lib/core/utils/lang';
 import { useUserState } from '@/lib/stores/user';
-import { createClassName, type ClassName } from '@/lib/utils/element';
-import { isNil } from '@/lib/utils/lang';
 
 import menuStyles from '../menu.module.css';
 import styles from './styles.module.css';

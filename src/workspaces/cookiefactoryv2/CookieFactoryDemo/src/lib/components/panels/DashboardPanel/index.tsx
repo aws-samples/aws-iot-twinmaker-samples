@@ -5,15 +5,15 @@ import { useMemo, useRef } from 'react';
 
 import { ALARM_THRESHOLDS, VIEWPORT } from '@/config/iottwinmaker';
 import { LineChart, StatusTimeline } from '@/lib/components/charts';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { LINE_CHART_COLORS } from '@/lib/css/colors';
-import { normalizedEntityData } from '@/lib/entities';
+import { normalizedEntityData } from '@/lib/init/entities';
 import { useAlarmHistoryQueryState, useSelectedState, useSummaryState } from '@/lib/stores/entity';
 import type { StyleSettingsMap } from '@/lib/types';
-import { createClassName, type ClassName } from '@/lib/utils/element';
+import { createHistoryQueries } from '@/lib/utils/entity';
 
 import '@iot-app-kit/react-components/styles.css';
 import css from './styles.module.css';
-import { createHistoryQueries } from '@/lib/utils/entity';
 
 const ALL_COMPONENTS_TEXT = 'Alarm Status: All Equipment';
 const ALARM_STATUS_TEXT = 'Alarm Status';

@@ -1,7 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+import { useEffect } from 'react';
+
 import { AppLayout } from '@/lib/components/layouts';
-import { defaultAlarmHistoryQuery, defaultDataHistoryQuery } from '@/lib/entities';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { defaultAlarmHistoryQuery, defaultDataHistoryQuery } from '@/lib/init/entities';
+import { VIEWS } from '@/lib/init/views';
 import { TimeSeriesContext } from '@/lib/providers';
 import {
   alarmHistoryQueryState,
@@ -12,10 +16,7 @@ import {
 } from '@/lib/stores/entity';
 import { hopState } from '@/lib/stores/graph';
 import { useViewState } from '@/lib/stores/view';
-import { createClassName, type ClassName } from '@/lib/utils/element';
 import { createHistoryQueries, createHistoryQuery } from '@/lib/utils/entity';
-import { VIEWS } from '@/lib/views';
-import { useEffect } from 'react';
 
 import styles from './styles.module.css';
 

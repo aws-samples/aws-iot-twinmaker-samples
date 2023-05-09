@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import type { ReactNode } from 'react';
 
-import { createClassName, type ClassName } from '@/lib/utils/element';
+import { createClassName, type ClassName } from '@/lib/core/utils/element';
 
 import styles from './styles.module.css';
 

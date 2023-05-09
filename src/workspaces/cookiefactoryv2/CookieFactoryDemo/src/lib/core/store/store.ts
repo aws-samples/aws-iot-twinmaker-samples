@@ -3,7 +3,7 @@
 import { produce } from 'immer';
 import type { ValueOf } from 'type-fest';
 
-import { isFunction } from '@/lib/utils/lang';
+import { isFunction } from '@/lib/core/utils/lang';
 import type { Store, Subscriber } from './types';
 
 export function createStore<State>(initialState: State): Store<State> {
