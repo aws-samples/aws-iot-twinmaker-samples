@@ -289,6 +289,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_1_597c735b-38fd-476c-b276-7592b1699ef8",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_1_4b57cbee-c391-4de6-b882-622c633a697e",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_1"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_2",
             "transform": {
                 "position": [
@@ -319,6 +362,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_2"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -358,6 +444,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_3_f813ecad-e144-4105-a4dd-64b8070fe012",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_3_3218c6d8-627e-465f-9aea-cdbcd212625b",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_3"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_4",
             "transform": {
                 "position": [
@@ -387,6 +516,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_4_137a2b35-33ff-4590-aa98-3299aab56203",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_4_784b3c3e-5779-4ca1-ad0b-036b18dd1fcc",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_4"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -426,6 +598,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_5_a15993f9-dfb5-41f4-b7fe-acd3e1b838c4",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_5_018fbf69-c06a-4690-8817-53bf163df8d4",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_5"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_6",
             "transform": {
                 "position": [
@@ -455,6 +670,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_6_93efa292-4bd2-4e01-bcee-bb943c332dd2",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_6_9aa0cd6c-a8f7-4a8a-9881-9c3cb2a22bf1",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_6"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -494,6 +752,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_7_ca6b9bd9-6ace-433f-a095-da4b8ab53b1b",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_7_522e64d6-b5c2-4980-bd3f-5db1cf837b1f",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_7"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_8",
             "transform": {
                 "position": [
@@ -523,6 +824,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_8_f058a7eb-4c6c-4990-8a5f-e39168f16f03",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_8_fc6e52dd-1600-402f-aee7-4d17eca68d5f",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_8"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -562,6 +906,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_9_515ed6a1-0fb1-4e09-a513-b682938a2bb4",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_9_679aed7c-9544-4d06-bf64-6a19381765ca",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_9"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_10",
             "transform": {
                 "position": [
@@ -595,7 +982,49 @@
             ],
             "properties": {}
         },
-        
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_10_54205d7c-1407-4f17-8b38-188e437e8d9d",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_10_9ee8913d-1fef-4453-beee-fbfc147fc03c",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_10"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
         {
             "name": "Mixer_11",
             "transform": {
@@ -626,6 +1055,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_11_2ef76a9e-825b-4405-992f-f6fb401412ac",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_11_67785f3f-229d-4d41-9ce4-09a5af1f152b",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_11"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -665,6 +1137,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_12_18786fcb-0b98-4e12-8d56-c7ab06007588",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_12_87c19fdf-e824-472d-a2e3-15012e8fc7a8",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_02",
+                            "sel_entity_name": "Mixer_12"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_13",
             "transform": {
                 "position": [
@@ -698,7 +1213,49 @@
             ],
             "properties": {}
         },
-        
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_13_e8061c85-73de-43f5-a772-4b14323abdf1",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_13_68bb09dd-7f89-46ee-b00a-f5a1126e5e5d",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_13"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
         {
             "name": "Mixer_14",
             "transform": {
@@ -733,7 +1290,49 @@
             ],
             "properties": {}
         },
-        
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_14_57a12ffb-6b5d-499f-95d8-9c1f88e9151a",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_14_456ba291-bf60-417a-848f-22a52bc1cb66",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_14"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
         {
             "name": "Mixer_15",
             "transform": {
@@ -764,6 +1363,127 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_15_445782e9-808d-459b-86bf-6267f3fd1971",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_15_3ba29ac2-6fcc-4884-a96e-fcab39caa35f",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_15"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_16",
+            "transform": {
+                "position": [
+                    38.39,
+                    0,
+                    81.89
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                37
+            ],
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_16_6393f849-ca84-4e43-9605-d20fa2477264",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_16_1fb550b1-868f-4efc-b39a-0e1c0f611890",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "destination": "",
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_16"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -803,6 +1523,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_17_92cdfa24-6cac-45e3-9b69-92a0117fd66a",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_17_0a71b321-7ff9-4624-a894-d0a4541d630c",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_17"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_18",
             "transform": {
                 "position": [
@@ -832,6 +1595,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_18_1774f1e2-a64b-4273-8572-d50fd7be2ed3",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_18_0bd49a00-128b-4a05-b694-c0acf0e12047",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_18"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -871,6 +1677,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_19_46603486-4777-484b-ac6c-df287a8a0aaf",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_19_002a0bfd-78f2-47d5-b694-73ffeb0be9ee",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_19"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_20",
             "transform": {
                 "position": [
@@ -900,6 +1749,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_20_db23cc52-ecd6-43a4-8b45-dc286089905a",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_20_4345c719-cf76-4c4f-8c10-35c69514e606",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_20"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -939,6 +1831,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_21_aacc32af-d1f2-4bec-be43-08baef9d9339",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_21_a2fb39ba-7c76-4064-91f8-792718b64fc5",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_21"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_22",
             "transform": {
                 "position": [
@@ -968,6 +1903,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_22_fc8faca3-c6fa-4bdc-9a60-045d3d6134b7",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_22_d133c9d0-472c-48bb-8f14-54f3890bc0fe",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_22"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -1007,6 +1985,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_23_7025eb0a-1950-4142-a30a-90b90b12c56a",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_23_017d92a8-6bc8-44d0-aacf-8943fb776877",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_23"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_24",
             "transform": {
                 "position": [
@@ -1041,6 +2062,49 @@
             "properties": {}
         },
         {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_24_a328de22-4e43-40da-b11d-5705bf8297c6",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_24_254b1597-3153-4ee1-bae4-d961c5810e7f",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_24"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
             "name": "Mixer_25",
             "transform": {
                 "position": [
@@ -1070,6 +2134,49 @@
                     "castShadow": true,
                     "receiveShadow": true,
                     "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "Mixer_25_4d403849-b962-44ed-8458-3994fb60d9fd",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "Mixer_25_7d040a42-55c7-4a1c-9509-ce3e09e8071e",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "kvs_stream_name": "cookiefactory_mixerroom_camera_01",
+                            "sel_entity_name": "Mixer_25"
+                        }
+                    }
                 }
             ],
             "properties": {}
@@ -1259,7 +2366,48 @@
             ],
             "properties": {}
         },
-        
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    0,
+                    0.863,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "ruleBasedMapId": "AlarmRuleMap",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "alarm_key": "WaterTank_ce63b782-c855-4cff-8d1c-6e542e0a3cbf",
+                            "componentTypeId": "com.example.cookiefactory.alarm",
+                            "entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status"
+                        }
+                    },
+                    "navLink": {
+                        "params": {
+                            "sel_entity_name": "WaterTank"
+                        }
+                    }
+                }
+            ],
+            "properties": {}
+        },
         {
             "name": "MainBody_1",
             "transform": {
@@ -1736,6 +2884,34 @@
                         "dataFrameLabel": "component%3DCookieLineComponent%26entity%3DCONVEYOR_LEFT_TURN_b28f2ca9-b6a7-44cd-a62d-7f76fc17ba45%26property%3DAlarmMessage,component%3DCookieLineComponent%26entityPath%3DEquipment%252FCookieLines%252FCOOKIE_LINE%252FCONVEYOR_LEFT_TURN%26property%3DAlarmMessage"
                     },
                     "ruleBasedMapId": "CookieLineAlarmMessageRule"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Tag",
+            "transform": {
+                "position": [
+                    1.1995389325675454,
+                    3.117654435224117,
+                    -0.27162005744555984
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Tag",
+                    "valueDataBinding": {}
                 }
             ],
             "properties": {}
@@ -2413,7 +3589,7 @@
                 }
             ],
             "properties": {}
-        }
+        }   
     ],
     "rootNodeIndexes": [
         0
