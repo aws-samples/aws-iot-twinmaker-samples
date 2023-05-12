@@ -115,25 +115,30 @@ Note: These instructions have primarily been tested for OSX/Linux/WSL environmen
 
 ### Setup AWS IoT TwinMaker Cookie Factory Demo: Web Application
 
-1. Follow the [Amazon Cognito set-up instructions](./COGNITO_SAMPLE_SETUP_CONSOLE.md) to create the application user account.  
+1. Use the following CLI command to administratively set the password for your demo Cognito user, Fran. Your UserPoolId can be found after your CDK deploy completed in the CloudFormationOutput (printed to console). Be sure to create a password that meets the default Cognito password requirements (Lowercase letter, Uppercase letter, Number, Symbol, Length >= 8)
+```shell
+aws cognito-idp admin-set-user-password --user-pool-id "[YOUR_USER_POOL_ID]" --username "fran@cookiefactory" --password "[PASSWORD]" --permanent
+```
 
-1. Change to the web application directory.
+*OPTIONAL*: View the [Amazon Cognito set-up instructions](./COGNITO_SAMPLE_SETUP_CONSOLE.md) to create your own application user account. A sample UserPool, IdentityPool, UserPoolClient, and User was created through CDK. 
+
+2. Change to the web application directory.
     ```shell
     cd CookieFactoryDemo
     ```
-1. Prepare the environment.
+3. Prepare the environment.
     ```shell
     npm install
     ```
 
-1. Edit the web application configuration files. **Note: the files referenced in the following steps are relative to the `CookieFactoryDemo` directory.**
+4. Edit the web application configuration files. **Note: the files referenced in the following steps are relative to the `CookieFactoryDemo` directory.**
 
     a. In `src/config/sites.template.ts`, set `WORKSPACE_ID` to your AWS IoT TwinMaker workspace ID. Rename the file to `src/config/sites.ts`.
     ```typescript
     export const WORKSPACE_ID = '__FILL_IN__';
     ```  
     
-    b. In `src/config/cognito.template.ts`, set the IDs and region to those specified in the Amazon Cognito user and identity pools created in step 1. Rename the file to `src/config/cognito.ts`.
+    b. In `src/config/cognito.template.ts`, set the IDs and region to those specified in the Amazon Cognito user and identity pools created in CDK. You should be able to find all 3 in the CloudFormation output in the terminal you ran cdk deploy. Rename the file to `src/config/cognito.ts`.
     ```typescript
     const cognito: CognitoAuthenticatedFlowConfig = {
       clientId: '__FILL_IN__',
@@ -143,11 +148,11 @@ Note: These instructions have primarily been tested for OSX/Linux/WSL environmen
     };
     ```
 
-    c. In `src/config/users.template.ts`, set `email` and `password` to those of the Amazon Cognito user account created in step 1. Set `firstName`, `lastName`, and `title` to your preference. Rename the file to `src/config/users.ts`.
+    c. In `src/config/users.template.ts`, set `password` to the newly created password for the Amazon Cognito user account created in step 1. By default, the email should be set to "fran@cookiefactory". Set `firstName`, `lastName`, and `title` to your preference. Rename the file to `src/config/users.ts`.
     ```typescript
     const users: UserConfig[] = [
       {
-        email: '__FILL_IN__',
+        email: 'fran@cookiefactory',
         firstName: '__FILL_IN__',
         lastName: '__FILL_IN__',
         password: '__FILL_IN__',
@@ -156,15 +161,19 @@ Note: These instructions have primarily been tested for OSX/Linux/WSL environmen
     ];
     ```
 
-1. Start the development server.
+5. Start the development server.
     ```shell
     npm run dev
     ```
 
-1.  Navigate to `https://localhost:8080` to view the application, which may take a minute to load the first time.
+6.  Navigate to `https://localhost:8080` to view the application, which may take a minute to load the first time.
     - **Note: set the localhost port to your preference in `webpack.dev.js`. Defaults to `8080`.**
 
 ## Cleanup
+Navigate back to cdk folder for the following steps
+```shell
+cd ../cdk
+```
 
 1. Delete resources using CDK (note: can also be done in AWS Console / CLI against the CloudFormation stack)
     - cdk destroy
@@ -174,7 +183,31 @@ Note: These instructions have primarily been tested for OSX/Linux/WSL environmen
           --context iottwinmakerWorkspaceId="$WORKSPACE_ID" \
           --context iottwinmakerWorkspaceBucket="$WORKSPACE_BUCKET_NAME"
         ```
-2. Delete any Cognito-related resources setup for the demo if needed
+2. Delete Remaining TwinMaker Resources
+    ### Option 1: Console Instructions
+    #### TwinMaker Workspace
+    1. Go to https://us-east-1.console.aws.amazon.com/iottwinmaker/home
+    2. On left side panel, click "Workspaces"
+    3. Select (click the circle) on the workspace you created earlier, $WORKSPACE_ID
+    4. Click "Delete"
+    5. In pop-up field, confirm deletion by typing in "Delete"
+    #### S3 Buckets
+    1. Go to https://us-east-1.console.aws.amazon.com/s3/home
+    2. Under "buckets" search for your TwinMaker workspace bucket (there may also be a logging bucket which you can delete too)
+    3. Select bucket(s) and click "Delete". You will be prompted to enter the bucket name to confirm.
+    ### Option 2: [TMDT Destroy](https://www.npmjs.com/package/@iot-app-kit/tools-iottwinmaker)
+    1. Install TwinMaker Development Tools
+       ```shell 
+       npm i -g @iot-app-kit/tools-iottwinmaker
+       ```
+    2. Call TMDT destroy with delete-workspace and delete-s3-bucket flags set
+       ```shell 
+       tmdt destroy --workspace-id [Workspace_ID] --region us-east-1 --delete-workspace --delete-s3-bucket --nonDryRun
+       ```
+    3. *Optional*: uninstall TMDT
+        ```shell
+        npm uninstall -g @iot-app-kit/tools-iottwinmaker
+        ```
 
 ## Troubleshooting
 

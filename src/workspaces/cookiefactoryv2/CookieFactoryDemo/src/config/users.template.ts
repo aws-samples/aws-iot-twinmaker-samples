@@ -13,7 +13,7 @@ import type { UserConfig } from '@/lib/types';
  */
 const users: UserConfig[] = [
   {
-    email: '__FILL_IN__',
+    email: 'fran@cookiefactory',
     firstName: '__FILL_IN__',
     lastName: '__FILL_IN__',
     password: '__FILL_IN__',

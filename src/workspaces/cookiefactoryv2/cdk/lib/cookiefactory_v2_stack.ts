@@ -13,7 +13,10 @@ import * as path from 'path';
 import * as timestream from "aws-cdk-lib/aws-timestream";
 import * as iottwinmaker from "aws-cdk-lib/aws-iottwinmaker";
 import * as assets from "aws-cdk-lib/aws-s3-assets";
+import * as cognito from "aws-cdk-lib/aws-cognito";
+import { CfnOutput } from "aws-cdk-lib/core";
 import {Construct} from "constructs";
+import CognitoAuthRole from "./CognitoAuthRole";
 import * as fs from "fs";
 
 const sample_libs_root = path.join(__dirname, "..","..","..","..","libs");
@@ -374,6 +377,117 @@ export class CookieFactoryV2Stack extends cdk.Stack {
         if (`${this.stackName}`.length > 32) {
             throw Error('stackName too long: stackName is used in some generated resource names with length restrictions, please use a stackName no longer than 32 characters')
         }
+        // Create Cognito Resources: User Pool, User Client, User, Identity Pool 
+        const userPool = new cognito.UserPool(this, "CookiefactoryUserPool", {
+            userPoolName: "CookiefactoryUserPool",
+            selfSignUpEnabled: false, 
+            signInAliases: {
+                email: true,
+            },
+            autoVerify: {
+                email: false,
+            },
+            accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
+            email: cognito.UserPoolEmail.withCognito(),
+            mfa: cognito.Mfa.OFF,
+            passwordPolicy: {
+                minLength: 8,
+                requireLowercase: true,
+                requireUppercase: true,
+                requireDigits: true,
+                requireSymbols: true,
+                tempPasswordValidity: cdk.Duration.days(7),
+              },
+            deletionProtection: false,
+            removalPolicy: cdk.RemovalPolicy.DESTROY,
+        });
+
+        const userPoolClient = new cognito.UserPoolClient(this, "CookiefactoryAppClient", {
+            userPoolClientName: "CookiefactoryAppClient",
+            userPool,
+            accessTokenValidity: cdk.Duration.minutes(60),
+            idTokenValidity: cdk.Duration.minutes(60),
+            authFlows: {
+                userSrp: true,
+              },
+            preventUserExistenceErrors: true,
+        });
+
+        const cfnUserPoolUser = new cognito.CfnUserPoolUser(this, 'MyCfnUserPoolUser', {
+            userPoolId: userPool.userPoolId,
+            userAttributes: [
+                {
+                    name: 'email_verified',
+                    value: 'true',
+                },
+                {
+                    name: 'email',
+                    value: 'fran@cookiefactory',
+                }
+            ],
+            username: 'fran@cookiefactory',
+            forceAliasCreation: true,
+          }); 
+
+        const identityPool = new cognito.CfnIdentityPool(this, "CookiefactoryIdentityPool", {
+            identityPoolName: "CookiefactoryIdentityPool",
+            allowUnauthenticatedIdentities: false, 
+            allowClassicFlow: false,
+            cognitoIdentityProviders: [ {
+                clientId: userPoolClient.userPoolClientId,
+                providerName: userPool.userPoolProviderName,
+                serverSideTokenCheck: false,
+            }],
+        });
+
+        const authenticatedRole = new CognitoAuthRole(this, "CognitoAuthRole", {
+            identityPool,
+          });
+
+        authenticatedRole.role.addToPolicy(
+            new iam.PolicyStatement({
+                actions: [ "iottwinmaker:GetPropertyValue",
+                    "iottwinmaker:ExecuteQuery",
+                    "iottwinmaker:ListEntities",
+                    "iottwinmaker:ListComponentTypes",
+                    "iottwinmaker:GetPropertyValueHistory",
+                    "iottwinmaker:GetScene",
+                    "iottwinmaker:ListScenes",
+                    "iottwinmaker:GetEntity",
+                    "iottwinmaker:GetWorkspace",
+                    "iottwinmaker:GetComponentType"],
+                effect: iam.Effect.ALLOW,
+                resources: [
+                    `arn:aws:iottwinmaker:us-east-1:${this.account}:workspace/${workspaceId}/*`,
+                    `arn:aws:iottwinmaker:us-east-1:${this.account}:workspace/${workspaceId}`
+                ],
+            })
+        );
+        authenticatedRole.role.addToPolicy(
+            new iam.PolicyStatement({
+                actions: ["iottwinmaker:ListWorkspaces"],
+                effect: iam.Effect.ALLOW,
+                resources: ["*"],
+            })
+        );
+        authenticatedRole.role.addToPolicy(
+            new iam.PolicyStatement({
+                actions: ["s3:GetObject"],
+                effect: iam.Effect.ALLOW,
+                resources: [`arn:aws:s3:::${workspaceBucket}/*`],
+            })
+        );
+
+         // Export values
+        new CfnOutput(this, "UserPoolId", {
+            value: userPool.userPoolId,
+        });
+        new CfnOutput(this, "ClientId", {
+            value: userPoolClient.userPoolClientId,
+        });
+        new CfnOutput(this, "IdentityPoolId", {
+            value: identityPool.ref,
+        });
 
         // lambda layer for helper utilities for implementing UDQ Lambdas
         const udqHelperLayer = new lambdapython.PythonLayerVersion(this, 'udq_utils_layer', {
