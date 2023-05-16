@@ -1,21 +1,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { useMemo } from 'react';
 
 import { ArrowRightIcon, GlobeIcon } from '@/lib/components/svgs/icons';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { isNil } from '@/lib/core/utils/lang';
-import { useSummaryState, useSelectedState } from '@/lib/stores/entity';
-import { useSiteState } from '@/lib/stores/site';
+import { useSummaryStore, useSelectedStore } from '@/lib/stores/entity';
+import { useSiteStore } from '@/lib/stores/site';
 
 import styles from './styles.module.css';
 
 const UNKNOWN_ENTITY_NAME = 'UNKNOWN ENTITY';
 
 export function HierarchyNavigator({ className }: { className?: ClassName }) {
-  const [entitySummaries] = useSummaryState();
-  const [{ entityData }] = useSelectedState();
-  const [site, setSite] = useSiteState();
+  const [entitySummaries] = useSummaryStore();
+  const [{ entityData }] = useSelectedStore();
+  const [site, setSite] = useSiteStore();
 
   const contentElement = useMemo(() => {
     if (entitySummaries && site) {
@@ -62,7 +63,7 @@ function Crumb({ isActive = false, name }: { isActive?: boolean; name: string })
   );
 }
 
-function walkParentEntities(entities: ReturnType<typeof useSummaryState>[0], selectedEntityId?: string) {
+function walkParentEntities(entities: ReturnType<typeof useSummaryStore>[0], selectedEntityId?: string) {
   let parents: { entityId: string; entityName: string }[] = [];
   if (selectedEntityId) {
     let parentEntityId = entities[selectedEntityId]?.parentEntityId;

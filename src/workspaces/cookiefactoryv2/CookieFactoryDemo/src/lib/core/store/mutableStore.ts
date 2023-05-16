@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import type { ValueOf } from 'type-fest';
 
 import { isFunction } from '@/lib/core/utils/lang';
@@ -22,7 +23,7 @@ export function createMutableStore<State>(initialState: State): MutableStore<Sta
     subscribers.forEach((subscriber) => subscriber(getState, () => unsubscribe(subscriber)));
   }
 
-  function subscribe(subscriber: Parameters<ValueOf<MutableStore<State>, 'subscribe'>>[0]) {
+  function subscribe(subscriber: Subscriber<State>) {
     subscribers.push(subscriber);
 
     return () => {
@@ -30,7 +31,7 @@ export function createMutableStore<State>(initialState: State): MutableStore<Sta
     };
   }
 
-  function unsubscribe(subscriber: Parameters<ValueOf<MutableStore<State>, 'unsubscribe'>>[0]) {
+  function unsubscribe(subscriber: Subscriber<State>) {
     subscribers = subscribers.filter((sub) => sub !== subscriber);
   }
 

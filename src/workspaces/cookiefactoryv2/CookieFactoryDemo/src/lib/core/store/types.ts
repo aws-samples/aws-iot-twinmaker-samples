@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import type { Draft } from 'immer';
 import type { Merge } from 'type-fest';
 
@@ -22,6 +23,7 @@ export type ReadableStore<State = any> = {
 export type Store<State> = Merge<
   ReadableStore<State>,
   {
+    resetToInitialState(): void;
     setState(state: State | ((state: Draft<State>) => Draft<State>)): void;
   }
 >;

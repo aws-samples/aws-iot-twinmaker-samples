@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { enableMapSet } from 'immer';
 import { useEffect, useState } from 'react';
 import type { ValueOf } from 'type-fest';
@@ -32,11 +33,11 @@ export function createMutableStoreHook<State>(
       });
     }, []);
 
-    return [state, store.setState];
+    return [state, store.setState] as [State, typeof store.setState];
   };
 }
 
-export function createStoreHook<State>(store: Store<State>): () => [State, ValueOf<Store<State>, 'setState'>] {
+export function createStoreHook<State>(store: Store<State>) {
   return () => {
     const [state, setState] = useState(store.getState());
 
@@ -46,7 +47,7 @@ export function createStoreHook<State>(store: Store<State>): () => [State, Value
       });
     }, []);
 
-    return [state, store.setState];
+    return [state, store.setState] as [State, typeof store.setState];
   };
 }
 

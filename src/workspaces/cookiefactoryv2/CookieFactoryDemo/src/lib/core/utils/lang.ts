@@ -1,6 +1,27 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 type Primitive = number | string | boolean | bigint | symbol | null | undefined;
+
+export function debounce<T extends any[]>(fn: (...args: T) => void, delay: number, immediate = false) {
+  let timeout: NodeJS.Timeout | undefined;
+
+  return function (...args: T) {
+    if (immediate && timeout == undefined) {
+      fn.apply(fn, args);
+    }
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      timeout = undefined;
+
+      if (!immediate) {
+        fn.apply(fn, args);
+      }
+    }, delay);
+  };
+}
 
 /**
  * Invokes `func` after `delay` milliseconds. Any additional arguments are provided to `func` when it's invoked.
@@ -91,4 +112,24 @@ export function takeRight<T>(arr: T[], count = 1): T[] {
  */
 export function nextTick<T extends any[]>(func: (...args: T) => void, ...args: T) {
   return setTimeout(() => func.apply(func, args), 0);
+}
+
+export function throttle<T extends any[]>(fn: (...args: T) => void, delay: number, immediate = false) {
+  let timeout: NodeJS.Timeout | undefined;
+
+  return function (...args: T) {
+    if (timeout == undefined) {
+      if (immediate) {
+        fn.apply(fn, args);
+      }
+
+      timeout = setTimeout(() => {
+        timeout = undefined;
+
+        if (!immediate) {
+          fn.apply(fn, args);
+        }
+      }, delay);
+    }
+  };
 }

@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { useEffect, useMemo } from 'react';
 
 import { ArrowHeadDownIcon } from '@/lib/components/svgs/icons';
@@ -8,14 +9,14 @@ import { useMenu } from '@/lib/core/hooks';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { isNil } from '@/lib/core/utils/lang';
 import { SITES } from '@/lib/init/sites';
-import { useSiteState } from '@/lib/stores/site';
+import { useSiteStore } from '@/lib/stores/site';
 import type { AlarmState } from '@/lib/types';
 
 import menuStyles from '../menu.module.css';
 import styles from './styles.module.css';
 
 export function SiteSelector({ className }: { className?: ClassName }) {
-  const [siteState, setSiteState] = useSiteState();
+  const [siteState, setSiteState] = useSiteStore();
 
   const { handleTrigger, menu, menuContainerRef, selectedId } = useMenu(
     SITES.map(({ health, id, name, location }) => {

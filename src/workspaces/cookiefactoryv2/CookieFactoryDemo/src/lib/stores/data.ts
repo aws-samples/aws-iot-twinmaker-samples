@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import type { ValueOf } from 'type-fest';
 
 import { ALARM_PROPERTY_NAME } from '@/config/iottwinmaker';
@@ -8,18 +9,24 @@ import { lastItem, takeRight } from '@/lib/core/utils/lang';
 import { normalizedEntityData } from '@/lib/init/entities';
 import type { AlarmState, DataStream, DataStreamMetaData, LatestValue, Primitive, Threshold } from '@/lib/types';
 
-export const alarmState = createStore<Record<string, LatestValue<AlarmState>>>({});
-export const dataStreamState = createStore<DataStream[]>([]);
-export const latestValueState = createStore<Record<string, { [key: string]: LatestValue<Primitive> }>>({});
+export const alarmStore = createStore<Record<string, LatestValue<AlarmState>>>({});
+export const dataStreamsStore = createStore<DataStream[]>([]);
+export const latestValueStore = createStore<Record<string, { [key: string]: LatestValue<Primitive> }>>({});
 
-export const useAlarmState = createStoreHook(alarmState);
-export const useDataStreamState = createStoreHook(dataStreamState);
-export const useLatestValueState = createStoreHook(latestValueState);
+export const useAlarmStore = createStoreHook(alarmStore);
+export const useDataStreamsStore = createStoreHook(dataStreamsStore);
+export const useLatestValueStore = createStoreHook(latestValueStore);
+
+export function resetDataStores() {
+  alarmStore.resetToInitialState();
+  dataStreamsStore.resetToInitialState();
+  latestValueStore.resetToInitialState();
+}
 
 /**
  * Set alarm and latest value state on each data stream update.
  */
-dataStreamState.subscribe((getState) => {
+dataStreamsStore.subscribe((getState) => {
   const state = getState();
 
   for (const { data, meta } of state) {
@@ -34,7 +41,7 @@ dataStreamState.subscribe((getState) => {
         let unit: string | undefined;
 
         if (propertyName === ALARM_PROPERTY_NAME) {
-          alarmState.setState((state) => {
+          alarmStore.setState((state) => {
             const { x, y } = latestValue;
             state[entityId] = {
               dataPoint: { x, y: y as AlarmState },
@@ -62,7 +69,7 @@ dataStreamState.subscribe((getState) => {
             }
           }
 
-          latestValueState.setState((state) => {
+          latestValueStore.setState((state) => {
             state[entityId] = {
               ...state[entityId],
               [propertyName]: {

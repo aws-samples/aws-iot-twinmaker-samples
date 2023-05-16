@@ -1,14 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { TimeSync } from '@iot-app-kit/react-components';
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 
 import { ALARM_THRESHOLDS, VIEWPORT } from '@/config/iottwinmaker';
 import { LineChart, StatusTimeline } from '@/lib/components/charts';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { LINE_CHART_COLORS } from '@/lib/css/colors';
 import { normalizedEntityData } from '@/lib/init/entities';
-import { useAlarmHistoryQueryState, useSelectedState, useSummaryState } from '@/lib/stores/entity';
+import { useAlarmHistoryQueriesStore, useSelectedStore, useSummaryStore } from '@/lib/stores/entity';
+import { usePanelsStore } from '@/lib/stores/panels';
 import type { StyleSettingsMap } from '@/lib/types';
 import { createHistoryQueries } from '@/lib/utils/entity';
 
@@ -20,10 +22,10 @@ const ALARM_STATUS_TEXT = 'Alarm Status';
 const PROPERTY_DETAIL_TEXT = 'Property Detail';
 
 export function DashboardPanel({ className }: { className?: ClassName; entityId?: string }) {
-  const [alarmHistoryQuery] = useAlarmHistoryQueryState();
-  const [selectedEntity] = useSelectedState();
-  const [entitySummaries] = useSummaryState();
-  const chartContainerRef = useRef<HTMLDivElement>(null);
+  const [alarmHistoryQueries] = useAlarmHistoryQueriesStore();
+  const [panels] = usePanelsStore();
+  const [selectedEntity] = useSelectedStore();
+  const [entitySummaries] = useSummaryStore();
 
   const entityAlarmStyles = useMemo(() => {
     return normalizedEntityData.reduce<StyleSettingsMap>((accum, entity) => {
@@ -77,7 +79,7 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
     }, {});
   }, [entitySummaries]);
 
-  const lineChartElement = useMemo(() => {
+  const lineChartElements = useMemo(() => {
     if (selectedEntity.entityData) {
       const historyQueries = createHistoryQueries(selectedEntity.entityData, 'data');
 
@@ -85,8 +87,8 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
         return (
           <LineChart
             axis={{ showX: true, showY: true }}
+            historyQueries={[query]}
             key={crypto.randomUUID()}
-            queries={[query]}
             styles={entityDataStyles}
           />
         );
@@ -103,16 +105,16 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
       return (
         <StatusTimeline
           key={crypto.randomUUID()}
-          queries={historyQueries}
+          historyQueries={historyQueries}
           thresholds={ALARM_THRESHOLDS}
           styles={entityAlarmStyles}
         />
       );
-    } else if (alarmHistoryQuery.length) {
+    } else if (alarmHistoryQueries.length) {
       return (
         <StatusTimeline
           key={crypto.randomUUID()}
-          queries={alarmHistoryQuery}
+          historyQueries={alarmHistoryQueries}
           thresholds={ALARM_THRESHOLDS}
           styles={entityAlarmStyles}
         />
@@ -120,23 +122,25 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
     }
 
     return null;
-  }, [alarmHistoryQuery, entityAlarmStyles, selectedEntity]);
+  }, [alarmHistoryQueries, entityAlarmStyles, selectedEntity]);
 
-  return (
-    <main
-      className={createClassName(css.root, className, { [css.multi]: selectedEntity.entityData !== null })}
-      ref={chartContainerRef}
-    >
-      <TimeSync initialViewport={VIEWPORT}>
-        <div className={css.name}>{selectedEntity.entityData ? ALARM_STATUS_TEXT : ALL_COMPONENTS_TEXT}</div>
-        {statusTimelineElement}
-        {lineChartElement && (
-          <>
-            <div className={css.name}>{PROPERTY_DETAIL_TEXT}</div>
-            {lineChartElement}
-          </>
-        )}
-      </TimeSync>
-    </main>
-  );
+  return useMemo(() => {
+    return (
+      <main
+        className={createClassName(css.root, className, { [css.multi]: selectedEntity.entityData !== null })}
+        key={crypto.randomUUID()}
+      >
+        <TimeSync initialViewport={VIEWPORT}>
+          <div className={css.name}>{selectedEntity.entityData ? ALARM_STATUS_TEXT : ALL_COMPONENTS_TEXT}</div>
+          {statusTimelineElement}
+          {lineChartElements && (
+            <>
+              <div className={css.name}>{PROPERTY_DETAIL_TEXT}</div>
+              {lineChartElements}
+            </>
+          )}
+        </TimeSync>
+      </main>
+    );
+  }, [panels, selectedEntity, statusTimelineElement, lineChartElements]);
 }

@@ -1,10 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { useCallback, useMemo } from 'react';
 
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { CloseIcon, ExpandIcon } from '@/lib/components/svgs/icons';
-import { usePanelState } from '@/lib/stores/panel';
+import { usePanelsStore } from '@/lib/stores/panels';
 import type { Panel } from '@/lib/types';
 
 import styles from './styles.module.css';
@@ -18,7 +19,7 @@ export function PanelLayout({
   isExpandable?: boolean;
   panel: Panel;
 }) {
-  const [, setPanelState] = usePanelState();
+  const [, setPanelState] = usePanelsStore();
 
   const handleClose = useCallback(() => {
     setPanelState((panels) => {

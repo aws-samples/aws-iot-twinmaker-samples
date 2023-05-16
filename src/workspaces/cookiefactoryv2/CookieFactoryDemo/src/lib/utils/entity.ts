@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import type { ValueOf } from 'type-fest';
 
 import type {
@@ -9,13 +10,6 @@ import type {
   TwinMakerDataSource,
   TwinMakerEntityHistoryQuery
 } from '@/lib/types';
-
-export function createTimeSeriesQuery(
-  dataSource: TwinMakerDataSource,
-  historyQuery: TwinMakerEntityHistoryQuery[]
-): TimeSeriesDataQuery[] {
-  return historyQuery.map((query) => dataSource.query.timeSeriesData(query));
-}
 
 export function createHistoryQuery<T extends EntityData>(
   entityData: T,
@@ -48,4 +42,11 @@ export function createHistoryQueries<T extends EntityData>(
     }
     return accum;
   }, []);
+}
+
+export function createTimeSeriesQueries(
+  dataSource: TwinMakerDataSource,
+  historyQuery: TwinMakerEntityHistoryQuery[]
+): TimeSeriesDataQuery[] {
+  return historyQuery.map((query) => dataSource.query.timeSeriesData(query));
 }
