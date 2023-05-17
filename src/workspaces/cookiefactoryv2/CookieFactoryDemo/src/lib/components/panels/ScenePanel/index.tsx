@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import {
   SceneViewer,
   useSceneComposerApi,
@@ -12,9 +13,8 @@ import { VIEWPORT } from '@/config/iottwinmaker';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { isNil } from '@/lib/core/utils/lang';
 import { normalizedEntityData } from '@/lib/init/entities';
-import { useTimeSeriesQuery } from '@/lib/hooks';
-import { useSelectedState, useAlarmHistoryQueryState } from '@/lib/stores/entity';
-import { useSceneLoaderState } from '@/lib/stores/iottwinmaker';
+import { useTimeSeriesQueriesStore, useSelectedStore } from '@/lib/stores/entity';
+import { useSceneLoaderStore } from '@/lib/stores/iottwinmaker';
 import type { DataBindingContext, EntityData } from '@/lib/types';
 
 import styles from './styles.module.css';
@@ -23,10 +23,9 @@ const sceneComposerId = crypto.randomUUID();
 
 export const ScenePanel = ({ className }: { className?: ClassName }) => {
   const { findSceneNodeRefBy, setSelectedSceneNodeRef, setCameraTarget } = useSceneComposerApi(sceneComposerId);
-  const [alarmHistoryQuery] = useAlarmHistoryQueryState();
-  const [timeSeriesQuery, setTimeSeriesQuery] = useTimeSeriesQuery(alarmHistoryQuery);
-  const [selectedEntity, setSelectedEntity] = useSelectedState();
-  const [sceneLoader] = useSceneLoaderState();
+  const [timeSeriesQueries] = useTimeSeriesQueriesStore();
+  const [sceneLoader] = useSceneLoaderStore();
+  const [selectedEntity, setSelectedEntity] = useSelectedStore();
 
   const handleSelectionChange: SelectionChangedEventCallback = useCallback(
     ({ componentTypes, additionalComponentData }) => {
@@ -77,10 +76,6 @@ export const ScenePanel = ({ className }: { className?: ClassName }) => {
     }
   }, [selectedEntity]);
 
-  useEffect(() => {
-    setTimeSeriesQuery(alarmHistoryQuery);
-  }, [alarmHistoryQuery]);
-
   return (
     <main className={createClassName(styles.root, className)}>
       {sceneLoader && (
@@ -92,7 +87,7 @@ export const ScenePanel = ({ className }: { className?: ClassName }) => {
               path: 'https://www.gstatic.com/draco/versioned/decoders/1.5.3/' // path to the draco files
             }
           }}
-          queries={timeSeriesQuery}
+          queries={timeSeriesQueries}
           selectedDataBinding={selectedEntity.entityData ?? undefined}
           sceneLoader={sceneLoader}
           onSelectionChanged={handleSelectionChange}

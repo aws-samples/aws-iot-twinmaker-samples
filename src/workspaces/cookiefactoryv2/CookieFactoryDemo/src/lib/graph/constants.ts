@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { ALARM_STATUS_COLORS } from '@/lib/css/colors';
 
 export const GRAPH_COLORS = {

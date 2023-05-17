@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import cytoscape, { type EventObjectCore, type EventObjectEdge } from 'cytoscape';
 import type {
   Css,
@@ -135,6 +136,8 @@ export function createGraph(
     ...breadthFirstLayoutOptions
   };
 
+  type LayoutOptions = Partial<typeof layoutOptions>;
+
   const cy = cytoscape({
     container,
     elements,
@@ -243,6 +246,10 @@ export function createGraph(
     return cy.zoom();
   }
 
+  function layout(options: LayoutOptions = {}) {
+    cy.layout({ ...layoutOptions, ...options }).run();
+  }
+
   /**
    * Based on: https://github.com/cytoscape/cytoscape.js/issues/2283#issuecomment-461897618
    */
@@ -255,8 +262,9 @@ export function createGraph(
     return bb1.x1 > bb2.x1 && bb1.x2 < bb2.x2 && bb1.y1 > bb2.y1 && bb1.y2 < bb2.y2;
   }
 
-  function resize() {
+  function resize(layoutOptions?: Pick<LayoutOptions, 'fit'>) {
     cy.resize();
+    if (layoutOptions) layout(layoutOptions);
   }
 
   function selectNode(id: string) {
@@ -266,12 +274,12 @@ export function createGraph(
     center(node);
   }
 
-  function setGraphData(elementsDefinition: ElementsDefinition, options: Partial<typeof layoutOptions> = {}) {
+  function setGraphData(elementsDefinition: ElementsDefinition, options: LayoutOptions = {}) {
     clearGraph();
 
     if (elementsDefinition.nodes.length) {
       cy.add(elementsDefinition);
-      cy.layout({ ...layoutOptions, ...options }).run();
+      layout(options);
     }
   }
 
@@ -319,6 +327,7 @@ export function createGraph(
     getNode,
     getNodeBoundingBox,
     getZoom,
+    layout,
     nodesInView,
     resize,
     selectNode,

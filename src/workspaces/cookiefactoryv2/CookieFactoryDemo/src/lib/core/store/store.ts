@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { produce } from 'immer';
 import type { ValueOf } from 'type-fest';
 
@@ -18,6 +19,10 @@ export function createStore<State>(initialState: State): Store<State> {
     return produce(internalState, () => {});
   }
 
+  function resetToInitialState() {
+    setState(initialState);
+  }
+
   function setState(state: Parameters<ValueOf<Store<State>, 'setState'>>[0]) {
     internalState = isFunction(state)
       ? produce(internalState, (draft) => {
@@ -27,7 +32,7 @@ export function createStore<State>(initialState: State): Store<State> {
     subscribers.forEach((subscriber) => subscriber(getState, () => unsubscribe(subscriber)));
   }
 
-  function subscribe(subscriber: Parameters<ValueOf<Store<State>, 'subscribe'>>[0]) {
+  function subscribe(subscriber: Subscriber<State>) {
     subscribers.push(subscriber);
 
     return () => {
@@ -35,13 +40,14 @@ export function createStore<State>(initialState: State): Store<State> {
     };
   }
 
-  function unsubscribe(subscriber: Parameters<ValueOf<Store<State>, 'unsubscribe'>>[0]) {
+  function unsubscribe(subscriber: Subscriber<State>) {
     subscribers = subscribers.filter((sub) => sub !== subscriber);
   }
 
   return {
     dispose,
     getState,
+    resetToInitialState,
     setState,
     subscribe,
     unsubscribe

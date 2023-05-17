@@ -1,15 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { FactoryIcon } from '@/lib/components/svgs/icons';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { SITES } from '@/lib/init/sites';
-import { useSiteState } from '@/lib/stores/site';
+import { useSiteStore } from '@/lib/stores/site';
 import type { Site } from '@/lib/types';
 
 import styles from './styles.module.css';
 
 export function SiteSelectorView({ className }: { className?: ClassName }) {
-  const [, setSiteState] = useSiteState();
+  const [, setSiteState] = useSiteStore();
 
   const siteElements = SITES.map((site) => {
     return <SiteElement key={site.id} handlePointerUp={() => setSiteState(site)} site={site} />;

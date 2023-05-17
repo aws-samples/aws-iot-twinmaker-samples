@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { ExecuteQueryCommand } from '@aws-sdk/client-iottwinmaker';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -11,15 +12,16 @@ import { compareStrings } from '@/lib/core/utils/string';
 import { isIgnoredEntity, normalizedEntityData } from '@/lib/init/entities';
 import { createGraph, getElementsDefinition, type EdgeData, type NodeData, type NodeRenderData } from '@/lib/graph';
 import { createQueryByEquipment, fullEquipmentAndProcessQuery } from '@/lib/queries/process';
-import { useAlarmState, useLatestValueState } from '@/lib/stores/data';
-import { selectedState, useSelectedState, useSummaryState, summaryState } from '@/lib/stores/entity';
-import { useHopState } from '@/lib/stores/graph';
-import { useClientState } from '@/lib/stores/iottwinmaker';
-import { usePanelState } from '@/lib/stores/panel';
-import { useSiteState } from '@/lib/stores/site';
+import { alarmStore, useAlarmStore, useLatestValueStore } from '@/lib/stores/data';
+import { selectedStore, useSelectedStore, useSummaryStore, summaryStore } from '@/lib/stores/entity';
+import { useHopStore } from '@/lib/stores/graph';
+import { useClientStore } from '@/lib/stores/iottwinmaker';
+import { useHasDashboardStore, usePanelsStore } from '@/lib/stores/panels';
+import { useSiteStore } from '@/lib/stores/site';
 import type {
   AlarmState,
   LatestValue,
+  Primitive,
   TwinMakerQueryData,
   TwinMakerQueryEdgeData,
   TwinMakerQueryNodeData
@@ -30,18 +32,17 @@ import styles from './styles.module.css';
 const GRAPH_CANVAS_PADDING = 30;
 
 export function ProcessPanel({ className }: { className?: ClassName }) {
-  const [alarmState] = useAlarmState();
-  const [latestValueState] = useLatestValueState();
-  const [client] = useClientState();
-  const [hops] = useHopState();
-  const [panels] = usePanelState();
-  const [selectedEntity, setSelectedEntity] = useSelectedState();
-  const [site] = useSiteState();
-  const [summaries] = useSummaryState();
+  const [alarmState] = useAlarmStore();
+  const [client] = useClientStore();
+  const hasDashboard = useHasDashboardStore();
+  const [hops] = useHopStore();
+  const [panels] = usePanelsStore();
+  const [selectedEntity, setSelectedEntity] = useSelectedStore();
+  const [site] = useSiteStore();
+  const [summaries] = useSummaryStore();
   const [graph, setGraph] = useState<ReturnType<typeof createGraph>>();
   const ref = useRef<HTMLElement>(null);
   const lastKnowledgeGraphQuery = useRef<string | null>(null);
-  const shouldFitGraph = useRef(true);
 
   const loadData = useCallback(
     async (queryStatement: string) => {
@@ -128,7 +129,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
 
           if (data) {
             graph.setGraphData(getElementsDefinition([...data.nodeData.values()], [...data.edgeData.values()]), {
-              fit: shouldFitGraph.current
+              fit: true
             });
 
             graph.center();
@@ -136,6 +137,8 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
             lastKnowledgeGraphQuery.current = knowledgeGraphQuery;
           }
         }
+
+        setAlarmState(graph, alarmStore.getState());
 
         if (selectedEntityId) {
           graph.selectNode(selectedEntityId);
@@ -167,6 +170,13 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
     }
   }, [graph]);
 
+  const kpis = useMemo(() => {
+    if (!hasDashboard) {
+      return <KpiCharts />;
+    }
+    return null;
+  }, [panels]);
+
   useEffect(() => {
     if (graph) {
       if (selectedEntity.entityData) {
@@ -179,21 +189,6 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
       }
     }
   }, [graph, selectedEntity, executeQuery]);
-
-  useEffect(() => {
-    if (panels.includes('process')) {
-      graph?.resize();
-
-      if (shouldFitGraph.current) {
-        shouldFitGraph.current = false;
-        graph?.fit();
-      }
-
-      graph?.center();
-    } else {
-      shouldFitGraph.current = true;
-    }
-  }, [graph, panels]);
 
   useEffect(() => {
     const summaryList = Object.values(summaries);
@@ -230,7 +225,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
             break;
           }
           case 'resize': {
-            const { entityData } = selectedState.getState();
+            const { entityData } = selectedStore.getState();
 
             if (entityData) {
               const { entityId } = entityData;
@@ -253,106 +248,19 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
   }, [summaries]);
 
   useEffect(() => {
-    executeQuery();
-  }, [graph]);
-
-  useEffect(() => {
     if (graph) {
       setAlarmState(graph, alarmState);
     }
-  }, [alarmState, graph]);
+  }, [graph, alarmState]);
 
-  const latestValue = useMemo(() => {
-    if (!panels.includes('dashboard')) {
-      const { entityData } = selectedEntity;
+  useEffect(() => {
+    graph?.resize({ fit: true });
+  }, [graph, panels]);
 
-      if (entityData) {
-        const alarm = alarmState[entityData.entityId];
-        const latestValue = latestValueState[entityData.entityId];
-
-        if (latestValue) {
-          const kpis = Object.values(latestValue)
-            .sort((a, b) => compareStrings(a.metaData.propertyName, b.metaData.propertyName))
-            .map(({ dataPoint: { x, y }, metaData: { entityId, propertyName }, threshold, trend, unit }) => {
-              let thresholdBreached = false;
-              let thresholdUpperValue: number | undefined;
-              let thresholdLowerValue: number | undefined;
-
-              if (isPlainObject(threshold)) {
-                const { upper, lower } = threshold;
-
-                if (isNumber(y)) {
-                  if (upper) {
-                    thresholdUpperValue = upper;
-                    thresholdBreached = y > upper;
-                  }
-
-                  if (!thresholdBreached && lower) {
-                    thresholdLowerValue = lower;
-                    thresholdBreached = y < lower;
-                  }
-                }
-              }
-
-              return (
-                <section
-                  className={createClassName(styles.latestValue, styles[alarm?.dataPoint.y ?? 'Unknown'])}
-                  key={`${entityId}-${propertyName}`}
-                >
-                  <div className={styles.latestValueName}>{propertyName}</div>
-                  <div className={styles.latestValueValueGroup}>
-                    <div className={styles.latestValueValueUnitGroup}>
-                      <div className={styles.latestValueValue}>{y}</div>
-                      {unit && <div className={styles.latestValueUnit}>{unit}</div>}
-                    </div>
-                    <div
-                      className={createClassName(styles.trendGroup, { [styles.thresholdBreached]: thresholdBreached })}
-                    >
-                      {thresholdLowerValue && (
-                        <ThresholdIndicator
-                          value={thresholdLowerValue}
-                          limit="lower"
-                          isActive={isNumber(y) && y < thresholdLowerValue}
-                        />
-                      )}
-                      <TrendIcon
-                        className={createClassName(styles.trendIcon, {
-                          [styles.trendIconDown]: trend === -1,
-                          [styles.trendIconUp]: trend === 1
-                        })}
-                      />
-                      {thresholdUpperValue && (
-                        <ThresholdIndicator
-                          value={thresholdUpperValue}
-                          limit="upper"
-                          isActive={isNumber(y) && y > thresholdUpperValue}
-                        />
-                      )}
-                    </div>
-                  </div>
-                  <div className={styles.latestValueTime}>
-                    {new Date(x).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' })}
-                  </div>
-                </section>
-              );
-            });
-
-          const entitySummary = summaryState.getState()[entityData.entityId];
-
-          return (
-            <section className={styles.latestValues}>
-              {entitySummary && (
-                <div className={styles.latestValuesEntityName}>{entitySummary.entityName} Components</div>
-              )}
-              <div className={styles.latestValuesKpis}>{kpis}</div>
-            </section>
-          );
-        }
-      }
-    }
-
-    return null;
-  }, [graph, selectedEntity, alarmState, latestValueState, panels]);
+  useEffect(() => {
+    const { entityData } = selectedStore.getState();
+    executeQuery(entityData?.entityId);
+  }, [graph]);
 
   return (
     <main className={createClassName(styles.root, className)}>
@@ -373,8 +281,118 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
           </button>
         </section>
       </section>
-      {latestValue}
+      {kpis}
     </main>
+  );
+}
+
+function KpiCharts() {
+  const [alarms] = useAlarmStore();
+  const [latestValuesDict] = useLatestValueStore();
+  const [selectedEntity] = useSelectedStore();
+
+  return useMemo(() => {
+    const { entityData } = selectedEntity;
+
+    if (entityData) {
+      const alarmValue = alarms[entityData.entityId];
+      const latestValues = latestValuesDict[entityData.entityId];
+      const entitySummary = summaryStore.getState()[entityData.entityId];
+
+      if (entitySummary && latestValues) {
+        const charts = Object.values(latestValues)
+          .sort((a, b) => compareStrings(a.metaData.propertyName, b.metaData.propertyName))
+          .map((latestValue) => {
+            return (
+              <KpiChart
+                key={`${latestValue.metaData.entityId}-${latestValue.metaData.propertyName}`}
+                alarmValue={alarmValue}
+                latestValue={latestValue}
+              />
+            );
+          });
+
+        return (
+          <section className={styles.latestValues}>
+            <div className={styles.latestValuesEntityName}>{entitySummary.entityName} Components</div>
+            <div className={styles.latestValuesKpis}>{charts}</div>
+          </section>
+        );
+      }
+    }
+
+    return null;
+  }, [selectedEntity, alarms, latestValuesDict]);
+}
+
+function KpiChart({
+  alarmValue,
+  latestValue: {
+    dataPoint: { x, y },
+    metaData: { propertyName },
+    threshold,
+    trend,
+    unit
+  }
+}: {
+  alarmValue: LatestValue<AlarmState>;
+  latestValue: LatestValue<Primitive>;
+}) {
+  let thresholdBreached = false;
+  let thresholdUpperValue: number | undefined;
+  let thresholdLowerValue: number | undefined;
+
+  if (isPlainObject(threshold)) {
+    const { upper, lower } = threshold;
+
+    if (isNumber(y)) {
+      if (upper) {
+        thresholdUpperValue = upper;
+        thresholdBreached = y > upper;
+      }
+
+      if (!thresholdBreached && lower) {
+        thresholdLowerValue = lower;
+        thresholdBreached = y < lower;
+      }
+    }
+  }
+
+  return (
+    <section className={createClassName(styles.latestValue, styles[alarmValue?.dataPoint.y ?? 'Unknown'])}>
+      <div className={styles.latestValueName}>{propertyName}</div>
+      <div className={styles.latestValueValueGroup}>
+        <div className={styles.latestValueValueUnitGroup}>
+          <div className={styles.latestValueValue}>{y}</div>
+          {unit && <div className={styles.latestValueUnit}>{unit}</div>}
+        </div>
+        <div className={createClassName(styles.trendGroup, { [styles.thresholdBreached]: thresholdBreached })}>
+          {thresholdLowerValue && (
+            <ThresholdIndicator
+              value={thresholdLowerValue}
+              limit="lower"
+              isActive={isNumber(y) && y < thresholdLowerValue}
+            />
+          )}
+          <TrendIcon
+            className={createClassName(styles.trendIcon, {
+              [styles.trendIconDown]: trend === -1,
+              [styles.trendIconUp]: trend === 1
+            })}
+          />
+          {thresholdUpperValue && (
+            <ThresholdIndicator
+              value={thresholdUpperValue}
+              limit="upper"
+              isActive={isNumber(y) && y > thresholdUpperValue}
+            />
+          )}
+        </div>
+      </div>
+      <div className={styles.latestValueTime}>
+        {new Date(x).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' })}
+      </div>
+    </section>
   );
 }
 

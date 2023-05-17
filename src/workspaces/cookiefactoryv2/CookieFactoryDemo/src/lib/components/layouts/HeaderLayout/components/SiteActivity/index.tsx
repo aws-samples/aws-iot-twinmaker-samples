@@ -1,10 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import type { CSSProperties, ReactNode } from 'react';
 
 import { BellOutlinedIcon, ListIcon, MessagesIcon } from '@/lib/components/svgs/icons';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
-import { usePanelState } from '@/lib/stores/panel';
+import { usePanelsStore } from '@/lib/stores/panels';
 import type { PanelId } from '@/lib/types';
 
 import styles from './styles.module.css';
@@ -32,7 +33,7 @@ function InfoItem({
   style?: CSSProperties;
   value?: number;
 }) {
-  const [, setPanelState] = usePanelState();
+  const [, setPanelState] = usePanelsStore();
 
   return (
     <section className={createClassName(styles.group, className)} onPointerUp={() => setPanelState([id])} style={style}>

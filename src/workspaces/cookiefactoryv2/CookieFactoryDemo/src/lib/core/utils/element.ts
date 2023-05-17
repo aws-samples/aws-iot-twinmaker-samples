@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { isArray, isNotNil, isPlainObject, isString } from './lang';
 
 export type ClassName = string | string[] | Record<string, boolean> | null | undefined;

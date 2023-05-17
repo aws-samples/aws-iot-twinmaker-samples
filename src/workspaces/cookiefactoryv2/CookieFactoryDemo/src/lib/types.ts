@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import type { Primitive, StyleSettingsMap, TimeSeriesDataQuery, Timestamp } from '@iot-app-kit/core';
 import type { initialize, PropertyQueryInfo } from '@iot-app-kit/source-iottwinmaker';
 import type { ReactNode } from 'react';
@@ -49,12 +50,6 @@ export type Threshold = { upper: number | null; lower: number | null } | number 
 
 export type EntityPropertyType = 'alarm' | 'data';
 
-// export type EntitQueryData = {
-//   componentName: string;
-//   entityId: string;
-//   property: PropertyQueryInfo;
-// };
-
 export type Event = {
   date: number;
   id: string;
@@ -76,7 +71,6 @@ export type LatestValue<T extends AlarmState | Primitive> = {
 };
 
 export type AlarmState = 'High' | 'Medium' | 'Low' | 'Normal' | 'Unknown';
-// export type Health = 'ok' | 'high' | 'medium' | 'low' | 'offline' | 'unknown';
 
 export type Panel = {
   content?: ReactNode;
@@ -96,7 +90,6 @@ export type SelectedEntity = { entityData: EntityData | null; type: 'process' | 
 
 export type Site = SiteConfig &
   Readonly<{
-    // entities: Record<string, EntitySummary>;
     health: AlarmState;
   }>;
 

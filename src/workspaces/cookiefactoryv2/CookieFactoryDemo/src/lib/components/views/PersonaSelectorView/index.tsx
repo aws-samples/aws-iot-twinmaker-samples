@@ -1,11 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
+
 import { useEffect, useState } from 'react';
 
 import { getAwsCredentials } from '@/lib/core/auth/cognito';
 import { AWS_CREDENTIAL_CONFIG } from '@/lib/init/credentials';
 import { USERS } from '@/lib/init/users';
-import { useUserState } from '@/lib/stores/user';
+import { useUserStore } from '@/lib/stores/user';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import type { User } from '@/lib/types';
 
@@ -14,7 +15,7 @@ import styles from './styles.module.css';
 let disabled = false;
 
 export function PersonaSelectorView({ className }: { className?: ClassName }) {
-  const [, setUser] = useUserState();
+  const [, setUser] = useUserStore();
   const [isActive, setIsActive] = useState(false);
 
   async function handlePointerUp({ firstName, icon, lastName, password, title, email }: User) {

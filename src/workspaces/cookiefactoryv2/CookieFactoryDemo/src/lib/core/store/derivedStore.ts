@@ -1,9 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
-import type { DerivedStore, MutableStore, Store, Subscriber } from './types';
+
+import type { AnyStore, DerivedStore, Subscriber } from './types';
 
 export function createDerivedStore<SourceState, DerivedState>(
-  sourceStore: Store<SourceState> | MutableStore<SourceState> | DerivedStore<SourceState>,
+  sourceStore: AnyStore<SourceState>,
   fn: (state: SourceState) => DerivedState
 ): DerivedStore<DerivedState> {
   let internalState = fn(sourceStore.getState());
