@@ -115,9 +115,9 @@ Note: These instructions have primarily been tested for OSX/Linux/WSL environmen
 
 ### Setup AWS IoT TwinMaker Cookie Factory Demo: Web Application
 
-1. Use the following CLI command to administratively set the password for your demo Cognito user, Fran. Your UserPoolId can be found after your CDK deploy completed in the CloudFormationOutput (printed to console). Be sure to create a password that meets the default Cognito password requirements (Lowercase letter, Uppercase letter, Number, Symbol, Length >= 8)
+1. Use the following CLI command to administratively set the password for your demo Cognito user. Your UserPoolId can be found after your CDK deploy completed in the CloudFormationOutput (printed to console). Be sure to create a password that meets the default Cognito password requirements (Lowercase letter, Uppercase letter, Number, Symbol, Length >= 8)
 ```shell
-aws cognito-idp admin-set-user-password --user-pool-id "[YOUR_USER_POOL_ID]" --username "fran@cookiefactory" --password "[PASSWORD]" --permanent
+aws cognito-idp admin-set-user-password --user-pool-id "[YOUR_USER_POOL_ID]" --username "user@cookiefactory" --password "[PASSWORD]" --permanent
 ```
 
 *OPTIONAL*: View the [Amazon Cognito set-up instructions](./COGNITO_SAMPLE_SETUP_CONSOLE.md) to create your own application user account. A sample UserPool, IdentityPool, UserPoolClient, and User was created through CDK. 
@@ -148,11 +148,11 @@ aws cognito-idp admin-set-user-password --user-pool-id "[YOUR_USER_POOL_ID]" --u
     };
     ```
 
-    c. In `src/config/users.template.ts`, set `password` to the newly created password for the Amazon Cognito user account created in step 1. By default, the email should be set to "fran@cookiefactory". Set `firstName`, `lastName`, and `title` to your preference. Rename the file to `src/config/users.ts`.
+    c. In `src/config/users.template.ts`, set `password` to the newly created password for the Amazon Cognito user account created in step 1. By default, the email should be set to "user@cookiefactory". Set `firstName`, `lastName`, and `title` to your preference. Rename the file to `src/config/users.ts`.
     ```typescript
     const users: UserConfig[] = [
       {
-        email: 'fran@cookiefactory',
+        email: 'user@cookiefactory',
         firstName: '__FILL_IN__',
         lastName: '__FILL_IN__',
         password: '__FILL_IN__',

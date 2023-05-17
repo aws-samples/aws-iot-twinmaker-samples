@@ -422,10 +422,10 @@ export class CookieFactoryV2Stack extends cdk.Stack {
                 },
                 {
                     name: 'email',
-                    value: 'fran@cookiefactory',
+                    value: 'user@cookiefactory',
                 }
             ],
-            username: 'fran@cookiefactory',
+            username: 'user@cookiefactory',
             forceAliasCreation: true,
           }); 
 
