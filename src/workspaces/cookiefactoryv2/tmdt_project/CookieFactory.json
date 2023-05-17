@@ -1196,7 +1196,7 @@
       },
       "components": [
         {
-          "parentRef": "857b099a-8ef8-4373-aa70-a61a751c0770",
+          "parentRef": "7da3d8ff-cd0c-44bd-9136-b07b5402bc53",
           "selector": "MainBody_1",
           "type": "SubModelRef"
         }
@@ -1227,7 +1227,7 @@
       },
       "components": [
         {
-          "parentRef": "857b099a-8ef8-4373-aa70-a61a751c0770",
+          "parentRef": "7da3d8ff-cd0c-44bd-9136-b07b5402bc53",
           "selector": "Plane",
           "type": "SubModelRef"
         }
@@ -1258,7 +1258,7 @@
       },
       "components": [
         {
-          "parentRef": "857b099a-8ef8-4373-aa70-a61a751c0770",
+          "parentRef": "7da3d8ff-cd0c-44bd-9136-b07b5402bc53",
           "selector": "MixerBowl_2",
           "type": "SubModelRef"
         }
@@ -1289,7 +1289,7 @@
       },
       "components": [
         {
-          "parentRef": "857b099a-8ef8-4373-aa70-a61a751c0770",
+          "parentRef": "7da3d8ff-cd0c-44bd-9136-b07b5402bc53",
           "selector": "MixerBowl_1",
           "type": "SubModelRef"
         }
@@ -1320,7 +1320,7 @@
       },
       "components": [
         {
-          "parentRef": "857b099a-8ef8-4373-aa70-a61a751c0770",
+          "parentRef": "7da3d8ff-cd0c-44bd-9136-b07b5402bc53",
           "selector": "MainBody_3",
           "type": "SubModelRef"
         }
@@ -1355,7 +1355,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "COOKIE_FORMER",
           "type": "SubModelRef"
         },
@@ -1403,7 +1403,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "PLASTIC_LINER",
           "type": "SubModelRef"
         },
@@ -1451,7 +1451,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "FREEZER_TUNNEL",
           "type": "SubModelRef"
         },
@@ -1495,7 +1495,7 @@
       },
       "components": [
         {
-          "parentRef": "857b099a-8ef8-4373-aa70-a61a751c0770",
+          "parentRef": "7da3d8ff-cd0c-44bd-9136-b07b5402bc53",
           "selector": "Anchor",
           "type": "SubModelRef"
         }
@@ -1526,7 +1526,7 @@
       },
       "components": [
         {
-          "parentRef": "c112a4c1-f781-4b91-9e6a-654778fb9db9",
+          "parentRef": "ac17613e-8f4a-4d3f-ac79-b7a999ae32af",
           "selector": "CookieFactoryMixer",
           "type": "SubModelRef"
         }
@@ -1557,7 +1557,7 @@
       },
       "components": [
         {
-          "parentRef": "3029c205-0120-4389-b9d0-031a47b29092",
+          "parentRef": "e817e8d2-90d5-4f6f-b3d4-82855a6b9fdd",
           "selector": "CookieFactoryMixer",
           "type": "SubModelRef"
         },
@@ -1601,7 +1601,7 @@
       },
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "COOKIE_LINE",
           "type": "SubModelRef"
         }
@@ -1636,7 +1636,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "CONVEYOR_LEFT_TURN",
           "type": "SubModelRef"
         },
@@ -1760,40 +1760,6 @@
               "entityPath": "Equipment/CookieLines/COOKIE_LINE/FREEZER_TUNNEL"
             }
           }
-        },
-        {
-          "type": "DataOverlay",
-          "subType": "OverlayPanel",
-          "valueDataBindings": [
-            {
-              "bindingName": "FreezerTunnelTemperature",
-              "valueDataBinding": {
-                "dataBindingContext": {
-                  "entityId": "FREEZER_TUNNEL_e12e0733-f5df-4604-8f10-417f49e6d298",
-                  "componentName": "CookieLineComponent",
-                  "propertyName": "Temperature",
-                  "entityPath": "Equipment/CookieLines/COOKIE_LINE/FREEZER_TUNNEL"
-                }
-              }
-            },
-            {
-              "bindingName": "FreezerTunnelSpeed",
-              "valueDataBinding": {
-                "dataBindingContext": {
-                  "entityId": "FREEZER_TUNNEL_e12e0733-f5df-4604-8f10-417f49e6d298",
-                  "componentName": "CookieLineComponent",
-                  "propertyName": "Speed",
-                  "entityPath": "Equipment/CookieLines/COOKIE_LINE/FREEZER_TUNNEL"
-                }
-              }
-            }
-          ],
-          "dataRows": [
-            {
-              "rowType": "Markdown",
-              "content": "### Freezer Tunnel\nSpeed: **${FreezerTunnelSpeed}** rpm  \nTemperature: **${FreezerTunnelTemperature}** °F\n"
-            }
-          ]
         }
       ],
       "properties": {}
@@ -1862,7 +1828,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "CONVEYOR_RIGHT_TURN",
           "type": "SubModelRef"
         },
@@ -1946,7 +1912,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "VERTICAL_CONVEYOR",
           "type": "SubModelRef"
         },
@@ -2030,7 +1996,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "CONVEYOR_STRIGHT",
           "type": "SubModelRef"
         },
@@ -2114,7 +2080,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "BOX_ERECTOR",
           "type": "SubModelRef"
         },
@@ -2198,7 +2164,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "LABELING_BELT",
           "type": "SubModelRef"
         },
@@ -2282,7 +2248,7 @@
       ],
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "BOX_SEALER",
           "type": "SubModelRef"
         },
@@ -2362,7 +2328,7 @@
       },
       "components": [
         {
-          "parentRef": "1347c632-52d1-4e17-bd94-6070994f72f3",
+          "parentRef": "a17b5930-ee1b-4272-828e-3f545f4ebbc7",
           "selector": "PALLET",
           "type": "SubModelRef"
         }
