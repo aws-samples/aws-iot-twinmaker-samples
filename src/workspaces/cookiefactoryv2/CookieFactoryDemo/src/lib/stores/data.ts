@@ -3,7 +3,7 @@
 
 import type { ValueOf } from 'type-fest';
 
-import { ALARM_PROPERTY_NAME } from '@/config/iottwinmaker';
+import { ALARM_PROPERTY_NAME } from '@/config/project';
 import { createStore, createStoreHook } from '@/lib/core/store';
 import { lastItem, takeRight } from '@/lib/core/utils/lang';
 import { normalizedEntityData } from '@/lib/init/entities';
