@@ -4,7 +4,7 @@
 import { TimeSync } from '@iot-app-kit/react-components';
 import { useMemo } from 'react';
 
-import { ALARM_THRESHOLDS, VIEWPORT } from '@/config/iottwinmaker';
+import { CHART_ALARM_THRESHOLDS, VIEWPORT } from '@/config/project';
 import { LineChart, StatusTimeline } from '@/lib/components/charts';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { LINE_CHART_COLORS } from '@/lib/css/colors';
@@ -106,7 +106,7 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
         <StatusTimeline
           key={crypto.randomUUID()}
           historyQueries={historyQueries}
-          thresholds={ALARM_THRESHOLDS}
+          thresholds={CHART_ALARM_THRESHOLDS}
           styles={entityAlarmStyles}
         />
       );
@@ -115,7 +115,7 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
         <StatusTimeline
           key={crypto.randomUUID()}
           historyQueries={alarmHistoryQueries}
-          thresholds={ALARM_THRESHOLDS}
+          thresholds={CHART_ALARM_THRESHOLDS}
           styles={entityAlarmStyles}
         />
       );

@@ -9,16 +9,22 @@ import type { ValueOf } from 'type-fest';
 import type { AwsCredentials } from '@/lib/core/auth/cognito';
 
 export type { EntitySummary, IoTTwinMakerClient } from '@aws-sdk/client-iottwinmaker';
+
+export type { Axis } from '@iot-app-kit/charts-core';
+
 export type {
   DataPoint,
   DataStream,
   Primitive,
   StyleSettingsMap,
+  Threshold as AppKitThreshold,
   ThresholdSettings,
   ThresholdValue,
-  TimeSeriesDataQuery
+  TimeSeriesDataQuery,
+  TimeSeriesDataRequestSettings,
+  Viewport
 } from '@iot-app-kit/core';
-export type { Axis } from '@iot-app-kit/charts-core';
+
 export type {
   PropertyQueryInfo,
   SceneLoader,

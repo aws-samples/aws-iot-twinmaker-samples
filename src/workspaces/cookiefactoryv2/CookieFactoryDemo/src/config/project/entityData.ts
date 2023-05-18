@@ -1,61 +1,20 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Threshold, Viewport } from '@iot-app-kit/core';
 import type { ValueOf } from 'type-fest';
 
-import { ALARM_STATUS_COLORS, STATUS_TIMELINE_TRACK_COLOR } from '@/lib/css/colors';
-import type { AlarmState, EntityData, PanelId } from '@/lib/types';
-
-import packageJson from 'package.json';
+import type { EntityData } from '@/lib/types';
 
 const DATA_PROPERTY_NAME_1 = 'Speed';
 const DATA_PROPERTY_NAME_2 = 'Temperature';
 
-const alarmNames: Record<AlarmState, string> = {
-  High: 'High',
-  Medium: 'Medium',
-  Low: 'Low',
-  Normal: 'Normal',
-  Unknown: 'Unknown'
-};
-
 export const ALARM_PROPERTY_NAME = 'AlarmMessage';
-
-export const ALARM_THRESHOLDS: Threshold<AlarmState>[] = [
-  {
-    color: ALARM_STATUS_COLORS.High,
-    label: { text: alarmNames['High'], show: true },
-    value: 'High',
-    comparisonOperator: 'EQ'
-  },
-  {
-    color: ALARM_STATUS_COLORS.Medium,
-    label: { text: alarmNames['Medium'], show: true },
-    value: 'Medium',
-    comparisonOperator: 'EQ'
-  },
-  {
-    color: ALARM_STATUS_COLORS.Low,
-    label: { text: alarmNames['Low'], show: true },
-    value: 'Low',
-    comparisonOperator: 'EQ'
-  },
-  {
-    color: STATUS_TIMELINE_TRACK_COLOR,
-    value: 'Normal',
-    comparisonOperator: 'EQ'
-  }
-];
 
 export const COMPONENT_NAMES = {
   DATA: 'CookieLineComponent',
   EQUIPMENT: 'CookieLineComponent',
   PROCESS_STEP: 'ProcessStepComponent'
 };
-
-export const DEFAULT_PANEL_ID: PanelId | null = null;
-export const DEFAULT_QUERY_HOPS = 2;
 
 export const ENTITY_DATA: EntityData[] = [
   {
@@ -126,11 +85,6 @@ export const ENTITY_DATA: EntityData[] = [
     componentName: COMPONENT_NAMES.DATA,
     properties: getProperties()
   },
-  // {
-  //   entityId: 'PALLET_98648a84-72da-443a-b625-f671d99a13ba',
-  //   componentName: COMPONENT_NAMES.DATA,
-  //   properties: getProperties()
-  // },
   {
     entityId: 'PLASTIC_LINER_a77e76bc-53f3-420d-8b2f-76103c810fac',
     componentName: COMPONENT_NAMES.DATA,
@@ -144,10 +98,6 @@ export const ENTITY_DATA: EntityData[] = [
 ];
 
 export const IGNORED_ENTITIES = ['PALLET_98648a84-72da-443a-b625-f671d99a13ba'];
-
-export const SDK_CUSTOM_USER_AGENT = `cookiefactory_v2/${packageJson.version}`;
-
-export const VIEWPORT: Viewport = { duration: '15m' };
 
 function getProperties(): ValueOf<EntityData, 'properties'> {
   return [

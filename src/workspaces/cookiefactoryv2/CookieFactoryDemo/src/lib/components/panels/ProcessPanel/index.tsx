@@ -4,14 +4,13 @@
 import { ExecuteQueryCommand } from '@aws-sdk/client-iottwinmaker';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { COMPONENT_NAMES } from '@/config/iottwinmaker';
+import { COMPONENT_NAMES, QUERY_ALL_EQUIPMENT_AND_PROCESS_STEPS, createQueryByEquipment } from '@/config/project';
 import { FitIcon, MinusIcon, PlusIcon, TargetIcon, TrendIcon } from '@/lib/components/svgs/icons';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { isNumber, isPlainObject } from '@/lib/core/utils/lang';
 import { compareStrings } from '@/lib/core/utils/string';
 import { isIgnoredEntity, normalizedEntityData } from '@/lib/init/entities';
 import { createGraph, getElementsDefinition, type EdgeData, type NodeData, type NodeRenderData } from '@/lib/graph';
-import { createQueryByEquipment, fullEquipmentAndProcessQuery } from '@/lib/queries/process';
 import { alarmStore, useAlarmStore, useLatestValueStore } from '@/lib/stores/data';
 import { selectedStore, useSelectedStore, useSummaryStore, summaryStore } from '@/lib/stores/entity';
 import { useHopStore } from '@/lib/stores/graph';
@@ -122,7 +121,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
         const knowledgeGraphQuery =
           hops !== -1 && selectedEntityId
             ? createQueryByEquipment(selectedEntityId, hops)
-            : fullEquipmentAndProcessQuery;
+            : QUERY_ALL_EQUIPMENT_AND_PROCESS_STEPS;
 
         if (knowledgeGraphQuery !== lastKnowledgeGraphQuery.current) {
           const data = await loadData(knowledgeGraphQuery);

@@ -9,7 +9,7 @@ import {
 } from '@iot-app-kit/scene-composer';
 import { useCallback, useEffect } from 'react';
 
-import { VIEWPORT } from '@/config/iottwinmaker';
+import { VIEWPORT } from '@/config/project';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { isNil } from '@/lib/core/utils/lang';
 import { normalizedEntityData } from '@/lib/init/entities';

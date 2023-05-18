@@ -3,8 +3,8 @@
 
 import { IoTTwinMakerClient } from '@aws-sdk/client-iottwinmaker';
 
-import { SDK_CUSTOM_USER_AGENT } from '@/config/iottwinmaker';
 import type { AwsCredentials } from '@/lib/core/auth/cognito';
+import { customUserAgent } from '@/lib/core/sdk';
 import { createStore, createStoreHook } from '@/lib/core/store';
 import { isNotNil } from '@/lib/core/utils/lang';
 import { clientStore } from '@/lib/stores/iottwinmaker';
@@ -43,7 +43,7 @@ userStore.subscribe((getState) => {
     clientStore.setState(
       new IoTTwinMakerClient({
         credentials: state.awsCredentials,
-        customUserAgent: SDK_CUSTOM_USER_AGENT,
+        customUserAgent,
         region: state.awsCredentials!.region
       })
     );
