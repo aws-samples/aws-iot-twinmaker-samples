@@ -133,10 +133,20 @@ aws cognito-idp admin-set-user-password --user-pool-id "[YOUR_USER_POOL_ID]" --u
 
 4. Edit the web application configuration files. **Note: the files referenced in the following steps are relative to the `CookieFactoryDemo` directory.**
 
-    a. In `src/config/sites.template.ts`, set `WORKSPACE_ID` to your AWS IoT TwinMaker workspace ID. Rename the file to `src/config/sites.ts`.
+    a. In `src/config/sites.template.ts`, set `workspaceId` to your AWS IoT TwinMaker workspace ID. Rename the file to `src/config/sites.ts`.
     ```typescript
-    export const WORKSPACE_ID = '__FILL_IN__';
-    ```  
+    const sites: SiteConfig[] = [
+      {
+        id: crypto.randomUUID(),
+        iottwinmaker: {
+          sceneId: 'CookieFactory',
+          workspaceId: '__FILL_IN__'
+        },
+        location: '1 Main Street, Bakersville, NC, USA',
+        name: 'Bakersville Central'
+      }
+    ];
+    ``` 
     
     b. In `src/config/cognito.template.ts`, set the IDs and region to those specified in the Amazon Cognito user and identity pools created in CDK. You should be able to find all 3 in the CloudFormation output in the terminal you ran cdk deploy. Rename the file to `src/config/cognito.ts`.
     ```typescript

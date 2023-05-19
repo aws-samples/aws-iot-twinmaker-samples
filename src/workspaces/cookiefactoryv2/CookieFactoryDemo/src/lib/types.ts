@@ -100,8 +100,8 @@ export type Site = SiteConfig &
   }>;
 
 export type SiteConfig = Readonly<{
-  awsConfig: Readonly<TwinMakerConfig>;
   id: string;
+  iottwinmaker: Readonly<TwinMakerConfig>;
   location: string;
   name: string;
 }>;
