@@ -2,20 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /**
- * AWS Cognito authenticated flow configuration.
- * RENAME THIS TEMPLATE TO `cognito.ts`
+ * Project sites configuration.
+ * RENAME THIS TEMPLATE TO `sites.ts`
  */
 import type { SiteConfig } from '@/lib/types';
 
-export const WORKSPACE_ID = '__FILL_IN__';
-
 const sites: SiteConfig[] = [
   {
-    awsConfig: {
-      sceneId: 'CookieFactory',
-      workspaceId: WORKSPACE_ID
-    },
     id: crypto.randomUUID(),
+    iottwinmaker: {
+      sceneId: 'CookieFactory',
+      workspaceId: '__FILL_IN__'
+    },
     location: '1 Main Street, Bakersville, NC, USA',
     name: 'Bakersville Central'
   }

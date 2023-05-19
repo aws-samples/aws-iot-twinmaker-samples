@@ -48,7 +48,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
       if (client && site) {
         const command = new ExecuteQueryCommand({
           queryStatement,
-          workspaceId: site.awsConfig.workspaceId
+          workspaceId: site.iottwinmaker.workspaceId
         });
 
         const { rows } = await client.send(command);

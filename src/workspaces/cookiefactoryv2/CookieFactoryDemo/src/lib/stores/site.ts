@@ -31,13 +31,13 @@ siteStore.subscribe(async (getState) => {
 
   if (site) {
     if (user) {
-      const dataSource = initialize(site.awsConfig.workspaceId, {
+      const dataSource = initialize(site.iottwinmaker.workspaceId, {
         awsCredentials: user.awsCredentials!,
         awsRegion: user.awsCredentials!.region
       });
 
       dataSourceStore.setState(dataSource);
-      sceneLoaderStore.setState(dataSource.s3SceneLoader(site.awsConfig.sceneId));
+      sceneLoaderStore.setState(dataSource.s3SceneLoader(site.iottwinmaker.sceneId));
       alarmHistoryQueriesStore.setState(defaultAlarmHistoryQuery);
       dataHistoryQueriesStore.setState(defaultDataHistoryQuery);
     }
@@ -45,7 +45,7 @@ siteStore.subscribe(async (getState) => {
     if (client && Object.keys(summaryStore.getState()).length === 0) {
       const workspaceCommand = new ListEntitiesCommand({
         maxResults: 200,
-        workspaceId: site.awsConfig.workspaceId
+        workspaceId: site.iottwinmaker.workspaceId
       });
 
       const { entitySummaries } = await client.send(workspaceCommand);
