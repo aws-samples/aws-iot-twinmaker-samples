@@ -69,7 +69,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryEnvironment.glb",
+          "uri": "CookieFactoryEnvironment.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -187,7 +187,7 @@
       ],
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -221,7 +221,7 @@
       ],
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -268,7 +268,7 @@
       ],
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -299,7 +299,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -330,7 +330,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -361,7 +361,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -392,7 +392,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -423,7 +423,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -454,7 +454,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -485,7 +485,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -516,7 +516,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -547,7 +547,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -578,7 +578,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -609,7 +609,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -640,7 +640,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -671,7 +671,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -702,7 +702,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -733,7 +733,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -764,7 +764,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -795,7 +795,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -826,7 +826,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -857,7 +857,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -888,7 +888,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -919,7 +919,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -950,7 +950,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -981,7 +981,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryMixer.glb",
+          "uri": "CookieFactoryMixer.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -1054,7 +1054,7 @@
       ],
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryLine.glb",
+          "uri": "CookieFactoryLine.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -1089,7 +1089,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryLine.glb",
+          "uri": "CookieFactoryLine.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -1120,7 +1120,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryLine.glb",
+          "uri": "CookieFactoryLine.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
@@ -1151,7 +1151,7 @@
       "transformConstraint": {},
       "components": [
         {
-          "uri": "s3://twinmaker-workspace-cookiefactory-demo-v2-0-2-488356113317-iad/CookieFactoryWaterTank.glb",
+          "uri": "CookieFactoryWaterTank.glb",
           "modelType": "GLB",
           "castShadow": true,
           "receiveShadow": true,
