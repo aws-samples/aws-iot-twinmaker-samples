@@ -458,8 +458,8 @@ export class CookieFactoryV2Stack extends cdk.Stack {
                     "iottwinmaker:GetComponentType"],
                 effect: iam.Effect.ALLOW,
                 resources: [
-                    `arn:aws:iottwinmaker:us-east-1:${this.account}:workspace/${workspaceId}/*`,
-                    `arn:aws:iottwinmaker:us-east-1:${this.account}:workspace/${workspaceId}`
+                    `arn:aws:iottwinmaker:${this.region}:${this.account}:workspace/${workspaceId}/*`,
+                    `arn:aws:iottwinmaker:${this.region}:${this.account}:workspace/${workspaceId}`
                 ],
             })
         );
