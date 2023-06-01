@@ -5,28 +5,49 @@ import { ExecuteQueryCommand } from '@aws-sdk/client-iottwinmaker';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { COMPONENT_NAMES, QUERY_ALL_EQUIPMENT_AND_PROCESS_STEPS, createQueryByEquipment } from '@/config/project';
-import { FitIcon, MinusIcon, PlusIcon, TargetIcon, TrendIcon } from '@/lib/components/svgs/icons';
+import { KpiChart } from '@/lib/components/charts';
+import { FitIcon, MinusIcon, PlusIcon, TargetIcon } from '@/lib/components/svgs/icons';
+import { createGraph, eventStore, getElementsDefinition } from '@/lib/core/graph';
+import type { EdgeData, EventName, NodeData } from '@/lib/core/graph';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
-import { isNumber, isPlainObject } from '@/lib/core/utils/lang';
 import { compareStrings } from '@/lib/core/utils/string';
 import { isIgnoredEntity, normalizedEntityData } from '@/lib/init/entities';
-import { createGraph, getElementsDefinition, type EdgeData, type NodeData, type NodeRenderData } from '@/lib/graph';
-import { alarmStore, useAlarmStore, useLatestValueStore } from '@/lib/stores/data';
-import { selectedStore, useSelectedStore, useSummaryStore, summaryStore } from '@/lib/stores/entity';
+import { alarmStore, useAlarmStore, useLatestValuesStore } from '@/lib/stores/data';
+import { selectedStore, useSelectedStore, useSummaryStore } from '@/lib/stores/entity';
 import { useHopStore } from '@/lib/stores/graph';
 import { useClientStore } from '@/lib/stores/iottwinmaker';
 import { useHasDashboardStore, usePanelsStore } from '@/lib/stores/panels';
 import { useSiteStore } from '@/lib/stores/site';
 import type {
   AlarmState,
+  EntityData,
   LatestValue,
-  Primitive,
   TwinMakerQueryData,
   TwinMakerQueryEdgeData,
   TwinMakerQueryNodeData
 } from '@/lib/types';
+import { Overlay } from './components';
 
 import styles from './styles.module.css';
+
+const EVENT_NAMES: EventName[] = [
+  'click',
+  'cxtdrag',
+  'cxtdragout',
+  'cxtdragover',
+  'cxttap',
+  'cxttapend',
+  'cxttapstart',
+  'drag',
+  'free',
+  'mousemove',
+  'mouseover',
+  'mouseout',
+  'resize',
+  'select',
+  'unselect',
+  'viewport'
+];
 
 const GRAPH_CANVAS_PADDING = 30;
 
@@ -39,8 +60,9 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
   const [selectedEntity, setSelectedEntity] = useSelectedStore();
   const [site] = useSiteStore();
   const [summaries] = useSummaryStore();
-  const [graph, setGraph] = useState<ReturnType<typeof createGraph>>();
-  const ref = useRef<HTMLElement>(null);
+  const [graph, setGraph] = useState<ReturnType<typeof createGraph<EntityData>>>();
+  const canvasRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const lastKnowledgeGraphQuery = useRef<string | null>(null);
 
   const loadData = useCallback(
@@ -54,35 +76,38 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
         const { rows } = await client.send(command);
 
         if (rows) {
-          const nodeData = new Map<string, NodeData>();
+          const nodeData = new Map<string, NodeData<EntityData>>();
           const edgeData = new Map<string, EdgeData>();
 
           for await (const { rowData } of rows as TwinMakerQueryData) {
             if (rowData) {
               for await (const item of rowData) {
                 if (isTwinMakerQueryNodeData(item)) {
-                  const { entityId, entityName, components } = item;
+                  const { entityId, components } = item;
 
                   if (!isIgnoredEntity(entityId)) {
                     const component = components.find(
                       ({ componentName }) =>
-                        componentName === COMPONENT_NAMES.EQUIPMENT || componentName === COMPONENT_NAMES.PROCESS_STEP
+                        componentName === COMPONENT_NAMES.Equipment || componentName === COMPONENT_NAMES.ProcessStep
                     );
 
                     if (component) {
                       const { componentName } = component;
-                      const entityData = normalizedEntityData.find(({ entityId: id }) => id === entityId) ?? {
+                      const entityData: EntityData = normalizedEntityData.find(
+                        ({ entityId: id }) => id === entityId
+                      ) ?? {
                         entityId,
                         componentName,
+                        name: 'Unknown',
                         properties: []
                       };
 
                       nodeData.set(entityId, {
                         entityData,
                         id: entityId,
-                        label: entityName,
-                        shape: componentName === COMPONENT_NAMES.EQUIPMENT ? 'hexagon' : 'ellipse',
-                        state: componentName === COMPONENT_NAMES.EQUIPMENT ? 'Unknown' : 'Normal'
+                        label: entityData.name,
+                        shape: componentName === COMPONENT_NAMES.Equipment ? 'hexagon' : 'ellipse',
+                        state: 'Unknown'
                       });
                     }
                   }
@@ -192,7 +217,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
   useEffect(() => {
     const summaryList = Object.values(summaries);
 
-    if (ref.current && summaryList.length) {
+    if (canvasRef.current && summaryList.length) {
       const rootIds = normalizedEntityData.reduce<string[]>((accum, { entityId, isRoot }) => {
         if (isRoot) {
           accum.push(entityId);
@@ -200,40 +225,48 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
         return accum;
       }, []);
 
-      const graph = createGraph(ref.current, {
+      const graph = createGraph<EntityData>(canvasRef.current, {
         canvasPadding: GRAPH_CANVAS_PADDING,
+        eventNames: EVENT_NAMES,
         fitOnLoad: true,
         rootElementIds: rootIds
       });
 
-      graph.subscribe(({ eventName, data }) => {
-        switch (eventName) {
-          case 'click': {
-            if (data?.entityData) {
-              const { entityData } = data as NodeRenderData;
-              setSelectedEntity({ entityData, type: 'process' });
+      const unsubscribeEventStore = eventStore.subscribe((getState) => {
+        const event = getState();
 
-              const { entityId } = entityData;
+        if (event) {
+          const { target, type } = event;
 
-              if (!graph.nodesInView(entityId)) {
-                graph.center(entityId);
+          switch (type) {
+            case 'click': {
+              const data = target.data();
+              if (graph.isNodeRenderData(data)) {
+                const { entityData } = data;
+                setSelectedEntity({ entityData, type: 'process' });
+
+                const { entityId } = entityData;
+
+                if (!graph.nodesInView(entityId)) {
+                  graph.center(entityId);
+                }
+              } else {
+                setSelectedEntity({ entityData: null, type: 'process' });
               }
-            } else {
-              setSelectedEntity({ entityData: null, type: 'process' });
+              break;
             }
-            break;
-          }
-          case 'resize': {
-            const { entityData } = selectedStore.getState();
+            case 'resize': {
+              const { entityData } = selectedStore.getState();
 
-            if (entityData) {
-              const { entityId } = entityData;
+              if (entityData) {
+                const { entityId } = entityData;
 
-              if (!graph.nodesInView(entityId)) {
-                graph.center(entityId);
+                if (!graph.nodesInView(entityId)) {
+                  graph.center(entityId);
+                }
               }
+              break;
             }
-            break;
           }
         }
       });
@@ -241,6 +274,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
       setGraph(graph);
 
       return () => {
+        unsubscribeEventStore();
         graph.dispose();
       };
     }
@@ -263,8 +297,8 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
 
   return (
     <main className={createClassName(styles.root, className)}>
-      <section className={styles.canvasContainer}>
-        <section ref={ref} className={styles.canvas} />
+      <section className={styles.canvasContainer} ref={containerRef}>
+        <section ref={canvasRef} className={styles.canvas} />
         <section className={styles.controls}>
           <button className={styles.button} onPointerUp={handleFit}>
             <FitIcon className={styles.buttonFitIcon} />
@@ -279,6 +313,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
             <MinusIcon className={styles.buttonZoomOutIcon} />
           </button>
         </section>
+        <Overlay />
       </section>
       {kpis}
     </main>
@@ -287,25 +322,26 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
 
 function KpiCharts() {
   const [alarms] = useAlarmStore();
-  const [latestValuesDict] = useLatestValueStore();
+  const [latestValuesMap] = useLatestValuesStore();
   const [selectedEntity] = useSelectedStore();
 
   return useMemo(() => {
     const { entityData } = selectedEntity;
 
     if (entityData) {
-      const alarmValue = alarms[entityData.entityId];
-      const latestValues = latestValuesDict[entityData.entityId];
-      const entitySummary = summaryStore.getState()[entityData.entityId];
+      const { entityId, name, type } = entityData;
+      const alarmValue = alarms[entityId];
+      const latestValues = latestValuesMap[entityId];
 
-      if (entitySummary && latestValues) {
+      if (latestValues) {
         const charts = Object.values(latestValues)
           .sort((a, b) => compareStrings(a.metaData.propertyName, b.metaData.propertyName))
           .map((latestValue) => {
             return (
               <KpiChart
-                key={`${latestValue.metaData.entityId}-${latestValue.metaData.propertyName}`}
                 alarmValue={alarmValue}
+                className={styles.latestValuesKpi}
+                key={`${latestValue.metaData.entityId}-${latestValue.metaData.propertyName}`}
                 latestValue={latestValue}
               />
             );
@@ -313,7 +349,10 @@ function KpiCharts() {
 
         return (
           <section className={styles.latestValues}>
-            <div className={styles.latestValuesEntityName}>{entitySummary.entityName} Components</div>
+            <section className={styles.latestValuesHeader}>
+              <div className={styles.latestValuesEntityType}>{type}</div>
+              <div className={styles.latestValuesEntityName}>{name}</div>
+            </section>
             <div className={styles.latestValuesKpis}>{charts}</div>
           </section>
         );
@@ -321,103 +360,13 @@ function KpiCharts() {
     }
 
     return null;
-  }, [selectedEntity, alarms, latestValuesDict]);
+  }, [selectedEntity, alarms, latestValuesMap]);
 }
 
-function KpiChart({
-  alarmValue,
-  latestValue: {
-    dataPoint: { x, y },
-    metaData: { propertyName },
-    threshold,
-    trend,
-    unit
-  }
-}: {
-  alarmValue: LatestValue<AlarmState>;
-  latestValue: LatestValue<Primitive>;
-}) {
-  let thresholdBreached = false;
-  let thresholdUpperValue: number | undefined;
-  let thresholdLowerValue: number | undefined;
-
-  if (isPlainObject(threshold)) {
-    const { upper, lower } = threshold;
-
-    if (isNumber(y)) {
-      if (upper) {
-        thresholdUpperValue = upper;
-        thresholdBreached = y > upper;
-      }
-
-      if (!thresholdBreached && lower) {
-        thresholdLowerValue = lower;
-        thresholdBreached = y < lower;
-      }
-    }
-  }
-
-  return (
-    <section className={createClassName(styles.latestValue, styles[alarmValue?.dataPoint.y ?? 'Unknown'])}>
-      <div className={styles.latestValueName}>{propertyName}</div>
-      <div className={styles.latestValueValueGroup}>
-        <div className={styles.latestValueValueUnitGroup}>
-          <div className={styles.latestValueValue}>{y}</div>
-          {unit && <div className={styles.latestValueUnit}>{unit}</div>}
-        </div>
-        <div className={createClassName(styles.trendGroup, { [styles.thresholdBreached]: thresholdBreached })}>
-          {thresholdLowerValue && (
-            <ThresholdIndicator
-              value={thresholdLowerValue}
-              limit="lower"
-              isActive={isNumber(y) && y < thresholdLowerValue}
-            />
-          )}
-          <TrendIcon
-            className={createClassName(styles.trendIcon, {
-              [styles.trendIconDown]: trend === -1,
-              [styles.trendIconUp]: trend === 1
-            })}
-          />
-          {thresholdUpperValue && (
-            <ThresholdIndicator
-              value={thresholdUpperValue}
-              limit="upper"
-              isActive={isNumber(y) && y > thresholdUpperValue}
-            />
-          )}
-        </div>
-      </div>
-      <div className={styles.latestValueTime}>
-        {new Date(x).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' })}
-      </div>
-    </section>
-  );
-}
-
-function ThresholdIndicator({
-  value,
-  limit,
-  isActive
-}: {
-  value: number;
-  limit: 'upper' | 'lower';
-  isActive: boolean;
-}) {
-  return (
-    <main
-      className={createClassName(styles.thresholdIndicator, {
-        [styles.thresholdIndicatorLimitUpper]: limit === 'upper',
-        [styles.thresholdIndicatorLimitLower]: limit === 'lower',
-        [styles.isActive]: isActive
-      })}
-    >
-      {value}
-    </main>
-  );
-}
-
-function setAlarmState(graph: ReturnType<typeof createGraph>, alarmState: Record<string, LatestValue<AlarmState>>) {
+function setAlarmState(
+  graph: ReturnType<typeof createGraph<EntityData>>,
+  alarmState: Record<string, LatestValue<AlarmState>>
+) {
   Object.entries(alarmState).forEach(([entityId, state]) => {
     graph.updateNode(entityId, { state: state.dataPoint.y });
   });

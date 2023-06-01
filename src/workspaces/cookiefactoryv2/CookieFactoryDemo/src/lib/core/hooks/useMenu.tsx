@@ -4,11 +4,11 @@
 import { useCallback, useState, useMemo, type PointerEventHandler, useRef } from 'react';
 import type { Except, ValueOf } from 'type-fest';
 
-import { Menu, type MenuItem } from '@/lib/core/components';
-import type { ClassName } from '@/lib/core/utils/element';
+import { Menu, type MenuItem } from '../components';
+import type { ClassName } from '../utils/element';
 import { useClickWithin } from './useClickWithin';
 
-export function useMenu<T>(
+export function useMenu(
   items: Except<MenuItem, 'selected'>[],
   { className, selectedId }: Partial<{ className: ClassName; selectedId: ValueOf<MenuItem, 'id'> }> = {}
 ) {

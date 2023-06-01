@@ -51,10 +51,12 @@ function AppKitTimeSeriesDataWrapper({ timeSeriesQueries }: { timeSeriesQueries:
     settings: { ...DEFAULT_REQUEST_SETTINGS, ...REQUEST_SETTINGS },
     viewport: VIEWPORT
   });
+
   setDataStreams(dataStreams);
+
   return null;
 }
 
 const setDataStreams = throttle((dataStreams: DataStream<Primitive>[]) => {
   dataStreamsStore.setState(dataStreams);
-}, 500);
+}, 1000);

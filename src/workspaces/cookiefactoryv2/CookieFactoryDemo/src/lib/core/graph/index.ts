@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export * from './constants';
+export * from './events';
 export * from './graph';
 export * from './svg';
 export * from './types';

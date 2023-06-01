@@ -5,18 +5,25 @@
  * Project sites configuration.
  * RENAME THIS TEMPLATE TO `sites.ts`
  */
-import type { SiteConfig } from '@/lib/types';
 
-const sites: SiteConfig[] = [
-  {
-    id: crypto.randomUUID(),
-    iottwinmaker: {
-      sceneId: 'CookieFactory',
-      workspaceId: '__FILL_IN__'
-    },
-    location: '1 Main Street, Bakersville, NC, USA',
-    name: 'Bakersville Central'
-  }
-];
+import type { SiteConfig, UserConfig } from '@/lib/types';
+
+const sites: Record<string, SiteConfig[]> = {
+  'user@cookiefactory': [
+    {
+      iottwinmaker: {
+        sceneId: 'CookieFactory',
+        workspaceId: '__FILL_IN__'
+      },
+      id: crypto.randomUUID(),
+      location: '1 Main Street, Bakersville, NC, USA',
+      name: 'Bakersville Central'
+    }
+  ]
+};
+
+export function getLookUpKey(user: UserConfig) {
+  return user.email;
+}
 
 export default sites;

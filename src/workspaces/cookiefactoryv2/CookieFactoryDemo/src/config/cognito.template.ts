@@ -5,6 +5,7 @@
  * AWS Cognito authenticated flow configuration.
  * RENAME THIS TEMPLATE TO `cognito.ts`
  */
+
 import type { CognitoAuthenticatedFlowConfig } from '@/lib/core/auth/cognito';
 
 const cognito: CognitoAuthenticatedFlowConfig = {

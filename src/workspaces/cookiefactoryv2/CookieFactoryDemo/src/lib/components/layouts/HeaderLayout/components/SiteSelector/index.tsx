@@ -8,7 +8,7 @@ import { Circle, Ring } from '@/lib/components/svgs/shapes';
 import { useMenu } from '@/lib/core/hooks';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { isNil } from '@/lib/core/utils/lang';
-import { SITES } from '@/lib/init/sites';
+import { getSites } from '@/lib/init/sites';
 import { useSiteStore } from '@/lib/stores/site';
 import type { AlarmState } from '@/lib/types';
 
@@ -19,7 +19,7 @@ export function SiteSelector({ className }: { className?: ClassName }) {
   const [siteState, setSiteState] = useSiteStore();
 
   const { handleTrigger, menu, menuContainerRef, selectedId } = useMenu(
-    SITES.map(({ health, id, name, location }) => {
+    getSites().map(({ health, id, name, location }) => {
       return {
         component: ({ selected }) => (
           <div className={createClassName(menuStyles.menuItem)}>
@@ -59,7 +59,7 @@ export function SiteSelector({ className }: { className?: ClassName }) {
   }, [siteState, menu]);
 
   useEffect(() => {
-    if (selectedId) setSiteState(SITES.find((site) => site.id === selectedId) ?? null);
+    if (selectedId) setSiteState(getSites().find((site) => site.id === selectedId) ?? null);
   }, [selectedId]);
 
   return (

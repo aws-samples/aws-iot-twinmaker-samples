@@ -16,7 +16,7 @@
   /* font */
   --font-family: 'NotoSans';
   /* transition */
-  --transition-duration: 100ms;
+  --transition-duration: 200ms;
   --transition: all var(--transition-duration) ease-out;
   /* layout */
   --z-max: 9999;
