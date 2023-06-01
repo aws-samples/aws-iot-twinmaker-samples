@@ -6,11 +6,6 @@
   --button-background-hover-color: var(--color-gray-38);
   --button-icon-color: var(--color-gray-16);
   --button-icon-hover-color: var(--color-gray-4);
-  --color-alarm-high: #F24040;
-  --color-alarm-medium: #FA8B38;
-  --color-alarm-low: #DCCE38;
-  --color-alarm-normal: var(--color-gray-16);
-  --color-alarm-unknown: #56575C;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -23,6 +18,7 @@
 .canvasContainer {
   flex: 1;
   position: relative;
+  overflow: hidden;
 }
 
 .canvas {
@@ -101,168 +97,60 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 40px;
-  gap: 30rem;
+  padding: 40rem;
+  gap: 27rem;
   pointer-events: none;
   border-top: solid 2px var(--color-gray-49);
 }
 
+.latestValuesHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
 .latestValuesEntityName {
   color: var(--color-gray-3);
-  font-size: 20rem;
-  font-weight: 500;
+  font-size: 22rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.latestValuesEntityType {
+  color: var(--color-gray-11);
+  font-size: 18rem;
+  font-weight: 400;
   line-height: 1;
 }
 
 .latestValuesKpis {
   display: flex;
-  /* flex-direction: column; */
   justify-content: flex-start;
   align-items: center;
-  gap: 80rem;
+  gap: 40rem;
 }
 
-.latestValue {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 15rem;
-  padding: 0 0 20rem;
-  width: 220rem;
-  background-color: var(--panel-background-color);
-  border-bottom: solid 5px var(--color-gray-53);
-  border-radius: var(--border-radius);
-  /* box-shadow: 0 0 8px var(--color-gray-50); */
-  transition: var(--transition);
-  pointer-events: all;
+.latestValuesKpi {
+  --color-alarm-indicator-normal: var(--color-gray-42);
 }
 
+/* 
 .High {
-  border-bottom-color: var(--color-alarm-high);
+  --border-color: var(--color-alarm-high);
 }
 
 .Medium {
-  border-bottom-color: var(--color-alarm-medium);
+  --border-color: var(--color-alarm-medium);
 }
 
 .Low {
-  border-bottom-color: var(--color-alarm-low);
+  --border-color: var(--color-alarm-low);
 }
 
 .Normal {
-  border-bottom-color: var(--color-alarm-normal);
+  --border-color: var(--color-alarm-normal);
 }
 
 .Unknown {
-  border-bottom-color: var(--color-alarm-unknown);
-}
-
-.latestValueName {
-  flex-shrink: 0;
-  color: var(--color-gray-16);
-  font-size: 20rem;
-  font-weight: 400;
-  letter-spacing: -.2rem;
-  line-height: .8;
-}
-
-.latestValueValueGroup {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.latestValueValueUnitGroup {
-  display: flex;
-  justify-content: flex-start;
-  align-items: baseline;
-  gap: 5rem;
-}
-
-.latestValueValue {
-  color: var(--color-alarm-normal);
-  font-size: 80rem;
-  font-weight: 500;
-  line-height: 1;
-  font-variant-numeric: proportional-nums;
-  transition: var(--transition);
-}
-
-.latestValueUnit {
-  color: var(--color-alarm-normal);
-  font-size: 28rem;
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -.5rem;
-}
-
-.latestValueTime {
-  flex-shrink: 0;
-  color: var(--color-alarm-normal);
-  font-size: 12rem;
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: .2rem;
-}
-
-.latestValue:not(.Normal) .latestValueValue {
-  color: var(--color-gray-3);
-}
-
-.trendGroup {
-  position: relative;
-  width: 50rem;
-  height: 50rem;
-  color: var(--color-alarm-normal);
-}
-
-.trendIcon {
-  width: 50rem;
-  height: 50rem;
-  transition: var(--transition);
-  color: currentColor;
-}
-
-.thresholdBreached .trendIcon {
-  color: var(--color-alarm-high);
-}
-
-.trendIconUp {
-  rotate: -45deg;
-}
-
-.trendIconDown {
-  rotate: 45deg;
-}
-
-.thresholdIndicator {
-  position: absolute;
-  color: currentColor;
-  font-size: 11rem;
-  font-variant-numeric: proportional-nums;
-  font-weight: 400;
-  line-height: 1;
-  opacity: 0;
-  text-align: center;
-  transition: var(--transition);
-  width: 100%;
-}
-
-.thresholdIndicator.isActive {
-  opacity: 1;
-  color: var(--color-alarm-high);
-}
-
-.thresholdIndicatorLimitUpper {
-  border-top: dotted 2px currentColor;
-  padding-top: 5rem;
-  bottom: -25rem;
-}
-
-.thresholdIndicatorLimitLower {
-  border-bottom: dotted 2px currentColor;
-  padding-bottom: 5rem;
-  top: -25rem;
-}
+  --border-color: var(--color-alarm-unknown);
+} */

@@ -1,0 +1,106 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.main {
+  /* public vars */
+  --color-alarm-indicator-normal: var(--color-gray-48);
+  --color-property-normal: var(--color-gray-11);
+  --color-property-active: var(--color-gray-11);
+  --color-value-normal: var(--color-gray-11);
+  --color-value-active: var(--color-gray-3);
+  --color-unit-normal: var(--color-gray-11);
+  --color-unit-active: var(--color-gray-11);
+  --color-trend-normal: var(--color-gray-11);
+  --size-base: 1rem;
+  /* private */
+  --color-alarm-indicator: var(--color-alarm-indicator-normal);
+  --color-property: var(--color-property-normal);
+  --color-value: var(--color-value-normal);
+  --color-unit: var(--color-unit-normal);
+  --color-trend: var(--color-trend-normal);
+  font-size: var(--size-base);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 6em;
+  padding-bottom: 10em;
+  border-bottom: solid 3px var(--color-alarm-indicator);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.main:not(.Normal):not(.Unknown) {
+  --color-alarm-indicator: var(--color-alarm);
+  --color-property: var(--color-property-active);
+  --color-value: var(--color-value-active);
+  --color-unit: var(--color-unit-active);
+}
+
+.propertyName {
+  color: var(--color-property);
+  font-size: 11em;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.valueSection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12em;
+}
+
+.valueGroup {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 3em;
+}
+
+.value {
+  color: var(--color-value);
+  font-size: 18em;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: proportional-nums;
+  transition: var(--transition);
+}
+
+.unit {
+  color: var(--color-unit);
+  font-size: 11em;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.trendIcon {
+  width: 18em;
+  color: var(--color-trend);
+  transition: var(--transition);
+}
+
+.hasBreachedThreshold {
+  color: var(--color-alarm);
+}
+
+.trendIconUp {
+  rotate: -45deg;
+}
+
+.trendIconDown {
+  rotate: 45deg;
+}
+
+.High {
+  --color-alarm: var(--color-alarm-high);
+}
+
+.Medium {
+  --color-alarm: var(--color-alarm-medium);
+}
+
+.Low {
+  --color-alarm: var(--color-alarm-low);
+}

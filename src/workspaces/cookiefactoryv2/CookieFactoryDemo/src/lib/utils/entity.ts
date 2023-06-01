@@ -1,8 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ValueOf } from 'type-fest';
+import type { SetRequired, ValueOf } from 'type-fest';
 
+import { isNotNil } from '@/lib/core/utils/lang';
 import type {
   EntityData,
   EntityPropertyType,
@@ -11,7 +12,7 @@ import type {
   TwinMakerEntityHistoryQuery
 } from '@/lib/types';
 
-export function createHistoryQuery<T extends EntityData>(
+export function createHistoryQuery<T extends SetRequired<EntityData, 'properties'>>(
   entityData: T,
   propertyType: EntityPropertyType
 ): TwinMakerEntityHistoryQuery {
@@ -30,7 +31,7 @@ export function createHistoryQuery<T extends EntityData>(
   return { componentName, entityId, properties: reducedProperties };
 }
 
-export function createHistoryQueries<T extends EntityData>(
+export function createHistoryQueries<T extends SetRequired<EntityData, 'properties'>>(
   entityData: T,
   propertyType: EntityPropertyType
 ): TwinMakerEntityHistoryQuery[] {
@@ -49,4 +50,8 @@ export function createTimeSeriesQueries(
   historyQuery: TwinMakerEntityHistoryQuery[]
 ): TimeSeriesDataQuery[] {
   return historyQuery.map((query) => dataSource.query.timeSeriesData(query));
+}
+
+export function isEntityWithProperties(entityData: EntityData): entityData is SetRequired<EntityData, 'properties'> {
+  return isNotNil(entityData.properties);
 }

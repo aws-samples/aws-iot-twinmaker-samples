@@ -5,17 +5,40 @@ import type {
   CollectionEventName,
   Core,
   Css,
+  EdgeDefinition,
   EdgeDataDefinition,
   EdgeSingular,
+  ElementsDefinition,
+  EventObject,
   GraphEventName,
+  NodeCollection,
+  NodeDefinition,
   NodeDataDefinition,
   NodeSingular,
+  BoundingBox12,
+  BoundingBoxWH,
   UserInputDeviceEventName,
   UserInputDeviceEventNameExt
 } from 'cytoscape';
 import type { ValueOf } from 'type-fest';
 
-import type { AlarmState, EntityData } from '@/lib/types';
+export type {
+  Core,
+  Css,
+  EdgeDataDefinition,
+  EdgeDefinition,
+  EdgeSingular,
+  ElementsDefinition,
+  EventObject,
+  NodeCollection,
+  NodeDefinition,
+  NodeDataDefinition,
+  NodeSingular
+};
+
+export type AlarmState = 'High' | 'Medium' | 'Low' | 'Normal' | 'Unknown';
+
+export type RenderedBoundingBox = BoundingBox12 & BoundingBoxWH;
 
 export type EdgeStyleProps = {
   color: string;
@@ -62,7 +85,7 @@ export type EdgeEndpoint =
   | 'outside-to-line'
   | 'outside-to-line-or-label';
 
-export type NodeData = NodeDataDefinition & {
+export type NodeData<EntityData> = NodeDataDefinition & {
   entityData: EntityData;
   id: string;
   label: string;
@@ -72,7 +95,7 @@ export type NodeData = NodeDataDefinition & {
 
 export type NodeShape = Css.NodeShape;
 
-export type NodeRenderData = NodeData & {
+export type NodeRenderData<EntityData> = NodeData<EntityData> & {
   hoverSvg?: string;
   isDirty: boolean;
   normalSvg?: string;
@@ -98,10 +121,10 @@ export type NodeStyleProps = {
   zIndex?: number;
 };
 
-export type Subscriber = (ev: EventDetail) => void;
-export type EventDetail = {
+export type Subscriber<EntityData> = (ev: EventDetail<EntityData>) => void;
+export type EventDetail<EntityData> = {
   eventName: EventName;
-  data?: NodeRenderData | EdgeRenderData;
-  target: NodeSingular | EdgeSingular| Core;
+  data?: NodeRenderData<EntityData> | EdgeRenderData;
+  target: NodeSingular | EdgeSingular | Core;
 };
 export type EventName = CollectionEventName | GraphEventName | UserInputDeviceEventName | UserInputDeviceEventNameExt;

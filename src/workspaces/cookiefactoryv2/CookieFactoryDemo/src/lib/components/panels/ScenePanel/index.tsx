@@ -80,18 +80,18 @@ export const ScenePanel = ({ className }: { className?: ClassName }) => {
     <main className={createClassName(styles.root, className)}>
       {sceneLoader && (
         <SceneViewer
-          sceneComposerId={sceneComposerId}
           config={{
             dracoDecoder: {
               enable: true,
               path: 'https://www.gstatic.com/draco/versioned/decoders/1.5.3/' // path to the draco files
             }
           }}
-          queries={timeSeriesQueries}
-          selectedDataBinding={selectedEntity.entityData ?? undefined}
-          sceneLoader={sceneLoader}
           onSelectionChanged={handleSelectionChange}
           onWidgetClick={handleWidgetClick}
+          queries={timeSeriesQueries}
+          sceneComposerId={sceneComposerId}
+          sceneLoader={sceneLoader}
+          selectedDataBinding={selectedEntity.entityData ?? undefined}
           viewport={VIEWPORT}
         />
       )}

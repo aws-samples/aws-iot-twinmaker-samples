@@ -3,17 +3,15 @@
 
 import { FactoryIcon } from '@/lib/components/svgs/icons';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
-import { SITES } from '@/lib/init/sites';
-import { useSiteStore } from '@/lib/stores/site';
+import { getSites } from '@/lib/init/sites';
+import { siteStore } from '@/lib/stores/site';
 import type { Site } from '@/lib/types';
 
 import styles from './styles.module.css';
 
 export function SiteSelectorView({ className }: { className?: ClassName }) {
-  const [, setSiteState] = useSiteStore();
-
-  const siteElements = SITES.map((site) => {
-    return <SiteElement key={site.id} handlePointerUp={() => setSiteState(site)} site={site} />;
+  const siteElements = getSites().map((site) => {
+    return <SiteElement key={site.id} handlePointerUp={() => siteStore.setState(site)} site={site} />;
   });
 
   return (

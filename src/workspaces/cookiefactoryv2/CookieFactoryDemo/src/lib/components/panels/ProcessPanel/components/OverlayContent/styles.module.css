@@ -1,0 +1,112 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.overlay {
+  --color-alarm-bg: transparent;
+  --border-color: var(--color-alarm-unknown);
+  display: flex;
+  flex-direction: column;
+  /* min-width: 180rem; */
+  max-width: 220rem;
+  border-radius: 6rem;
+  border: solid 1rem var(--color-gray-53);
+  box-shadow: 2rem 2rem 8rem var(--color-gray-52);
+  overflow: hidden;
+}
+
+.headerSection {
+  display: flex;
+  align-items: center;
+  gap: 14rem;
+  padding: 0 16rem;
+  background-color: var(--color-gray-43);
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 12rem 0 14rem;
+}
+
+.headerSubtitle {
+  color: var(--color-gray-11);
+  font-size: 13rem;
+  font-weight: 400;
+}
+
+.title {
+  color: var(--color-gray-3);
+  font-size: 15rem;
+  font-weight: 500;
+}
+
+.alarmStatusIcon {
+  --border-color: var(--color-alarm-unknown);
+  color: var(--border-color);
+  width: 20rem;
+}
+
+.overlay.Normal .alarmStatusIconIcon {
+  color: var(--color-health-normal);
+}
+
+.alarmMessageSection {
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+  padding: 10rem 16rem;
+  background-color: var(--color-gray-53);
+  border-bottom: 1rem solid var(--color-gray-43);
+  color: var(--color-gray-3);
+  font-size: 12rem;
+  font-weight: 400;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.alarmMessageIcon {
+  flex-shrink: 0;
+  color: var(--border-color);
+  width: 16rem;
+}
+
+.kpis {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 24rem;
+  padding: 10rem 16rem 16rem;
+  background-color: var(--color-gray-53);
+}
+
+.kpi {
+  --color-alarm-indicator-normal: var(--color-gray-46);
+}
+
+.kpisEmptyState {
+  padding: 14rem 16rem 16rem;
+  color: var(--color-gray-11);
+  font-size: 12rem;
+  font-weight: 400;
+}
+
+.High {
+  --border-color: var(--color-alarm-high);
+}
+
+.Medium {
+  --border-color: var(--color-alarm-medium);
+}
+
+.Low {
+  --border-color: var(--color-alarm-low);
+}
+
+.Normal {
+  --border-color: var(--color-alarm-normal);
+}
+
+.Unknown {
+  --border-color: var(--color-alarm-unknown);
+}

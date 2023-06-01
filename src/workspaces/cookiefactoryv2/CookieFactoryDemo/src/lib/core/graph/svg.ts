@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
-import type { NodeSingular } from 'cytoscape';
-
 import {
   NODE_HEXAGON_HEXAGON_POINTS,
   NODE_DIAMOND_DEFAULT_SIZE,
@@ -10,7 +8,7 @@ import {
   NODE_ELLIPSE_DEFAULT_SIZE,
   NODE_RECTANGLE_DEFAULT_SIZE
 } from './constants';
-import type { NodeRenderData, NodeShape, NodeStyleProps } from './types';
+import type { NodeRenderData, NodeShape, NodeSingular, NodeStyleProps } from './types';
 
 /**
  * Returns a SVG string for the `shape`. Defaults to `ellipse`.
@@ -41,7 +39,7 @@ export function createSvgString({
  * Returns the polygon points based on the `shape`. Defaults to `[]`.
  */
 export function getPolygonPoints(node: NodeSingular) {
-  const { shape } = node.data() as any as NodeRenderData;
+  const { shape } = node.data() as any as NodeRenderData<unknown>;
 
   switch (shape) {
     case 'hexagon':

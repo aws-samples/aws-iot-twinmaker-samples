@@ -41,8 +41,10 @@ export type DataStreamMetaData = {
 export type EntityData = {
   componentName: string;
   entityId: string;
-  properties: EntityDataProperty[];
   isRoot?: boolean;
+  name: string;
+  properties?: EntityDataProperty[];
+  type?: string;
 };
 
 export type EntityDataProperty = {
@@ -162,6 +164,7 @@ export type User = UserConfig &
   Readonly<{
     awsCredentials?: Readonly<AwsCredentials>;
     icon: ReactNode;
+    id: string;
   }>;
 
 export type UserConfig = Readonly<{

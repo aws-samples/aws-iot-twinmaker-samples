@@ -7,13 +7,13 @@ import type { AlarmState, AppKitThreshold } from '@/lib/types';
 export const CHART_ALARM_THRESHOLDS: AppKitThreshold<AlarmState>[] = [
   {
     color: ALARM_STATUS_COLORS.High,
-    label: { text: 'High', show: true },
+    label: { text: 'Yellow flower', show: true },
     value: 'High',
     comparisonOperator: 'EQ'
   },
   {
     color: ALARM_STATUS_COLORS.Medium,
-    label: { text: 'Medium', show: true },
+    label: { text: 'Yellow flower1', show: true },
     value: 'Medium',
     comparisonOperator: 'EQ'
   },

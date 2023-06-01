@@ -4,7 +4,7 @@
 import { useCallback, type PointerEventHandler, type ReactNode } from 'react';
 import type { ValueOf } from 'type-fest';
 
-import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { createClassName, type ClassName } from '../../utils/element';
 
 import styles from './styles.module.css';
 

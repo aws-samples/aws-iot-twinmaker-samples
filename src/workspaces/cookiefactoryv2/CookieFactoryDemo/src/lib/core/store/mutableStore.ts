@@ -3,7 +3,7 @@
 
 import type { ValueOf } from 'type-fest';
 
-import { isFunction } from '@/lib/core/utils/lang';
+import { isFunction } from '../utils/lang';
 import type { MutableStore, Subscriber } from './types';
 
 export function createMutableStore<State>(initialState: State): MutableStore<State> {

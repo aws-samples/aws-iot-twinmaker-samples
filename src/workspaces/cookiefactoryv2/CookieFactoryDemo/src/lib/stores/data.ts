@@ -8,19 +8,22 @@ import { createStore, createStoreHook } from '@/lib/core/store';
 import { lastItem, takeRight } from '@/lib/core/utils/lang';
 import { normalizedEntityData } from '@/lib/init/entities';
 import type { AlarmState, DataStream, DataStreamMetaData, LatestValue, Primitive, Threshold } from '@/lib/types';
+import { isEntityWithProperties } from '@/lib/utils/entity';
+
+export type LatestValuesMap = Record<string, { [key: string]: LatestValue<Primitive> }>;
 
 export const alarmStore = createStore<Record<string, LatestValue<AlarmState>>>({});
 export const dataStreamsStore = createStore<DataStream[]>([]);
-export const latestValueStore = createStore<Record<string, { [key: string]: LatestValue<Primitive> }>>({});
+export const latestValuesStore = createStore<LatestValuesMap>({});
 
 export const useAlarmStore = createStoreHook(alarmStore);
 export const useDataStreamsStore = createStoreHook(dataStreamsStore);
-export const useLatestValueStore = createStoreHook(latestValueStore);
+export const useLatestValuesStore = createStoreHook(latestValuesStore);
 
 export function resetDataStores() {
   alarmStore.resetToInitialState();
   dataStreamsStore.resetToInitialState();
-  latestValueStore.resetToInitialState();
+  latestValuesStore.resetToInitialState();
 }
 
 /**
@@ -43,11 +46,13 @@ dataStreamsStore.subscribe((getState) => {
         if (propertyName === ALARM_PROPERTY_NAME) {
           alarmStore.setState((state) => {
             const { x, y } = latestValue;
+
             state[entityId] = {
               dataPoint: { x, y: y as AlarmState },
               metaData: { componentName, entityId, propertyName },
               trend
             };
+            
             return state;
           });
         } else {
@@ -57,7 +62,7 @@ dataStreamsStore.subscribe((getState) => {
 
           const entityData = normalizedEntityData.find(({ entityId: id }) => id === entityId);
 
-          if (entityData) {
+          if (entityData && isEntityWithProperties(entityData)) {
             const propertyData = entityData.properties.find(
               ({ propertyQueryInfo: { propertyName: name } }) => name === propertyName
             );
@@ -69,7 +74,7 @@ dataStreamsStore.subscribe((getState) => {
             }
           }
 
-          latestValueStore.setState((state) => {
+          latestValuesStore.setState((state) => {
             state[entityId] = {
               ...state[entityId],
               [propertyName]: {

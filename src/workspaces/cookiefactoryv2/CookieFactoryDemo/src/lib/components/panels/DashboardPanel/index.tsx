@@ -12,7 +12,7 @@ import { normalizedEntityData } from '@/lib/init/entities';
 import { useAlarmHistoryQueriesStore, useSelectedStore, useSummaryStore } from '@/lib/stores/entity';
 import { usePanelsStore } from '@/lib/stores/panels';
 import type { StyleSettingsMap } from '@/lib/types';
-import { createHistoryQueries } from '@/lib/utils/entity';
+import { createHistoryQueries, isEntityWithProperties } from '@/lib/utils/entity';
 
 import '@iot-app-kit/react-components/styles.css';
 import css from './styles.module.css';
@@ -28,12 +28,10 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
   const [entitySummaries] = useSummaryStore();
 
   const entityAlarmStyles = useMemo(() => {
-    return normalizedEntityData.reduce<StyleSettingsMap>((accum, entity) => {
+    return normalizedEntityData.reduce<StyleSettingsMap>((accum, entityData) => {
       if (entitySummaries) {
-        const { entityId, properties } = entity;
-        const entitySummary = entitySummaries[entityId];
-
-        if (entitySummary) {
+        if (isEntityWithProperties(entityData)) {
+          const { name, properties } = entityData;
           const property = properties.find(({ type }) => type === 'alarm');
 
           if (property) {
@@ -41,7 +39,6 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
               propertyQueryInfo: { refId }
             } = property;
             if (refId) {
-              const name = entitySummary.entityName;
               accum[refId] = { detailedName: name, name };
             }
           }
@@ -53,17 +50,15 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
   }, [entitySummaries]);
 
   const entityDataStyles = useMemo(() => {
-    return normalizedEntityData.reduce<StyleSettingsMap>((accum, entity) => {
+    return normalizedEntityData.reduce<StyleSettingsMap>((accum, entityData) => {
       if (entitySummaries) {
-        const { entityId, properties } = entity;
-        const entitySummary = entitySummaries[entityId];
+        if (isEntityWithProperties(entityData)) {
+          const { properties } = entityData;
 
-        if (entitySummary) {
           properties
             .filter(({ type }) => type === 'data')
-            .forEach(({ propertyQueryInfo: { propertyName, refId } }, index) => {
+            .forEach(({ propertyQueryInfo: { propertyName, refId }, unit }, index) => {
               if (refId) {
-                const unit = propertyName === 'Speed' ? 'rpm' : '°F';
                 accum[refId] = {
                   detailedName: propertyName,
                   name: propertyName,
@@ -80,7 +75,7 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
   }, [entitySummaries]);
 
   const lineChartElements = useMemo(() => {
-    if (selectedEntity.entityData) {
+    if (selectedEntity.entityData && isEntityWithProperties(selectedEntity.entityData)) {
       const historyQueries = createHistoryQueries(selectedEntity.entityData, 'data');
 
       return historyQueries.map((query) => {
@@ -99,7 +94,7 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
   }, [selectedEntity, entityDataStyles]);
 
   const statusTimelineElement = useMemo(() => {
-    if (selectedEntity.entityData) {
+    if (selectedEntity.entityData && isEntityWithProperties(selectedEntity.entityData)) {
       const historyQueries = createHistoryQueries(selectedEntity.entityData, 'alarm');
 
       return (

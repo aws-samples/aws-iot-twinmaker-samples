@@ -1,26 +1,35 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 :root {
-	--color-black: #000000;
-	--color-blue: #3F5DA8;
-	--color-blue: #4567bd;
-	--color-blue: rgb(57, 98, 203);
-	--color-blue: rgb(63, 93, 168);
-	--color-blue-active: rgba(63, 93, 168, 0.6);
-	/* --color-alarm-p0: #FF5050;
-	--color-alarm-p1: #FF8E3D;
-	--color-alarm-p2: #F7FB40; */
-	--color-health-normal: var(--color-lime-450);
-	--color-health-critical: var(--color-red-450);
-	--color-health-high: var(--color-orange-450);
-	--color-health-medium: #F7FB40;
-	--color-health-low: var(--color-purple-500);
+	/* --color-alarm-high: #F24040;FF5050
+	--color-alarm-medium: #FA8B38;
+	--color-alarm-low: #DCCE38; */
+	/* --color-alarm-high: rgb(226, 80, 80); */
+	--color-alarm-high: #ff5050;
+	--color-alarm-medium: #ff8e3d;
+	--color-alarm-low: #ddcf3c;
+	--color-alarm-normal: #7bd45e;
+	--color-alarm-unknown: var(--color-gray-30);
+	--color-chart-teal: #71c9b9;
+	--color-chart-purple: #ed76ef;
+	/* --color-health-normal: var(--color-green-400);
+	--color-health-critical: var(--color-red-650);
+	--color-health-high: var(--color-orange-550);
+	--color-health-medium: var(--color-yellow-550); */
+	/*#F7FB4*/
+	/* --color-health-low: var(--color-purple-500);
 	--color-health-offline: var(--color-gray-30);
 	--color-health-unknown: var(--color-gray-30);
 	--color-alarm-p0: var(--color-red-450);
 	--color-alarm-p1: var(--color-amber-450);
 	--color-alarm-p2: #ffa500;
-	--color-alarm-p3: var(--color-sky-450);
+	--color-alarm-p3: var(--color-sky-450); */
+	--color-black: #000000;
+	/* --color-blue: #3F5DA8;
+	--color-blue: #4567bd;
+	--color-blue: rgb(57, 98, 203); */
+	--color-blue: #3f5da8;
+	/* --color-blue-active: rgba(63, 93, 168, 0.6); */
 	--color-gray-1: #F8F8F9;
 	--color-gray-2: #F4F4F5;
 	--color-gray-3: #F0F0F1;
@@ -50,7 +59,7 @@
 	--color-gray-27: #8A8C92;
 	--color-gray-28: #86888E;
 	--color-gray-29: #82838A;
-	--color-gray-30: #7E7F86;
+	--color-gray-30: #7e7f86;
 	--color-gray-31: #7A7B82;
 	--color-gray-32: #76777E;
 	--color-gray-33: #72737A;
@@ -81,10 +90,9 @@
 	--color-gray-58: #0F0F10;
 	--color-gray-59: #0B0B0C;
 	--color-gray-60: #070708;
-	--color-health-ok: #95D246;
+	/* --color-health-ok: #95D246;
 	--color-health-warn: var(--color-alarm-p2);
-	--color-health-alert: var(--color-alarm-p0);
-	--color-viz-teal: #71C9B9;
+	--color-health-alert: var(--color-alarm-p0); */
 	--color-white: #FFFFFF;
 }
 

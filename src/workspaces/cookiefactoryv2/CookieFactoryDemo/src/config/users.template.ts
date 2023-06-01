@@ -5,6 +5,7 @@
  * Authenticated user configuration.
  * RENAME THIS TEMPLATE TO `users.ts`
  */
+
 import type { UserConfig } from '@/lib/types';
 
 /**
