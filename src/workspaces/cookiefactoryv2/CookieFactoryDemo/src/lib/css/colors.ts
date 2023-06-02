@@ -3,11 +3,11 @@
 import type { AlarmState } from '../types';
 
 export const ALARM_STATUS_COLORS: Record<AlarmState, string> = {
-  High: '#F24040',
-  Medium: '#FA8B38',
-  Low: '#DCCE38',
-  Normal: '#97989E',
-  Unknown: '#56575C'
+  High: '#ff5050',
+  Medium: '#ff8e3d',
+  Low: '#ddcf3c',
+  Normal: '#7bd45e',
+  Unknown: '#7e7f86'
 };
 
 export const LINE_CHART_COLORS = ['#71C9B9', '#ED76EF'];

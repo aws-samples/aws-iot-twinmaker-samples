@@ -1,7 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
-  --health-color: var(--color-health-offline);
+  --health-color: var(--color-alarm-unknown);
   position: relative;
 }
 
@@ -95,25 +95,25 @@
 }
 
 .healthNormal {
-  --health-color: var(--color-health-ok);
+  --health-color: var(--color-alarm-normal);
 }
 
 .healthHigh {
-  --health-color: var(--color-health-high);
+  --health-color: var(--color-alarm-high);
 }
 
 .healthMedium {
-  --health-color: var(--color-health-medium);
+  --health-color: var(--color-alarm-medium);
 }
 
 .healthLow {
-  --health-color: var(--color-health-low);
+  --health-color: var(--color-alarm-low);
 }
 
 .healthOffline {
-  --health-color: var(--color-health-unknown);
+  --health-color: var(--color-alarm-unknown);
 }
 
 .healthUnknown {
-  --health-color: var(--color-health-unknown);
+  --health-color: var(--color-alarm-unknown);
 }

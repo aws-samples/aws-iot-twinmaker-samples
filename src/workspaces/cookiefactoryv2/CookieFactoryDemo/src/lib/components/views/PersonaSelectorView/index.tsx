@@ -18,13 +18,13 @@ export function PersonaSelectorView({ className }: { className?: ClassName }) {
   const [, setUser] = useUserStore();
   const [isActive, setIsActive] = useState(false);
 
-  async function handlePointerUp({ firstName, icon, lastName, password, title, email }: User) {
+  async function handlePointerUp({ firstName, icon, id, lastName, password, title, email }: User) {
     if (!disabled) {
       disabled = true;
       setIsActive(true);
       try {
         const awsCredentials = await getAwsCredentials({ ...AWS_CREDENTIAL_CONFIG, username: email, password });
-        setUser({ awsCredentials, email, firstName, icon, lastName, password, title });
+        setUser({ awsCredentials, email, firstName, icon, id, lastName, password, title });
       } catch (e) {
         console.error(e);
         setUser(null);
@@ -35,7 +35,7 @@ export function PersonaSelectorView({ className }: { className?: ClassName }) {
   }
 
   const personaElements = USERS.map((user) => {
-    return <PersonaElement key={user.email} handlePointerUp={handlePointerUp} user={user} />;
+    return <PersonaElement key={user.id} handlePointerUp={handlePointerUp} user={user} />;
   });
 
   useEffect(() => setUser(null), []);

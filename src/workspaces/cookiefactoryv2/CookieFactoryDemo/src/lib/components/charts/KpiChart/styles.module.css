@@ -1,0 +1,152 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.main {
+  /* public vars */
+  --color-alarm-indicator-normal: var(--color-gray-48);
+  --color-property-normal: var(--color-gray-11);
+  --color-property-active: var(--color-gray-11);
+  --color-value-normal: var(--color-gray-11);
+  --color-value-active: var(--color-gray-3);
+  --color-unit-normal: var(--color-gray-11);
+  --color-unit-active: var(--color-gray-11);
+  --color-trend-normal: var(--color-gray-11);
+  --color-time: var(--color-gray-16);
+  /* private */
+  --color-alarm-indicator: var(--color-alarm-indicator-normal);
+  --color-property: var(--color-property-normal);
+  --color-value: var(--color-value-normal);
+  --color-unit: var(--color-unit-normal);
+  --color-trend: var(--color-trend-normal);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15rem;
+  padding: 0 0 20rem;
+  width: 220rem;
+  border-bottom: solid 5px var(--color-alarm-indicator);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.main:not(.Normal):not(.Unknown) {
+  --color-alarm-indicator: var(--color-alarm);
+  --color-property: var(--color-property-active);
+  --color-value: var(--color-value-active);
+  --color-unit: var(--color-unit-active);
+}
+
+.propertyName {
+  color: var(--color-property);
+  font-size: 19rem;
+  font-weight: 400;
+  letter-spacing: -.1rem;
+  line-height: .8;
+}
+
+.valueSection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.valueGroup {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 5rem;
+}
+
+.value {
+  color: var(--color-value);
+  font-size: 70rem;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: proportional-nums;
+  transition: var(--transition);
+}
+
+.unit {
+  color: var(--color-unit);
+  font-size: 28rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.1rem;
+}
+
+.trendSection {
+  --size: 46rem;
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  color: var(--color-trend);
+}
+
+.trendSection.thresholdBreached {
+  color: var(--color-alarm);
+}
+
+.trendIcon {
+  width: var(--size);
+  color: currentColor;
+  transition: var(--transition);
+}
+
+.trendIconUp {
+  rotate: -45deg;
+}
+
+.trendIconDown {
+  rotate: 45deg;
+}
+
+.thresholdIndicator {
+  position: absolute;
+  color: currentColor;
+  font-size: 12rem;
+  font-variant-numeric: proportional-nums;
+  font-weight: 400;
+  line-height: 1;
+  opacity: 0;
+  text-align: center;
+  transition: var(--transition);
+  width: 100%;
+}
+
+.thresholdIndicator.isActive {
+  opacity: 1;
+}
+
+.thresholdIndicatorLimitUpper {
+  border-top: dotted 2px currentColor;
+  padding-top: 6rem;
+  bottom: calc(var(--size) / -2) - 6rem;
+}
+
+.thresholdIndicatorLimitLower {
+  border-bottom: dotted 2px currentColor;
+  padding-bottom: 6rem;
+  top: calc(var(--size) / -2 - 6rem);
+}
+
+.timeSection {
+  display: flex;
+  gap: 6rem;
+  font-size: 13rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-time);
+}
+
+.High {
+  --color-alarm: var(--color-alarm-high);
+}
+
+.Medium {
+  --color-alarm: var(--color-alarm-medium);
+}
+
+.Low {
+  --color-alarm: var(--color-alarm-low);
+}

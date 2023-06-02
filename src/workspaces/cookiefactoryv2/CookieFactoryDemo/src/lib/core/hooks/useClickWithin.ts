@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 /**
- * https://stackoverflow.com/a/45323523
+ * Credit: https://stackoverflow.com/a/45323523
  */
 export function useClickWithin(isVisible: boolean) {
   const [isClickWithin, setClickWithin] = useState(isVisible);

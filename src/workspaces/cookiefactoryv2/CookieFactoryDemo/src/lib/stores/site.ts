@@ -29,6 +29,14 @@ siteStore.subscribe(async (getState) => {
   const user = userStore.getState();
   const site = getState();
 
+  dataSourceStore.setState(null);
+  sceneLoaderStore.setState(null);
+  viewStore.setState('panel');
+  resetDataStores();
+  resetEntityStores();
+  resetHierarchyStore();
+  resetPanelsStore();
+
   if (site) {
     if (user) {
       const dataSource = initialize(site.iottwinmaker.workspaceId, {
@@ -61,13 +69,5 @@ siteStore.subscribe(async (getState) => {
         );
       }
     }
-  } else {
-    dataSourceStore.setState(null);
-    sceneLoaderStore.setState(null);
-    viewStore.setState('panel');
-    resetDataStores();
-    resetEntityStores();
-    resetHierarchyStore();
-    resetPanelsStore();
   }
 });
