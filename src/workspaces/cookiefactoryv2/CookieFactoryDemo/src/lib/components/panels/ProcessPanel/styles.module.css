@@ -18,7 +18,6 @@
 .canvasContainer {
   flex: 1;
   position: relative;
-  overflow: hidden;
 }
 
 .canvas {
@@ -41,7 +40,7 @@
   height: 100%;
   top: 0;
   right: 20rem;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -54,7 +53,7 @@
   height: 36rem;
   background-color: var(--button-background-color);
   border-radius: var(--border-radius);
-  box-shadow: 0 0 8px var(--color-gray-50);
+  box-shadow: 2rem 2rem 8px rgb(30, 30, 30, .5);
   transition: var(--transition);
   pointer-events: all;
 }
@@ -88,11 +87,18 @@
   transition: var(--transition);
 }
 
-.latestValues {
-  position: relative;
-  /* bottom: 0;
+.overlay {
+  position: absolute;
   top: 0;
-  right: 80rem; */
+  bottom: 0;
+  right: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.dashboard {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -100,57 +106,51 @@
   padding: 40rem;
   gap: 27rem;
   pointer-events: none;
-  border-top: solid 2px var(--color-gray-49);
+  border-top: solid 2px var(--color-gray-47);
 }
 
-.latestValuesHeader {
+.dashboardHeader {
   display: flex;
   flex-direction: column;
   gap: 8rem;
 }
 
-.latestValuesEntityName {
+.entityName {
   color: var(--color-gray-3);
   font-size: 22rem;
   font-weight: 600;
   line-height: 1;
 }
 
-.latestValuesEntityType {
+.entityType {
   color: var(--color-gray-11);
   font-size: 18rem;
   font-weight: 400;
   line-height: 1;
 }
 
-.latestValuesKpis {
+.kpis {
+  --gap: 60rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 40rem;
+  gap: var(--gap);
 }
 
-.latestValuesKpi {
+.kpi {
   --color-alarm-indicator-normal: var(--color-gray-42);
+  position: relative;
 }
 
-/* 
-.High {
-  --border-color: var(--color-alarm-high);
+.kpi::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 100%;
+  right: calc(var(--gap) * -0.5);
+  background-color: var(--color-gray-47);
 }
 
-.Medium {
-  --border-color: var(--color-alarm-medium);
+.kpi:last-child:after {
+  display: none;
 }
-
-.Low {
-  --border-color: var(--color-alarm-low);
-}
-
-.Normal {
-  --border-color: var(--color-alarm-normal);
-}
-
-.Unknown {
-  --border-color: var(--color-alarm-unknown);
-} */

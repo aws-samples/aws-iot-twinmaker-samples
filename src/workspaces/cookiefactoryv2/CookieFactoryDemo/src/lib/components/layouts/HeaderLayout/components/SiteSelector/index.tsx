@@ -22,14 +22,12 @@ export function SiteSelector({ className }: { className?: ClassName }) {
     getSites().map(({ health, id, name, location }) => {
       return {
         component: ({ selected }) => (
-          <div className={createClassName(menuStyles.menuItem)}>
-            {getHealthIcon(
-              health,
-              createClassName(styles.menuItemIcon, {
-                [styles.menuItemIconSelected]: selected === true
-              })
-            )}
-
+          <div
+            className={createClassName(menuStyles.menuItem, {
+              [menuStyles.selected]: selected === true
+            })}
+          >
+            {getHealthIcon(health, styles.menuItemIcon)}
             <div className={styles.menuItemLabel}>
               <div className={styles.menuItemName}>{name}</div>
               <div className={styles.menuItemLocation}>{location}</div>
@@ -39,7 +37,7 @@ export function SiteSelector({ className }: { className?: ClassName }) {
         id
       };
     }),
-    { selectedId: siteState?.id }
+    { className: menuStyles.menu, selectedId: siteState?.id }
   );
 
   const contentElement = useMemo(() => {

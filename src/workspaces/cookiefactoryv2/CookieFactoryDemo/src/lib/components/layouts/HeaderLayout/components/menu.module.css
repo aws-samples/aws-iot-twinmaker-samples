@@ -1,6 +1,19 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
+.menu {
+  --menu-background-color: var(--background-hover-color);
+  --menu-border-color: var(--color-gray-54);
+}
+
 .menuItem {
+  --menu-item-background-color: transparent;
+  --menu-item-text-color: var(--text-color);
+  --menu-item-background-hover-color: var(--color-gray-40);
+  --menu-item-text-hover-color: var(--text-hover-color);
+  --menu-item-background-active-color: var(--color-gray-40);
+  --menu-item-text-active-color: var(--text-hover-color);
+  --menu-item-background-selected-color: var(--color-blue);
+  --menu-item-text-selected-color: var(--color-tailwind-blue-150);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -8,4 +21,20 @@
   padding: 15px 20px;
   background-color: var(--menu-item-background-color);
   transition: var(--transition);
+}
+
+.menuItem:hover {
+  --menu-item-background-color: var(--menu-item-background-hover-color);
+  --menu-item-text-color: var(--menu-item-text-hover-color);
+}
+
+.menuItem:active {
+  --menu-item-background-color: var(--menu-item-background-active-color);
+  --menu-item-text-color: var(--menu-item-text-active-color);
+}
+
+.menuItem.selected {
+  --menu-item-background-color: var(--menu-item-background-selected-color);
+  --menu-item-text-color: var(--menu-item-text-selected-color);
+  pointer-events: none;
 }

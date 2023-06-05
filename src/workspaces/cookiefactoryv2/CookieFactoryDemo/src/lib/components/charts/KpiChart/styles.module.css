@@ -84,7 +84,7 @@
 }
 
 .trendSection.thresholdBreached {
-  color: var(--color-alarm);
+  --color-trend: var(--color-alarm);
 }
 
 .trendIcon {
