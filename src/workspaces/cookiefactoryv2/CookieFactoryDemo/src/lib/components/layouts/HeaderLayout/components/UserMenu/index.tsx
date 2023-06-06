@@ -14,16 +14,23 @@ import styles from './styles.module.css';
 
 export function UserMenu({ className }: { className?: ClassName }) {
   const [user, setUser] = useUserStore();
-  const { handleTrigger, menu, menuContainerRef, selectedId } = useMenu([
-    {
-      component: () => (
-        <div className={createClassName(menuStyles.menuItem)}>
-          <span className={styles.menuItemName}>Switch roles</span>
-        </div>
-      ),
-      id: crypto.randomUUID()
-    }
-  ]);
+  const { handleTrigger, menu, menuContainerRef, selectedId } = useMenu(
+    [
+      {
+        component: ({ selected }) => (
+          <div
+            className={createClassName(menuStyles.menuItem, {
+              [menuStyles.selected]: selected === true
+            })}
+          >
+            <span className={styles.menuItemName}>Switch roles</span>
+          </div>
+        ),
+        id: crypto.randomUUID()
+      }
+    ],
+    { className: menuStyles.menu }
+  );
 
   const contentElement = useMemo(() => {
     return user ? (

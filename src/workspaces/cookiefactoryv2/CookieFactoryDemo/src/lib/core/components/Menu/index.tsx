@@ -40,11 +40,7 @@ function MenuItem({ component, id, onPointerUp, selected }: MenuItem & { onPoint
   }, []);
 
   return (
-    <button
-      className={createClassName(styles.menuItem, { [styles.selected]: selected === true })}
-      key={id}
-      onPointerUp={handlePointerUp}
-    >
+    <button className={styles.menuItem} key={id} onPointerUp={handlePointerUp}>
       {component({ id: id, selected })}
     </button>
   );

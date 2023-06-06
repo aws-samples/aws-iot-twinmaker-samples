@@ -4,12 +4,11 @@
 import cytoscape from 'cytoscape';
 import type { SetRequired } from 'type-fest';
 
+import { GRAY_COLORS } from '../css/colors';
 import { isNil, isNotNil, isString } from '../utils/lang';
-import { ALARM_COLORS, GRAPH_COLORS } from './colors';
 import { eventStore } from './events';
 import { createSvgString, getPolygonPoints, getSvgSize } from './svg';
 import type {
-  AlarmState,
   Core,
   Css,
   EdgeArrowStyleProps,
@@ -21,6 +20,7 @@ import type {
   EdgeStyleProps,
   ElementsDefinition,
   EventName,
+  EventObjectNode,
   NodeCollection,
   NodeData,
   NodeDefinition,
@@ -32,15 +32,15 @@ import type {
 import { isNode as _isNode } from './utils';
 
 const EDGE_DEFAULT_STYLE_PROPS: SetRequired<EdgeStyleProps, 'targetArrow'> = {
-  color: GRAPH_COLORS.Gray40,
-  labelBackgroundColor: GRAPH_COLORS.Gray45,
-  labelTextColor: GRAPH_COLORS.Gray10,
+  color: GRAY_COLORS.Gray40,
+  labelBackgroundColor: GRAY_COLORS.Gray45,
+  labelTextColor: GRAY_COLORS.Gray10,
   labelTextSize: 13,
   labelOffset: 0,
   labelPadding: 6,
   sourceEndpoint: 'outside-to-node',
   targetArrow: {
-    color: GRAPH_COLORS.Gray40,
+    color: GRAY_COLORS.Gray40,
     scale: 1.5,
     shape: 'triangle'
   },
@@ -49,10 +49,10 @@ const EDGE_DEFAULT_STYLE_PROPS: SetRequired<EdgeStyleProps, 'targetArrow'> = {
 
 const EDGE_HOVER_STYLE_PROPS: EdgeStyleProps = {
   ...EDGE_DEFAULT_STYLE_PROPS,
-  color: GRAPH_COLORS.White,
+  color: GRAY_COLORS.White,
   targetArrow: {
     ...EDGE_DEFAULT_STYLE_PROPS.targetArrow,
-    color: GRAPH_COLORS.White
+    color: GRAY_COLORS.White
   },
   width: 3
 };
@@ -63,9 +63,11 @@ const EDGE_SELECTED_STYLE_PROPS: EdgeStyleProps = {
 };
 
 const NODE_DEFAULT_STYLE_PROPS: NodeStyleProps = {
+  backgroundColor: GRAY_COLORS.Gray14,
   backgroundImage: getNormalSvg,
+  borderColor: GRAY_COLORS.Gray14,
   borderWidth: 3,
-  labelTextColor: GRAPH_COLORS.Gray14,
+  labelTextColor: GRAY_COLORS.Gray14,
   labelTextSize: 16,
   labelOffset: 12,
   labelPadding: 6,
@@ -77,17 +79,17 @@ const NODE_DEFAULT_STYLE_PROPS: NodeStyleProps = {
 const NODE_HOVER_STYLE_PROPS: NodeStyleProps = {
   ...NODE_DEFAULT_STYLE_PROPS,
   backgroundImage: getHoverSvg,
-  borderColor: GRAPH_COLORS.White,
-  labelTextColor: GRAPH_COLORS.White
+  borderColor: GRAY_COLORS.White,
+  labelTextColor: GRAY_COLORS.White
 };
 
 const NODE_SELECTED_STYLE_PROPS: NodeStyleProps = {
   ...NODE_DEFAULT_STYLE_PROPS,
   backgroundImage: getSelectedSvg,
-  borderColor: GRAPH_COLORS.White,
+  borderColor: GRAY_COLORS.White,
   borderWidth: 6,
-  labelBackgroundColor: GRAPH_COLORS.White,
-  labelTextColor: GRAPH_COLORS.Gray50
+  labelBackgroundColor: GRAY_COLORS.White,
+  labelTextColor: GRAY_COLORS.Gray50
 };
 
 const nodeNormalStyles = getNodeStyle(NODE_DEFAULT_STYLE_PROPS);
@@ -159,6 +161,24 @@ export function createGraph<EntityData>(
 
   cy.on(eventNames.join(' '), (event) => {
     eventStore.setState(event);
+  });
+
+  cy.on('mouseover', 'node', ({ target }: EventObjectNode) => {
+    if (!target.selected()) target.addClass('hover');
+    target.connectedEdges().addClass('related-hover');
+  });
+
+  cy.on('mouseout', 'node', ({ target }: EventObjectNode) => {
+    target.removeClass('hover');
+    target.connectedEdges().removeClass('related-hover');
+  });
+
+  cy.on('select', 'node', ({ target }: EventObjectNode) => {
+    target.connectedEdges().addClass('related-selected');
+  });
+
+  cy.on('unselect', 'node', ({ target }: EventObjectNode) => {
+    target.connectedEdges().removeClass('related-selected');
   });
 
   // public api
@@ -282,7 +302,7 @@ export function createGraph<EntityData>(
   }
 
   function setNodeData(data: NodeData<EntityData>) {
-    cy.nodes().data({ ...data, isDirty: true });
+    cy.nodes().data({ ...data });
   }
 
   function setZoom(level: number) {
@@ -294,10 +314,26 @@ export function createGraph<EntityData>(
     return () => unsubscribe(subscriber);
   }
 
-  function updateNode(id: string, data: Partial<Pick<NodeData<EntityData>, 'state' | 'shape'>>) {
+  function updateNodeStyle(id: string, style: Pick<NodeData<EntityData>, 'color' | 'shape'>) {
     const node = getNode(id);
-    const currentData = node.data();
-    node.data({ ...currentData, ...data, isDirty: true });
+    const currentData = node.data() as NodeRenderData<EntityData>;
+
+    if (currentData) {
+      const shouldUpdate = Object.entries(style).some(([key, value]) => {
+        return value && value !== currentData[key];
+      });
+
+      if (shouldUpdate) {
+        const { color, entityData, id, label, shape } = currentData;
+
+        node.data(
+          getRenderData(
+            { color: style.color ?? color, entityData, id, label, shape: style.shape ?? shape },
+            currentData
+          )
+        );
+      }
+    }
   }
 
   function unsubscribe(subscriber: Subscriber<EntityData>) {
@@ -330,7 +366,7 @@ export function createGraph<EntityData>(
     setNodeData,
     setZoom,
     subscribe,
-    updateNode,
+    updateNodeStyle,
     unsubscribe,
     unsubscribeAll
   };
@@ -344,9 +380,10 @@ export function getElementsDefinition<EntityData>(
     edges: edgeData.map<EdgeDefinition>((data) => ({
       data: { lineStyle: 'solid', dashPattern: [6, 5], ...data }
     })),
-    nodes: nodeData.map<NodeDefinition>((data) => ({
-      data: { ...data, isDirty: true, size: getSvgSize(data.shape) }
-    }))
+
+    nodes: nodeData.map<NodeDefinition>((data) => {
+      return { data: getRenderData(data) };
+    })
   };
 }
 
@@ -433,40 +470,16 @@ function getEdgeEndpointStyle(endpoint: EdgeEndpoint) {
 }
 
 function getHoverSvg(node: NodeSingular) {
-  let { hoverSvg, isDirty, size, shape, state } = node.data() as NodeRenderData<unknown>;
-
-  if (isNil(hoverSvg) || isDirty) {
-    hoverSvg = createSvgString({
-      ...NODE_HOVER_STYLE_PROPS,
-      backgroundColor: getNodeColor(state),
-      shape,
-      size
-    });
-    node.data({ hoverSvg: hoverSvg, isDirty: false });
-  }
-
+  const { hoverSvg } = node.data() as NodeRenderData<unknown>;
   return hoverSvg;
 }
 
-function getNodeColor(state: AlarmState) {
-  switch (state) {
-    case 'High':
-      return ALARM_COLORS.High;
-    case 'Low':
-      return ALARM_COLORS.Low;
-    case 'Medium':
-      return ALARM_COLORS.Medium;
-    case 'Normal':
-      return ALARM_COLORS.Normal;
-    default:
-      return ALARM_COLORS.Unknown;
-  }
-}
+function getNodeShape(node: NodeSingular) {
+  const { shape } = node.data() as NodeRenderData<unknown>;
 
-function getNodeShape(node: NodeSingular): Css.NodeShape {
-  const { shape } = node.data() as any as NodeRenderData<unknown>;
   if (isNil(shape)) return 'ellipse';
   if (shape === 'hexagon') return 'polygon';
+
   return shape;
 }
 
@@ -520,29 +533,46 @@ function getNodeStyle({
 }
 
 function getNormalSvg(node: NodeSingular) {
-  let { isDirty, normalSvg, size, shape, state } = node.data() as NodeRenderData<unknown>;
-
-  if (isNil(normalSvg) || isDirty) {
-    normalSvg = createSvgString({
-      ...NODE_DEFAULT_STYLE_PROPS,
-      backgroundColor: getNodeColor(state),
-      borderColor: getNodeColor(state),
-      shape,
-      size
-    });
-    node.data({ normalSvg: normalSvg, isDirty: false });
-  }
-
+  const { normalSvg } = node.data() as NodeRenderData<unknown>;
   return normalSvg;
 }
 
 function getSelectedSvg(node: NodeSingular) {
-  let { isDirty, selectedSvg, size, shape, state } = node.data() as NodeRenderData<unknown>;
-
-  if (isNil(selectedSvg) || isDirty) {
-    selectedSvg = createSvgString({ ...NODE_SELECTED_STYLE_PROPS, backgroundColor: getNodeColor(state), shape, size });
-    node.data({ selectedSvg: selectedSvg, isDirty: false });
-  }
-
+  const { selectedSvg } = node.data() as NodeRenderData<unknown>;
   return selectedSvg;
+}
+
+function getRenderData(
+  nodeData: NodeData<unknown>,
+  currentRenderData?: NodeRenderData<unknown>
+): NodeRenderData<unknown> {
+  const renderData = { ...currentRenderData, ...nodeData };
+  const size = getSvgSize(renderData.shape);
+  return { ...renderData, size, ...getSvgs({ color: renderData.color, shape: renderData.shape, size }) };
+}
+
+function getSvgs({ color, size, shape }: Pick<NodeRenderData<unknown>, 'color' | 'size' | 'shape'>) {
+  const normalSvg = createSvgString({
+    ...NODE_DEFAULT_STYLE_PROPS,
+    backgroundColor: color,
+    borderColor: color,
+    shape,
+    size
+  });
+
+  const hoverSvg = createSvgString({
+    ...NODE_HOVER_STYLE_PROPS,
+    backgroundColor: color,
+    shape,
+    size
+  });
+
+  const selectedSvg = createSvgString({
+    ...NODE_SELECTED_STYLE_PROPS,
+    backgroundColor: color,
+    shape,
+    size
+  });
+
+  return { normalSvg, hoverSvg, selectedSvg };
 }

@@ -61,7 +61,7 @@
 
 .value {
   color: var(--color-value);
-  font-size: 18em;
+  font-size: 20em;
   font-weight: 600;
   line-height: 1;
   font-variant-numeric: proportional-nums;

@@ -74,16 +74,16 @@ export function OverlayContent({ node }: { node: NodeSingular }) {
             <div className={styles.title}>{name}</div>
           </section>
         </section>
-
-        {alarmMessage && (
-          <section className={styles.alarmMessageSection}>
-            <AlarmMessageIcon alarmState={alarmState} />
-            {alarmMessage}
+        <section className={styles.bodySection}>
+          {alarmMessage && (
+            <section className={styles.alarmMessageSection}>
+              <AlarmMessageIcon alarmState={alarmState} />
+              {alarmMessage}
+            </section>
+          )}
+          <section className={createClassName(styles.kpis, { [styles.kpisEmptyState]: kpis.length === 0 })}>
+            {kpis.length > 0 ? kpis : DEFAULT_TEXT.noProperties}
           </section>
-        )}
-
-        <section className={createClassName(styles.kpis, { [styles.kpisEmptyState]: kpis.length === 0 })}>
-          {kpis.length > 0 ? kpis : DEFAULT_TEXT.noProperties}
         </section>
       </main>
     );

@@ -2,12 +2,11 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
   --background-color: var(--color-gray-51);
-  /* --icon-color: var(--color-gray-8);
-  --text-color: var(--color-gray-8); */
-  /* --icon-color: var(--text-color); */
   --text-color: var(--icon-color);
   display: grid;
   grid-template-rows: 34px 1fr;
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
 .head {

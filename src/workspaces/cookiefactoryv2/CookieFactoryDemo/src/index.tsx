@@ -3,11 +3,23 @@
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from './App';
+
+import { ALARM_COLORS, CHART_COLORS } from '@/config/project';
+import { injectCssVars } from '@/lib/core/utils/styles';
+import { App } from '@/App';
 
 const element = document.getElementById('root');
 
 if (element) {
+  injectCssVars(ALARM_COLORS, 'color-alarm-');
+  injectCssVars(
+    Object.entries(CHART_COLORS).reduce<Record<string, string>>((accum, [key, item]) => {
+      accum[key] = item.color;
+      return accum;
+    }, {}),
+    'color-chart-'
+  );
+
   createRoot(element).render(
     <StrictMode>
       <App />

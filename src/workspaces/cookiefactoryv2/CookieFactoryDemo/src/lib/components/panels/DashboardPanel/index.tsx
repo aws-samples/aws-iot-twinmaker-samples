@@ -4,10 +4,9 @@
 import { TimeSync } from '@iot-app-kit/react-components';
 import { useMemo } from 'react';
 
-import { CHART_ALARM_THRESHOLDS, VIEWPORT } from '@/config/project';
+import { CHART_ALARM_THRESHOLDS, CHART_COLOR_POOL, VIEWPORT } from '@/config/project';
 import { LineChart, StatusTimeline } from '@/lib/components/charts';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
-import { LINE_CHART_COLORS } from '@/lib/css/colors';
 import { normalizedEntityData } from '@/lib/init/entities';
 import { useAlarmHistoryQueriesStore, useSelectedStore, useSummaryStore } from '@/lib/stores/entity';
 import { usePanelsStore } from '@/lib/stores/panels';
@@ -38,6 +37,7 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
             const {
               propertyQueryInfo: { refId }
             } = property;
+
             if (refId) {
               accum[refId] = { detailedName: name, name };
             }
@@ -62,7 +62,7 @@ export function DashboardPanel({ className }: { className?: ClassName; entityId?
                 accum[refId] = {
                   detailedName: propertyName,
                   name: propertyName,
-                  color: LINE_CHART_COLORS[index],
+                  color: CHART_COLOR_POOL[index],
                   unit
                 };
               }

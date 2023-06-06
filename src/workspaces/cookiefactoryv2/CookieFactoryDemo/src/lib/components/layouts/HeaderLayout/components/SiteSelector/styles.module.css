@@ -32,6 +32,15 @@
   rotate: 180deg;
 }
 
+.triggerIcon {
+  display: flex;
+  align-items: center;
+  width: 13rem;
+  height: 13rem;
+  color: var(--icon-color);
+  transition: var(--transition);
+}
+
 .healthIcon {
   display: flex;
   width: 14rem;
@@ -81,23 +90,6 @@
   color: var(--health-color);
 }
 
-.menuItemIconSelected {
-  color: var(--menu-item-text-selected-color);
-}
-
-.triggerIcon {
-  display: flex;
-  align-items: center;
-  width: 13rem;
-  height: 13rem;
-  color: var(--icon-color);
-  transition: var(--transition);
-}
-
-.healthNormal {
-  --health-color: var(--color-alarm-normal);
-}
-
 .healthHigh {
   --health-color: var(--color-alarm-high);
 }
@@ -108,6 +100,10 @@
 
 .healthLow {
   --health-color: var(--color-alarm-low);
+}
+
+.healthNormal {
+  --health-color: var(--color-alarm-normal);
 }
 
 .healthOffline {

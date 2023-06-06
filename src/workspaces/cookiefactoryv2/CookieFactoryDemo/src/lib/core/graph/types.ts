@@ -10,6 +10,8 @@ import type {
   EdgeSingular,
   ElementsDefinition,
   EventObject,
+  EventObjectEdge,
+  EventObjectNode,
   GraphEventName,
   NodeCollection,
   NodeDefinition,
@@ -30,13 +32,13 @@ export type {
   EdgeSingular,
   ElementsDefinition,
   EventObject,
+  EventObjectEdge,
+  EventObjectNode,
   NodeCollection,
   NodeDefinition,
   NodeDataDefinition,
   NodeSingular
 };
-
-export type AlarmState = 'High' | 'Medium' | 'Low' | 'Normal' | 'Unknown';
 
 export type RenderedBoundingBox = BoundingBox12 & BoundingBoxWH;
 
@@ -86,20 +88,19 @@ export type EdgeEndpoint =
   | 'outside-to-line-or-label';
 
 export type NodeData<EntityData> = NodeDataDefinition & {
+  color?: string;
   entityData: EntityData;
   id: string;
   label: string;
-  state: AlarmState;
   shape?: Css.NodeShape;
 };
 
 export type NodeShape = Css.NodeShape;
 
 export type NodeRenderData<EntityData> = NodeData<EntityData> & {
-  hoverSvg?: string;
-  isDirty: boolean;
-  normalSvg?: string;
-  selectedSvg?: string;
+  hoverSvg: string;
+  normalSvg: string;
+  selectedSvg: string;
   size: number;
 };
 
@@ -115,7 +116,7 @@ export type NodeStyleProps = {
   labelOffset: number;
   labelPadding?: number;
   labelPosition: 'top' | 'right' | 'bottom' | 'left';
-  shape?: (node: NodeSingular) => Css.NodeShape;
+  shape: (node: NodeSingular) => Css.NodeShape;
   transitionDuration?: number;
   transitionEasing?: ValueOf<cytoscape.Css.Node, 'transition-timing-function'>;
   zIndex?: number;
