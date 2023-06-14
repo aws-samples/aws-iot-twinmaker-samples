@@ -2,4 +2,4 @@
 # this file is kept here for installing dependencies locally
 boto3==1.21.40
 botocore==1.24.40
-sqlparse==0.4.2
+sqlparse==0.4.4
