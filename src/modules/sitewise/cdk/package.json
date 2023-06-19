@@ -24,7 +24,7 @@
     "@aws-cdk/aws-iam": "^1.160.0",
     "@aws-cdk/aws-lambda": "^1.160.0",
     "@aws-cdk/aws-stepfunctions": "^1.160.0",
-    "@aws-cdk/aws-stepfunctions-tasks": "^1.160.0",
+    "@aws-cdk/aws-stepfunctions-tasks": "^1.204.0",
     "@aws-cdk/core": "^1.160.0",
     "source-map-support": "^0.5.16"
   }
