@@ -3,12 +3,12 @@
 
 import type { ValueOf } from 'type-fest';
 
-import type { EntityData } from '@/lib/types';
+import type { EntityData, Primitive } from '@/lib/types';
 
 const DATA_PROPERTY_NAME_1 = 'Speed';
 const DATA_PROPERTY_NAME_2 = 'Temperature';
-
-export const ALARM_PROPERTY_NAME = 'AlarmMessage';
+const ALARM_MESSAGE_PROPERTY_NAME = 'AlarmMessage';
+const ALARM_VALUE_PROPERTY_NAME = 'AlarmMessage';
 
 export const COMPONENT_NAMES = {
   Equipment: 'CookieLineComponent',
@@ -123,10 +123,17 @@ const EQUIPMENT_ENTITY_DATA: EntityData[] = [
     properties: [
       {
         propertyQueryInfo: {
-          propertyName: ALARM_PROPERTY_NAME,
+          propertyName: ALARM_VALUE_PROPERTY_NAME,
           refId: crypto.randomUUID()
         },
-        type: 'alarm'
+        type: 'alarm-state'
+      },
+      {
+        propertyQueryInfo: {
+          propertyName: ALARM_MESSAGE_PROPERTY_NAME,
+          refId: crypto.randomUUID()
+        },
+        type: 'alarm-message'
       },
       {
         propertyQueryInfo: {
@@ -176,14 +183,43 @@ export const ENTITY_DATA: EntityData[] = [...EQUIPMENT_ENTITY_DATA, ...PROCESS_E
 
 export const IGNORED_ENTITY_IDS: string[] = [];
 
+export function createEventMessage(entityData: EntityData, message: Primitive): { name: string; message: string } {
+  let normalizedName = '';
+  let normailzedMessage = '';
+
+  switch (entityData.entityId) {
+    case 'FREEZER_TUNNEL_e12e0733-f5df-4604-8f10-417f49e6d298': {
+      normalizedName = 'LN2 vapor flowing over exhaust troughs';
+      normailzedMessage = `[Critical] Clogged exhaust pipe or full blast gate in piping`;
+      break;
+    }
+    default: {
+      normalizedName = 'Abnormal speed reduction';
+      normailzedMessage = `Warning: Speed slowed abnormally on ${entityData.name}`;
+    }
+  }
+
+  return {
+    name: normalizedName,
+    message: normailzedMessage
+  };
+}
+
 function getProperties(): ValueOf<EntityData, 'properties'> {
   return [
     {
       propertyQueryInfo: {
-        propertyName: ALARM_PROPERTY_NAME,
+        propertyName: ALARM_VALUE_PROPERTY_NAME,
         refId: crypto.randomUUID()
       },
-      type: 'alarm'
+      type: 'alarm-state'
+    },
+    {
+      propertyQueryInfo: {
+        propertyName: ALARM_MESSAGE_PROPERTY_NAME,
+        refId: crypto.randomUUID()
+      },
+      type: 'alarm-message'
     },
     {
       propertyQueryInfo: {

@@ -21,7 +21,7 @@ export function App() {
   const [shouldHideCanvas, setShouldHideCanvas] = useState(true);
 
   useEffect(() => {
-    const isHidden = !panels.includes('dashboard');
+    const isHidden = !panels.has('dashboard');
     document.body.classList.toggle('hide-appkit', isHidden);
     setShouldHideCanvas(isHidden);
   }, [panels]);

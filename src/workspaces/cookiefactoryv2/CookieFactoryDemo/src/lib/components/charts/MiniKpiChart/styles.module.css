@@ -2,32 +2,45 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 .main {
   /* public vars */
-  --color-alarm-indicator-normal: var(--color-gray-48);
-  --color-property-normal: var(--color-gray-11);
-  --color-property-active: var(--color-gray-11);
-  --color-value-normal: var(--color-gray-11);
-  --color-value-active: var(--color-gray-3);
-  --color-unit-normal: var(--color-gray-11);
-  --color-unit-active: var(--color-gray-11);
-  --color-trend-normal: var(--color-gray-11);
-  --size-base: 1rem;
+  --color-alarm-indicator-normal: var(--color-alarm-normalgray);
+  --color-property-normal: var(--text-layer-3-primary);
+  --color-property-active: var(--text-layer-3-active);
+  --color-value-normal: var(--text-layer-3-primary);
+  --color-value-active: var(--text-layer-3-active);
+  --color-unit-normal: var(--text-layer-3-primary);
+  --color-unit-active: var(--text-layer-3-active);
+  --color-trend-normal: var(--text-layer-3-primary);
+  --color-time: var(--text-layer-3-secondary);
   /* private */
   --color-alarm-indicator: var(--color-alarm-indicator-normal);
   --color-property: var(--color-property-normal);
   --color-value: var(--color-value-normal);
   --color-unit: var(--color-unit-normal);
   --color-trend: var(--color-trend-normal);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-border-color: border-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  --transition-opacity: opacity var(--transition-duration) var(--transition-easing);
+  --transition-rotation: rotate calc(var(--transition-duration) * .3) var(--transition-easing);
+  --alarm-indicator-height: 2rem;
   font-size: var(--size-base);
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-grow: 0;
+  display: grid;
+  place-content: start;
   gap: 6em;
+  width: min-content;
   padding-bottom: 10em;
-  border-bottom: solid 3px var(--color-alarm-indicator);
-  border-radius: var(--border-radius);
+  border-bottom: solid var(--alarm-indicator-height) transparent;
   transition: var(--transition);
+}
+
+.main::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 calc(-1 * var(--alarm-indicator-height)) 0;
+  height: var(--alarm-indicator-height);
+  background-color: var(--color-alarm-indicator);
+  border-radius: var(--alarm-indicator-height);
 }
 
 .main:not(.Normal):not(.Unknown) {
@@ -39,9 +52,8 @@
 
 .propertyName {
   color: var(--color-property);
-  font-size: 11em;
-  font-weight: 400;
-  line-height: 1;
+  font-size: 12em;
+  font-weight: var(--font-weight-5);
 }
 
 .valueSection {
@@ -62,23 +74,22 @@
 .value {
   color: var(--color-value);
   font-size: 20em;
-  font-weight: 600;
+  font-weight: var(--font-weight-6);
   line-height: 1;
   font-variant-numeric: proportional-nums;
-  transition: var(--transition);
+  transition: var(--transition-color);
 }
 
 .unit {
   color: var(--color-unit);
-  font-size: 11em;
-  font-weight: 400;
-  line-height: 1;
+  font-size: 14em;
+  transition: var(--transition-color);
 }
 
 .trendIcon {
-  width: 18em;
+  width: 20em;
   color: var(--color-trend);
-  transition: var(--transition);
+  transition: var(--transition-color), var(--transition-rotation);
 }
 
 .hasBreachedThreshold {

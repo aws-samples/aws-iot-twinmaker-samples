@@ -11,6 +11,17 @@ const CUT_OFFS = [60, 3600, 86400, 86400 * 7, 86400 * 30, 86400 * 365, Infinity]
 // Array equivalent to the above but in the string representation of the units
 const UNITS: Intl.RelativeTimeFormatUnit[] = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
 
+export function getFormattedTimeString(
+  timestamp: number,
+  { dateStyle, timeStyle, timeZoneName }: Intl.DateTimeFormatOptions
+) {
+  const date = new Date(timestamp);
+  return `${dateStyle ?? date.toLocaleDateString(undefined, { dateStyle }) + ' '}${date.toLocaleTimeString(undefined, {
+    timeStyle,
+    timeZoneName
+  })}`;
+}
+
 export function getRelativeTimeString(
   date: Date | number,
   { locale = navigator.language, ...options }: Partial<Intl.RelativeTimeFormatOptions & { locale: string }> = {}

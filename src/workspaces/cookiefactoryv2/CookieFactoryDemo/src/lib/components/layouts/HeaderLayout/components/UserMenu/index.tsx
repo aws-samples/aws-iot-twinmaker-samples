@@ -8,7 +8,7 @@ import { useMenu } from '@/lib/core/hooks';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { isNil } from '@/lib/core/utils/lang';
 import { useUserStore } from '@/lib/stores/user';
-
+``;
 import menuStyles from '../menu.module.css';
 import styles from './styles.module.css';
 
@@ -18,36 +18,29 @@ export function UserMenu({ className }: { className?: ClassName }) {
     [
       {
         component: ({ selected }) => (
-          <div
-            className={createClassName(menuStyles.menuItem, {
-              [menuStyles.selected]: selected === true
-            })}
-          >
-            <span className={styles.menuItemName}>Switch roles</span>
-          </div>
+          <main className={menuStyles.menuItem} data-selected={selected === true}>
+            <section className={styles.menuItemLabel}>Switch roles</section>
+          </main>
         ),
         id: crypto.randomUUID()
       }
     ],
-    { className: menuStyles.menu }
+    { className: createClassName(menuStyles.menu, styles.menu) }
   );
 
   const contentElement = useMemo(() => {
     return user ? (
       <>
-        <section
-          className={createClassName(styles.trigger, { [styles.triggerActive]: !isNil(menu) })}
-          onPointerUp={handleTrigger}
-        >
-          <AvatarIcon className={styles.icon} />
-          <section className={styles.group}>
-            <div className={styles.name}>
+        <button className={styles.trigger} data-active={!isNil(menu)} onPointerUp={handleTrigger}>
+          <AvatarIcon className={styles.triggerAvatar} />
+          <section className={styles.triggerGroup}>
+            <div className={styles.triggerName}>
               {user.firstName} {user.lastName}
             </div>
-            <div className={styles.title}>{user.title}</div>
+            <div className={styles.triggerTitle}>{user.title}</div>
           </section>
-          <ArrowHeadDownIcon className={styles.triggerIcon} />
-        </section>
+          <ArrowHeadDownIcon className={styles.triggerArrow} />
+        </button>
         {menu}
       </>
     ) : null;

@@ -1,57 +1,44 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
-.root {
-  --background-color: var(--color-gray-51);
+.button {
+  /* --background-color: var(--color-gray-51);
   --background-hover-color: var(--color-gray-44);
   --background-active-color: var(--color-gray-51);
-  --background-selected-color: var(--color-blue);
-  --icon-hover-color: var(--text-active-color);
-  --icon-selected-color: #E2E7F2;
-  --text-color: var(--icon-color);
-  --text-hover-color: var(--text-active-color);
-  --text-selected-color: #E2E7F2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 80px;
-  background-color: var(--background-color);
-  transition: var(--transition);
-  border-radius: var(--border-radius);
+  --background-selected-color: var(--color-blue); */
+  --foreground-color: var(--text-layer-2-primary);
+  --foreground-secondary-color: var(--text-layer-2-secondary);
+  --foreground-tertiary-color: var(--text-layer-2-tertiary);
+  --foreground-accent-color: var(--text-layer-2-accent);
+  --foreground-hover-color: var(--text-layer-2-hover);
+  --foreground-active-color: var(--text-layer-2-active);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  display: grid;
+  place-content: center;
+  place-items: center;
+  row-gap: 8rem;
+  color: var(--foreground-tertiary-color);
+  /* background-color: var(--background-color); */
+  /* transition: var(--transition); */
+  /* border-radius: var(--border-radius); */
 }
 
-.root:hover:not(.selected) {
-  --background-color: var(--background-hover-color);
-  --icon-color: var(--icon-hover-color);
-  --text-color: var(--text-hover-color);
+.button:hover:not([data-is-selected=true]) {
+  /* --background-color: var(--background-hover-color); */
+  color: var(--foreground-hover-color);
 }
 
-.active {
-  --background-color: var(--background-active-color);
-}
-
-.selected {
-  --background-color: var(--background-selected-color);
-  --icon-color: var(--icon-selected-color);
-  --text-color: var(--text-selected-color);
-}
-
-.group {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6rem;
+/* .button[data-is-active=true] {
+  color: var(--foreground-secondary-color);
+} */
+.button[data-is-selected=true] {
+  /* --background-color: var(--background-selected-color); */
+  color: var(--foreground-color);
 }
 
 .icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 30rem;
   height: 30rem;
-  color: var(--icon-color);
-  transition: var(--transition);
+  transition: var(--transition-color);
 }
 
 .icon>svg {
@@ -61,8 +48,7 @@
 
 .label {
   font-size: 14rem;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--text-color);
-  transition: var(--transition);
+  font-weight: var(--font-weight-5);
+  letter-spacing: .2rem;
+  transition: var(--transition-color);
 }

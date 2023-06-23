@@ -1,22 +1,131 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
-@import './lib/core/css/preflight.css';
-@import './lib/css/normalize.css';
-@import './lib/css/fonts.css';
-@import './lib/css/colors.css';
-@import './lib/css/variables.css';
+@import "./lib/css/preflight.css";
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --test: #c63a3f;
+    --test2: #ea8741;
+    --test2: #cfc340;
+    --radius-1: 1rem;
+    --radius-2: 2rem;
+    --radius-3: 3rem;
+    --radius-4: 4rem;
+    --radius-5: 5rem;
+    --radius-6: 6rem;
+    --radius-7: 7rem;
+    --radius-8: 8rem;
+    --radius-9: 9rem;
+    --radius-10: 10rem;
+    --radius-20: 20rem;
+    --radius-30: 30rem;
+    --radius-40: 40rem;
+    --radius-50: 50rem;
+    /* background */
+    --active-color: var(--uswds-blue-warm-vivid-50);
+    --background-active: var(--uswds-blue-warm-vivid-50);
+    /* background-layer-0 */
+    --background-layer-0: var(--uswds-gray-100-rgb);
+    --background-layer-0-hover: var(--uswds-gray-80);
+    --background-layer-1-accent: var(--uswds-gray-90);
+    /* background-layer-1 */
+    --background-layer-1: var(--uswds-gray-90);
+    --background-layer-1-secondary: var(--uswds-gray-100-rgb);
+    --background-layer-1-hover: var(--uswds-gray-80);
+    --background-layer-1-accent: var(--uswds-gray-80);
+    /* background-layer-2 */
+    --background-layer-2: var(--uswds-gray-80);
+    --background-layer-2-secondary: var(--uswds-gray-90);
+    --background-layer-2-hover: var(--uswds-gray-70);
+    --background-layer-2-accent: var(--uswds-gray-70);
+    /* background-layer-3 */
+    --background-layer-3: var(--uswds-gray-70);
+    --background-layer-3-secondary: var(--uswds-gray-80);
+    --background-layer-3-hover: var(--uswds-gray-60);
+    --background-layer-3-accent: var(--uswds-gray-60);
+    /* box-shadow */
+    --box-shadow-layer-1: 0 0 12rem -2rem rgb(var(--uswds-gray-100-rgb), .4);
+    --box-shadow-layer-2: 0 0 12rem -2rem rgb(var(--uswds-gray-90-rgb), .4);
+    --box-shadow-layer-3: 0 0 12rem -2rem rgb(var(--uswds-gray-80-rgb), .4);
+    /* foreground */
+    --foreground-active: var(--uswds-blue-warm-vivid-5);
+    /* text */
+    /* text-layer-0 */
+    --text-layer-0-primary: var(--uswds-gray-50);
+    --text-layer-0-secondary: var(--uswds-gray-60);
+    --text-layer-0-tertiary: var(--uswds-gray-70);
+    --text-layer-0-accent: var(--uswds-gray-40);
+    --text-layer-0-hover: var(--uswds-gray-30);
+    --text-layer-0-active: var(--uswds-gray-40);
+    /* text-layer-1 */
+    --text-layer-1-primary: var(--uswds-gray-40);
+    --text-layer-1-secondary: var(--uswds-gray-50);
+    --text-layer-1-tertiary: var(--uswds-gray-60);
+    --text-layer-1-accent: var(--uswds-gray-30);
+    --text-layer-1-hover: var(--uswds-gray-20);
+    --text-layer-1-active: var(--uswds-gray-30);
+    /* text-layer-2 */
+    --text-layer-2-primary: var(--uswds-gray-30);
+    --text-layer-2-secondary: var(--uswds-gray-40);
+    --text-layer-2-tertiary: var(--uswds-gray-50);
+    --text-layer-2-accent: var(--uswds-gray-20);
+    --text-layer-2-hover: var(--uswds-gray-10);
+    --text-layer-2-active: var(--uswds-gray-20);
+    /* text-layer-3 */
+    --text-layer-3-primary: var(--uswds-gray-20);
+    --text-layer-3-secondary: var(--uswds-gray-30);
+    --text-layer-3-tertiary: var(--uswds-gray-40);
+    --text-layer-3-accent: var(--uswds-gray-10);
+    --text-layer-3-hover: white;
+    --text-layer-3-active: var(--uswds-gray-10);
+    /* 
+    --text-layer-1-primary: var(--uswds-gray-30);
+    --text-layer-1-secondary: var(--uswds-gray-40);
+    --text-layer-2-tertiary: var(--uswds-gray-50);
+    --text-layer-1-accent: var(--uswds-gray-10);
+    --text-layer-1-hover: var(--uswds-gray-10);
+    --text-layer-1-active: var(--uswds-gray-10); */
+    /* --text-layer-2-primary: var(--uswds-gray-20);
+    --text-layer-2-secondary: var(--uswds-gray-30);
+    --text-layer-2-tertiary: var(--uswds-gray-40);
+    --text-layer-2-accent: var(--uswds-gray-5);
+    --text-layer-2-hover: var(--uswds-gray-5);
+    --text-layer-2-active: var(--uswds-gray-5); */
+    /* --text-layer-3-primary: var(--uswds-gray-10);
+    --text-layer-3-secondary: var(--uswds-gray-20);
+    --text-layer-3-tertiary: var(--uswds-gray-30);
+    --text-layer-3-accent: var(--uswds-gray-1);
+    --text-layer-3-hover: var(--uswds-gray-1);
+    --text-layer-3-active: var(--uswds-gray-1); */
+    --transition-duration: 350ms;
+    --transition-easing: ease;
+    --z-index-1: 1;
+    --z-index-2: 2;
+    --z-index-3: 3;
+    --z-index-4: 4;
+    --z-index-5: 5;
+    --z-index-6: 6;
+    --z-index-7: 7;
+    --z-index-8: 8;
+    --z-index-9: 9;
+    --z-index-10: 10;
+    --z-index-max: 1000;
+  }
+}
 
 :root {
   font-size: 1px;
+  font-weight: var(--font-weight-4);
 }
 
 body {
-  font-family: var(--font-family);
-  text-rendering: geometricPrecision;
+  background-color: var(--background-layer-0);
+  font-family: var(--font-sans);
+  /* text-rendering: geometricPrecision; */
 }
 
-body>[id=root] {
-  display: flex;
+#root {
+  display: grid;
   height: 100vh;
 }
 

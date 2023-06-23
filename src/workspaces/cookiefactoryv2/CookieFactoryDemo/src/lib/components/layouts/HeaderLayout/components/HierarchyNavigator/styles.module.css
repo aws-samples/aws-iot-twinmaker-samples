@@ -1,50 +1,42 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
-  --font-size: 16rem;
-  --font-active-size: 18rem;
-  --font-weight: 400;
-  --font-active-weight: 600;
+  --foreground-color: var(--text-layer-1-primary);
+  --foreground-hover-color: var(--text-layer-1-hover);
+  --foreground-active-color: var(--text-layer-1-accent);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
   display: flex;
   align-items: center;
-  gap: 6px;
+  column-gap: 8rem;
+  color: var(--foreground-color);
 }
 
-.root button:hover {
-  --icon-color: var(--icon-hover-color);
-  --text-color: var(--text-hover-color);
+.root>*[data-is-active=true] {
+  color: var(--foreground-active-color);
 }
 
-button:hover {
-  transition: var(--transition);
+.button {
+  font-weight: var(--font-weight-5);
+  transition: var(--transition-color);
+}
+
+.button:hover {
+  color: var(--foreground-hover-color);
 }
 
 .icon {
-  display: flex;
-  width: 18rem;
-  height: 18rem;
-  color: var(--icon-color);
+  --size: 15rem;
+  width: var(--size);
+  height: var(--size);
 }
 
 .seperator {
-  display: flex;
-  width: 13rem;
-  height: 13rem;
-  color: var(--icon-color);
+  --size: 11rem;
+  width: var(--size);
+  height: var(--size);
   rotate: 180deg;
 }
 
-.active {
-  --font-size: var(--font-active-size);
-  --font-weight: var(--font-active-weight);
-  --text-color: var(--text-active-color);
-}
-
 .label {
-  position: relative;
-  top: -1px;
-  font-size: var(--font-size);
-  font-weight: var(--font-weight);
-  line-height: 18rem;
-  color: var(--text-color);
+  font-size: 15rem;
 }

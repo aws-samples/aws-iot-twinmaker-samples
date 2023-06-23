@@ -1,74 +1,62 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
-  --background-color: var(--color-gray-51);
-  --text-color: var(--icon-color);
+  --border-color: var(--background-layer-2-secondary);
+  --foreground-color: var(--text-layer-2-primary);
+  --foreground-secondary-color: var(--text-layer-2-secondary);
+  --foreground-tertiary-color: var(--text-layer-2-tertiary);
+  --foreground-hover-color: var(--text-layer-2-hover);
+  --foreground-accent-color: var(--text-layer-2-accent);
+  --foreground-active-color: var(--text-layer-2-active);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  --border: solid 1rem var(--border-color);
+  --inset-left: var(--padding-x);
+  --inset-right: var(--padding-x);
+  --body-padding-left: var(--padding-x);
+  --body-padding-right: var(--padding-x);
+  position: relative;
   display: grid;
-  grid-template-rows: 34px 1fr;
-  border-radius: var(--border-radius);
-  overflow: hidden;
 }
 
 .head {
-  grid-row: 1;
+  position: absolute;
+  inset: 20rem var(--inset-right) auto var(--inset-left);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  padding: 0 12px;
-  background-color: var(--background-color);
-  user-select: none;
-}
-
-.group {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-  gap: 7px;
-}
-
-.group:last-child {
-  gap: 10px;
-}
-
-.icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 16rem;
-  height: 16rem;
-  color: var(--icon-color);
-}
-
-.controlIcon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 14rem;
-  height: 14rem;
-  color: var(--icon-color);
-  transition: var(--transition);
-}
-
-.controlIcon:hover {
-  color: var(--icon-hover-color);
-}
-
-.closeIcon {
-  width: 16rem;
-  height: 16rem;
+  z-index: var(--z-index-1);
+  pointer-events: none;
 }
 
 .label {
-  font-size: 14rem;
-  font-weight: 400;
-  line-height: 16rem;
-  color: var(--text-color);
+  color: var(--foreground-tertiary-color);
+  font-size: 16rem;
+  font-weight: var(--font-weight-6);
+  letter-spacing: .3rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 14rem;
+  color: var(--foreground-tertiary-color);
+}
+
+.controlIcon {
+  width: 16rem;
+  transition: var(--transition-color);
+  pointer-events: all;
+}
+
+.controlIcon:hover {
+  color: var(--foreground-hover-color);
+}
+
+.closeIcon {
+  width: 18rem;
 }
 
 .body {
-  grid-row: 2;
-  display: flex;
-  background-color: var(--background-color);
+  display: grid;
 }

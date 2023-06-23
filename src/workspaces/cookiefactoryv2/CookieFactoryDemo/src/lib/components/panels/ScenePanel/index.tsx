@@ -13,7 +13,8 @@ import { VIEWPORT } from '@/config/project';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { isNil } from '@/lib/core/utils/lang';
 import { normalizedEntityData } from '@/lib/init/entities';
-import { useTimeSeriesQueriesStore, useSelectedStore } from '@/lib/stores/entity';
+import { useDataStreamsStore } from '@/lib/stores/data';
+import { useSelectedStore } from '@/lib/stores/entity';
 import { useSceneLoaderStore } from '@/lib/stores/iottwinmaker';
 import type { DataBindingContext, EntityData } from '@/lib/types';
 
@@ -23,7 +24,7 @@ const sceneComposerId = crypto.randomUUID();
 
 export const ScenePanel = ({ className }: { className?: ClassName }) => {
   const { findSceneNodeRefBy, setSelectedSceneNodeRef, setCameraTarget } = useSceneComposerApi(sceneComposerId);
-  const [timeSeriesQueries] = useTimeSeriesQueriesStore();
+  const [dataStreams] = useDataStreamsStore();
   const [sceneLoader] = useSceneLoaderStore();
   const [selectedEntity, setSelectedEntity] = useSelectedStore();
 
@@ -78,23 +79,26 @@ export const ScenePanel = ({ className }: { className?: ClassName }) => {
 
   return (
     <main className={createClassName(styles.root, className)}>
-      {sceneLoader && (
-        <SceneViewer
-          config={{
-            dracoDecoder: {
-              enable: true,
-              path: 'https://www.gstatic.com/draco/versioned/decoders/1.5.3/' // path to the draco files
-            }
-          }}
-          onSelectionChanged={handleSelectionChange}
-          onWidgetClick={handleWidgetClick}
-          queries={timeSeriesQueries}
-          sceneComposerId={sceneComposerId}
-          sceneLoader={sceneLoader}
-          selectedDataBinding={selectedEntity.entityData ?? undefined}
-          viewport={VIEWPORT}
-        />
-      )}
+      <section className={styles.container}>
+        {sceneLoader && (
+          <SceneViewer
+            config={{
+              dracoDecoder: {
+                enable: true,
+                path: 'https://www.gstatic.com/draco/versioned/decoders/1.5.3/' // path to the draco files
+              }
+            }}
+            dataStreams={dataStreams}
+            onSelectionChanged={handleSelectionChange}
+            onWidgetClick={handleWidgetClick}
+            // queries={timeSeriesQueries}
+            sceneComposerId={sceneComposerId}
+            sceneLoader={sceneLoader}
+            selectedDataBinding={selectedEntity.entityData ?? undefined}
+            viewport={VIEWPORT}
+          />
+        )}
+      </section>
     </main>
   );
 };

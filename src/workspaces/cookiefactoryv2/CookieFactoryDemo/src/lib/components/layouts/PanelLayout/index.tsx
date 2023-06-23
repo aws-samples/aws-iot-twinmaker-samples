@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react';
 
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
 import { CloseIcon, ExpandIcon } from '@/lib/components/svgs/icons';
-import { usePanelsStore } from '@/lib/stores/panels';
+import { panelsStore } from '@/lib/stores/panels';
 import type { Panel } from '@/lib/types';
 
 import styles from './styles.module.css';
@@ -19,21 +19,24 @@ export function PanelLayout({
   isExpandable?: boolean;
   panel: Panel;
 }) {
-  const [, setPanelState] = usePanelsStore();
-
   const handleClose = useCallback(() => {
-    setPanelState((panels) => {
-      if (panels.includes(id)) {
-        const filtered = panels.filter((panelId) => panelId !== id);
-        panels.length = 0;
-        panels.push(...filtered);
+    panelsStore.setState((state) => {
+      if (state.has(id)) {
+        const filtered = [...state.values()].filter((panelId) => panelId !== id);
+        state.clear();
+        filtered.forEach(state.add, state);
       }
-      return panels;
+
+      return state;
     });
   }, []);
 
   const handleExpand = useCallback(() => {
-    setPanelState([id]);
+    panelsStore.setState((state) => {
+      state.clear();
+      state.add(id);
+      return state;
+    });
   }, []);
 
   const expandControlElement = useMemo(() => {
@@ -47,11 +50,8 @@ export function PanelLayout({
   return (
     <main className={createClassName(styles.root, className)}>
       <section className={styles.head}>
-        <section className={styles.group}>
-          <span className={styles.icon}>{icon}</span>
-          <span className={styles.label}>{label}</span>
-        </section>
-        <section className={styles.group}>
+        <section className={styles.label}>{label}</section>
+        <section className={styles.controls}>
           {expandControlElement}
           <button className={createClassName(styles.controlIcon, styles.closeIcon)} onPointerUp={handleClose}>
             <CloseIcon />

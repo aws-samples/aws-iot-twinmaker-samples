@@ -4,12 +4,13 @@
 import { useMemo, type ReactNode } from 'react';
 
 import { MiniKpiChart } from '@/lib/components/charts';
-import type { NodeRenderData, NodeSingular } from '@/lib/core/graph';
 import { AlarmHighIcon, AlarmLowIcon, AlarmMediumIcon, MessagesIcon } from '@/lib/components/svgs/icons';
 import { Circle } from '@/lib/components/svgs/shapes';
+import type { NodeRenderData, NodeSingular } from '@/lib/core/graph';
 import { createClassName } from '@/lib/core/utils/element';
 import { compareStrings } from '@/lib/core/utils/string';
-import { useAlarmStore, useLatestValuesStore } from '@/lib/stores/data';
+import { useAlarmStateStore, useLatestValuesStore } from '@/lib/stores/data';
+import { useAllEvents } from '@/lib/stores/event';
 import type { AlarmState, EntityData } from '@/lib/types';
 
 import styles from './styles.module.css';
@@ -19,8 +20,9 @@ const DEFAULT_TEXT = {
 };
 
 export function OverlayContent({ node }: { node: NodeSingular }) {
-  const [alarms] = useAlarmStore();
+  const [alarms] = useAlarmStateStore();
   const [latestValuesMap] = useLatestValuesStore();
+  const allEvents = useAllEvents();
 
   return useMemo(() => {
     const {
@@ -32,22 +34,12 @@ export function OverlayContent({ node }: { node: NodeSingular }) {
     let alarmMessage: string | undefined;
     let kpis: ReactNode[] = [];
 
-    // TODO: refactor to use real alarms and state when implemented instead of hard-coded messages
-    switch (alarmState) {
-      case 'High': {
-        alarmMessage = 'Coolant leak';
-        break;
-      }
+    const event = allEvents.find(({ entityData: { entityId: id }, status }) => {
+      return id === entityId && status !== 'resolved';
+    });
 
-      case 'Medium': {
-        alarmMessage = 'High pressure washer warning';
-        break;
-      }
-
-      case 'Low': {
-        alarmMessage = 'Speed loss';
-        break;
-      }
+    if (event) {
+      alarmMessage = event.name;
     }
 
     if (latestValues) {
@@ -67,18 +59,18 @@ export function OverlayContent({ node }: { node: NodeSingular }) {
 
     return (
       <main className={createClassName(styles.overlay, styles[alarmState])}>
-        <section className={styles.headerSection}>
+        <section className={styles.header}>
           <Circle className={createClassName(styles.alarmStatusIcon, styles[alarmState])} />
-          <section className={styles.titleSection}>
+          <section className={styles.headerTitleSection}>
+            <div className={styles.headerTitle}>{name}</div>
             {type && <div className={styles.headerSubtitle}>{type}</div>}
-            <div className={styles.title}>{name}</div>
           </section>
         </section>
         <section className={styles.bodySection}>
           {alarmMessage && (
             <section className={styles.alarmMessageSection}>
               <AlarmMessageIcon alarmState={alarmState} />
-              {alarmMessage}
+              <span>{alarmMessage}</span>
             </section>
           )}
           <section className={createClassName(styles.kpis, { [styles.kpisEmptyState]: kpis.length === 0 })}>

@@ -15,9 +15,10 @@ import { FitIcon, MinusIcon, PlusIcon, TargetIcon } from '@/lib/components/svgs/
 import { createGraph, eventStore, getElementsDefinition } from '@/lib/core/graph';
 import type { EdgeData, EventName, NodeData } from '@/lib/core/graph';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { isNil } from '@/lib/core/utils/lang';
 import { compareStrings } from '@/lib/core/utils/string';
 import { isIgnoredEntity, normalizedEntityData } from '@/lib/init/entities';
-import { alarmStore, useAlarmStore, useLatestValuesStore } from '@/lib/stores/data';
+import { alarmStateStore, useAlarmStateStore, useLatestValuesStore } from '@/lib/stores/data';
 import { selectedStore, useSelectedStore, useSummaryStore } from '@/lib/stores/entity';
 import { useHopStore } from '@/lib/stores/graph';
 import { useClientStore } from '@/lib/stores/iottwinmaker';
@@ -57,7 +58,7 @@ const EVENT_NAMES: EventName[] = [
 const GRAPH_CANVAS_PADDING = 30;
 
 export function ProcessPanel({ className }: { className?: ClassName }) {
-  const [alarmState] = useAlarmStore();
+  const [alarmState] = useAlarmStateStore();
   const [client] = useClientStore();
   const [hops] = useHopStore();
   const [panels] = usePanelsStore();
@@ -169,7 +170,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
           }
         }
 
-        setAlarmState(graphRef.current, alarmStore.getState());
+        setAlarmState(graphRef.current, alarmStateStore.getState());
 
         if (selectedEntityId) {
           graphRef.current.selectNode(selectedEntityId);
@@ -248,17 +249,24 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
           switch (type) {
             case 'click': {
               const data = target.data();
+              const { entityData } = selectedStore.getState();
+
               if (graph.isNodeRenderData(data)) {
-                const { entityData } = data;
-                setSelectedEntity({ entityData, type: 'process' });
+                if (isNil(entityData) || (entityData && entityData.entityId !== data.entityData.entityId)) {
+                  const { entityData } = data;
 
-                const { entityId } = entityData;
+                  setSelectedEntity({ entityData, type: 'process' });
 
-                if (!graph.nodesInView(entityId)) {
-                  graph.center(entityId);
+                  const { entityId } = entityData;
+
+                  if (!graph.nodesInView(entityId)) {
+                    graph.center(entityId);
+                  }
                 }
               } else {
-                setSelectedEntity({ entityData: null, type: 'process' });
+                if (entityData) {
+                  setSelectedEntity({ entityData: null, type: 'process' });
+                }
               }
               break;
             }
@@ -332,20 +340,20 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
 }
 
 function KpiCharts() {
-  const [alarms] = useAlarmStore();
+  const [alarms] = useAlarmStateStore();
   const [latestValuesMap] = useLatestValuesStore();
   const [selectedEntity] = useSelectedStore();
 
-  return useMemo(() => {
+  const kpiElements = useMemo(() => {
     const { entityData } = selectedEntity;
 
     if (entityData) {
-      const { entityId, name, type } = entityData;
+      const { entityId } = entityData;
       const alarmValue = alarms[entityId];
       const latestValues = latestValuesMap[entityId];
 
       if (latestValues) {
-        const charts = Object.values(latestValues)
+        return Object.values(latestValues)
           .sort((a, b) => compareStrings(a.metaData.propertyName, b.metaData.propertyName))
           .map((latestValue) => {
             return (
@@ -357,21 +365,30 @@ function KpiCharts() {
               />
             );
           });
-
-        return (
-          <section className={styles.dashboard}>
-            <section className={styles.dashboardHeader}>
-              <div className={styles.entityType}>{type}</div>
-              <div className={styles.entityName}>{name}</div>
-            </section>
-            <div className={styles.kpis}>{charts}</div>
-          </section>
-        );
       }
+
+      return [];
     }
 
     return null;
   }, [selectedEntity, alarms, latestValuesMap]);
+
+  return useMemo(() => {
+    if (kpiElements) {
+      return (
+        <section className={styles.kpis} data-kpi-count={kpiElements.length}>
+          {kpiElements.length ? kpiElements : getEmptyStateMessage(selectedEntity.entityData)}
+        </section>
+      );
+    }
+
+    return null;
+  }, [kpiElements, selectedEntity]);
+}
+
+function getEmptyStateMessage(entityData: EntityData | null) {
+  const append = entityData ? ` for ${entityData.name}` : '';
+  return `No data available${append}`;
 }
 
 function getNodeColor(state: AlarmState) {

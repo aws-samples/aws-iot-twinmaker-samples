@@ -1,34 +1,43 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
-  display: grid;
-  grid-template-rows: 30rem 1fr;
+  --foreground-color: var(--text-layer-2-primary);
+  --foreground-secondary-color: var(--text-layer-2-secondary);
+  --foreground-tertiary-color: var(--text-layer-2-tertiary);
+  --foreground-hover-color: var(--text-layer-2-hover);
+  --foreground-accent-color: var(--text-layer-2-accent);
+  --foreground-active-color: var(--text-layer-2-active);
   position: relative;
-  height: 100%;
-  width: 100%;
-  padding: 30px 50px 10px;
-  overflow: hidden;
-  user-select: none;
-}
-
-.name {
-  color: var(--color-gray-10);
-  font-size: 20rem;
-  font-weight: 600;
-}
-
-.charts {
-  display: flex;
-  flex-direction: column;
-}
-
-.multi {
-  grid-template-rows: 40rem 180rem 40rem repeat(2, auto);
+  display: grid;
+  padding: 63rem var(--body-padding-right) var(--padding-y) var(--body-padding-left);
 }
 
 .root:not(.multi) {
-  grid-template-rows: 50rem 1fr;
-  padding: 30px 50px 50px;
+  grid-template-rows: auto 1fr;
+  row-gap: 15rem;
+}
+
+.emptyState {
+  place-self: center;
+  padding: var(--padding-y) var(--padding-x);
+  color: var(--foreground-tertiary-color);
+  font-size: 34rem;
+  font-weight: var(--font-weight-2);
+  text-align: center;
+}
+
+.name {
+  color: var(--foreground-color);
+  font-size: 24rem;
+  font-weight: var(--font-weight-5);
+}
+
+.charts {
+  display: grid;
+}
+
+.multi {
+  grid-template-rows: auto 180rem auto repeat(2, 1fr);
 }
 
 .multi iot-app-kit-vis-status-timeline iot-app-kit-vis-data-stream-name {

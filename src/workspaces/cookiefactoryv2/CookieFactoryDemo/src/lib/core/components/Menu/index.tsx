@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback, type PointerEventHandler, type ReactNode } from 'react';
+import { forwardRef, useCallback, type PointerEventHandler, type ReactNode, type ForwardedRef } from 'react';
 import type { ValueOf } from 'type-fest';
 
 import { createClassName, type ClassName } from '../../utils/element';
@@ -22,26 +22,31 @@ export type MenuItem = {
 
 type PointerEventCallback = (id: ValueOf<MenuItem, 'id'>) => void;
 
-export function Menu({ className, items, onPointerUp }: Menu) {
+export const Menu = forwardRef(({ className, items, onPointerUp }: Menu, ref: ForwardedRef<HTMLButtonElement>) => {
   return (
     <menu className={createClassName(styles.menu, className)}>
       {items.map((item) => (
-        <MenuItem {...item} key={item.id} onPointerUp={onPointerUp} />
+        <MenuItem {...item} key={item.id} onPointerUp={onPointerUp} ref={ref} />
       ))}
     </menu>
   );
-}
+});
 
-function MenuItem({ component, id, onPointerUp, selected }: MenuItem & { onPointerUp?: PointerEventCallback }) {
-  const handlePointerUp = useCallback<PointerEventHandler<HTMLButtonElement>>(() => {
-    if (onPointerUp) {
-      onPointerUp(id);
-    }
-  }, []);
+const MenuItem = forwardRef(
+  (
+    { component, id, onPointerUp, selected }: MenuItem & { onPointerUp?: PointerEventCallback },
+    ref: ForwardedRef<HTMLButtonElement>
+  ) => {
+    const handlePointerUp = useCallback<PointerEventHandler<HTMLButtonElement>>(() => {
+      if (onPointerUp) {
+        onPointerUp(id);
+      }
+    }, []);
 
-  return (
-    <button className={styles.menuItem} key={id} onPointerUp={handlePointerUp}>
-      {component({ id: id, selected })}
-    </button>
-  );
-}
+    return (
+      <button className={styles.menuItem} key={id} onPointerUp={handlePointerUp} ref={selected ? ref : undefined}>
+        {component({ id: id, selected })}
+      </button>
+    );
+  }
+);

@@ -1,7 +1,7 @@
 {
   "name": "@amzn/cookie-factory-demo-v2",
   "private": true,
-  "version": "1.7.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "webpack serve --config webpack.dev.js",
@@ -14,8 +14,10 @@
     "@iot-app-kit/react-components": "5.8.1",
     "@iot-app-kit/scene-composer": "5.8.1",
     "@iot-app-kit/source-iottwinmaker": "5.8.1",
+    "@uswds/uswds": "3.5.0",
     "amazon-cognito-identity-js": "6.1.2",
     "cytoscape": "3.23.0",
+    "date-fns": "2.30.0",
     "immer": "9.0.19",
     "modern-normalize": "1.1.0",
     "react": "18.2.0",

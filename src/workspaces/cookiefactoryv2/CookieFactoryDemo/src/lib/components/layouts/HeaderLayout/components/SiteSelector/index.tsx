@@ -22,35 +22,28 @@ export function SiteSelector({ className }: { className?: ClassName }) {
     getSites().map(({ health, id, name, location }) => {
       return {
         component: ({ selected }) => (
-          <div
-            className={createClassName(menuStyles.menuItem, {
-              [menuStyles.selected]: selected === true
-            })}
-          >
+          <main className={createClassName(menuStyles.menuItem, styles.menuItem)} data-selected={selected === true}>
             {getHealthIcon(health, styles.menuItemIcon)}
-            <div className={styles.menuItemLabel}>
-              <div className={styles.menuItemName}>{name}</div>
-              <div className={styles.menuItemLocation}>{location}</div>
-            </div>
-          </div>
+            <section className={styles.menuItemLabel}>
+              <div className={styles.menuItemLabelName}>{name}</div>
+              <div className={styles.menuItemLabelLocation}>{location}</div>
+            </section>
+          </main>
         ),
         id
       };
     }),
-    { className: menuStyles.menu, selectedId: siteState?.id }
+    { className: createClassName(menuStyles.menu, styles.menu), selectedId: siteState?.id }
   );
 
   const contentElement = useMemo(() => {
     return siteState ? (
       <>
-        <section
-          className={createClassName(styles.trigger, { [styles.triggerActive]: !isNil(menu) })}
-          onPointerUp={handleTrigger}
-        >
-          {getHealthIcon(siteState.health, styles.healthIcon)}
-          <span className={styles.name}>{siteState.name}</span>
-          <ArrowHeadDownIcon className={styles.triggerIcon} />
-        </section>
+        <button className={styles.trigger} data-active={!isNil(menu)} onPointerUp={handleTrigger}>
+          {getHealthIcon(siteState.health, styles.triggerIcon)}
+          <section className={styles.triggerName}>{siteState.name}</section>
+          <ArrowHeadDownIcon className={styles.triggerArrow} />
+        </button>
         {menu}
       </>
     ) : null;

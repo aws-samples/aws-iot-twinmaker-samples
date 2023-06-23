@@ -4,7 +4,7 @@
   /* color */
   --background-color: transparent;
   --background-hover-color: var(--color-gray-46);
-  --border-radius: 4px;
+  --border-radius: 4rem;
   --border-color: var(--color-gray-54);
   --border-hover-color: var(--color-gray-54);
   --icon-color: var(--color-gray-18);
@@ -13,10 +13,11 @@
   --text-color: var(--color-gray-14);
   --text-hover-color: var(--color-gray-4);
   --text-active-color: var(--color-gray-4);
+  --text-inactive-color: var(--color-gray-28);
   /* font */
-  --font-family: 'NotoSans';
+  /* --font-family: 'NotoSans'; */
   /* transition */
-  --transition-duration: 200ms;
+  --transition-duration: 300ms;
   --transition: all var(--transition-duration) ease-out;
   /* layout */
   --z-max: 9999;

@@ -22,6 +22,8 @@ const sites: Record<string, SiteConfig[]> = {
   ]
 };
 
+export const SITE_TYPE = 'Facility';
+
 export function getLookUpKey(user: UserConfig) {
   return user.email;
 }

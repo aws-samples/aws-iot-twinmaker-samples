@@ -18,6 +18,10 @@ export function createMutableStore<State>(initialState: State): MutableStore<Sta
     return internalState;
   }
 
+  function resetToInitialState() {
+    setState(initialState);
+  }
+
   function setState(state: Parameters<ValueOf<MutableStore<State>, 'setState'>>[0]) {
     internalState = isFunction(state) ? state(internalState) : state;
     subscribers.forEach((subscriber) => subscriber(getState, () => unsubscribe(subscriber)));
@@ -38,6 +42,7 @@ export function createMutableStore<State>(initialState: State): MutableStore<Sta
   return {
     dispose,
     getState,
+    resetToInitialState,
     setState,
     subscribe,
     unsubscribe

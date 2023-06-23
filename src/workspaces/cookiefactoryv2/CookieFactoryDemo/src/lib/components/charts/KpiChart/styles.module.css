@@ -2,21 +2,28 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 .main {
   /* public vars */
-  --color-alarm-indicator-normal: var(--color-gray-48);
-  --color-property-normal: var(--color-gray-11);
-  --color-property-active: var(--color-gray-11);
-  --color-value-normal: var(--color-gray-11);
-  --color-value-active: var(--color-gray-3);
-  --color-unit-normal: var(--color-gray-11);
-  --color-unit-active: var(--color-gray-11);
-  --color-trend-normal: var(--color-gray-11);
-  --color-time: var(--color-gray-16);
+  --color-alarm-indicator-normal: var(--color-alarm-normalgray);
+  --color-property-normal: var(--text-layer-2-primary);
+  --color-property-active: var(--text-layer-2-active);
+  --color-value-normal: var(--text-layer-2-primary);
+  --color-value-active: var(--text-layer-2-active);
+  --color-unit-normal: var(--text-layer-2-primary);
+  --color-unit-active: var(--text-layer-2-active);
+  --color-trend-normal: var(--text-layer-2-primary);
+  --color-time: var(--text-layer-2-secondary);
   /* private */
   --color-alarm-indicator: var(--color-alarm-indicator-normal);
   --color-property: var(--color-property-normal);
   --color-value: var(--color-value-normal);
   --color-unit: var(--color-unit-normal);
   --color-trend: var(--color-trend-normal);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-border-color: border-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  --transition-opacity: opacity var(--transition-duration) var(--transition-easing);
+  --transition-rotation: rotate calc(var(--transition-duration) * .3) var(--transition-easing);
+  --alarm-indicator-height: 4rem;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,9 +31,17 @@
   gap: 15rem;
   padding: 0 0 20rem;
   width: 220rem;
-  border-bottom: solid 5px var(--color-alarm-indicator);
-  border-radius: var(--border-radius);
-  transition: var(--transition);
+  border-bottom: solid var(--alarm-indicator-height) transparent;
+  transition: var(--transition-border-color);
+}
+
+.main::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 calc(-1 * var(--alarm-indicator-height)) 0;
+  height: var(--alarm-indicator-height);
+  background-color: var(--color-alarm-indicator);
+  border-radius: var(--alarm-indicator-height);
 }
 
 .main:not(.Normal):not(.Unknown) {
@@ -38,10 +53,10 @@
 
 .propertyName {
   color: var(--color-property);
-  font-size: 19rem;
-  font-weight: 400;
-  letter-spacing: -.1rem;
-  line-height: .8;
+  font-size: 20rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: .2rem;
+  transition: var(--transition-color);
 }
 
 .valueSection {
@@ -61,18 +76,16 @@
 .value {
   color: var(--color-value);
   font-size: 70rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-6);
   line-height: 1;
   font-variant-numeric: proportional-nums;
-  transition: var(--transition);
+  transition: var(--transition-color);
 }
 
 .unit {
   color: var(--color-unit);
-  font-size: 28rem;
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -.1rem;
+  font-size: 30rem;
+  transition: var(--transition-color);
 }
 
 .trendSection {
@@ -90,7 +103,7 @@
 .trendIcon {
   width: var(--size);
   color: currentColor;
-  transition: var(--transition);
+  transition: var(--transition-color), var(--transition-rotation);
 }
 
 .trendIconUp {
@@ -106,11 +119,10 @@
   color: currentColor;
   font-size: 12rem;
   font-variant-numeric: proportional-nums;
-  font-weight: 400;
   line-height: 1;
   opacity: 0;
   text-align: center;
-  transition: var(--transition);
+  transition: var(--transition-color), var(--transition-opacity);
   width: 100%;
 }
 

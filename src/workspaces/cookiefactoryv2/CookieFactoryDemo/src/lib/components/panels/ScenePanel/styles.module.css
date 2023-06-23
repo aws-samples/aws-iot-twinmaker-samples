@@ -1,9 +1,13 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
+  flex: 1;
+}
+
+.container {
+  --height: 0rem;
   position: relative;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  user-select: none;
+  height: calc(100% - var(--height));
+  top: var(--height);
 }
