@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { CookieFactoryLogoWide } from '@/lib/components/svgs/logos';
 import { getAwsCredentials } from '@/lib/core/auth/cognito';
 import { AWS_CREDENTIAL_CONFIG } from '@/lib/init/credentials';
 import { USERS } from '@/lib/init/users';
@@ -12,6 +13,7 @@ import type { User } from '@/lib/types';
 
 import styles from './styles.module.css';
 
+const headText = `Choose a role`;
 let disabled = false;
 
 export function PersonaSelectorView({ className }: { className?: ClassName }) {
@@ -41,9 +43,10 @@ export function PersonaSelectorView({ className }: { className?: ClassName }) {
   useEffect(() => setUser(null), []);
 
   return (
-    <main className={createClassName(styles.root, className, { [styles.rootActive]: isActive })}>
-      <section className={styles.head}>Choose a role</section>
-      <section className={styles.personas}>{personaElements}</section>
+    <main className={createClassName(styles.root, className)} data-is-active={isActive}>
+      <CookieFactoryLogoWide className={styles.logo} />
+      <div className={styles.head}>{headText}</div>
+      <div className={styles.items}>{personaElements}</div>
     </main>
   );
 }
@@ -53,16 +56,17 @@ function PersonaElement({ handlePointerUp, user }: { handlePointerUp: (user: Use
 
   return (
     <button
-      className={createClassName(styles.persona, { [styles.personaActive]: isActive })}
+      className={styles.item}
+      data-is-active={isActive}
       onPointerUp={() => {
         setIsActive(true);
         handlePointerUp(user);
       }}
     >
-      <section className={styles.personaIcon}>{user.icon}</section>
-      <section className={styles.personaGroup}>
-        <section className={styles.personaName}>{`${user.firstName} ${user.lastName}`}</section>
-        <section className={styles.personaTitle}>{user.title}</section>
+      <section className={styles.itemIcon}>{user.icon}</section>
+      <section className={styles.itemGroup}>
+        <section className={styles.itemName}>{`${user.firstName} ${user.lastName}`}</section>
+        <section className={styles.itemTitle}>{user.title}</section>
       </section>
     </button>
   );

@@ -5,13 +5,16 @@
 }
 
 /** Below are @iot-app-kit overrides to fix styling issues **/
-/* iot-app-kit-vis-status-timeline [class=status-timeline] {
+/* iot-app-kit-vis-status-timeline [class*=iot-app-kit-vis-size-provider-container] {
   position: relative;
-  left: -10px !important;
+  top: -17rem;
 } */
 iot-app-kit-vis-status-timeline iot-app-kit-vis-data-stream-name {
-  color: var(--color-gray-10) !important;
-  margin-bottom: 2rem;
+  margin: 0 0 3rem;
+  color: var(--text-layer-2-accent) !important;
+  font-size: 114rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: .2rem;
 }
 
 iot-app-kit-vis-status-timeline [class=no-data-visualization] {
@@ -34,7 +37,10 @@ iot-app-kit-vis-status-timeline iot-app-kit-vis-threshold-legend iot-app-kit-vis
   display: flex;
   align-items: center;
   gap: 5rem;
-  color: var(--color-gray-15) !important;
+  color: var(--text-layer-2-secondary) !important;
+  font-size: 14rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: .2rem;
 }
 
 iot-app-kit-vis-status-timeline iot-app-kit-vis-threshold-legend iot-app-kit-vis-threshold-legend-row [class=box] {

@@ -1,8 +1,10 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
-.root {
-  flex: 1;
-  display: flex;
-  background-color: var(--color-gray-54);
+.layout {
+  --background-color: var(--background-layer-1);
+  display: grid;
+  row-gap: 10rem;
+  padding: 10rem 40rem 40rem;
+  background-color: var(--background-color);
   user-select: none;
 }

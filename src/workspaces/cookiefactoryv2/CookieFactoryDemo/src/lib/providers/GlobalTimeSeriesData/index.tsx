@@ -2,13 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useTimeSeriesData } from '@iot-app-kit/react-components';
-import { useMemo } from 'react';
+import { useMemo, type ReactNode } from 'react';
 
 import { REQUEST_SETTINGS, VIEWPORT } from '@/config/project';
 import { throttle } from '@/lib/core/utils/lang';
 import { dataStreamsStore } from '@/lib/stores/data';
-import { useTimeSeriesQueriesStore } from '@/lib/stores/entity';
-import type { DataStream, Primitive, TimeSeriesDataQuery, TimeSeriesDataRequestSettings } from '@/lib/types';
+import { useDataSourceStore } from '@/lib/stores/iottwinmaker';
+import type {
+  DataStream,
+  Primitive,
+  TimeSeriesDataQuery,
+  TimeSeriesDataRequestSettings,
+  TwinMakerEntityHistoryQuery
+} from '@/lib/types';
+import { createTimeSeriesQueries } from '@/lib/utils/entity';
 
 const DEFAULT_REQUEST_SETTINGS: Required<TimeSeriesDataRequestSettings> = {
   // Seetings require all or none even though each is optional.
@@ -35,12 +42,34 @@ const DEFAULT_REQUEST_SETTINGS: Required<TimeSeriesDataRequestSettings> = {
   fetchMostRecentBeforeEnd: true
 };
 
-export function GlobalTimeSeriesData() {
-  const [timeSeriesQueries] = useTimeSeriesQueriesStore();
+export function GlobalTimeSeriesData({
+  children,
+  historyQueries
+}: {
+  children?: ReactNode;
+  historyQueries: TwinMakerEntityHistoryQuery[];
+}) {
+  console.log('AppKitTimeSeriesDataWrapper');
+
+  return (
+    <>
+      {children}
+      <GlobalTimeSeriesDataInner historyQueries={historyQueries} />
+    </>
+  );
+}
+
+function GlobalTimeSeriesDataInner({ historyQueries }: { historyQueries: TwinMakerEntityHistoryQuery[] }) {
+  const [dataSource] = useDataSourceStore();
 
   return useMemo(() => {
-    return <AppKitTimeSeriesDataWrapper key={crypto.randomUUID()} timeSeriesQueries={timeSeriesQueries} />;
-  }, [timeSeriesQueries]);
+    if (dataSource) {
+      const timeSeriesQueries = createTimeSeriesQueries(dataSource, historyQueries);
+      return <AppKitTimeSeriesDataWrapper timeSeriesQueries={timeSeriesQueries} />;
+    }
+
+    return <></>;
+  }, [dataSource, historyQueries]);
 }
 
 // private
@@ -54,7 +83,7 @@ function AppKitTimeSeriesDataWrapper({ timeSeriesQueries }: { timeSeriesQueries:
 
   setDataStreams(dataStreams);
 
-  return null;
+  return <></>;
 }
 
 const setDataStreams = throttle((dataStreams: DataStream<Primitive>[]) => {

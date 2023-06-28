@@ -50,23 +50,28 @@ export type EntityData = {
 export type EntityDataProperty = {
   propertyQueryInfo: PropertyQueryInfo;
   threshold?: Threshold;
-  type: EntityPropertyType;
+  type?: EntityPropertyType;
   unit?: string;
 };
 
 export type Threshold = { upper: number | null; lower: number | null } | number | boolean;
 
-export type EntityPropertyType = 'alarm' | 'data';
+export type EntityPropertyType = 'alarm-message' | 'alarm-state' | 'data';
 
 export type Event = {
-  date: number;
+  createdTimestamp: number;
+  entityData: EntityData;
   id: string;
-  message: string;
+  lastModififedTimestamp: number;
+  message?: string;
   name: string;
-  status: 'active' | 'suppressed';
-  priority: 0 | 1 | 2 | 3 | 'suppressed' | 'none';
-  type: 'alarm' | 'info';
+  state: EventState;
+  status: EventStatus;
+  type: EventType;
 };
+export type EventState = AlarmState; //'Critical' | 'High' | 'Medium' | 'Low' | 'Normal' | 'Unknown';
+export type EventStatus = 'acknowledged' | 'active' | 'assigned' | 'resolved' | 'shelved' | 'suppressed';
+export type EventType = 'alarm' | 'info';
 
 export type GlobalControl = ReactNode;
 

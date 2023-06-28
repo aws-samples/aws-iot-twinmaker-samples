@@ -5,7 +5,10 @@ import { produce } from 'immer';
 import type { ValueOf } from 'type-fest';
 
 import { isFunction } from '../utils/lang';
+import { enableUseOfMapAndSet } from './utils';
 import type { Store, Subscriber } from './types';
+
+enableUseOfMapAndSet();
 
 export function createStore<State>(initialState: State): Store<State> {
   let internalState: State = produce(initialState, () => {});

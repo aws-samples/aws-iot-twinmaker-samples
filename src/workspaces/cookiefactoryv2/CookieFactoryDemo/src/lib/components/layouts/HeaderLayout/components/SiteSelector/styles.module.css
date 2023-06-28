@@ -1,92 +1,110 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
+  --trigger-background-color: var(--background-layer-1);
+  --trigger-background-hover-color: var(--background-layer-1-hover);
+  --trigger-background-active-color: var(--background-layer-1-active);
+  --trigger-text-color: var(--text-layer-1-primary);
+  --trigger-text-hover-color: var(--text-layer-1-hover);
+  --trigger-text-active-color: var(--text-layer-1-active);
   --health-color: var(--color-alarm-unknown);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  --transition-rotation: rotate calc(var(--transition-duration) * .3) var(--transition-easing);
   position: relative;
+  display: grid;
 }
 
 .trigger {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  height: 100%;
-  padding: 0 20px;
-  background-color: var(--background-color);
-  transition: var(--transition);
-  cursor: pointer;
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  column-gap: 10rem;
+  padding: 10rem 15rem;
+  background-color: var(--trigger-background-color);
+  border-radius: var(--radius-10);
+  color: var(--trigger-text-color);
+  transition: var(--transition-background-color);
 }
 
 .trigger:hover {
-  --background-color: var(--background-hover-color);
-  --icon-color: var(--icon-hover-color);
-  --text-color: var(--text-hover-color);
+  --trigger-background-color: var(--trigger-background-hover-color);
+  --trigger-text-color: var(--trigger-text-hover-color);
 }
 
-.triggerActive {
-  --background-color: var(--background-hover-color);
-  --icon-color: var(--icon-hover-color);
-  --text-color: var(--text-hover-color);
+.trigger[data-active=true] {
+  --trigger-background-color: var(--trigger-background-hover-color);
+  --trigger-text-color: var(--trigger-text-hover-color);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: calc(var(--z-index-max) + 1);
 }
 
-.triggerActive>.triggerIcon {
+.trigger[data-active=true]>.triggerArrow {
   rotate: 180deg;
 }
 
 .triggerIcon {
-  display: flex;
-  align-items: center;
-  width: 13rem;
-  height: 13rem;
-  color: var(--icon-color);
-  transition: var(--transition);
-}
-
-.healthIcon {
-  display: flex;
-  width: 14rem;
-  height: 14rem;
+  --size: 14rem;
+  width: var(--size);
+  height: var(--size);
   color: var(--health-color);
 }
 
-.name {
-  position: relative;
-  top: -1px;
-  font-size: 16rem;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--text-color);
-  transition: var(--transition);
+.triggerName {
+  font-size: 18rem;
+  font-weight: var(--font-weight-4);
+  transition: var(--transition-color);
+  translate: 0 -.5rem;
 }
 
-.menuItem {
-  gap: 12px;
+.triggerArrow {
+  --size: 13rem;
+  width: var(--size);
+  height: var(--size);
+  transition: var(--transition-color), var(--transition-rotation);
+}
+
+.menu {
+  --menu-item-text-primary-color: var(--text-layer-2-accent);
+  --menu-item-text-secondary-color: var(--text-layer-2-secondary);
+  --menu-item-text-hover-color: var(--text-layer-2-hover);
+  --menu-item-text-selected-color: var(--text-layer-3-accent);
+  border-top-left-radius: 0;
+}
+
+.menuItem:hover {
+  --menu-item-text-primary-color: var(--menu-item-text-hover-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-hover-color);
+}
+
+.menuItem[data-selected=true] {
+  --menu-item-text-primary-color: var(--menu-item-text-selected-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-selected-color);
 }
 
 .menuItemLabel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 6px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1;
-  color: var(--menu-item-text-color);
+  display: grid;
+  place-items: center start;
+  row-gap: 3rem;
 }
 
-.menuItemName {
-  font-size: 14rem;
+.menuItemLabelName {
+  color: var(--menu-item-text-primary-color);
+  font-size: 15rem;
+  transition: var(--transition-color);
 }
 
-.menuItemLocation {
-  font-size: 11rem;
+.menuItemLabelLocation {
+  color: var(--menu-item-text-secondary-color);
+  font-size: 12rem;
+  transition: var(--transition-color);
 }
 
 .menuItemIcon {
-  display: flex;
-  align-items: center;
-  width: 13rem;
-  height: 13rem;
+  --size: 14rem;
+  width: var(--size);
+  height: var(--size);
   color: var(--health-color);
 }
 

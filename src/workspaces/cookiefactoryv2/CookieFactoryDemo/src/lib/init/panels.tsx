@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
-import { DashboardPanel, ProcessPanel, ScenePanel } from '@/lib/components/panels';
+import { DashboardPanel, EventsPanel, ProcessPanel, ScenePanel, VideoPanel } from '@/lib/components/panels';
 import {
   BellOutlinedIcon,
   CameraIcon,
@@ -41,21 +41,25 @@ export const PANELS: Panel[] = [
     label: 'Dashboard',
     priority: 3,
     slot: 1
-  }
+  },
   // {
+  //   content: <VideoPanel />,
   //   icon: <CameraIcon />,
   //   id: 'live',
+  //   isVisible: false,
   //   label: 'Live',
   //   priority: 4,
   //   slot: 1
   // },
-  // {
-  //   icon: <BellOutlinedIcon />,
-  //   id: 'events',
-  //   label: 'Events',
-  //   priority: 1,
-  //   slot: 2
-  // },
+  {
+    content: <EventsPanel />,
+    icon: <BellOutlinedIcon />,
+    id: 'events',
+    isVisible: false,
+    label: 'Events',
+    priority: 1,
+    slot: 2
+  }
   // {
   //   icon: <ListIcon />,
   //   id: 'tickets',

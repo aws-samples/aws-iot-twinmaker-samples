@@ -1,82 +1,98 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
-  --background-hover-color: var(--color-blue);
-  --background-active-color: var(--color-blue);
-  --border-color: var(--color-gray-46);
-  --border-hover-color: var(--color-blue);
-  --icon-hover-color: #E2E7F2;
-  --text-hover-color: #E2E7F2;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50rem;
-  background-color: var(--color-gray-54);
+  --background-color: var(--background-layer-1);
+  --background-active-color: var(--background-active);
+  --foreground-color: var(--text-layer-2-primary);
+  --item-background-color: var(--background-color);
+  --item-background-active-color: var(--background-active);
+  --item-foreground-color: var(--text-layer-2-primary);
+  --item-foreground-hover-color: var(--text-layer-2-hover);
+  --item-foreground-active-color: var(--foreground-active);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  display: grid;
+  place-content: center;
+  row-gap: 10rem;
+  background-color: var(--background-color);
+  transition: var(--transition-background-color);
   user-select: none;
 }
 
+.root[data-is-active=true] {
+  --background-color: var(--background-active-color);
+  pointer-events: none;
+}
+
+.root[data-is-active=true] .logo,
+.root[data-is-active=true] .head,
+.root[data-is-active=true] .item:not([data-is-active=true]) {
+  visibility: hidden;
+}
+
+.logo {
+  justify-self: center;
+  color: var(--foreground-color);
+  width: clamp(200rem, 50vw, 500rem);
+}
+
 .head {
-  font-size: 56rem;
-  font-weight: 300;
-  letter-spacing: -2rem;
-  line-height: 1;
-  color: var(--text-color);
+  margin-bottom: 30rem;
+  color: var(--foreground-color);
+  font-size: 54rem;
+  font-weight: var(--font-weight-2);
+  text-align: center;
 }
 
-.sites {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 80rem;
+.items {
+  justify-self: center;
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 80rem;
 }
 
-.site {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30rem;
-  padding: 60px 30px;
-  background-color: var(--background-color);
-  border: solid 4px var(--border-color);
-  border-radius: 16px;
-  max-width: 250rem;
+.item {
+  display: grid;
+  place-items: center;
+  row-gap: 20rem;
+  width: min-content;
+  background-color: var(--item-background-color);
+  color: var(--item-foreground-color);
+  transition: var(--transition-background-color);
 }
 
-.site:hover {
-  --background-color: var(--background-hover-color);
-  --border-color: var(--border-hover-color);
-  --icon-color: var(--icon-hover-color);
-  --text-color: var(--text-hover-color);
+.item:hover {
+  --item-foreground-color: var(--item-foreground-hover-color);
 }
 
-.siteIcon {
-  width: 150px;
-  height: 150px;
-  color: var(--icon-color);
+.item[data-is-active=true] {
+  --item-background-color: var(--item-background-active-color);
+  --item-foreground-color: var(--item-foreground-active-color);
 }
 
-.siteGroup {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10rem;
+.itemGroup {
+  display: grid;
+  place-content: center;
+  row-gap: 7rem;
 }
 
-.siteName {
-  font-size: 26rem;
-  font-weight: 400;
-  letter-spacing: -.2rem;
-  line-height: 1.2;
-  color: var(--text-color);
+.itemIcon {
+  --size: 150rem;
+  width: var(--size);
+  height: var(--size);
+  color: var(--item-foreground-color);
+  transition: var(--transition-color);
 }
 
-.siteTitle {
+.itemName {
+  font-size: 30rem;
+  line-height: 1.15;
+  transition: var(--transition-color);
+  word-break: break-all;
+}
+
+.itemTitle {
+  color: var(--item-foreground-color);
   font-size: 16rem;
-  font-weight: 300;
-  line-height: 1;
-  color: var(--icon-color);
+  transition: var(--transition-color);
 }

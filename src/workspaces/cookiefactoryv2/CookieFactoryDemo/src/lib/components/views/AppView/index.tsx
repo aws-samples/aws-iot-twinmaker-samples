@@ -1,23 +1,34 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
+import { useMemo } from 'react';
+
 import { AppLayout } from '@/lib/components/layouts';
-import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { getAllHistoryQueries } from '@/lib/init/entities';
 import { VIEWS } from '@/lib/init/views';
 import { GlobalTimeSeriesData } from '@/lib/providers';
 import { useViewStore } from '@/lib/stores/view';
 
 import styles from './styles.module.css';
 
-export function AppView({ className }: { className?: ClassName }) {
+export function AppView() {
   const [viewId] = useViewStore();
 
+  const historyQueries = useMemo(() => {
+    return [...getAllHistoryQueries('data'), ...getAllHistoryQueries('alarm-state')];
+  }, []);
+
+  const view = useMemo(() => {
+    if (viewId) {
+      return VIEWS[viewId].content;
+    }
+
+    return null;
+  }, [viewId]);
+
   return (
-    <>
-      <main className={createClassName(styles.root, className)}>
-        <AppLayout>{viewId ? VIEWS[viewId]?.content : null}</AppLayout>
-      </main>
-      <GlobalTimeSeriesData />
-    </>
+    <GlobalTimeSeriesData historyQueries={historyQueries}>
+      <AppLayout className={styles.layout}>{view}</AppLayout>
+    </GlobalTimeSeriesData>
   );
 }

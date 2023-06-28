@@ -5,17 +5,15 @@ import { useMemo } from 'react';
 
 import { ArrowRightIcon, GlobeIcon } from '@/lib/components/svgs/icons';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
-import { isNil } from '@/lib/core/utils/lang';
+import { DEFAULT_SELECTED_ENTITY } from '@/lib/init/entities';
 import { useSummaryStore, useSelectedStore } from '@/lib/stores/entity';
 import { useSiteStore } from '@/lib/stores/site';
 
 import styles from './styles.module.css';
 
-const UNKNOWN_ENTITY_NAME = 'UNKNOWN ENTITY';
-
 export function HierarchyNavigator({ className }: { className?: ClassName }) {
   const [entitySummaries] = useSummaryStore();
-  const [{ entityData }] = useSelectedStore();
+  const [{ entityData }, setSelectedEntity] = useSelectedStore();
   const [site, setSite] = useSiteStore();
 
   const contentElement = useMemo(() => {
@@ -24,7 +22,7 @@ export function HierarchyNavigator({ className }: { className?: ClassName }) {
 
       return (
         <>
-          <button className={styles.icon} onPointerUp={() => setSite(null)}>
+          <button className={createClassName(styles.button, styles.icon)} onPointerUp={() => setSite(null)}>
             <GlobeIcon />
           </button>
 
@@ -32,16 +30,21 @@ export function HierarchyNavigator({ className }: { className?: ClassName }) {
             <ArrowRightIcon />
           </span>
 
-          <span className={createClassName(styles.label, { [styles.active]: isNil(entityData) })}>{site.name}</span>
+          {entityData ? (
+            <button
+              className={createClassName(styles.button, styles.label)}
+              onPointerUp={() => setSelectedEntity(DEFAULT_SELECTED_ENTITY)}
+            >
+              {site.name}
+            </button>
+          ) : (
+            <span className={styles.label} data-is-active={true}>
+              {site.name}
+            </span>
+          )}
 
           {parents.length > 0 && parents.map((parent) => <Crumb key={parent.entityId} name={parent.entityName} />)}
-          {entityData && (
-            <Crumb
-              key={entityData.entityId}
-              isActive={true}
-              name={entitySummaries[entityData.entityId]?.entityName ?? UNKNOWN_ENTITY_NAME}
-            />
-          )}
+          {entityData && <Crumb key={entityData.entityId} isActive={true} name={entityData.name} />}
         </>
       );
     }
@@ -58,19 +61,26 @@ function Crumb({ isActive = false, name }: { isActive?: boolean; name: string })
       <span className={styles.seperator}>
         <ArrowRightIcon />
       </span>
-      <span className={createClassName(styles.label, { [styles.active]: isActive })}>{name}</span>
+      <span className={styles.label} data-is-active={isActive}>
+        {name}
+      </span>
     </>
   );
 }
 
 function walkParentEntities(entities: ReturnType<typeof useSummaryStore>[0], selectedEntityId?: string) {
   let parents: { entityId: string; entityName: string }[] = [];
+
   if (selectedEntityId) {
     let parentEntityId = entities[selectedEntityId]?.parentEntityId;
+
     while (parentEntityId) {
       const selectedEntity = entities[parentEntityId];
-      if (selectedEntity?.entityId && selectedEntity?.entityName)
+
+      if (selectedEntity?.entityId && selectedEntity?.entityName) {
         parents.unshift({ entityId: selectedEntity.entityId, entityName: selectedEntity.entityName });
+      }
+
       parentEntityId = selectedEntity?.parentEntityId;
     }
   }

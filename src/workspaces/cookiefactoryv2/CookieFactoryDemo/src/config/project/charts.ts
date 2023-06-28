@@ -1,16 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
-import { GRAY_COLORS } from '@/lib/css/colors';
 import type { AlarmState, AppKitThreshold, ChartColors } from '@/lib/types';
 
 export const ALARM_COLORS: Record<AlarmState | 'NormalGray', string> = {
-  High: '#ff5050',
-  Medium: '#ff8e3d',
-  Low: '#ddcf3c',
+  High: '#c63a3f', //'#E5343B', //'#ff5050',
+  Medium: '#ea8741', //'#ff8e3d',
+  Low: '#cfc340', //'#ddcf3c',
   Normal: '#7bd45e',
-  NormalGray: GRAY_COLORS.Gray11,
-  Unknown: GRAY_COLORS.Gray30
+  NormalGray: '#adadad', // --text-layer-2-primary
+  Unknown: '#757575' // --text-layer-2-tertiary
 };
 
 export const CHART_ALARM_THRESHOLDS: AppKitThreshold<AlarmState>[] = [
@@ -33,7 +32,7 @@ export const CHART_ALARM_THRESHOLDS: AppKitThreshold<AlarmState>[] = [
     comparisonOperator: 'EQ'
   },
   {
-    color: GRAY_COLORS.Gray45,
+    color: '#454545', // --background-layer-2-accent
     value: 'Normal',
     comparisonOperator: 'EQ'
   }

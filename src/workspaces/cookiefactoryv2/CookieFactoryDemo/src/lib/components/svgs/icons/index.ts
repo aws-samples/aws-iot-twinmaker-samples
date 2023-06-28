@@ -21,5 +21,6 @@ export * from './NetworkIcon';
 export * from './PanelIcon';
 export * from './PlusIcon';
 export * from './SceneIcon';
+export * from './SuccessIcon';
 export * from './TargetIcon';
 export * from './TrendIcon';

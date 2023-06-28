@@ -8,4 +8,4 @@ export * from './entityData';
 export * from './knowlegeGraph';
 export * from './timeSeriesData';
 
-export const DEFAULT_PANEL_ID: PanelId | null = null;
+export const DEFAULT_PANEL_IDS: PanelId[] = [];

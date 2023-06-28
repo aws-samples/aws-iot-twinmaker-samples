@@ -9,6 +9,7 @@ export type DerivedStore<State> = ReadableStore<State>;
 export type MutableStore<State> = Merge<
   ReadableStore<State>,
   {
+    resetToInitialState(): void;
     setState(state: State | ((state: State) => State)): void;
   }
 >;

@@ -4,15 +4,9 @@
 import { ListEntitiesCommand, type EntitySummary } from '@aws-sdk/client-iottwinmaker';
 import { initialize } from '@iot-app-kit/source-iottwinmaker';
 
-import { defaultAlarmHistoryQuery, defaultDataHistoryQuery } from '@/lib/init/entities';
 import { createStore, createStoreHook } from '@/lib/core/store';
 import { resetDataStores } from '@/lib/stores/data';
-import {
-  alarmHistoryQueriesStore,
-  dataHistoryQueriesStore,
-  resetEntityStores,
-  summaryStore
-} from '@/lib/stores/entity';
+import { resetEntityStores, summaryStore } from '@/lib/stores/entity';
 import { resetHierarchyStore } from '@/lib/stores/hierarchy';
 import { clientStore, dataSourceStore, sceneLoaderStore } from '@/lib/stores/iottwinmaker';
 import { resetPanelsStore } from '@/lib/stores/panels';
@@ -23,6 +17,8 @@ import type { Site } from '@/lib/types';
 export const siteStore = createStore<Site | null>(null);
 
 export const useSiteStore = createStoreHook(siteStore);
+
+// private subscriptions
 
 siteStore.subscribe(async (getState) => {
   const client = clientStore.getState();
@@ -46,8 +42,8 @@ siteStore.subscribe(async (getState) => {
 
       dataSourceStore.setState(dataSource);
       sceneLoaderStore.setState(dataSource.s3SceneLoader(site.iottwinmaker.sceneId));
-      alarmHistoryQueriesStore.setState(defaultAlarmHistoryQuery);
-      dataHistoryQueriesStore.setState(defaultDataHistoryQuery);
+      // alarmHistoryQueriesStore.setState(defaultAlarmStateHistoryQuery);
+      // dataHistoryQueriesStore.setState(defaultDataHistoryQuery);
     }
 
     if (client && Object.keys(summaryStore.getState()).length === 0) {

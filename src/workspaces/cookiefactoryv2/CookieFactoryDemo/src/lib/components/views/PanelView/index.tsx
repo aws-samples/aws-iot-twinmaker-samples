@@ -3,73 +3,174 @@
 
 import { useCallback, useEffect, useMemo, type PointerEventHandler } from 'react';
 
+import { SITE_TYPE } from '@/config/sites';
 import { PanelLayout } from '@/lib/components/layouts';
 import { CloseAllIcon } from '@/lib/components/svgs/icons';
+import { ArrowHeadDownIcon, GlobeIcon } from '@/lib/components/svgs/icons';
 import { CookieFactoryLogoWide } from '@/lib/components/svgs/logos';
+import { useMenu } from '@/lib/core/hooks';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
+import { isNil } from '@/lib/core/utils/lang';
+import { normalizedEntityData } from '@/lib/init/entities';
 import { PANELS } from '@/lib/init/panels';
-import { globalControlStore, useGlobalControlStore } from '@/lib/stores/control';
-import { panelsStore, usePanelsStore } from '@/lib/stores/panels';
-import type { GlobalControl, Panel } from '@/lib/types';
+import { useSelectedStore } from '@/lib/stores/entity';
+import { usePanelsStore } from '@/lib/stores/panels';
+import { useSiteStore } from '@/lib/stores/site';
+import type { Panel } from '@/lib/types';
 
 import controlStyles from './control.module.css';
 import styles from './styles.module.css';
 
-const closeAllControl = (
-  <button className={styles.closeAllIcon} key={crypto.randomUUID()} onPointerUp={() => panelsStore.setState([])}>
-    <CloseAllIcon />
-  </button>
-);
+const VIEW_LABEL = 'Monitor';
 
 export function PanelView({ className }: { className?: ClassName }) {
-  const [, setGlobalControl] = useGlobalControlStore();
-  const [panelsStore] = usePanelsStore();
+  const [panels, setPanels] = usePanelsStore();
+  const [selectedEntity] = useSelectedStore();
 
-  useEffect(() => {
-    if (panelsStore.length) {
-      setGlobalControl((globalControl) => {
-        return !globalControl.includes(closeAllControl) ? [...globalControl, closeAllControl] : globalControl;
-      });
-    } else {
-      setGlobalControl((globalControl) => removeGlobalControls(globalControl));
-    }
-  }, [panelsStore]);
+  const viewLabel = useMemo(() => {
+    return `${selectedEntity.entityData ? selectedEntity.entityData.type : SITE_TYPE} ${VIEW_LABEL}`;
+  }, [selectedEntity]);
 
-  useEffect(() => {
-    return () => globalControlStore.setState(removeGlobalControls);
-  }, []);
+  const closeAllButton = useMemo(() => {
+    return panels.size ? (
+      <button
+        className={styles.closeAllIcon}
+        key={crypto.randomUUID()}
+        onPointerUp={() =>
+          setPanels((state) => {
+            state.clear();
+            return state;
+          })
+        }
+      >
+        <CloseAllIcon />
+      </button>
+    ) : null;
+  }, [panels]);
 
   return (
-    <main className={createClassName(styles.root, className)}>
-      <Panels />
+    <main className={createClassName(styles.root, className)} data-has-panels={panels.size > 0}>
+      <section className={styles.viewInfo}>
+        {viewLabel}
+        {closeAllButton}
+      </section>
+      {panels.size ? <Panels /> : <EmptyState />}
       <ControlLayout />
     </main>
   );
 }
 
 function Panels() {
-  const [panelsStore] = usePanelsStore();
-  const isExpandable = useMemo(() => panelsStore.length > 1, [panelsStore]);
+  const [panels] = usePanelsStore();
+  const [selectedEntity, setSelectedEntity] = useSelectedStore();
+  const [site] = useSiteStore();
 
-  const panelElements = useMemo(() => {
-    if (panelsStore.length === 0) return <EmptyState />;
+  if (panels.size > 0) {
+    const entities: {
+      component: (props: {
+        id: string;
+        hover?: boolean | undefined;
+        selected?: boolean | undefined;
+      }) => React.ReactNode;
+      id: string;
+    }[] = normalizedEntityData
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map(({ entityId, name }) => {
+        return {
+          component: ({ selected }) => (
+            <main className={createClassName(styles.menuItem)} data-selected={selected === true}>
+              <section className={styles.menuItemLabel}>{name}</section>
+            </main>
+          ),
+          id: entityId
+        };
+      });
 
-    return PANELS.sort((a, b) => a.priority - b.priority).reduce<JSX.Element[]>((accum, panel) => {
-      const hasPanel = panelsStore.find((id) => id == panel.id);
+    const { handleTrigger, menu, menuContainerRef, selectedId, selectedRef } = useMenu(
+      [
+        {
+          component: ({ selected }) => (
+            <main className={createClassName(styles.menuItem)} data-selected={selected === true}>
+              <section className={styles.menuItemLabel}>
+                <GlobeIcon className={styles.menuItemIcon} />
+                <span>{site!.name}</span>
+              </section>
+            </main>
+          ),
+          id: site!.id
+        },
+        ...entities
+      ],
+      {
+        className: createClassName(styles.menu),
+        selectedId: selectedEntity.entityData ? selectedEntity.entityData?.entityId : site!.id
+      }
+    );
 
-      if (hasPanel) {
-        accum.push(<PanelLayout key={panel.id} isExpandable={isExpandable} panel={panel} />);
+    const head = useMemo(() => {
+      if (selectedEntity.entityData) {
+        return (
+          <div className={styles.triggerNameGroup}>
+            <div className={styles.entityName}>{selectedEntity.entityData.name}</div>
+            {selectedEntity.entityData.type && (
+              <div className={styles.entityType}>{selectedEntity.entityData.type}</div>
+            )}
+          </div>
+        );
       }
 
-      return accum;
-    }, []);
-  }, [panelsStore]);
+      if (site) {
+        return (
+          <div className={styles.triggerNameGroup}>
+            <div className={styles.entityName}>{site?.name}</div>
+            <div className={styles.entityType}>{SITE_TYPE}</div>
+          </div>
+        );
+      }
+    }, [panels, selectedEntity, site]);
 
-  return (
-    <main className={createClassName(styles.panels)} data-count={panelsStore.length}>
-      {panelElements}
-    </main>
-  );
+    const panelElements = useMemo(() => {
+      const isExpandable = panels.size > 1;
+
+      return PANELS.sort((a, b) => a.priority - b.priority)
+        .sort((a, b) => a.slot - b.slot)
+        .reduce<JSX.Element[]>((accum, panel) => {
+          if (panels.has(panel.id)) {
+            accum.push(<PanelLayout key={panel.id} isExpandable={isExpandable} panel={panel} />);
+          }
+
+          return accum;
+        }, []);
+    }, [panels]);
+
+    useEffect(() => {
+      if (selectedId) {
+        const entityData = normalizedEntityData.find(({ entityId }) => entityId === selectedId) ?? null;
+        setSelectedEntity({ entityData, type: null });
+      }
+    }, [selectedId]);
+
+    useEffect(() => {
+      selectedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, [menu]);
+
+    return (
+      <>
+        <section className={styles.head} ref={menuContainerRef}>
+          <button className={styles.trigger} data-active={!isNil(menu)} onPointerUp={handleTrigger}>
+            {head}
+            <ArrowHeadDownIcon className={styles.triggerArrow} />
+          </button>
+          {menu}
+        </section>
+        <section className={createClassName(styles.panels)} data-count={panels.size}>
+          {panelElements}
+        </section>
+      </>
+    );
+  }
+
+  return null;
 }
 
 function ControlLayout({ className }: { className?: ClassName }) {
@@ -100,41 +201,38 @@ function Control({ panel: { icon, id, label } }: { panel: Panel }) {
   const [panelsStore, setPanelStore] = usePanelsStore();
 
   const handlePointerUp = useCallback<PointerEventHandler<HTMLButtonElement>>(({ nativeEvent: { altKey } }) => {
-    setPanelStore((panels) => {
-      const hasPanelId = panels.includes(id);
+    setPanelStore((state) => {
+      const hasPanelId = state.has(id);
 
       if (altKey) {
-        if (hasPanelId && panels.length === 1) {
-          panels.length = 0;
+        if (hasPanelId && state.size === 1) {
+          state.clear();
         } else {
-          panels.length = 0;
-          panels.push(id);
+          state.clear();
+          state.add(id);
         }
       } else {
         if (hasPanelId) {
-          const filtered = panels.filter((panelId) => panelId !== id);
-          panels.length = 0;
-          panels.push(...filtered);
+          const filtered = [...state.values()].filter((panelId) => panelId !== id);
+          state.clear();
+          filtered.forEach(state.add, state);
         } else {
-          panels.push(id);
+          state.add(id);
         }
       }
-      return panels;
+      return state;
     });
   }, []);
 
   return (
     <button
-      className={createClassName(controlStyles.root, {
-        [controlStyles.active]: panelsStore.length > 0,
-        [controlStyles.selected]: panelsStore.includes(id)
-      })}
+      className={controlStyles.button}
+      data-is-active={panelsStore.size > 0}
+      data-is-selected={panelsStore.has(id)}
       onPointerUp={handlePointerUp}
     >
-      <section className={controlStyles.group}>
-        <div className={controlStyles.icon}>{icon}</div>
-        <div className={controlStyles.label}>{label}</div>
-      </section>
+      <div className={controlStyles.icon}>{icon}</div>
+      <div className={controlStyles.label}>{label}</div>
     </button>
   );
 }
@@ -145,8 +243,4 @@ function EmptyState() {
       <CookieFactoryLogoWide className={styles.emptyStateLogo} />
     </main>
   );
-}
-
-function removeGlobalControls(controls: GlobalControl[]) {
-  return controls.filter((control) => control !== closeAllControl);
 }

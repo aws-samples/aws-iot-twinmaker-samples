@@ -1,53 +1,58 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 20px;
-  padding: 0 20px;
+  --background-color: var(--background-layer-1);
+  --background-hover-color: var(--background-layer-1-hover);
+  --background-active-color: var(--background-layer-1-active);
+  --icon-color: var(--color-alarm-unknown);
+  --label-color: var(--text-layer-1-accent);
+  --label-hover-color: var(--text-layer-1-hover);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  display: grid;
+  place-items: center start;
+  column-gap: 60rem;
 }
 
-.group {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 5rem;
+.button {
+  display: grid;
+  place-items: center start;
+  grid-auto-flow: column;
+  gap: 6rem;
+  padding: 10rem 15rem;
   height: 100%;
-  transition: var(--transition);
-  cursor: pointer;
+  background-color: var(--background-color);
+  border-radius: var(--radius-10);
+  transition: var(--transition-background-color);
 }
 
-.group.alarm.p0 {
-  --icon-color: var(--color-alarm-p0);
+.button:hover {
+  --background-color: var(--background-hover-color);
+  --label-color: var(--label-hover-color);
 }
 
-.group.alarm.p1 {
-  --icon-color: var(--color-alarm-p1);
-}
-
-.group.alarm.p2 {
-  --icon-color: var(--color-alarm-p2);
-}
-
-.group.alarm.p3 {
-  --icon-color: var(--color-alarm-p3);
-}
-
-.group:hover {
-  --border-color: var(--border-hover-color);
-  --icon-color: var(--icon-hover-color);
-  --text-color: var(--text-hover-color);
+.button.events {
+  translate: -2rem 0;
 }
 
 .icon {
   --size: 20rem;
-  display: flex;
-  justify-content: flex-end;
   width: var(--size);
   height: var(--size);
   color: var(--icon-color);
-  transition: var(--transition);
+  transition: var(--transition-color);
+}
+
+.icon.High {
+  --icon-color: var(--color-alarm-high);
+}
+
+.icon.Medium {
+  --icon-color: var(--color-alarm-medium);
+}
+
+.icon.Low {
+  --icon-color: var(--color-alarm-low);
 }
 
 .icon>svg {
@@ -56,12 +61,37 @@
 }
 
 .label {
-  position: relative;
-  top: -1px;
+  color: var(--label-color);
   font-size: 20rem;
-  font-weight: 400;
-  line-height: 1;
   font-variant-numeric: tabular-nums;
-  color: var(--text-active-color);
-  transition: var(--transition);
+  font-weight: var(--font-weight-5);
+  line-height: 1;
+  transition: var(--transition-color);
+}
+
+/* events button */
+.eventIndicators {
+  display: grid;
+  gap: 3rem;
+}
+
+.eventIndicator {
+  --size: 5em;
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--color-alarm-unknown);
+  border-radius: var(--size);
+}
+
+.eventIndicator[data-indicator-high=true] {
+  background-color: var(--color-alarm-high);
+}
+
+.eventIndicator[data-indicator-medium=true] {
+  background-color: var(--color-alarm-medium);
+}
+
+.eventIndicator[data-indicator-low=true] {
+  background-color: var(--color-alarm-low);
+  ;
 }

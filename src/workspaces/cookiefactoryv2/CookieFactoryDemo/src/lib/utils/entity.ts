@@ -12,15 +12,15 @@ import type {
   TwinMakerEntityHistoryQuery
 } from '@/lib/types';
 
-export function createHistoryQuery<T extends SetRequired<EntityData, 'properties'>>(
+export function createEntityHistoryQuery<T extends SetRequired<EntityData, 'properties'>>(
   entityData: T,
-  propertyType: EntityPropertyType
+  ...propertyType: EntityPropertyType[]
 ): TwinMakerEntityHistoryQuery {
   const { componentName, entityId, properties } = entityData;
 
   const reducedProperties = properties.reduce<ValueOf<TwinMakerEntityHistoryQuery, 'properties'>>(
     (accum, { propertyQueryInfo, type }) => {
-      if (type === propertyType) {
+      if (type && propertyType.includes(type)) {
         accum.push(propertyQueryInfo);
       }
       return accum;
@@ -31,14 +31,14 @@ export function createHistoryQuery<T extends SetRequired<EntityData, 'properties
   return { componentName, entityId, properties: reducedProperties };
 }
 
-export function createHistoryQueries<T extends SetRequired<EntityData, 'properties'>>(
+export function createEntityHistoryQueries<T extends SetRequired<EntityData, 'properties'>>(
   entityData: T,
-  propertyType: EntityPropertyType
+  ...propertyType: EntityPropertyType[]
 ): TwinMakerEntityHistoryQuery[] {
   const { componentName, entityId, properties } = entityData;
 
   return properties.reduce<TwinMakerEntityHistoryQuery[]>((accum, { propertyQueryInfo, type }) => {
-    if (type === propertyType) {
+    if (type && propertyType.includes(type)) {
       accum.push({ componentName, entityId, properties: [propertyQueryInfo] });
     }
     return accum;

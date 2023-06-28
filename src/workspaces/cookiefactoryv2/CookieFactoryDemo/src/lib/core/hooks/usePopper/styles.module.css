@@ -3,7 +3,7 @@
 @keyframes showOverlay {
   from {
     opacity: 0;
-    scale: .9;
+    scale: .95;
   }
 
   to {
@@ -24,7 +24,7 @@
 .isVisible {
   display: block;
   animation-name: showOverlay;
-  animation-duration: 200ms;
+  animation-duration: 350ms;
 }
 
 .top {

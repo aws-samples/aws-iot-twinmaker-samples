@@ -21,9 +21,7 @@ export function createDerivedStoreHook<State>(store: DerivedStore<State>) {
   };
 }
 
-export function createMutableStoreHook<State>(
-  store: MutableStore<State>
-): () => [State, ValueOf<MutableStore<State>, 'setState'>] {
+export function createMutableStoreHook<State>(store: MutableStore<State>) {
   return () => {
     const [state, setState] = useState(store.getState());
 

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback, useState, useMemo, type PointerEventHandler, useRef } from 'react';
+import { useCallback, useEffect, useState, useMemo, type PointerEventHandler, type Ref, useRef } from 'react';
 import type { Except, ValueOf } from 'type-fest';
 
 import { Menu, type MenuItem } from '../components';
@@ -12,6 +12,7 @@ export function useMenu(
   items: Except<MenuItem, 'selected'>[],
   { className, selectedId }: Partial<{ className: ClassName; selectedId: ValueOf<MenuItem, 'id'> }> = {}
 ) {
+  const selectedRef = useRef<HTMLButtonElement>(null);
   const { ref: menuContainerRef, isClickWithin, setClickWithin } = useClickWithin(false);
   const [_selectedId, setSelectedId] = useState(selectedId);
 
@@ -31,8 +32,14 @@ export function useMenu(
   }, []);
 
   const menu = useMemo(() => {
-    return isClickWithin ? <Menu className={className} items={_items} onPointerUp={handlePointerUp} /> : null;
-  }, [className, isClickWithin, _items, handlePointerUp]);
+    return isClickWithin ? (
+      <Menu className={className} items={_items} onPointerUp={handlePointerUp} ref={selectedRef} />
+    ) : null;
+  }, [className, isClickWithin, _items, selectedRef]);
 
-  return { handleTrigger, menu, menuContainerRef, selectedId: _selectedId };
+  useEffect(() => {
+    setSelectedId(selectedId);
+  }, [selectedId]);
+
+  return { handleTrigger, menu, menuContainerRef, selectedId: _selectedId, selectedRef };
 }

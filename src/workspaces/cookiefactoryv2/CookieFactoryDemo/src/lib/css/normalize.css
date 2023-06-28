@@ -3,6 +3,7 @@ button {
   background-image: none;
   border-width: 0;
   border-style: solid;
+  color: inherit;
   cursor: pointer;
   margin: 0;
   padding: 0;
