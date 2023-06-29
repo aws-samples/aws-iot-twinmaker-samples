@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { AppLayout } from '@/lib/components/layouts';
 import { getAllHistoryQueries } from '@/lib/init/entities';
 import { VIEWS } from '@/lib/init/views';
-import { GlobalTimeSeriesData } from '@/lib/providers';
+import { TimeSeriesData } from '@/lib/providers';
 import { useViewStore } from '@/lib/stores/view';
 
 import styles from './styles.module.css';
@@ -27,8 +27,9 @@ export function AppView() {
   }, [viewId]);
 
   return (
-    <GlobalTimeSeriesData historyQueries={historyQueries}>
+    <>
       <AppLayout className={styles.layout}>{view}</AppLayout>
-    </GlobalTimeSeriesData>
+      <TimeSeriesData historyQueries={historyQueries} />
+    </>
   );
 }

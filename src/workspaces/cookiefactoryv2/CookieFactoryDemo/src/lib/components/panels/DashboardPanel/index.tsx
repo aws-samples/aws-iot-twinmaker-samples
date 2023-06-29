@@ -13,7 +13,7 @@ import { usePanelsStore } from '@/lib/stores/panels';
 import type { EntityData, StyleSettingsMap } from '@/lib/types';
 import { isEntityWithProperties } from '@/lib/utils/entity';
 
-import '@iot-app-kit/react-components/styles.css';
+import '@iot-app-kit/charts/dist/styles.css';
 import css from './styles.module.css';
 
 const ALL_COMPONENTS_TEXT = 'Alarm Status: All Equipment';
