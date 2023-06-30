@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useTimeSeriesData } from '@iot-app-kit/react-components';
-import { useMemo, type ReactNode } from 'react';
+import { useMemo, useEffect } from 'react';
 
 import { REQUEST_SETTINGS, VIEWPORT } from '@/config/project';
 import { throttle } from '@/lib/core/utils/lang';
@@ -11,8 +11,8 @@ import { useDataSourceStore } from '@/lib/stores/iottwinmaker';
 import type {
   DataStream,
   Primitive,
-  TimeSeriesDataQuery,
   TimeSeriesDataRequestSettings,
+  TwinMakerDataSource,
   TwinMakerEntityHistoryQuery
 } from '@/lib/types';
 import { createTimeSeriesQueries } from '@/lib/utils/entity';
@@ -25,7 +25,7 @@ const DEFAULT_REQUEST_SETTINGS: Required<TimeSeriesDataRequestSettings> = {
   requestBuffer: 0.2, // 20% buffer
 
   // refresh rate in milliseconds for how frequently to request data if applicable to the datasource
-  refreshRate: 1000,
+  refreshRate: 5000,
 
   // The 'resolution' which we want the data to be displayed at. For example, raw data, 1 minute aggregated, hourly aggregated, etc.
   // Must be a resolution supported by your datasource. Full options contained in the data sources documentation you are utilizing.
@@ -42,50 +42,37 @@ const DEFAULT_REQUEST_SETTINGS: Required<TimeSeriesDataRequestSettings> = {
   fetchMostRecentBeforeEnd: true
 };
 
-export function GlobalTimeSeriesData({
-  children,
-  historyQueries
-}: {
-  children?: ReactNode;
-  historyQueries: TwinMakerEntityHistoryQuery[];
-}) {
-  console.log('AppKitTimeSeriesDataWrapper');
+const setDataStreams = throttle((dataStreams: DataStream<Primitive>[]) => {
+  dataStreamsStore.setState(dataStreams);
+}, 1000);
 
-  return (
-    <>
-      {children}
-      <GlobalTimeSeriesDataInner historyQueries={historyQueries} />
-    </>
-  );
-}
-
-function GlobalTimeSeriesDataInner({ historyQueries }: { historyQueries: TwinMakerEntityHistoryQuery[] }) {
+export function TimeSeriesData({ historyQueries }: { historyQueries: TwinMakerEntityHistoryQuery[] }) {
   const [dataSource] = useDataSourceStore();
 
   return useMemo(() => {
     if (dataSource) {
-      const timeSeriesQueries = createTimeSeriesQueries(dataSource, historyQueries);
-      return <AppKitTimeSeriesDataWrapper timeSeriesQueries={timeSeriesQueries} />;
+      return <AppKitTimeSeriesData dataSource={dataSource} historyQueries={historyQueries} />;
     }
-
     return <></>;
   }, [dataSource, historyQueries]);
 }
 
-// private
-
-function AppKitTimeSeriesDataWrapper({ timeSeriesQueries }: { timeSeriesQueries: TimeSeriesDataQuery[] }) {
+function AppKitTimeSeriesData({
+  dataSource,
+  historyQueries
+}: {
+  dataSource: TwinMakerDataSource;
+  historyQueries: TwinMakerEntityHistoryQuery[];
+}) {
   const { dataStreams } = useTimeSeriesData({
-    queries: timeSeriesQueries,
+    queries: createTimeSeriesQueries(dataSource, historyQueries),
     settings: { ...DEFAULT_REQUEST_SETTINGS, ...REQUEST_SETTINGS },
     viewport: VIEWPORT
   });
 
-  setDataStreams(dataStreams);
+  useEffect(() => {
+    setDataStreams(dataStreams);
+  }, [dataStreams]);
 
   return <></>;
 }
-
-const setDataStreams = throttle((dataStreams: DataStream<Primitive>[]) => {
-  dataStreamsStore.setState(dataStreams);
-}, 1000);

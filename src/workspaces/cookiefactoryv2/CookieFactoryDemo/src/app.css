@@ -136,3 +136,7 @@ body[class*="hide-appkit"]>[class*="tooltip-portal"] {
 body[class*="hide-appkit"] iot-app-kit-vis-status-timeline {
   display: none;
 }
+
+body[class*="hide-appkit"] iot-app-kit-vis-webgl-context {
+  visibility: hidden;
+}
