@@ -151,6 +151,10 @@
   color: var(--color-time);
 }
 
+.timeSection:before {
+  content: attr(data-label) " ";
+}
+
 .High {
   --color-alarm: var(--color-alarm-high);
 }

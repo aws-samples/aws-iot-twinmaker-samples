@@ -11,6 +11,10 @@ import type { SiteConfig, UserConfig } from '@/lib/types';
 const sites: Record<string, SiteConfig[]> = {
   'user@cookiefactory': [
     {
+      defaults: {
+        panelIds: [],
+        viewId: 'panel'
+      },
       iottwinmaker: {
         sceneId: 'CookieFactory',
         workspaceId: '__FILL_IN__'

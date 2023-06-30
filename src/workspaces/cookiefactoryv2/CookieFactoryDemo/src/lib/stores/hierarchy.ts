@@ -4,7 +4,6 @@
 import { createStore, createStoreHook } from '@/lib/core/store';
 
 export const hierarchyStore = createStore<string | null>(null);
-
 export const useHierarchyStore = createStoreHook(hierarchyStore);
 
 export function resetHierarchyStore() {

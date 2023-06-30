@@ -5,15 +5,15 @@ import { formatDuration, intervalToDuration } from 'date-fns';
 import { useMemo, useState } from 'react';
 
 import { AlarmHighIcon, AlarmMediumIcon, AlarmLowIcon, SuccessIcon } from '@/lib/components/svgs/icons';
+import { RelativeTime } from '@/lib/core/components';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
-import { getRelativeTimeString } from '@/lib/core/utils/time';
+import { isNil } from '@/lib/core/utils/lang';
 import { selectedStore, useSelectedStore } from '@/lib/stores/entity';
 import { panelsStore } from '@/lib/stores/panels';
 import { useAllEvents } from '@/lib/stores/event';
 import type { EntityData, Event, EventState, EventStatus } from '@/lib/types';
 
 import styles from './styles.module.css';
-import { isNil } from '@/lib/core/utils/lang';
 
 type EventFilter = EventState | EventStatus | null;
 
@@ -35,45 +35,7 @@ export function EventsPanel({ className }: { className?: ClassName }) {
       .filter(({ entityData: { entityId } }) => {
         return selectedEntity.entityData ? selectedEntity.entityData.entityId === entityId : true;
       })
-      .map((event) => {
-        return (
-          <button
-            className={createClassName(styles.event, styles[event.state])}
-            data-active={event.status !== 'resolved'}
-            key={event.id}
-            onPointerUp={() => {
-              selectedStore.setState({ entityData: event.entityData, type: null });
-              panelsStore.setState((state) => {
-                state.add('process');
-                return state;
-              });
-            }}
-          >
-            <section className={styles.body}>
-              <div className={styles.icon}>{getIcon(event)}</div>
-              <div className={styles.content}>
-                <div className={styles.entityName}>{event.entityData.name}</div>
-                <div className={styles.name}>{event.name}</div>
-                <div className={styles.message}>{event.message}</div>
-              </div>
-            </section>
-            <section className={styles.footer}>
-              <span>{event.status}</span>
-              <span data-label={LABELS.Detected}>
-                {getRelativeTimeString(event.lastModififedTimestamp, { numeric: 'auto', style: 'narrow' })}
-              </span>
-              {event.status === 'resolved' && (
-                <span data-label={LABELS.Lasted}>
-                  {formatDuration(
-                    intervalToDuration({ start: event.lastModififedTimestamp, end: event.createdTimestamp }),
-                    { format: ['days', 'hours', 'minutes', 'seconds'] }
-                  )}
-                </span>
-              )}
-            </section>
-          </button>
-        );
-      });
+      .map((event) => <Event key={event.id} event={event} />);
   }, [allEvents, filter, selectedEntity]);
 
   const filteredCounts = useMemo(() => {
@@ -88,6 +50,19 @@ export function EventsPanel({ className }: { className?: ClassName }) {
       resolved: filteredEvents.filter(({ status }) => status === 'resolved').length
     };
   }, [allEvents, selectedEntity]);
+
+  const eventContent = useMemo(() => {
+    return events.length ? (
+      <section className={styles.events}>
+        <div className={styles.eventList}>{events}</div>
+      </section>
+    ) : (
+      <section className={styles.emptyState}>
+        <h1>You&#8217;re all caught up!</h1>
+        <section>{getEmptyStateMessage(filter)}</section>
+      </section>
+    );
+  }, [events]);
 
   return (
     <main className={createClassName(styles.root, className)} data-has-event={events.length > 0}>
@@ -149,17 +124,50 @@ export function EventsPanel({ className }: { className?: ClassName }) {
         </div>
       </section>
 
-      {events.length ? (
-        <section className={styles.events}>
-          <div className={styles.eventList}>{events}</div>
-        </section>
-      ) : (
-        <section className={styles.emptyState}>
-          <h1>You&#8217;re all caught up!</h1>
-          <section>{getEmptyStateMessage(filter)}</section>
-        </section>
-      )}
+      {eventContent}
     </main>
+  );
+}
+
+function Event({ event }: { event: Event }) {
+  return (
+    <button
+      className={createClassName(styles.event, styles[event.state])}
+      data-active={event.status !== 'resolved'}
+      key={event.id}
+      onPointerUp={() => {
+        selectedStore.setState({ entityData: event.entityData, type: null });
+        panelsStore.setState((state) => {
+          state.add('process');
+          return state;
+        });
+      }}
+    >
+      <section className={styles.body}>
+        <div className={styles.icon}>{getIcon(event)}</div>
+        <div className={styles.content}>
+          <div className={styles.entityName}>{event.entityData.name}</div>
+          <div className={styles.name}>{event.name}</div>
+          <div className={styles.message}>{event.message}</div>
+        </div>
+      </section>
+      <section className={styles.footer}>
+        <span>{event.status}</span>
+        <span data-label={LABELS.Detected}>
+          <RelativeTime
+            timestamp={event.createdTimestamp}
+            options={{ numeric: 'auto', style: 'narrow', updateInterval: 1000 }}
+          />
+        </span>
+        {event.status === 'resolved' && (
+          <span data-label={LABELS.Lasted}>
+            {formatDuration(intervalToDuration({ start: event.createdTimestamp, end: event.lastModififedTimestamp }), {
+              format: ['days', 'hours', 'minutes', 'seconds']
+            })}
+          </span>
+        )}
+      </section>
+    </button>
   );
 }
 
@@ -210,14 +218,3 @@ function getIcon(event: Event) {
       return <SuccessIcon />;
   }
 }
-
-// const SECOND = 1000;
-// const MINUTE = SECOND * 60;
-// const HOUR = MINUTE * 60;
-// const DAY = HOUR * 24;
-
-// function formatDuration(duration: number) {
-//   const days = Math.floor(duration / DAY);
-//   const hours = Math.floor(duration / HOUR);
-//   const minutes = Math.floor(duration / MINUTE) / hours;
-// }

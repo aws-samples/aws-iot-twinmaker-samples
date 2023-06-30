@@ -2,13 +2,13 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 .root {
   --background-color: var(--background-layer-1);
-  --background-active-color: var(--background-active);
+  --background-active-color: var(--background-layer-1-active);
   --foreground-color: var(--text-layer-2-primary);
   --item-background-color: var(--background-color);
-  --item-background-active-color: var(--background-active);
+  --item-background-active-color: var(--background-layer-2-active);
   --item-foreground-color: var(--text-layer-2-primary);
   --item-foreground-hover-color: var(--text-layer-2-hover);
-  --item-foreground-active-color: var(--foreground-active);
+  --item-foreground-active-color: var(--foreground-layer-2-active);
   --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
   --transition-color: color var(--transition-duration) var(--transition-easing);
   display: grid;

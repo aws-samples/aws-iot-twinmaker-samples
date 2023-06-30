@@ -26,7 +26,6 @@ export type LatestValuesMap = Record<string, { [key: string]: LatestValue<Primit
 export const alarmStateStore = createStore<Record<string, LatestValue<AlarmState>>>({});
 export const dataStreamsStore = createStore<DataStream[]>([]);
 export const latestValuesStore = createStore<LatestValuesMap>({});
-
 export const useAlarmStateStore = createStoreHook(alarmStateStore);
 export const useDataStreamsStore = createStoreHook(dataStreamsStore);
 export const useLatestValuesStore = createStoreHook(latestValuesStore);

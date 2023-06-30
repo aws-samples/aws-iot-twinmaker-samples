@@ -5,5 +5,4 @@ import { createMutableStore, createMutableStoreHook } from '@/lib/core/store';
 import type { GlobalControl } from '@/lib/types';
 
 export const globalControlStore = createMutableStore<GlobalControl[]>([]);
-
 export const useGlobalControlStore = createMutableStoreHook(globalControlStore);

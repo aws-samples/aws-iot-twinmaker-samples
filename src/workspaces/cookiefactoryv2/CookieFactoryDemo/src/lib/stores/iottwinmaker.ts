@@ -7,7 +7,6 @@ import type { SceneLoader, IoTTwinMakerClient, TwinMakerDataSource } from '@/lib
 export const clientStore = createMutableStore<IoTTwinMakerClient | null>(null);
 export const dataSourceStore = createMutableStore<TwinMakerDataSource | null>(null);
 export const sceneLoaderStore = createMutableStore<SceneLoader | null>(null);
-
 export const useClientStore = createMutableStoreHook(clientStore);
 export const useDataSourceStore = createMutableStoreHook(dataSourceStore);
 export const useSceneLoaderStore = createMutableStoreHook(sceneLoaderStore);

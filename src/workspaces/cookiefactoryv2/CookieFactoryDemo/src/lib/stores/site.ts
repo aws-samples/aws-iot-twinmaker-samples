@@ -7,15 +7,15 @@ import { initialize } from '@iot-app-kit/source-iottwinmaker';
 import { createStore, createStoreHook } from '@/lib/core/store';
 import { resetDataStores } from '@/lib/stores/data';
 import { resetEntityStores, summaryStore } from '@/lib/stores/entity';
+import { resetEventStores } from '@/lib/stores/event';
 import { resetHierarchyStore } from '@/lib/stores/hierarchy';
 import { clientStore, dataSourceStore, sceneLoaderStore } from '@/lib/stores/iottwinmaker';
-import { resetPanelsStore } from '@/lib/stores/panels';
+import { panelsStore, resetPanelsStore } from '@/lib/stores/panels';
 import { userStore } from '@/lib/stores/user';
-import { viewStore } from '@/lib/stores/view';
+import { resetViewStore, viewStore } from '@/lib/stores/view';
 import type { Site } from '@/lib/types';
 
 export const siteStore = createStore<Site | null>(null);
-
 export const useSiteStore = createStoreHook(siteStore);
 
 // private subscriptions
@@ -27,11 +27,12 @@ siteStore.subscribe(async (getState) => {
 
   dataSourceStore.setState(null);
   sceneLoaderStore.setState(null);
-  viewStore.setState('panel');
   resetDataStores();
   resetEntityStores();
+  resetEventStores();
   resetHierarchyStore();
   resetPanelsStore();
+  resetViewStore();
 
   if (site) {
     if (user) {
@@ -42,8 +43,6 @@ siteStore.subscribe(async (getState) => {
 
       dataSourceStore.setState(dataSource);
       sceneLoaderStore.setState(dataSource.s3SceneLoader(site.iottwinmaker.sceneId));
-      // alarmHistoryQueriesStore.setState(defaultAlarmStateHistoryQuery);
-      // dataHistoryQueriesStore.setState(defaultDataHistoryQuery);
     }
 
     if (client && Object.keys(summaryStore.getState()).length === 0) {
@@ -64,6 +63,9 @@ siteStore.subscribe(async (getState) => {
           }, {})
         );
       }
+
+      viewStore.setState(site.defaults.viewId);
+      panelsStore.setState(new Set(site.defaults.panelIds));
     }
   }
 });

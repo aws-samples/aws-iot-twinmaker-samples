@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { TrendIcon } from '@/lib/components/svgs/icons';
+import { RelativeTime } from '@/lib/core/components';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
-import { getRelativeTimeString } from '@/lib/core/utils/time';
 import { isNumber, isPlainObject } from '@/lib/core/utils/lang';
 import type { AlarmState, LatestValue, Primitive } from '@/lib/types';
 
@@ -78,9 +78,8 @@ export function KpiChart({
           )}
         </section>
       </section>
-      <section className={styles.timeSection}>
-        <span>{TIME_PREFIX}</span>
-        <span>{getRelativeTimeString(x, { numeric: 'auto', style: 'narrow' })}</span>
+      <section className={styles.timeSection} data-label={TIME_PREFIX}>
+        <RelativeTime timestamp={x} options={{ numeric: 'auto', style: 'narrow', updateInterval: 1000 }} />
       </section>
     </main>
   );
