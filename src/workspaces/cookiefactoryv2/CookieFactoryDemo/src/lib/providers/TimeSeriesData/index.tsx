@@ -25,7 +25,7 @@ const DEFAULT_REQUEST_SETTINGS: Required<TimeSeriesDataRequestSettings> = {
   requestBuffer: 0.2, // 20% buffer
 
   // refresh rate in milliseconds for how frequently to request data if applicable to the datasource
-  refreshRate: 5000,
+  refreshRate: 1000,
 
   // The 'resolution' which we want the data to be displayed at. For example, raw data, 1 minute aggregated, hourly aggregated, etc.
   // Must be a resolution supported by your datasource. Full options contained in the data sources documentation you are utilizing.
@@ -51,7 +51,11 @@ export function TimeSeriesData({ historyQueries }: { historyQueries: TwinMakerEn
 
   return useMemo(() => {
     if (dataSource) {
-      return <AppKitTimeSeriesData dataSource={dataSource} historyQueries={historyQueries} />;
+      /***
+       * Must set new component key every render to force-unmount the appkit component because hook subscriptions
+       * are not destroyed when passing in new queries
+       */
+      return <AppKitTimeSeriesData key={crypto.randomUUID()} dataSource={dataSource} historyQueries={historyQueries} />;
     }
     return <></>;
   }, [dataSource, historyQueries]);

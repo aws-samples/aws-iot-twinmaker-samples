@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 // SPDX-License-Identifier: Apache-2.0
 
-import { SITE_TYPE } from '@/config/sites';
 import { FactoryIcon } from '@/lib/components/svgs/icons';
 import { CookieFactoryLogoWide } from '@/lib/components/svgs/logos';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
@@ -11,7 +10,7 @@ import type { Site } from '@/lib/types';
 
 import styles from './styles.module.css';
 
-const headText = `Choose a location`;
+const HEAD_LABEL = `Choose a location`;
 
 export function SiteSelectorView({ className }: { className?: ClassName }) {
   const siteElements = getSites().map((site) => {
@@ -21,7 +20,7 @@ export function SiteSelectorView({ className }: { className?: ClassName }) {
   return (
     <main className={createClassName(styles.root, className, {})}>
       <CookieFactoryLogoWide className={styles.logo} />
-      <section className={styles.head}>{headText}</section>
+      <section className={styles.head}>{HEAD_LABEL}</section>
       <section className={styles.items}>{siteElements}</section>
     </main>
   );

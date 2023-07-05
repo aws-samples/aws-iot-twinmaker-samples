@@ -141,6 +141,10 @@ _OPTIONAL_: View the [Amazon Cognito set-up instructions](./COGNITO_SAMPLE_SETUP
    const sites: Record<string, SiteConfig[]> = {
      'user@cookiefactory': [
        {
+         defaults: {
+           panelIds: [],
+           viewId: 'panel',
+         },
          iottwinmaker: {
            sceneId: 'CookieFactory',
            workspaceId: '__FILL_IN__',

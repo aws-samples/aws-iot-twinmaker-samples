@@ -109,6 +109,10 @@ export type Site = SiteConfig &
   }>;
 
 export type SiteConfig = Readonly<{
+  defaults: {
+    panelIds: PanelId[];
+    viewId: ViewId;
+  };
   id: string;
   iottwinmaker: Readonly<TwinMakerConfig>;
   location: string;

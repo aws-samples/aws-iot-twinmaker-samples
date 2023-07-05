@@ -9,33 +9,6 @@ export const DEFAULT_SELECTED_ENTITY: SelectedEntity = { entityData: null, type:
 
 export const normalizedEntityData = ENTITY_DATA.filter(({ entityId }) => !isIgnoredEntity(entityId));
 
-// export const defaultAlarmStateHistoryQuery = normalizedEntityData.reduce<TwinMakerEntityHistoryQuery[]>(
-//   (accum, entity) => {
-//     if (isEntityWithProperties(entity)) {
-//       accum.push(createHistoryQuery(entity, 'alarm-state'));
-//     }
-//     return accum;
-//   },
-//   []
-// );
-
-// export const defaultAlarmMessageHistoryQuery = normalizedEntityData.reduce<TwinMakerEntityHistoryQuery[]>(
-//   (accum, entity) => {
-//     if (isEntityWithProperties(entity)) {
-//       accum.push(createHistoryQuery(entity, 'alarm-message'));
-//     }
-//     return accum;
-//   },
-//   []
-// );
-
-// export const defaultDataHistoryQuery = normalizedEntityData.reduce<TwinMakerEntityHistoryQuery[]>((accum, entity) => {
-//   if (isEntityWithProperties(entity)) {
-//     accum.push(createHistoryQuery(entity, 'data'));
-//   }
-//   return accum;
-// }, []);
-
 export function isIgnoredEntity(entityId: string) {
   return IGNORED_ENTITY_IDS.includes(entityId);
 }

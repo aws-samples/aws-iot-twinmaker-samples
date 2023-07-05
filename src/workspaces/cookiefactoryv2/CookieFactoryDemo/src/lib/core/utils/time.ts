@@ -5,6 +5,8 @@
  * Credit: https://www.builder.io/blog/relative-time
  */
 
+export type RelativeTimeOptions = Partial<Intl.RelativeTimeFormatOptions & { locale: string }>;
+
 // Array reprsenting one minute, hour, day, week, month, etc in seconds
 const CUT_OFFS = [60, 3600, 86400, 86400 * 7, 86400 * 30, 86400 * 365, Infinity];
 
@@ -24,7 +26,7 @@ export function getFormattedTimeString(
 
 export function getRelativeTimeString(
   date: Date | number,
-  { locale = navigator.language, ...options }: Partial<Intl.RelativeTimeFormatOptions & { locale: string }> = {}
+  { locale = navigator.language, ...options }: RelativeTimeOptions = {}
 ): string {
   // Allow dates or times to be passed
   const timeMs = typeof date === 'number' ? date : date.getTime();

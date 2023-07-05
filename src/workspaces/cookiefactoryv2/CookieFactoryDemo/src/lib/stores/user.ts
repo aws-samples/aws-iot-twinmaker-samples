@@ -15,7 +15,6 @@ const EXPIRATION_CHECK_INTERVAL_IN_MS = 1000;
 let authCheckInterval: NodeJS.Timeout;
 
 export const userStore = createStore<User | null>(null);
-
 export const useUserStore = createStoreHook(userStore);
 
 // private subscriptions

@@ -5,5 +5,8 @@ import { createStore, createStoreHook } from '@/lib/core/store';
 import type { ViewId } from '@/lib/types';
 
 export const viewStore = createStore<ViewId | null>(null);
-
 export const useViewStore = createStoreHook(viewStore);
+
+export function resetViewStore() {
+  viewStore.resetToInitialState();
+}
