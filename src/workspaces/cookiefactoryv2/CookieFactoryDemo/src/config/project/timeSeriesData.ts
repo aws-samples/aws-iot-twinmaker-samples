@@ -5,7 +5,7 @@ import type { TimeSeriesDataRequestSettings, Viewport } from '@/lib/types';
 
 export const REQUEST_SETTINGS: TimeSeriesDataRequestSettings = {
   // See https://awslabs.github.io/iot-app-kit/?path=/docs/react-hooks-usetimeseriesdata--docs#kitchen-sink-example-utilization-with-all-features
-  refreshRate: 5000
+  refreshRate: 2000
 };
 
 export const VIEWPORT: Viewport = { duration: '15m' };

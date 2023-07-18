@@ -7,14 +7,13 @@ import {
   type SelectionChangedEventCallback,
   type WidgetClickEventCallback
 } from '@iot-app-kit/scene-composer';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { VIEWPORT } from '@/config/project';
 import { createClassName, type ClassName } from '@/lib/core/utils/element';
-import { isNil } from '@/lib/core/utils/lang';
 import { normalizedEntityData } from '@/lib/init/entities';
 import { useDataStreamsStore } from '@/lib/stores/data';
-import { useSelectedStore } from '@/lib/stores/entity';
+import { selectedStore, useSelectedStore } from '@/lib/stores/entity';
 import { useSceneLoaderStore } from '@/lib/stores/iottwinmaker';
 import type { DataBindingContext, EntityData } from '@/lib/types';
 
@@ -27,22 +26,33 @@ export const ScenePanel = ({ className }: { className?: ClassName }) => {
   const [dataStreams] = useDataStreamsStore();
   const [sceneLoader] = useSceneLoaderStore();
   const [selectedEntity, setSelectedEntity] = useSelectedStore();
+  const selectedDataBindingRef = useRef<string | undefined>(selectedEntity.entityData?.entityId);
 
-  const handleSelectionChange: SelectionChangedEventCallback = useCallback(
-    ({ componentTypes, additionalComponentData }) => {
-      const { type } = selectedEntity;
+  /**
+   * Handles a deselection event, setting a null entity if originating in ScenViewer. To determine if the event
+   * originated in SceneViewer, the ComponentData on the event payload is evalutated. If there is ComponentData, it sets
+   * a reference to that selected entity id. If there is no ComponentData and `selectedEntity` is defined, it compares
+   * the current reference id to selected entity. If they are the same, that means the event originated within
+   * SceneViewer.
+   */
+  const handleSelectionChange: SelectionChangedEventCallback = useCallback(({ additionalComponentData }) => {
+    if (additionalComponentData === undefined || additionalComponentData.length == 0) {
+      const { entityData } = selectedStore.getState();
 
       if (
-        type === 'scene' &&
-        componentTypes.length &&
-        componentTypes.every((item) => item !== 'Tag') &&
-        (isNil(additionalComponentData) || additionalComponentData.length === 0)
+        entityData &&
+        (entityData.entityId === selectedDataBindingRef.current || selectedDataBindingRef.current === undefined)
       ) {
         setSelectedEntity({ entityData: null, type: 'scene' });
       }
-    },
-    [selectedEntity]
-  );
+
+      selectedDataBindingRef.current = undefined;
+    } else {
+      const { dataBindingContext } = additionalComponentData[0];
+      const { entityId } = dataBindingContext as DataBindingContext;
+      selectedDataBindingRef.current = entityId;
+    }
+  }, []);
 
   const handleWidgetClick: WidgetClickEventCallback = useCallback(({ additionalComponentData }) => {
     let entityData: EntityData | null = null;
@@ -60,9 +70,9 @@ export const ScenePanel = ({ className }: { className?: ClassName }) => {
   }, []);
 
   useEffect(() => {
-    const { entityData, type } = selectedEntity;
+    const { entityData } = selectedEntity;
 
-    if (entityData && type !== 'scene') {
+    if (entityData) {
       const { entityId, componentName } = entityData;
       const nodeRefs = findSceneNodeRefBy({ entityId, componentName });
 
@@ -70,9 +80,7 @@ export const ScenePanel = ({ className }: { className?: ClassName }) => {
         setCameraTarget(nodeRefs[nodeRefs.length - 1], 'transition');
         setSelectedSceneNodeRef(nodeRefs[nodeRefs.length - 1]);
       }
-    }
-
-    if (isNil(entityData) && type !== 'scene') {
+    } else {
       setSelectedSceneNodeRef(undefined);
     }
   }, [selectedEntity]);
@@ -91,7 +99,6 @@ export const ScenePanel = ({ className }: { className?: ClassName }) => {
             dataStreams={dataStreams}
             onSelectionChanged={handleSelectionChange}
             onWidgetClick={handleWidgetClick}
-            // queries={timeSeriesQueries}
             sceneComposerId={sceneComposerId}
             sceneLoader={sceneLoader}
             selectedDataBinding={selectedEntity.entityData ?? undefined}

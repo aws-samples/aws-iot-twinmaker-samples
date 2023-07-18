@@ -7,6 +7,10 @@
   font-weight: var(--font-weight-4);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--background-layer-0);
   font-family: var(--font-sans);
