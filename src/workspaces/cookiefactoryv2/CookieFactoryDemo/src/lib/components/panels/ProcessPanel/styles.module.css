@@ -90,6 +90,7 @@
   place-content: center start;
   gap: 60rem;
   padding: 40rem;
+  height: 241rem;
   pointer-events: none;
   border-top: solid 1px var(--background-layer-2-secondary);
   z-index: var(--z-index-1);
@@ -97,7 +98,6 @@
 
 .kpis[data-kpi-count="0"] {
   place-content: center;
-  height: 161rem;
   color: var(--foreground-tertiary-color);
   font-size: 34rem;
   font-weight: var(--font-weight-2);

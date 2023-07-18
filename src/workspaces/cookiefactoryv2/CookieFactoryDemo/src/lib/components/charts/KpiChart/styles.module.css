@@ -31,6 +31,7 @@
   gap: 15rem;
   padding: 0 0 20rem;
   width: 220rem;
+  height: 160rem;
   border-bottom: solid var(--alarm-indicator-height) transparent;
   transition: var(--transition-border-color);
 }

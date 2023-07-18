@@ -184,17 +184,17 @@ export function createGraph<EntityData>(
   // public api
 
   function center(node?: NodeCollection | NodeSingular | string) {
-    if (isNil(node)) {
-      cy.center();
-    } else {
-      if (isString(node)) {
-        node = cy.nodes(`#${node}`);
-      }
-
-      if (!nodesInView(node)) {
-        cy.center(node);
-      }
+    if (isString(node)) {
+      node = cy.nodes(`#${node}`);
     }
+
+    cy.center(node);
+  }
+
+  function centerHorizontally() {
+    const y = cy.pan().y;
+    cy.center();
+    cy.pan({ x: cy.pan().x, y });
   }
 
   function clearGraph() {
@@ -289,7 +289,6 @@ export function createGraph<EntityData>(
     cy.nodes().unselect();
     const node = getNode(id);
     node.select();
-    center(node);
   }
 
   function setGraphData(elementsDefinition: ElementsDefinition, options: LayoutOptions = {}) {
@@ -346,6 +345,7 @@ export function createGraph<EntityData>(
 
   return {
     center,
+    centerHorizontally,
     clearGraph,
     deselectNode,
     dispose,

@@ -22,7 +22,7 @@ import { alarmStateStore, useAlarmStateStore, useLatestValuesStore } from '@/lib
 import { selectedStore, useSelectedStore, useSummaryStore } from '@/lib/stores/entity';
 import { useHopStore } from '@/lib/stores/graph';
 import { useClientStore } from '@/lib/stores/iottwinmaker';
-import { hasDashboardStore, usePanelsStore } from '@/lib/stores/panels';
+import { hasDashboardStore, panelsStore, usePanelsStore } from '@/lib/stores/panels';
 import { useSiteStore } from '@/lib/stores/site';
 import type {
   AlarmState,
@@ -69,6 +69,7 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
   const containerRef = useRef<HTMLElement>(null);
   const graphRef = useRef<ReturnType<typeof createGraph<EntityData>> | null>(null);
   const lastKnowledgeGraphQuery = useRef<string | null>(null);
+  const panelCount = useRef<number>(panels.size);
 
   const loadData = useCallback(
     async (queryStatement: string) => {
@@ -164,8 +165,6 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
               }
             );
 
-            graphRef.current.center();
-
             lastKnowledgeGraphQuery.current = knowledgeGraphQuery;
           }
         }
@@ -174,6 +173,10 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
 
         if (selectedEntityId) {
           graphRef.current.selectNode(selectedEntityId);
+
+          if (!graphRef.current.nodesInView(selectedEntityId)) {
+            graphRef.current.center(selectedEntityId);
+          }
         }
       }
     },
@@ -181,7 +184,8 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
   );
 
   const handleCenter = useCallback(() => {
-    graphRef.current?.center();
+    const { entityData } = selectedStore.getState();
+    graphRef.current?.center(entityData?.entityId);
   }, []);
 
   const handleFit = useCallback(() => {
@@ -254,24 +258,31 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
               if (graph.isNodeRenderData(data)) {
                 if (isNil(entityData) || (entityData && entityData.entityId !== data.entityData.entityId)) {
                   const { entityData } = data;
-
-                  setSelectedEntity({ entityData, type: 'process' });
-
                   const { entityId } = entityData;
 
                   if (!graph.nodesInView(entityId)) {
                     graph.center(entityId);
                   }
+
+                  setSelectedEntity({ entityData, type: 'process' });
                 }
               } else {
                 if (entityData) {
                   setSelectedEntity({ entityData: null, type: 'process' });
                 }
               }
+
               break;
             }
+
             case 'resize': {
+              const panels = panelsStore.getState();
               const { entityData } = selectedStore.getState();
+
+              if (panelCount.current !== panels.size) {
+                panelCount.current = panels.size;
+                graphRef.current?.centerHorizontally();
+              }
 
               if (entityData) {
                 const { entityId } = entityData;
@@ -279,9 +290,8 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
                 if (!graph.nodesInView(entityId)) {
                   graph.center(entityId);
                 }
-              } else {
-                graph.fit(undefined, GRAPH_CANVAS_PADDING);
               }
+
               break;
             }
           }
@@ -304,8 +314,10 @@ export function ProcessPanel({ className }: { className?: ClassName }) {
   }, [alarmState]);
 
   useEffect(() => {
-    graphRef.current?.resize({ fit: true });
-  }, [panels]);
+    if (kpis) {
+      graphRef.current?.resize();
+    }
+  }, [kpis]);
 
   useEffect(() => {
     const { entityData } = selectedStore.getState();
