@@ -352,10 +352,20 @@ export class Deserializer {
     if (!propertiesJson) {
       return {};
     }
-    return {
+    let properties: SceneProperties = {
       environmentPreset: propertiesJson['environmentPreset'],
-      dataBindingConfig: this.deserializeSceneDataBindingConfig(propertiesJson['dataBindingConfig']),
     };
+
+    // Don't add dataBindingConfig property if no content
+    const dataBindingConfig = propertiesJson['dataBindingConfig'];
+    if (!!dataBindingConfig) {
+      properties = {
+        ...properties,
+        dataBindingConfig: this.deserializeSceneDataBindingConfig(propertiesJson['dataBindingConfig']),
+      }
+    }
+
+    return properties;
   }
 
   private deserializeSceneDataBindingConfig(sceneDataBindingConfig: JSON): DataBindingConfig {
