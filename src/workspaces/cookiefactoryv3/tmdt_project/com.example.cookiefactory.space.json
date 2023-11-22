@@ -1,0 +1,63 @@
+{
+    "componentTypeId": "com.example.cookiefactory.space",
+    "isSingleton": false,
+    "propertyDefinitions": {
+        "bounds": {
+            "dataType": {
+                "nestedType": {
+                    "type": "DOUBLE"
+                },
+                "type": "LIST"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        },
+        "parent_space": {
+            "dataType": {
+                "type": "RELATIONSHIP"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        },
+        "position": {
+            "dataType": {
+                "nestedType": {
+                    "type": "DOUBLE"
+                },
+                "type": "LIST"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        },
+        "rotation": {
+            "dataType": {
+                "nestedType": {
+                    "type": "DOUBLE"
+                },
+                "type": "LIST"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        }
+    }
+}

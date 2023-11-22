@@ -1,0 +1,132 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  position: relative;
+  overflow: hidden;
+}
+
+/* move top out of view to obscure SceneViewer chrome */
+.container {
+  position: absolute;
+  inset: -50rem -80rem;
+  z-index: 0;
+}
+
+.cameraSelector[data-dropdownmenu] {
+  --text-color: var(--foreground-secondary-color);
+  --hover-color: var(--foreground-hover-color);
+  --active-color: var(--foreground-active-color);
+
+  position: relative;
+  place-self: center;
+}
+
+.cameraSelector[data-dropdownmenu] [data-trigger] {
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  column-gap: 6rem;
+  color: var(--text-color);
+  font-size: var(--size);
+  line-height: 1;
+  transition: var(--transition-color);
+  white-space: nowrap;
+}
+
+.cameraSelector[data-dropdownmenu] [data-trigger] [data-trigger-icon] {
+  --size: 16rem;
+
+  width: var(--size);
+  height: var(--size);
+}
+
+.cameraSelector[data-dropdownmenu] [data-trigger] [data-trigger-arrow] {
+  width: calc(var(--size) * 0.7);
+  height: calc(var(--size) * 0.7);
+  transition: var(--transition-rotation);
+}
+
+.cameraSelector[data-dropdownmenu] [data-trigger]:hover {
+  --text-color: var(--hover-color);
+}
+
+.cameraSelector[data-dropdownmenu][data-is-open='true'] [data-trigger] {
+  --text-color: var(--active-color);
+}
+
+.cameraSelector[data-dropdownmenu][data-is-open='true'] [data-trigger] > [data-trigger-arrow] {
+  rotate: 180deg;
+}
+
+.cameraSelector[data-dropdownmenu] > [data-menu] {
+  --menu-background-color: var(--background-layer-2-accent);
+  --menu-item-background-color: var(--background-layer-2);
+  --menu-item-background-hover-color: var(--background-layer-2-hover);
+  --menu-item-background-selected-color: var(--background-layer-2-accent);
+  --menu-item-text-primary-color: var(--text-layer-2-primary);
+  --menu-item-text-secondary-color: var(--text-layer-2-secondary);
+  --menu-item-text-hover-color: var(--text-layer-2-hover);
+  --menu-item-text-selected-color: var(--text-layer-2-accent);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-border-color: border-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+
+  top: calc(100% + 4rem);
+  right: -8rem;
+
+  width: max-content;
+  max-height: 300rem;
+  height: auto;
+  overflow-y: auto;
+
+  row-gap: 1rem;
+
+  background-color: var(--menu-background-color);
+  border: solid 1rem var(--background-layer-2-accent);
+  border-radius: var(--radius-10);
+  box-shadow: var(--box-shadow-layer-1);
+}
+
+.cameraSelector[data-dropdownmenu] > [data-menu] [data-menu-item] {
+  --size: 15rem;
+
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+  padding: 12rem 15rem;
+  background-color: var(--menu-item-background-color);
+  color: var(--menu-item-text-primary-color);
+  font-size: var(--size);
+  font-weight: var(--font-weight-4);
+  text-align: left;
+}
+
+.cameraSelector[data-dropdownmenu] > [data-menu] [data-menu-item] [data-placeholder-label] {
+  font-weight: var(--font-weight-3);
+}
+
+.cameraSelector[data-dropdownmenu] > [data-menu] [data-menu-item] [data-menu-item-icon] {
+  width: var(--size);
+  height: var(--size);
+}
+
+.cameraSelector[data-dropdownmenu] > [data-menu] [data-menu-item]:hover {
+  --menu-item-background-color: var(--menu-item-background-hover-color);
+  --menu-item-text-primary-color: var(--menu-item-text-hover-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-hover-color);
+}
+
+.cameraSelector[data-dropdownmenu] > [data-menu] [data-menu-item][data-selected='true'] {
+  --menu-item-background-color: var(--menu-item-background-selected-color);
+  --menu-item-text-primary-color: var(--menu-item-text-selected-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-selected-color);
+}
+
+.cameraSelector[data-dropdownmenu] > [data-menu] > button:first-child [data-menu-item] {
+  border-top: none;
+}
+
+.cameraSelector[data-dropdownmenu] > [data-menu] > button:last-child [data-menu-item] {
+  border-bottom: none;
+}

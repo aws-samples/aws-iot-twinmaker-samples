@@ -1,0 +1,115 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background-color: var(--background-color);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.root:hover {
+  --icon-color: var(--icon-hover-color);
+}
+
+.icon {
+  display: flex;
+  width: 20rem;
+  height: 20rem;
+  color: var(--icon-color);
+  transition: var(--transition);
+}
+
+.trigger {
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  column-gap: 10rem;
+  padding: 10rem 15rem;
+  background-color: var(--trigger-background-color);
+  border-radius: var(--radius-10);
+  color: var(--trigger-text-color);
+  transition: var(--transition-background-color);
+}
+
+.trigger:hover {
+  --trigger-background-color: var(--trigger-background-hover-color);
+  --trigger-text-color: var(--trigger-text-hover-color);
+}
+
+.trigger[data-active=true] {
+  --trigger-background-color: var(--trigger-background-hover-color);
+  --trigger-text-color: var(--trigger-text-hover-color);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: calc(var(--z-index-max) + 1);
+}
+
+.trigger[data-active=true]>.triggerArrow {
+  rotate: 180deg;
+}
+
+.triggerIcon {
+  --size: 14rem;
+  width: var(--size);
+  height: var(--size);
+  color: var(--health-color);
+}
+
+.triggerName {
+  font-size: 18rem;
+  font-weight: var(--font-weight-4);
+  transition: var(--transition-color);
+  translate: 0 -.5rem;
+}
+
+.triggerArrow {
+  --size: 13rem;
+  width: var(--size);
+  height: var(--size);
+  transition: var(--transition-color), var(--transition-rotation);
+}
+
+.menu {
+  --menu-item-text-primary-color: var(--text-layer-2-accent);
+  --menu-item-text-secondary-color: var(--text-layer-2-secondary);
+  --menu-item-text-hover-color: var(--text-layer-2-hover);
+  --menu-item-text-selected-color: var(--text-layer-3-accent);
+  border-top-left-radius: 0;
+}
+
+.menuItem:hover {
+  --menu-item-text-primary-color: var(--menu-item-text-hover-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-hover-color);
+}
+
+.menuItem[data-selected=true] {
+  --menu-item-text-primary-color: var(--menu-item-text-selected-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-selected-color);
+}
+
+.menuItemLabel {
+  display: grid;
+  place-items: center start;
+  row-gap: 3rem;
+}
+
+.menuItemLabelName {
+  color: var(--menu-item-text-primary-color);
+  font-size: 15rem;
+  transition: var(--transition-color);
+}
+
+.menuItemLabelLocation {
+  color: var(--menu-item-text-secondary-color);
+  font-size: 12rem;
+  transition: var(--transition-color);
+}
+
+.menuItemIcon {
+  --size: 14rem;
+  width: var(--size);
+  height: var(--size);
+  color: var(--health-color);
+}

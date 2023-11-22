@@ -1,0 +1,64 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  position: relative;
+}
+
+/** Below are @iot-app-kit overrides to fix styling issues **/
+/* iot-app-kit-vis-status-timeline [class*=iot-app-kit-vis-size-provider-container] {
+  position: relative;
+  top: -17rem;
+} */
+iot-app-kit-vis-status-timeline iot-app-kit-vis-data-stream-name {
+  margin: 0 0 3rem;
+  color: var(--text-layer-2-accent) !important;
+  font-size: 114rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: 0.2rem;
+}
+
+iot-app-kit-vis-status-timeline [class='no-data-visualization'] {
+  background: repeating-linear-gradient(45deg, #555555, #555555 10px, #353535 10px, #353535 20px) !important;
+}
+
+iot-app-kit-vis-status-timeline [class='x-axis-separator'] {
+  display: none;
+}
+
+iot-app-kit-vis-status-timeline [class='axis'] [class='tick'] line {
+  stroke: var(--background-layer-2-accent) !important;
+}
+
+iot-app-kit-vis-status-timeline [class='axis'] [class='tick'] text {
+  fill: var(--text-layer-2-secondary) !important;
+}
+
+iot-app-kit-vis-status-timeline iot-app-kit-vis-threshold-legend {
+  gap: 20rem;
+}
+
+iot-app-kit-vis-status-timeline iot-app-kit-vis-threshold-legend iot-app-kit-vis-threshold-legend-row {
+  padding: 0;
+}
+
+iot-app-kit-vis-status-timeline iot-app-kit-vis-threshold-legend iot-app-kit-vis-threshold-legend-row div {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  color: var(--text-layer-2-secondary) !important;
+  font-size: 14rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: 0.2rem;
+}
+
+iot-app-kit-vis-status-timeline iot-app-kit-vis-threshold-legend iot-app-kit-vis-threshold-legend-row [class='box'] {
+  margin: 0 !important;
+}
+
+iot-app-kit-vis-status-timeline [class='x-axis-separator'] {
+  stroke: none;
+}
+
+iot-app-kit-vis-status-timeline iot-app-kit-vis-status-timeline-overlay-row [class='value'] {
+  visibility: hidden !important;
+}

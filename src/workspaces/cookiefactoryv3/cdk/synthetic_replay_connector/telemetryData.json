@@ -1,0 +1,960 @@
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Resources":{"Dough":120},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":6,"Temperature":-20,"Alarm Message":"Normal","Time":"0:00","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Resources":{"Tape":120,"Boxes":120},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Resources":{"Plastic Wrap":120},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Resources":{"Tape":120,"Boxes":120},"Alarming":false,"Name":"boxSealer"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:00","Resources":{"Labels":120},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":16,"Alarm Message":"Normal","Time":"0:05","Resources":{"Dough":117},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":10,"Temperature":-17,"Alarm Message":"Normal","Time":"0:05","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":4,"Temperature":45,"Alarm Message":"Normal","Time":"0:05","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":4,"Temperature":27,"Alarm Message":"Normal","Time":"0:05","Resources":{"Tape":116,"Boxes":116},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":38,"Alarm Message":"Normal","Time":"0:05","Resources":{"Plastic Wrap":114},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":45,"Alarm Message":"Normal","Time":"0:05","Alarming":false,"Name":"conveyorRight"}
+{"Speed":5,"Temperature":31,"Alarm Message":"Normal","Time":"0:05","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":25,"Alarm Message":"Normal","Time":"0:05","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":19,"Alarm Message":"Normal","Time":"0:05","Resources":{"Tape":114,"Boxes":114},"Alarming":false,"Name":"boxSealer"}
+{"Speed":6,"Temperature":40,"Alarm Message":"Normal","Time":"0:05","Resources":{"Labels":114},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":50,"Alarm Message":"Normal","Time":"0:10","Resources":{"Dough":110},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":10,"Temperature":-21,"Alarm Message":"Normal","Time":"0:10","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":19,"Alarm Message":"Normal","Time":"0:10","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":6,"Temperature":31,"Alarm Message":"Normal","Time":"0:10","Resources":{"Tape":110,"Boxes":110},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":44,"Alarm Message":"Normal","Time":"0:10","Resources":{"Plastic Wrap":108},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":33,"Alarm Message":"Normal","Time":"0:10","Alarming":false,"Name":"conveyorRight"}
+{"Speed":9,"Temperature":50,"Alarm Message":"Normal","Time":"0:10","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":46,"Alarm Message":"Normal","Time":"0:10","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":4,"Temperature":44,"Alarm Message":"Normal","Time":"0:10","Resources":{"Tape":110,"Boxes":110},"Alarming":false,"Name":"boxSealer"}
+{"Speed":4,"Temperature":17,"Alarm Message":"Normal","Time":"0:10","Resources":{"Labels":110},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":9,"Temperature":17,"Alarm Message":"Normal","Time":"0:15","Resources":{"Dough":101},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":5,"Temperature":-25,"Alarm Message":"Normal","Time":"0:15","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":5,"Temperature":22,"Alarm Message":"Normal","Time":"0:15","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":9,"Temperature":40,"Alarm Message":"Normal","Time":"0:15","Resources":{"Tape":101,"Boxes":101},"Alarming":false,"Name":"boxErector"}
+{"Speed":3,"Temperature":46,"Alarm Message":"Normal","Time":"0:15","Resources":{"Plastic Wrap":105},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":10,"Temperature":33,"Alarm Message":"Normal","Time":"0:15","Alarming":false,"Name":"conveyorRight"}
+{"Speed":7,"Temperature":45,"Alarm Message":"Normal","Time":"0:15","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":5,"Temperature":48,"Alarm Message":"Normal","Time":"0:15","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":42,"Alarm Message":"Normal","Time":"0:15","Resources":{"Tape":103,"Boxes":103},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":18,"Alarm Message":"Normal","Time":"0:15","Resources":{"Labels":100},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":42,"Alarm Message":"Normal","Time":"0:20","Resources":{"Dough":95},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":9,"Temperature":-30,"Alarm Message":"Normal","Time":"0:20","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":49,"Alarm Message":"Normal","Time":"0:20","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":17,"Alarm Message":"Normal","Time":"0:20","Resources":{"Tape":93,"Boxes":93},"Alarming":false,"Name":"boxErector"}
+{"Speed":4,"Temperature":37,"Alarm Message":"Normal","Time":"0:20","Resources":{"Plastic Wrap":101},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":22,"Alarm Message":"Normal","Time":"0:20","Alarming":false,"Name":"conveyorRight"}
+{"Speed":8,"Temperature":18,"Alarm Message":"Normal","Time":"0:20","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":27,"Alarm Message":"Normal","Time":"0:20","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":8,"Temperature":28,"Alarm Message":"Normal","Time":"0:20","Resources":{"Tape":95,"Boxes":95},"Alarming":false,"Name":"boxSealer"}
+{"Speed":4,"Temperature":46,"Alarm Message":"Normal","Time":"0:20","Resources":{"Labels":96},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":10,"Temperature":31,"Alarm Message":"Normal","Time":"0:25","Resources":{"Dough":85},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":10,"Temperature":-33,"Alarm Message":"Normal","Time":"0:25","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":40,"Alarm Message":"Normal","Time":"0:25","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":5,"Temperature":45,"Alarm Message":"Normal","Time":"0:25","Resources":{"Tape":88,"Boxes":88},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":36,"Alarm Message":"Normal","Time":"0:25","Resources":{"Plastic Wrap":95},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":36,"Alarm Message":"Normal","Time":"0:25","Alarming":false,"Name":"conveyorRight"}
+{"Speed":8,"Temperature":39,"Alarm Message":"Normal","Time":"0:25","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":23,"Alarm Message":"Normal","Time":"0:25","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":10,"Temperature":40,"Alarm Message":"Normal","Time":"0:25","Resources":{"Tape":85,"Boxes":85},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":41,"Alarm Message":"Normal","Time":"0:25","Resources":{"Labels":86},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":29,"Alarm Message":"Normal","Time":"0:30","Resources":{"Dough":77},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-24,"Alarm Message":"Normal","Time":"0:30","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":46,"Alarm Message":"Normal","Time":"0:30","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":9,"Temperature":36,"Alarm Message":"Normal","Time":"0:30","Resources":{"Tape":79,"Boxes":79},"Alarming":false,"Name":"boxErector"}
+{"Speed":7,"Temperature":23,"Alarm Message":"Normal","Time":"0:30","Resources":{"Plastic Wrap":88},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":6,"Temperature":26,"Alarm Message":"Normal","Time":"0:30","Alarming":false,"Name":"conveyorRight"}
+{"Speed":4,"Temperature":41,"Alarm Message":"Normal","Time":"0:30","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":9,"Temperature":45,"Alarm Message":"Normal","Time":"0:30","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Normal","Time":"0:30","Resources":{"Tape":82,"Boxes":82},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":49,"Alarm Message":"Normal","Time":"0:30","Resources":{"Labels":78},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":34,"Alarm Message":"Normal","Time":"0:35","Resources":{"Dough":69},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":7,"Temperature":-14,"Alarm Message":"Normal","Time":"0:35","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":8,"Temperature":24,"Alarm Message":"Normal","Time":"0:35","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":16,"Alarm Message":"Normal","Time":"0:35","Resources":{"Tape":76,"Boxes":76},"Alarming":false,"Name":"boxErector"}
+{"Speed":7,"Temperature":50,"Alarm Message":"Normal","Time":"0:35","Resources":{"Plastic Wrap":81},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":6,"Temperature":20,"Alarm Message":"Normal","Time":"0:35","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":29,"Alarm Message":"Normal","Time":"0:35","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":5,"Temperature":26,"Alarm Message":"Normal","Time":"0:35","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":10,"Temperature":32,"Alarm Message":"Normal","Time":"0:35","Resources":{"Tape":72,"Boxes":72},"Alarming":false,"Name":"boxSealer"}
+{"Speed":9,"Temperature":48,"Alarm Message":"Normal","Time":"0:35","Resources":{"Labels":69},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":45,"Alarm Message":"Normal","Time":"0:40","Resources":{"Dough":66},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":5,"Temperature":-29,"Alarm Message":"Normal","Time":"0:40","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Normal","Time":"0:40","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":5,"Temperature":27,"Alarm Message":"Normal","Time":"0:40","Resources":{"Tape":71,"Boxes":71},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":26,"Alarm Message":"Normal","Time":"0:40","Resources":{"Plastic Wrap":73},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":5,"Temperature":38,"Alarm Message":"Normal","Time":"0:40","Alarming":false,"Name":"conveyorRight"}
+{"Speed":7,"Temperature":29,"Alarm Message":"Normal","Time":"0:40","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":8,"Temperature":33,"Alarm Message":"Normal","Time":"0:40","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":33,"Alarm Message":"Normal","Time":"0:40","Resources":{"Tape":66,"Boxes":66},"Alarming":false,"Name":"boxSealer"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"0:40","Resources":{"Labels":63},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":16,"Alarm Message":"Normal","Time":"0:45","Resources":{"Dough":59},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":10,"Temperature":-30,"Alarm Message":"Normal","Time":"0:45","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":9,"Temperature":48,"Alarm Message":"Normal","Time":"0:45","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":38,"Alarm Message":"Normal","Time":"0:45","Resources":{"Tape":63,"Boxes":63},"Alarming":false,"Name":"boxErector"}
+{"Speed":9,"Temperature":25,"Alarm Message":"Normal","Time":"0:45","Resources":{"Plastic Wrap":64},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":26,"Alarm Message":"Normal","Time":"0:45","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":43,"Alarm Message":"Normal","Time":"0:45","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":45,"Alarm Message":"Normal","Time":"0:45","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":29,"Alarm Message":"Normal","Time":"0:45","Resources":{"Tape":60,"Boxes":60},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":33,"Alarm Message":"Normal","Time":"0:45","Resources":{"Labels":56},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":40,"Alarm Message":"Normal","Time":"0:50","Resources":{"Dough":55},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-17,"Alarm Message":"Normal","Time":"0:50","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":26,"Alarm Message":"Normal","Time":"0:50","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":4,"Temperature":44,"Alarm Message":"Normal","Time":"0:50","Resources":{"Tape":59,"Boxes":59},"Alarming":false,"Name":"boxErector"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Normal","Time":"0:50","Resources":{"Plastic Wrap":61},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":5,"Temperature":46,"Alarm Message":"Normal","Time":"0:50","Alarming":false,"Name":"conveyorRight"}
+{"Speed":7,"Temperature":32,"Alarm Message":"Normal","Time":"0:50","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":15,"Alarm Message":"Normal","Time":"0:50","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":17,"Alarm Message":"Normal","Time":"0:50","Resources":{"Tape":54,"Boxes":54},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":16,"Alarm Message":"Normal","Time":"0:50","Resources":{"Labels":48},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":10,"Temperature":16,"Alarm Message":"Normal","Time":"0:55","Resources":{"Dough":45},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-37,"Alarm Message":"Normal","Time":"0:55","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":6,"Temperature":36,"Alarm Message":"Normal","Time":"0:55","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":7,"Temperature":42,"Alarm Message":"Normal","Time":"0:55","Resources":{"Tape":52,"Boxes":52},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":26,"Alarm Message":"Normal","Time":"0:55","Resources":{"Plastic Wrap":53},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Normal","Time":"0:55","Alarming":false,"Name":"conveyorRight"}
+{"Speed":7,"Temperature":48,"Alarm Message":"Normal","Time":"0:55","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":35,"Alarm Message":"Normal","Time":"0:55","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":22,"Alarm Message":"Normal","Time":"0:55","Resources":{"Tape":45,"Boxes":45},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":47,"Alarm Message":"Normal","Time":"0:55","Resources":{"Labels":40},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":33,"Alarm Message":"Normal","Time":"1:00","Resources":{"Dough":41},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-15,"Alarm Message":"Normal","Time":"1:00","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"1:00","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Normal","Time":"1:00","Resources":{"Tape":49,"Boxes":49},"Alarming":false,"Name":"boxErector"}
+{"Speed":7,"Temperature":42,"Alarm Message":"Normal","Time":"1:00","Resources":{"Plastic Wrap":46},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":10,"Temperature":43,"Alarm Message":"Normal","Time":"1:00","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":18,"Alarm Message":"Normal","Time":"1:00","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":50,"Alarm Message":"Normal","Time":"1:00","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":37,"Alarm Message":"Normal","Time":"1:00","Resources":{"Tape":36,"Boxes":36},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":20,"Alarm Message":"Normal","Time":"1:00","Resources":{"Labels":33},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":5,"Temperature":33,"Alarm Message":"Normal","Time":"1:05","Resources":{"Dough":36},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":7,"Temperature":-39,"Alarm Message":"Normal","Time":"1:05","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":5,"Temperature":21,"Alarm Message":"Normal","Time":"1:05","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":9,"Temperature":35,"Alarm Message":"Normal","Time":"1:05","Resources":{"Tape":40,"Boxes":40},"Alarming":false,"Name":"boxErector"}
+{"Speed":9,"Temperature":16,"Alarm Message":"Normal","Time":"1:05","Resources":{"Plastic Wrap":37},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":45,"Alarm Message":"Normal","Time":"1:05","Alarming":false,"Name":"conveyorRight"}
+{"Speed":7,"Temperature":42,"Alarm Message":"Normal","Time":"1:05","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":50,"Alarm Message":"Normal","Time":"1:05","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Normal","Time":"1:05","Resources":{"Tape":33,"Boxes":33},"Alarming":false,"Name":"boxSealer"}
+{"Speed":4,"Temperature":30,"Alarm Message":"Normal","Time":"1:05","Resources":{"Labels":29},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":9,"Temperature":26,"Alarm Message":"Normal","Time":"1:10","Resources":{"Dough":27},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":6,"Temperature":-27,"Alarm Message":"Normal","Time":"1:10","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":26,"Alarm Message":"Normal","Time":"1:10","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":4,"Temperature":47,"Alarm Message":"Normal","Time":"1:10","Resources":{"Tape":36,"Boxes":36},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":37,"Alarm Message":"Normal","Time":"1:10","Resources":{"Plastic Wrap":31},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":38,"Alarm Message":"Normal","Time":"1:10","Alarming":false,"Name":"conveyorRight"}
+{"Speed":10,"Temperature":32,"Alarm Message":"Normal","Time":"1:10","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":15,"Alarm Message":"Normal","Time":"1:10","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":40,"Alarm Message":"Normal","Time":"1:10","Resources":{"Tape":26,"Boxes":26},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":40,"Alarm Message":"Normal","Time":"1:10","Resources":{"Labels":21},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":41,"Alarm Message":"Normal","Time":"1:15","Resources":{"Dough":20},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":6,"Temperature":-36,"Alarm Message":"Normal","Time":"1:15","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":5,"Temperature":45,"Alarm Message":"Normal","Time":"1:15","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":9,"Temperature":31,"Alarm Message":"Normal","Time":"1:15","Resources":{"Tape":27,"Boxes":27},"Alarming":false,"Name":"boxErector"}
+{"Speed":10,"Temperature":31,"Alarm Message":"Normal","Time":"1:15","Resources":{"Plastic Wrap":21},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":26,"Alarm Message":"Normal","Time":"1:15","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":23,"Alarm Message":"Normal","Time":"1:15","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":28,"Alarm Message":"Normal","Time":"1:15","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":8,"Temperature":33,"Alarm Message":"Normal","Time":"1:15","Resources":{"Tape":18,"Boxes":18},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":37,"Alarm Message":"Normal","Time":"1:15","Resources":{"Labels":14},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":35,"Alarm Message":"Normal","Time":"1:20","Resources":{"Dough":14},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":5,"Temperature":-11,"Alarm Message":"Normal","Time":"1:20","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Normal","Time":"1:20","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":7,"Temperature":43,"Alarm Message":"Normal","Time":"1:20","Resources":{"Tape":20,"Boxes":20},"Alarming":false,"Name":"boxErector"}
+{"Speed":5,"Temperature":50,"Alarm Message":"Normal","Time":"1:20","Resources":{"Plastic Wrap":16},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":6,"Temperature":43,"Alarm Message":"Normal","Time":"1:20","Alarming":false,"Name":"conveyorRight"}
+{"Speed":5,"Temperature":31,"Alarm Message":"Normal","Time":"1:20","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":8,"Temperature":24,"Alarm Message":"Normal","Time":"1:20","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":42,"Alarm Message":"Normal","Time":"1:20","Resources":{"Tape":9,"Boxes":9},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":50,"Alarm Message":"Normal","Time":"1:20","Resources":{"Labels":4},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":17,"Alarm Message":"Normal","Time":"1:25","Resources":{"Dough":10},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-16,"Alarm Message":"Normal","Time":"1:25","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":18,"Alarm Message":"Normal","Time":"1:25","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":48,"Alarm Message":"Normal","Time":"1:25","Resources":{"Tape":12,"Boxes":12},"Alarming":false,"Name":"boxErector"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Normal","Time":"1:25","Resources":{"Plastic Wrap":13},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Normal","Time":"1:25","Alarming":false,"Name":"conveyorRight"}
+{"Speed":9,"Temperature":49,"Alarm Message":"Normal","Time":"1:25","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Normal","Time":"1:25","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":8,"Temperature":30,"Alarm Message":"Normal","Time":"1:25","Resources":{"Tape":1,"Boxes":1},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":24,"Alarm Message":"Normal","Time":"1:25","Resources":{"Labels":104},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":29,"Alarm Message":"Normal","Time":"1:30","Resources":{"Dough":4},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":9,"Temperature":-28,"Alarm Message":"Normal","Time":"1:30","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":8,"Temperature":37,"Alarm Message":"Normal","Time":"1:30","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":10,"Temperature":32,"Alarm Message":"Normal","Time":"1:30","Resources":{"Tape":2,"Boxes":2},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":37,"Alarm Message":"Normal","Time":"1:30","Resources":{"Plastic Wrap":7},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":35,"Alarm Message":"Normal","Time":"1:30","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"1:30","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":41,"Alarm Message":"Normal","Time":"1:30","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":17,"Alarm Message":"Normal","Time":"1:30","Resources":{"Tape":71,"Boxes":71},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":47,"Alarm Message":"Normal","Time":"1:30","Resources":{"Labels":97},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":38,"Alarm Message":"Normal","Time":"1:35","Resources":{"Dough":84},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":7,"Temperature":-19,"Alarm Message":"Normal","Time":"1:35","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":6,"Temperature":40,"Alarm Message":"Normal","Time":"1:35","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":5,"Temperature":32,"Alarm Message":"Normal","Time":"1:35","Resources":{"Tape":52,"Boxes":52},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":23,"Alarm Message":"Normal","Time":"1:35","Resources":{"Plastic Wrap":1},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":4,"Temperature":35,"Alarm Message":"Normal","Time":"1:35","Alarming":false,"Name":"conveyorRight"}
+{"Speed":8,"Temperature":47,"Alarm Message":"Normal","Time":"1:35","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":20,"Alarm Message":"Normal","Time":"1:35","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":19,"Alarm Message":"Normal","Time":"1:35","Resources":{"Tape":64,"Boxes":64},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Normal","Time":"1:35","Resources":{"Labels":94},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":5,"Temperature":33,"Alarm Message":"Normal","Time":"1:40","Resources":{"Dough":79},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":7,"Temperature":-27,"Alarm Message":"Normal","Time":"1:40","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":8,"Temperature":43,"Alarm Message":"Normal","Time":"1:40","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":5,"Temperature":50,"Alarm Message":"Normal","Time":"1:40","Resources":{"Tape":47,"Boxes":47},"Alarming":false,"Name":"boxErector"}
+{"Speed":5,"Temperature":25,"Alarm Message":"Normal","Time":"1:40","Resources":{"Plastic Wrap":51},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":4,"Temperature":36,"Alarm Message":"Normal","Time":"1:40","Alarming":false,"Name":"conveyorRight"}
+{"Speed":8,"Temperature":46,"Alarm Message":"Normal","Time":"1:40","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":17,"Alarm Message":"Normal","Time":"1:40","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":5,"Temperature":32,"Alarm Message":"Normal","Time":"1:40","Resources":{"Tape":59,"Boxes":59},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":42,"Alarm Message":"Normal","Time":"1:40","Resources":{"Labels":84},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":30,"Alarm Message":"Normal","Time":"1:45","Resources":{"Dough":72},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":7,"Temperature":-31,"Alarm Message":"Normal","Time":"1:45","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":46,"Alarm Message":"Normal","Time":"1:45","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":7,"Temperature":22,"Alarm Message":"Normal","Time":"1:45","Resources":{"Tape":40,"Boxes":40},"Alarming":false,"Name":"boxErector"}
+{"Speed":4,"Temperature":24,"Alarm Message":"Normal","Time":"1:45","Resources":{"Plastic Wrap":47},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":34,"Alarm Message":"Normal","Time":"1:45","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Normal","Time":"1:45","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":8,"Temperature":29,"Alarm Message":"Normal","Time":"1:45","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":20,"Alarm Message":"Normal","Time":"1:45","Resources":{"Tape":53,"Boxes":53},"Alarming":false,"Name":"boxSealer"}
+{"Speed":9,"Temperature":33,"Alarm Message":"Normal","Time":"1:45","Resources":{"Labels":75},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":17,"Alarm Message":"Normal","Time":"1:50","Resources":{"Dough":64},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-15,"Alarm Message":"Normal","Time":"1:50","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":15,"Alarm Message":"Normal","Time":"1:50","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":9,"Temperature":26,"Alarm Message":"Normal","Time":"1:50","Resources":{"Tape":31,"Boxes":31},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":41,"Alarm Message":"Normal","Time":"1:50","Resources":{"Plastic Wrap":39},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":5,"Temperature":18,"Alarm Message":"Normal","Time":"1:50","Alarming":false,"Name":"conveyorRight"}
+{"Speed":9,"Temperature":40,"Alarm Message":"Normal","Time":"1:50","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":6,"Temperature":32,"Alarm Message":"Normal","Time":"1:50","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":40,"Alarm Message":"Normal","Time":"1:50","Resources":{"Tape":47,"Boxes":47},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":30,"Alarm Message":"Normal","Time":"1:50","Resources":{"Labels":67},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Normal","Time":"1:55","Resources":{"Dough":61},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":10,"Temperature":-19,"Alarm Message":"Normal","Time":"1:55","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":37,"Alarm Message":"Normal","Time":"1:55","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":7,"Temperature":29,"Alarm Message":"Normal","Time":"1:55","Resources":{"Tape":24,"Boxes":24},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":18,"Alarm Message":"Normal","Time":"1:55","Resources":{"Plastic Wrap":31},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":35,"Alarm Message":"Normal","Time":"1:55","Alarming":false,"Name":"conveyorRight"}
+{"Speed":7,"Temperature":41,"Alarm Message":"Normal","Time":"1:55","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":8,"Temperature":21,"Alarm Message":"Normal","Time":"1:55","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":46,"Alarm Message":"Normal","Time":"1:55","Resources":{"Tape":44,"Boxes":44},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":39,"Alarm Message":"Normal","Time":"1:55","Resources":{"Labels":57},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":49,"Alarm Message":"Normal","Time":"2:00","Resources":{"Dough":54},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-36,"Alarm Message":"Normal","Time":"2:00","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":8,"Temperature":33,"Alarm Message":"Normal","Time":"2:00","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":43,"Alarm Message":"Normal","Time":"2:00","Resources":{"Tape":21,"Boxes":21},"Alarming":false,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Normal","Time":"2:00","Resources":{"Plastic Wrap":28},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":19,"Alarm Message":"Normal","Time":"2:00","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":16,"Alarm Message":"Normal","Time":"2:00","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":34,"Alarm Message":"Normal","Time":"2:00","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":4,"Temperature":32,"Alarm Message":"Normal","Time":"2:00","Resources":{"Tape":40,"Boxes":40},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":35,"Alarm Message":"Normal","Time":"2:00","Resources":{"Labels":47},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:05","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:05","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:05","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":49,"Alarm Message":"Normal","Time":"2:05","Resources":{"Tape":13,"Boxes":13},"Alarming":false,"Name":"boxErector"}
+{"Speed":9,"Temperature":29,"Alarm Message":"Normal","Time":"2:05","Resources":{"Plastic Wrap":19},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":15,"Alarm Message":"Normal","Time":"2:05","Alarming":false,"Name":"conveyorRight"}
+{"Speed":9,"Temperature":47,"Alarm Message":"Normal","Time":"2:05","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":26,"Alarm Message":"Normal","Time":"2:05","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":5,"Temperature":17,"Alarm Message":"Normal","Time":"2:05","Resources":{"Tape":35,"Boxes":35},"Alarming":false,"Name":"boxSealer"}
+{"Speed":9,"Temperature":40,"Alarm Message":"Normal","Time":"2:05","Resources":{"Labels":38},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:10","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:10","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:10","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":4,"Temperature":33,"Alarm Message":"Normal","Time":"2:10","Resources":{"Tape":9,"Boxes":9},"Alarming":false,"Name":"boxErector"}
+{"Speed":4,"Temperature":46,"Alarm Message":"Normal","Time":"2:10","Resources":{"Plastic Wrap":15},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Normal","Time":"2:10","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:10","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":8,"Temperature":28,"Alarm Message":"Normal","Time":"2:10","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":39,"Alarm Message":"Normal","Time":"2:10","Resources":{"Tape":28,"Boxes":28},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":37,"Alarm Message":"Normal","Time":"2:10","Resources":{"Labels":28},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:15","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:15","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:15","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":9,"Temperature":29,"Alarm Message":"Normal","Time":"2:15","Resources":{"Tape":0,"Boxes":0},"Alarming":false,"Name":"boxErector"}
+{"Speed":10,"Temperature":50,"Alarm Message":"Normal","Time":"2:15","Resources":{"Plastic Wrap":5},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:15","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:15","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:15","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Normal","Time":"2:15","Resources":{"Tape":25,"Boxes":25},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Normal","Time":"2:15","Resources":{"Labels":25},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:20","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:20","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:20","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Normal","Time":"2:20","Resources":{"Tape":30,"Boxes":30},"Alarming":false,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"2:20","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:20","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:20","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:20","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"2:20","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":5,"Temperature":22,"Alarm Message":"Normal","Time":"2:20","Resources":{"Labels":20},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:25","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:25","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:25","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"2:25","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"2:25","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:25","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:25","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:25","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"2:25","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"2:25","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:30","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:30","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:30","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"2:30","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"2:30","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:30","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:30","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:30","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"2:30","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"2:30","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:35","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:35","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:35","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"2:35","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"2:35","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:35","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:35","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:35","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"2:35","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"2:35","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:40","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:40","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:40","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"2:40","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"2:40","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:40","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:40","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:40","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"2:40","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"2:40","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:45","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:45","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:45","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"2:45","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"2:45","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:45","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:45","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:45","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"2:45","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"2:45","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:50","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:50","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:50","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"2:50","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"2:50","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:50","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:50","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:50","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"2:50","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"2:50","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"2:55","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"2:55","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"2:55","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"2:55","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"2:55","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"2:55","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"2:55","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"2:55","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"2:55","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"2:55","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"3:00","Resources":{"Dough":54},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":0,"Temperature":-31,"Alarm Message":"High","Time":"3:00","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":33,"Alarm Message":"Low","Time":"3:00","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"3:00","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"3:00","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"3:00","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"3:00","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"3:00","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"3:00","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"3:00","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":32,"Alarm Message":"Normal","Time":"3:05","Resources":{"Dough":46},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-32,"Alarm Message":"Normal","Time":"3:05","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":9,"Temperature":30,"Alarm Message":"Normal","Time":"3:05","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"3:05","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"3:05","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"3:05","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":47,"Alarm Message":"Low","Time":"3:05","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"3:05","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"3:05","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"3:05","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":31,"Alarm Message":"Normal","Time":"3:10","Resources":{"Dough":38},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":10,"Temperature":-38,"Alarm Message":"Normal","Time":"3:10","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":8,"Temperature":21,"Alarm Message":"Normal","Time":"3:10","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"3:10","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"3:10","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"3:10","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":35,"Alarm Message":"Normal","Time":"3:10","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":28,"Alarm Message":"Low","Time":"3:10","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"3:10","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"3:10","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":30,"Alarm Message":"Normal","Time":"3:15","Resources":{"Dough":31},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-38,"Alarm Message":"Normal","Time":"3:15","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":42,"Alarm Message":"Normal","Time":"3:15","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"3:15","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"3:15","Resources":{"Plastic Wrap":5},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":20,"Alarm Message":"Normal","Time":"3:15","Alarming":false,"Name":"conveyorRight"}
+{"Speed":5,"Temperature":16,"Alarm Message":"Normal","Time":"3:15","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":5,"Temperature":47,"Alarm Message":"Normal","Time":"3:15","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"3:15","Resources":{"Tape":25,"Boxes":25},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"3:15","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Normal","Time":"3:20","Resources":{"Dough":28},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-17,"Alarm Message":"Normal","Time":"3:20","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":42,"Alarm Message":"Normal","Time":"3:20","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Low","Time":"3:20","Resources":{"Tape":30,"Boxes":30},"Alarming":true,"Name":"boxErector"}
+{"Speed":5,"Temperature":41,"Alarm Message":"Normal","Time":"3:20","Resources":{"Plastic Wrap":0},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":10,"Temperature":42,"Alarm Message":"Normal","Time":"3:20","Alarming":false,"Name":"conveyorRight"}
+{"Speed":5,"Temperature":44,"Alarm Message":"Normal","Time":"3:20","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":25,"Alarm Message":"Normal","Time":"3:20","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":5,"Temperature":24,"Alarm Message":"Normal","Time":"3:20","Resources":{"Tape":20,"Boxes":20},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Low","Time":"3:20","Resources":{"Labels":20},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":34,"Alarm Message":"Normal","Time":"3:25","Resources":{"Dough":25},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":5,"Temperature":-28,"Alarm Message":"Normal","Time":"3:25","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":4,"Temperature":34,"Alarm Message":"Normal","Time":"3:25","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"3:25","Resources":{"Tape":24,"Boxes":24},"Alarming":false,"Name":"boxErector"}
+{"Speed":4,"Temperature":16,"Alarm Message":"Normal","Time":"3:25","Resources":{"Plastic Wrap":40},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":15,"Alarm Message":"Normal","Time":"3:25","Alarming":false,"Name":"conveyorRight"}
+{"Speed":10,"Temperature":31,"Alarm Message":"Normal","Time":"3:25","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":16,"Alarm Message":"Normal","Time":"3:25","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":18,"Alarm Message":"Normal","Time":"3:25","Resources":{"Tape":11,"Boxes":11},"Alarming":false,"Name":"boxSealer"}
+{"Speed":9,"Temperature":47,"Alarm Message":"Normal","Time":"3:25","Resources":{"Labels":11},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":43,"Alarm Message":"Normal","Time":"3:30","Resources":{"Dough":19},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":9,"Temperature":-22,"Alarm Message":"Normal","Time":"3:30","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":40,"Alarm Message":"Normal","Time":"3:30","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":9,"Temperature":47,"Alarm Message":"Normal","Time":"3:30","Resources":{"Tape":15,"Boxes":15},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":23,"Alarm Message":"Normal","Time":"3:30","Resources":{"Plastic Wrap":32},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":5,"Temperature":15,"Alarm Message":"Normal","Time":"3:30","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":27,"Alarm Message":"Normal","Time":"3:30","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":5,"Temperature":22,"Alarm Message":"Normal","Time":"3:30","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":15,"Alarm Message":"Normal","Time":"3:30","Resources":{"Tape":8,"Boxes":8},"Alarming":false,"Name":"boxSealer"}
+{"Speed":4,"Temperature":43,"Alarm Message":"Normal","Time":"3:30","Resources":{"Labels":7},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":10,"Temperature":45,"Alarm Message":"Normal","Time":"3:35","Resources":{"Dough":9},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-14,"Alarm Message":"Normal","Time":"3:35","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":20,"Alarm Message":"Normal","Time":"3:35","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":5,"Temperature":34,"Alarm Message":"Normal","Time":"3:35","Resources":{"Tape":10,"Boxes":10},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":28,"Alarm Message":"Normal","Time":"3:35","Resources":{"Plastic Wrap":24},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":43,"Alarm Message":"Normal","Time":"3:35","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":35,"Alarm Message":"Normal","Time":"3:35","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":8,"Temperature":44,"Alarm Message":"Normal","Time":"3:35","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":17,"Alarm Message":"Normal","Time":"3:35","Resources":{"Tape":1,"Boxes":1},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":27,"Alarm Message":"Normal","Time":"3:35","Resources":{"Labels":0},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":24,"Alarm Message":"Normal","Time":"3:40","Resources":{"Dough":1},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-39,"Alarm Message":"Normal","Time":"3:40","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Normal","Time":"3:40","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":6,"Temperature":22,"Alarm Message":"Normal","Time":"3:40","Resources":{"Tape":4,"Boxes":4},"Alarming":false,"Name":"boxErector"}
+{"Speed":7,"Temperature":32,"Alarm Message":"Normal","Time":"3:40","Resources":{"Plastic Wrap":17},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":39,"Alarm Message":"Normal","Time":"3:40","Alarming":false,"Name":"conveyorRight"}
+{"Speed":4,"Temperature":36,"Alarm Message":"Normal","Time":"3:40","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":6,"Temperature":32,"Alarm Message":"Normal","Time":"3:40","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":24,"Alarm Message":"Normal","Time":"3:40","Resources":{"Tape":61,"Boxes":61},"Alarming":false,"Name":"boxSealer"}
+{"Speed":4,"Temperature":24,"Alarm Message":"Normal","Time":"3:40","Resources":{"Labels":40},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":29,"Alarm Message":"Normal","Time":"3:45","Resources":{"Dough":81},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-19,"Alarm Message":"Normal","Time":"3:45","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":9,"Temperature":27,"Alarm Message":"Normal","Time":"3:45","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":46,"Alarm Message":"Normal","Time":"3:45","Resources":{"Tape":84,"Boxes":84},"Alarming":false,"Name":"boxErector"}
+{"Speed":9,"Temperature":44,"Alarm Message":"Normal","Time":"3:45","Resources":{"Plastic Wrap":8},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":6,"Temperature":27,"Alarm Message":"Normal","Time":"3:45","Alarming":false,"Name":"conveyorRight"}
+{"Speed":8,"Temperature":37,"Alarm Message":"Normal","Time":"3:45","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":49,"Alarm Message":"Normal","Time":"3:45","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":24,"Alarm Message":"Normal","Time":"3:45","Resources":{"Tape":54,"Boxes":54},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":17,"Alarm Message":"Normal","Time":"3:45","Resources":{"Labels":37},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":17,"Alarm Message":"Normal","Time":"3:50","Resources":{"Dough":75},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":6,"Temperature":-19,"Alarm Message":"Normal","Time":"3:50","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":4,"Temperature":42,"Alarm Message":"Normal","Time":"3:50","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":47,"Alarm Message":"Normal","Time":"3:50","Resources":{"Tape":76,"Boxes":76},"Alarming":false,"Name":"boxErector"}
+{"Speed":3,"Temperature":35,"Alarm Message":"Normal","Time":"3:50","Resources":{"Plastic Wrap":5},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":6,"Temperature":39,"Alarm Message":"Normal","Time":"3:50","Alarming":false,"Name":"conveyorRight"}
+{"Speed":9,"Temperature":48,"Alarm Message":"Normal","Time":"3:50","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":15,"Alarm Message":"Normal","Time":"3:50","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":4,"Temperature":25,"Alarm Message":"Normal","Time":"3:50","Resources":{"Tape":50,"Boxes":50},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":28,"Alarm Message":"Normal","Time":"3:50","Resources":{"Labels":27},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":5,"Temperature":41,"Alarm Message":"Normal","Time":"3:55","Resources":{"Dough":70},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-20,"Alarm Message":"Normal","Time":"3:55","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":5,"Temperature":38,"Alarm Message":"Normal","Time":"3:55","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":10,"Temperature":21,"Alarm Message":"Normal","Time":"3:55","Resources":{"Tape":66,"Boxes":66},"Alarming":false,"Name":"boxErector"}
+{"Speed":5,"Temperature":27,"Alarm Message":"Normal","Time":"3:55","Resources":{"Plastic Wrap":0},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":40,"Alarm Message":"Normal","Time":"3:55","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":39,"Alarm Message":"Normal","Time":"3:55","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":27,"Alarm Message":"Normal","Time":"3:55","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":30,"Alarm Message":"Normal","Time":"3:55","Resources":{"Tape":41,"Boxes":41},"Alarming":false,"Name":"boxSealer"}
+{"Speed":9,"Temperature":23,"Alarm Message":"Normal","Time":"3:55","Resources":{"Labels":18},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Normal","Time":"4:00","Resources":{"Dough":63},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":10,"Temperature":-32,"Alarm Message":"Normal","Time":"4:00","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":4,"Temperature":35,"Alarm Message":"Normal","Time":"4:00","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":7,"Temperature":17,"Alarm Message":"Normal","Time":"4:00","Resources":{"Tape":59,"Boxes":59},"Alarming":false,"Name":"boxErector"}
+{"Speed":9,"Temperature":38,"Alarm Message":"Normal","Time":"4:00","Resources":{"Plastic Wrap":90},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":31,"Alarm Message":"Normal","Time":"4:00","Alarming":false,"Name":"conveyorRight"}
+{"Speed":7,"Temperature":31,"Alarm Message":"Normal","Time":"4:00","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":34,"Alarm Message":"Normal","Time":"4:00","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":8,"Temperature":39,"Alarm Message":"Normal","Time":"4:00","Resources":{"Tape":33,"Boxes":33},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":37,"Alarm Message":"Normal","Time":"4:00","Resources":{"Labels":11},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:05","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:05","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":49,"Alarm Message":"Normal","Time":"4:05","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":6,"Temperature":39,"Alarm Message":"Normal","Time":"4:05","Resources":{"Tape":53,"Boxes":53},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":50,"Alarm Message":"Normal","Time":"4:05","Resources":{"Plastic Wrap":84},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":41,"Alarm Message":"Normal","Time":"4:05","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":15,"Alarm Message":"Normal","Time":"4:05","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":50,"Alarm Message":"Normal","Time":"4:05","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":45,"Alarm Message":"Normal","Time":"4:05","Resources":{"Tape":24,"Boxes":24},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Normal","Time":"4:05","Resources":{"Labels":8},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:10","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:10","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:10","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":4,"Temperature":17,"Alarm Message":"Normal","Time":"4:10","Resources":{"Tape":49,"Boxes":49},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":17,"Alarm Message":"Normal","Time":"4:10","Resources":{"Plastic Wrap":78},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":4,"Temperature":20,"Alarm Message":"Normal","Time":"4:10","Alarming":false,"Name":"conveyorRight"}
+{"Speed":5,"Temperature":38,"Alarm Message":"Normal","Time":"4:10","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":5,"Temperature":28,"Alarm Message":"Normal","Time":"4:10","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":10,"Temperature":26,"Alarm Message":"Normal","Time":"4:10","Resources":{"Tape":14,"Boxes":14},"Alarming":false,"Name":"boxSealer"}
+{"Speed":5,"Temperature":44,"Alarm Message":"Normal","Time":"4:10","Resources":{"Labels":3},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:15","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:15","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:15","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":10,"Temperature":38,"Alarm Message":"Normal","Time":"4:15","Resources":{"Tape":39,"Boxes":39},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":47,"Alarm Message":"Normal","Time":"4:15","Resources":{"Plastic Wrap":70},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":44,"Alarm Message":"Normal","Time":"4:15","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:15","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":38,"Alarm Message":"Normal","Time":"4:15","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Normal","Time":"4:15","Resources":{"Tape":11,"Boxes":11},"Alarming":false,"Name":"boxSealer"}
+{"Speed":9,"Temperature":38,"Alarm Message":"Normal","Time":"4:15","Resources":{"Labels":93},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:20","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:20","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:20","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":6,"Temperature":16,"Alarm Message":"Normal","Time":"4:20","Resources":{"Tape":33,"Boxes":33},"Alarming":false,"Name":"boxErector"}
+{"Speed":10,"Temperature":24,"Alarm Message":"Normal","Time":"4:20","Resources":{"Plastic Wrap":60},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"4:20","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:20","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:20","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Normal","Time":"4:20","Resources":{"Tape":8,"Boxes":8},"Alarming":false,"Name":"boxSealer"}
+{"Speed":5,"Temperature":25,"Alarm Message":"Normal","Time":"4:20","Resources":{"Labels":88},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:25","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:25","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:25","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":10,"Temperature":49,"Alarm Message":"Normal","Time":"4:25","Resources":{"Tape":23,"Boxes":23},"Alarming":false,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"4:25","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"4:25","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:25","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:25","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"4:25","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":9,"Temperature":48,"Alarm Message":"Normal","Time":"4:25","Resources":{"Labels":79},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:30","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:30","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:30","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:30","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"4:30","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"4:30","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:30","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:30","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"4:30","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"4:30","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:35","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:35","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:35","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:35","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"4:35","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"4:35","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:35","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:35","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"4:35","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"4:35","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:40","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:40","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:40","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:40","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"4:40","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"4:40","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:40","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:40","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"4:40","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"4:40","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:45","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:45","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:45","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:45","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"4:45","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"4:45","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:45","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:45","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"4:45","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"4:45","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:50","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:50","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:50","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:50","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"4:50","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"4:50","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:50","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:50","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"4:50","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"4:50","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"4:55","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"4:55","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:55","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"4:55","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"4:55","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"4:55","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:55","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"4:55","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"4:55","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"4:55","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":28,"Alarm Message":"Medium","Time":"5:00","Resources":{"Dough":0},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-32,"Alarm Message":"Low","Time":"5:00","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"5:00","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"5:00","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"5:00","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"5:00","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"5:00","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"5:00","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"5:00","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"5:00","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":5,"Temperature":39,"Alarm Message":"Normal","Time":"5:05","Resources":{"Dough":65},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":7,"Temperature":-26,"Alarm Message":"Normal","Time":"5:05","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"5:05","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"5:05","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"5:05","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"5:05","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"5:05","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"5:05","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"5:05","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"5:05","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":9,"Temperature":23,"Alarm Message":"Normal","Time":"5:10","Resources":{"Dough":56},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Normal","Time":"5:10","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":47,"Alarm Message":"Normal","Time":"5:10","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"5:10","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"5:10","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"5:10","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"5:10","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"5:10","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"5:10","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"5:10","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Normal","Time":"5:15","Resources":{"Dough":53},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-29,"Alarm Message":"Normal","Time":"5:15","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":5,"Temperature":50,"Alarm Message":"Normal","Time":"5:15","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"5:15","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"5:15","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Low","Time":"5:15","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":27,"Alarm Message":"Normal","Time":"5:15","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":38,"Alarm Message":"Low","Time":"5:15","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"5:15","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"5:15","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":9,"Temperature":23,"Alarm Message":"Normal","Time":"5:20","Resources":{"Dough":44},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-15,"Alarm Message":"Normal","Time":"5:20","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":19,"Alarm Message":"Normal","Time":"5:20","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"5:20","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"5:20","Resources":{"Plastic Wrap":60},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":46,"Alarm Message":"Normal","Time":"5:20","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":27,"Alarm Message":"Normal","Time":"5:20","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":22,"Alarm Message":"Normal","Time":"5:20","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Low","Time":"5:20","Resources":{"Tape":8,"Boxes":8},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"5:20","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":5,"Temperature":38,"Alarm Message":"Normal","Time":"5:25","Resources":{"Dough":39},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-23,"Alarm Message":"Normal","Time":"5:25","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":32,"Alarm Message":"Normal","Time":"5:25","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"5:25","Resources":{"Tape":23,"Boxes":23},"Alarming":true,"Name":"boxErector"}
+{"Speed":4,"Temperature":25,"Alarm Message":"Normal","Time":"5:25","Resources":{"Plastic Wrap":56},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":39,"Alarm Message":"Normal","Time":"5:25","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":44,"Alarm Message":"Normal","Time":"5:25","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":36,"Alarm Message":"Normal","Time":"5:25","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":5,"Temperature":50,"Alarm Message":"Normal","Time":"5:25","Resources":{"Tape":3,"Boxes":3},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":48,"Alarm Message":"Low","Time":"5:25","Resources":{"Labels":79},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":50,"Alarm Message":"Normal","Time":"5:30","Resources":{"Dough":31},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":10,"Temperature":-24,"Alarm Message":"Normal","Time":"5:30","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":9,"Temperature":50,"Alarm Message":"Normal","Time":"5:30","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":7,"Temperature":44,"Alarm Message":"Normal","Time":"5:30","Resources":{"Tape":16,"Boxes":16},"Alarming":false,"Name":"boxErector"}
+{"Speed":10,"Temperature":44,"Alarm Message":"Normal","Time":"5:30","Resources":{"Plastic Wrap":46},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":4,"Temperature":41,"Alarm Message":"Normal","Time":"5:30","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":21,"Alarm Message":"Normal","Time":"5:30","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":41,"Alarm Message":"Normal","Time":"5:30","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":16,"Alarm Message":"Normal","Time":"5:30","Resources":{"Tape":0,"Boxes":0},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":28,"Alarm Message":"Normal","Time":"5:30","Resources":{"Labels":71},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":34,"Alarm Message":"Normal","Time":"5:35","Resources":{"Dough":25},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":5,"Temperature":-24,"Alarm Message":"Normal","Time":"5:35","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":32,"Alarm Message":"Normal","Time":"5:35","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":9,"Temperature":43,"Alarm Message":"Normal","Time":"5:35","Resources":{"Tape":7,"Boxes":7},"Alarming":false,"Name":"boxErector"}
+{"Speed":5,"Temperature":33,"Alarm Message":"Normal","Time":"5:35","Resources":{"Plastic Wrap":41},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":5,"Temperature":48,"Alarm Message":"Normal","Time":"5:35","Alarming":false,"Name":"conveyorRight"}
+{"Speed":9,"Temperature":33,"Alarm Message":"Normal","Time":"5:35","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":20,"Alarm Message":"Normal","Time":"5:35","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":16,"Alarm Message":"Normal","Time":"5:35","Resources":{"Tape":90,"Boxes":90},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":16,"Alarm Message":"Normal","Time":"5:35","Resources":{"Labels":68},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":10,"Temperature":46,"Alarm Message":"Normal","Time":"5:40","Resources":{"Dough":15},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-17,"Alarm Message":"Normal","Time":"5:40","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":42,"Alarm Message":"Normal","Time":"5:40","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":46,"Alarm Message":"Normal","Time":"5:40","Resources":{"Tape":87,"Boxes":87},"Alarming":false,"Name":"boxErector"}
+{"Speed":3,"Temperature":20,"Alarm Message":"Normal","Time":"5:40","Resources":{"Plastic Wrap":38},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":10,"Temperature":20,"Alarm Message":"Normal","Time":"5:40","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":31,"Alarm Message":"Normal","Time":"5:40","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":40,"Alarm Message":"Normal","Time":"5:40","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":45,"Alarm Message":"Normal","Time":"5:40","Resources":{"Tape":83,"Boxes":83},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":41,"Alarm Message":"Normal","Time":"5:40","Resources":{"Labels":61},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":40,"Alarm Message":"Normal","Time":"5:45","Resources":{"Dough":11},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-28,"Alarm Message":"Normal","Time":"5:45","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":37,"Alarm Message":"Normal","Time":"5:45","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":5,"Temperature":16,"Alarm Message":"Normal","Time":"5:45","Resources":{"Tape":82,"Boxes":82},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":30,"Alarm Message":"Normal","Time":"5:45","Resources":{"Plastic Wrap":30},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":30,"Alarm Message":"Normal","Time":"5:45","Alarming":false,"Name":"conveyorRight"}
+{"Speed":5,"Temperature":33,"Alarm Message":"Normal","Time":"5:45","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":6,"Temperature":42,"Alarm Message":"Normal","Time":"5:45","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":25,"Alarm Message":"Normal","Time":"5:45","Resources":{"Tape":74,"Boxes":74},"Alarming":false,"Name":"boxSealer"}
+{"Speed":5,"Temperature":45,"Alarm Message":"Normal","Time":"5:45","Resources":{"Labels":56},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":37,"Alarm Message":"Normal","Time":"5:50","Resources":{"Dough":5},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":9,"Temperature":-21,"Alarm Message":"Normal","Time":"5:50","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":33,"Alarm Message":"Normal","Time":"5:50","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":46,"Alarm Message":"Normal","Time":"5:50","Resources":{"Tape":74,"Boxes":74},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":24,"Alarm Message":"Normal","Time":"5:50","Resources":{"Plastic Wrap":22},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":5,"Temperature":16,"Alarm Message":"Normal","Time":"5:50","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":16,"Alarm Message":"Normal","Time":"5:50","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":18,"Alarm Message":"Normal","Time":"5:50","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":10,"Temperature":15,"Alarm Message":"Normal","Time":"5:50","Resources":{"Tape":64,"Boxes":64},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":21,"Alarm Message":"Normal","Time":"5:50","Resources":{"Labels":46},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":43,"Alarm Message":"Normal","Time":"5:55","Resources":{"Dough":65},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":7,"Temperature":-16,"Alarm Message":"Normal","Time":"5:55","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":8,"Temperature":40,"Alarm Message":"Normal","Time":"5:55","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":7,"Temperature":18,"Alarm Message":"Normal","Time":"5:55","Resources":{"Tape":67,"Boxes":67},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":42,"Alarm Message":"Normal","Time":"5:55","Resources":{"Plastic Wrap":14},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":40,"Alarm Message":"Normal","Time":"5:55","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":37,"Alarm Message":"Normal","Time":"5:55","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":5,"Temperature":31,"Alarm Message":"Normal","Time":"5:55","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":47,"Alarm Message":"Normal","Time":"5:55","Resources":{"Tape":57,"Boxes":57},"Alarming":false,"Name":"boxSealer"}
+{"Speed":4,"Temperature":26,"Alarm Message":"Normal","Time":"5:55","Resources":{"Labels":42},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":30,"Alarm Message":"Normal","Time":"6:00","Resources":{"Dough":61},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-17,"Alarm Message":"Normal","Time":"6:00","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":4,"Temperature":16,"Alarm Message":"Normal","Time":"6:00","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":37,"Alarm Message":"Normal","Time":"6:00","Resources":{"Tape":59,"Boxes":59},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":21,"Alarm Message":"Normal","Time":"6:00","Resources":{"Plastic Wrap":8},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":6,"Temperature":20,"Alarm Message":"Normal","Time":"6:00","Alarming":false,"Name":"conveyorRight"}
+{"Speed":8,"Temperature":28,"Alarm Message":"Normal","Time":"6:00","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":37,"Alarm Message":"Normal","Time":"6:00","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":22,"Alarm Message":"Normal","Time":"6:00","Resources":{"Tape":51,"Boxes":51},"Alarming":false,"Name":"boxSealer"}
+{"Speed":6,"Temperature":18,"Alarm Message":"Normal","Time":"6:00","Resources":{"Labels":36},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":15,"Alarm Message":"Normal","Time":"6:05","Resources":{"Dough":57},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":6,"Temperature":-22,"Alarm Message":"Normal","Time":"6:05","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":7,"Temperature":15,"Alarm Message":"Normal","Time":"6:05","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:05","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:05","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":7,"Temperature":30,"Alarm Message":"Normal","Time":"6:05","Alarming":false,"Name":"conveyorRight"}
+{"Speed":10,"Temperature":41,"Alarm Message":"Normal","Time":"6:05","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":31,"Alarm Message":"Normal","Time":"6:05","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":43,"Alarm Message":"Normal","Time":"6:05","Resources":{"Tape":45,"Boxes":45},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":46,"Alarm Message":"Normal","Time":"6:05","Resources":{"Labels":28},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":42,"Alarm Message":"Normal","Time":"6:10","Resources":{"Dough":53},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":7,"Temperature":-16,"Alarm Message":"Normal","Time":"6:10","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":5,"Temperature":35,"Alarm Message":"Normal","Time":"6:10","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:10","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:10","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:10","Alarming":true,"Name":"conveyorRight"}
+{"Speed":4,"Temperature":50,"Alarm Message":"Normal","Time":"6:10","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":43,"Alarm Message":"Normal","Time":"6:10","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":4,"Temperature":32,"Alarm Message":"Normal","Time":"6:10","Resources":{"Tape":41,"Boxes":41},"Alarming":false,"Name":"boxSealer"}
+{"Speed":9,"Temperature":15,"Alarm Message":"Normal","Time":"6:10","Resources":{"Labels":19},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":8,"Temperature":42,"Alarm Message":"Normal","Time":"6:15","Resources":{"Dough":45},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-33,"Alarm Message":"Normal","Time":"6:15","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":4,"Temperature":26,"Alarm Message":"Normal","Time":"6:15","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:15","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:15","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:15","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:15","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":49,"Alarm Message":"Normal","Time":"6:15","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":8,"Temperature":18,"Alarm Message":"Normal","Time":"6:15","Resources":{"Tape":33,"Boxes":33},"Alarming":false,"Name":"boxSealer"}
+{"Speed":5,"Temperature":22,"Alarm Message":"Normal","Time":"6:15","Resources":{"Labels":14},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":49,"Alarm Message":"Normal","Time":"6:20","Resources":{"Dough":41},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Normal","Time":"6:20","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"6:20","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:20","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:20","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:20","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:20","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"6:20","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":4,"Temperature":39,"Alarm Message":"Normal","Time":"6:20","Resources":{"Tape":29,"Boxes":29},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":22,"Alarm Message":"Normal","Time":"6:20","Resources":{"Labels":7},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":4,"Temperature":24,"Alarm Message":"Normal","Time":"6:25","Resources":{"Dough":37},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"6:25","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"6:25","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:25","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:25","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:25","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:25","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"6:25","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"6:25","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":7,"Temperature":40,"Alarm Message":"Normal","Time":"6:25","Resources":{"Labels":0},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"6:30","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"6:30","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"6:30","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:30","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:30","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:30","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:30","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"6:30","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"6:30","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"6:30","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"6:35","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"6:35","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"6:35","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:35","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:35","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:35","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:35","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"6:35","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"6:35","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"6:35","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"6:40","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"6:40","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"6:40","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:40","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:40","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:40","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:40","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"6:40","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"6:40","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"6:40","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"6:45","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"6:45","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"6:45","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:45","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:45","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:45","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:45","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"6:45","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"6:45","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"6:45","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"6:50","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"6:50","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"6:50","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:50","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:50","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:50","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:50","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"6:50","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"6:50","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"6:50","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"6:55","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"6:55","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"6:55","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"6:55","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"6:55","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"6:55","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"6:55","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"6:55","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"6:55","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"6:55","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"7:00","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"7:00","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"7:00","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":1,"Temperature":45,"Alarm Message":"High","Time":"7:00","Resources":{"Tape":59,"Boxes":59},"Alarming":true,"Name":"boxErector"}
+{"Speed":3,"Temperature":21,"Alarm Message":"Low","Time":"7:00","Resources":{"Plastic Wrap":8},"Alarming":true,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"7:00","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"7:00","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"7:00","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"7:00","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"7:00","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"7:05","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"7:05","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"7:05","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":5,"Temperature":25,"Alarm Message":"Normal","Time":"7:05","Resources":{"Tape":54,"Boxes":54},"Alarming":false,"Name":"boxErector"}
+{"Speed":5,"Temperature":32,"Alarm Message":"Normal","Time":"7:05","Resources":{"Plastic Wrap":3},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":30,"Alarm Message":"Low","Time":"7:05","Alarming":true,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"7:05","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"7:05","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"7:05","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"7:05","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"7:10","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"7:10","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"7:10","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":3,"Temperature":22,"Alarm Message":"Normal","Time":"7:10","Resources":{"Tape":51,"Boxes":51},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"7:10","Resources":{"Plastic Wrap":63},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":35,"Alarm Message":"Normal","Time":"7:10","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":50,"Alarm Message":"Low","Time":"7:10","Alarming":true,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"7:10","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"7:10","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"7:10","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"7:15","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"7:15","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":26,"Alarm Message":"Low","Time":"7:15","Alarming":true,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":19,"Alarm Message":"Normal","Time":"7:15","Resources":{"Tape":43,"Boxes":43},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":46,"Alarm Message":"Normal","Time":"7:15","Resources":{"Plastic Wrap":55},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":10,"Temperature":26,"Alarm Message":"Normal","Time":"7:15","Alarming":false,"Name":"conveyorRight"}
+{"Speed":3,"Temperature":46,"Alarm Message":"Normal","Time":"7:15","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Low","Time":"7:15","Alarming":true,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"7:15","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"7:15","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"7:20","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":3,"Temperature":-27,"Alarm Message":"Low","Time":"7:20","Alarming":true,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":17,"Alarm Message":"Normal","Time":"7:20","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":4,"Temperature":35,"Alarm Message":"Normal","Time":"7:20","Resources":{"Tape":39,"Boxes":39},"Alarming":false,"Name":"boxErector"}
+{"Speed":9,"Temperature":19,"Alarm Message":"Normal","Time":"7:20","Resources":{"Plastic Wrap":46},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":30,"Alarm Message":"Normal","Time":"7:20","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":42,"Alarm Message":"Normal","Time":"7:20","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":41,"Alarm Message":"Normal","Time":"7:20","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":3,"Temperature":39,"Alarm Message":"Low","Time":"7:20","Resources":{"Tape":29,"Boxes":29},"Alarming":true,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"7:20","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":24,"Alarm Message":"Low","Time":"7:25","Resources":{"Dough":37},"Alarming":true,"Name":"cookieFormer"}
+{"Speed":6,"Temperature":-39,"Alarm Message":"Normal","Time":"7:25","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":10,"Temperature":44,"Alarm Message":"Normal","Time":"7:25","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":10,"Temperature":45,"Alarm Message":"Normal","Time":"7:25","Resources":{"Tape":29,"Boxes":29},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":47,"Alarm Message":"Normal","Time":"7:25","Resources":{"Plastic Wrap":40},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":50,"Alarm Message":"Normal","Time":"7:25","Alarming":false,"Name":"conveyorRight"}
+{"Speed":6,"Temperature":30,"Alarm Message":"Normal","Time":"7:25","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":8,"Temperature":19,"Alarm Message":"Normal","Time":"7:25","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":4,"Temperature":33,"Alarm Message":"Normal","Time":"7:25","Resources":{"Tape":25,"Boxes":25},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":40,"Alarm Message":"Low","Time":"7:25","Resources":{"Labels":0},"Alarming":true,"Name":"labelingBelt"}
+{"Speed":5,"Temperature":32,"Alarm Message":"Normal","Time":"7:30","Resources":{"Dough":32},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":6,"Temperature":-28,"Alarm Message":"Normal","Time":"7:30","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":4,"Temperature":26,"Alarm Message":"Normal","Time":"7:30","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":6,"Temperature":29,"Alarm Message":"Normal","Time":"7:30","Resources":{"Tape":23,"Boxes":23},"Alarming":false,"Name":"boxErector"}
+{"Speed":6,"Temperature":38,"Alarm Message":"Normal","Time":"7:30","Resources":{"Plastic Wrap":34},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":35,"Alarm Message":"Normal","Time":"7:30","Alarming":false,"Name":"conveyorRight"}
+{"Speed":8,"Temperature":49,"Alarm Message":"Normal","Time":"7:30","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":42,"Alarm Message":"Normal","Time":"7:30","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":10,"Temperature":29,"Alarm Message":"Normal","Time":"7:30","Resources":{"Tape":15,"Boxes":15},"Alarming":false,"Name":"boxSealer"}
+{"Speed":10,"Temperature":22,"Alarm Message":"Normal","Time":"7:30","Resources":{"Labels":100},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":5,"Temperature":27,"Alarm Message":"Normal","Time":"7:35","Resources":{"Dough":27},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":5,"Temperature":-25,"Alarm Message":"Normal","Time":"7:35","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":9,"Temperature":41,"Alarm Message":"Normal","Time":"7:35","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":8,"Temperature":17,"Alarm Message":"Normal","Time":"7:35","Resources":{"Tape":15,"Boxes":15},"Alarming":false,"Name":"boxErector"}
+{"Speed":8,"Temperature":44,"Alarm Message":"Normal","Time":"7:35","Resources":{"Plastic Wrap":26},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":5,"Temperature":40,"Alarm Message":"Normal","Time":"7:35","Alarming":false,"Name":"conveyorRight"}
+{"Speed":8,"Temperature":26,"Alarm Message":"Normal","Time":"7:35","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":10,"Temperature":16,"Alarm Message":"Normal","Time":"7:35","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":46,"Alarm Message":"Normal","Time":"7:35","Resources":{"Tape":9,"Boxes":9},"Alarming":false,"Name":"boxSealer"}
+{"Speed":3,"Temperature":17,"Alarm Message":"Normal","Time":"7:35","Resources":{"Labels":97},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":7,"Temperature":18,"Alarm Message":"Normal","Time":"7:40","Resources":{"Dough":20},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":4,"Temperature":-38,"Alarm Message":"Normal","Time":"7:40","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":8,"Temperature":29,"Alarm Message":"Normal","Time":"7:40","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":4,"Temperature":44,"Alarm Message":"Normal","Time":"7:40","Resources":{"Tape":11,"Boxes":11},"Alarming":false,"Name":"boxErector"}
+{"Speed":4,"Temperature":24,"Alarm Message":"Normal","Time":"7:40","Resources":{"Plastic Wrap":22},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":8,"Temperature":45,"Alarm Message":"Normal","Time":"7:40","Alarming":false,"Name":"conveyorRight"}
+{"Speed":7,"Temperature":50,"Alarm Message":"Normal","Time":"7:40","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":7,"Temperature":39,"Alarm Message":"Normal","Time":"7:40","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":7,"Temperature":22,"Alarm Message":"Normal","Time":"7:40","Resources":{"Tape":2,"Boxes":2},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":29,"Alarm Message":"Normal","Time":"7:40","Resources":{"Labels":89},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":6,"Temperature":19,"Alarm Message":"Normal","Time":"7:45","Resources":{"Dough":14},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":5,"Temperature":-21,"Alarm Message":"Normal","Time":"7:45","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":9,"Temperature":42,"Alarm Message":"Normal","Time":"7:45","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":6,"Temperature":35,"Alarm Message":"Normal","Time":"7:45","Resources":{"Tape":5,"Boxes":5},"Alarming":false,"Name":"boxErector"}
+{"Speed":4,"Temperature":45,"Alarm Message":"Normal","Time":"7:45","Resources":{"Plastic Wrap":18},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":3,"Temperature":49,"Alarm Message":"Normal","Time":"7:45","Alarming":false,"Name":"conveyorRight"}
+{"Speed":9,"Temperature":42,"Alarm Message":"Normal","Time":"7:45","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":9,"Temperature":32,"Alarm Message":"Normal","Time":"7:45","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":5,"Temperature":46,"Alarm Message":"Normal","Time":"7:45","Resources":{"Tape":52,"Boxes":52},"Alarming":false,"Name":"boxSealer"}
+{"Speed":7,"Temperature":46,"Alarm Message":"Normal","Time":"7:45","Resources":{"Labels":82},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":9,"Temperature":27,"Alarm Message":"Normal","Time":"7:50","Resources":{"Dough":5},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":5,"Temperature":-38,"Alarm Message":"Normal","Time":"7:50","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":3,"Temperature":18,"Alarm Message":"Normal","Time":"7:50","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":10,"Temperature":49,"Alarm Message":"Normal","Time":"7:50","Resources":{"Tape":105,"Boxes":105},"Alarming":false,"Name":"boxErector"}
+{"Speed":9,"Temperature":45,"Alarm Message":"Normal","Time":"7:50","Resources":{"Plastic Wrap":9},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":9,"Temperature":15,"Alarm Message":"Normal","Time":"7:50","Alarming":false,"Name":"conveyorRight"}
+{"Speed":10,"Temperature":38,"Alarm Message":"Normal","Time":"7:50","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":4,"Temperature":20,"Alarm Message":"Normal","Time":"7:50","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":6,"Temperature":18,"Alarm Message":"Normal","Time":"7:50","Resources":{"Tape":46,"Boxes":46},"Alarming":false,"Name":"boxSealer"}
+{"Speed":8,"Temperature":18,"Alarm Message":"Normal","Time":"7:50","Resources":{"Labels":74},"Alarming":false,"Name":"labelingBelt"}
+{"Speed":3,"Temperature":27,"Alarm Message":"Normal","Time":"7:55","Resources":{"Dough":2},"Alarming":false,"Name":"cookieFormer"}
+{"Speed":8,"Temperature":-20,"Alarm Message":"Normal","Time":"7:55","Alarming":false,"Name":"freezingTunnel"}
+{"Speed":8,"Temperature":32,"Alarm Message":"Normal","Time":"7:55","Alarming":false,"Name":"verticalConveyor"}
+{"Speed":5,"Temperature":18,"Alarm Message":"Normal","Time":"7:55","Resources":{"Tape":100,"Boxes":100},"Alarming":false,"Name":"boxErector"}
+{"Speed":10,"Temperature":29,"Alarm Message":"Normal","Time":"7:55","Resources":{"Plastic Wrap":109},"Alarming":false,"Name":"plasticLiner"}
+{"Speed":4,"Temperature":18,"Alarm Message":"Normal","Time":"7:55","Alarming":false,"Name":"conveyorRight"}
+{"Speed":5,"Temperature":38,"Alarm Message":"Normal","Time":"7:55","Alarming":false,"Name":"conveyorStraight"}
+{"Speed":6,"Temperature":41,"Alarm Message":"Normal","Time":"7:55","Alarming":false,"Name":"conveyorLeft"}
+{"Speed":9,"Temperature":29,"Alarm Message":"Normal","Time":"7:55","Resources":{"Tape":37,"Boxes":37},"Alarming":false,"Name":"boxSealer"}
+{"Speed":4,"Temperature":29,"Alarm Message":"Normal","Time":"7:55","Resources":{"Labels":70},"Alarming":false,"Name":"labelingBelt"}

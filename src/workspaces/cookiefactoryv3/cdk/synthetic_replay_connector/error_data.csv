@@ -1,0 +1,132 @@
+timestamp,asset_name,attribute_name,attribute_value
+0,Box Erector,Alarm_State,NORMAL
+0,Box Erector,Alarm_Text, 
+0,Box Erector,Bad,0
+0,Box Erector,Bad_Parts_1Min,0.0
+0,Box Erector,Blocked,True
+0,Box Erector,Blocked_Time_1Min,35.0
+0,Box Erector,Down,False
+0,Box Erector,Down_Time_1Min,0.0
+0,Box Erector,Good,6166
+0,Box Erector,Good_Parts_1Min,1.0
+0,Box Erector,Starved,False
+0,Box Erector,Starved_Time_1Min,0.0
+0,Box Erector,State,Blocked
+0,Box Erector,Total,6567
+0,Box Erector,Total_Parts_1Min,1.0
+0,Box Sealer,Alarm_State,NORMAL
+0,Box Sealer,Alarm_Text,
+0,Box Sealer,Bad,0
+0,Box Sealer,Bad_Parts_1Min,0.0
+0,Box Sealer,Blocked,False
+0,Box Sealer,Blocked_Time_1Min,0.0
+0,Box Sealer,Down,False
+0,Box Sealer,Down_Time_1Min,0.0
+0,Box Sealer,Good,5624
+0,Box Sealer,Good_Parts_1Min,0.0
+0,Box Sealer,Starved,True
+0,Box Sealer,Starved_Time_1Min,60.0
+0,Box Sealer,State,Starved
+0,Box Sealer,Total,5762
+0,Box Sealer,Total_Parts_1Min,0.0
+0,Conveyor Left Turn,Max_Level,0.0
+0,Conveyor Left Turn,Min_Level,0.0
+0,Conveyor Left Turn,Total,0
+0,Conveyor Right Turn,Max_Level,4.0
+0,Conveyor Right Turn,Min_Level,4.0
+0,Conveyor Right Turn,Total,4
+0,Cookie Former,Alarm_State,NORMAL
+0,Cookie Former,Alarm_Text,
+0,Cookie Former,Bad,0
+0,Cookie Former,Bad_Parts_1Min,0.0
+0,Cookie Former,Blocked,True
+0,Cookie Former,Blocked_Time_1Min,60.0
+0,Cookie Former,Down,False
+0,Cookie Former,Down_Time_1Min,0.0
+0,Cookie Former,Good,610814
+0,Cookie Former,Good_Parts_1Min,0.0
+0,Cookie Former,Moisture,52.12
+0,Cookie Former,Starved,False
+0,Cookie Former,Starved_Time_1Min,0.0
+0,Cookie Former,State,Blocked
+0,Cookie Former,Temperature,9.22
+0,Cookie Former,Total,122428
+0,Cookie Former,Total_Parts_1Min,0.0
+0,Cookie Inspector,Alarm_State,CRITICAL
+0,Cookie Inspector,Alarm_Text,Reject limit exceeded
+0,Cookie Inspector,Bad,3072
+0,Cookie Inspector,Bad_Parts_1Min,20.0
+0,Cookie Inspector,Blocked,False
+0,Cookie Inspector,Blocked_Time_1Min,0.0
+0,Cookie Inspector,Down,True
+0,Cookie Inspector,Down_Time_1Min,60.0
+0,Cookie Inspector,Good,605497
+0,Cookie Inspector,Good_Parts_1Min,0.0
+0,Cookie Inspector,Starved,False
+0,Cookie Inspector,Starved_Time_1Min,0.0
+0,Cookie Inspector,State,Down
+0,Cookie Inspector,Total,609505
+0,Cookie Inspector,Total_Parts_1Min,0.0
+0,Freezer Tunnel,Alarm_State,NORMAL
+0,Freezer Tunnel,Alarm_Text,
+0,Freezer Tunnel,Bad,0
+0,Freezer Tunnel,Bad_Parts_1Min,0.0
+0,Freezer Tunnel,Blocked,True
+0,Freezer Tunnel,Blocked_Time_1Min,60.0
+0,Freezer Tunnel,Down,False
+0,Freezer Tunnel,Down_Time_1Min,0.0
+0,Freezer Tunnel,Good,609596
+0,Freezer Tunnel,Good_Parts_1Min,0.0
+0,Freezer Tunnel,Speed,0.0
+0,Freezer Tunnel,Starved,False
+0,Freezer Tunnel,Starved_Time_1Min,0.0
+0,Freezer Tunnel,State,Blocked
+0,Freezer Tunnel,Temperature,-25.63
+0,Freezer Tunnel,Total,610830
+0,Freezer Tunnel,Total_Parts_1Min,0.0
+0,Labeller,Alarm_State,NORMAL
+0,Labeller,Alarm_Text,
+0,Labeller,Bad,0
+0,Labeller,Bad_Parts_1Min,0.0
+0,Labeller,Blocked,False
+0,Labeller,Blocked_Time_1Min,0.0
+0,Labeller,Down,False
+0,Labeller,Down_Time_1Min,0.0
+0,Labeller,Good,5371
+0,Labeller,Good_Parts_1Min,0.0
+0,Labeller,Starved,True
+0,Labeller,Starved_Time_1Min,60.0
+0,Labeller,State,Starved
+0,Labeller,Total,5516
+0,Labeller,Total_Parts_1Min,0.0
+0,Line 1,Shift,1
+0,Liner Inserter,Alarm_State,NORMAL
+0,Liner Inserter,Alarm_Text,
+0,Liner Inserter,Bad,0
+0,Liner Inserter,Bad_Parts_1Min,0.0
+0,Liner Inserter,Blocked,True
+0,Liner Inserter,Blocked_Time_1Min,35.0
+0,Liner Inserter,Down,False
+0,Liner Inserter,Down_Time_1Min,0.0
+0,Liner Inserter,Good,5920
+0,Liner Inserter,Good_Parts_1Min,0.0
+0,Liner Inserter,Starved,False
+0,Liner Inserter,Starved_Time_1Min,0.0
+0,Liner Inserter,State,Blocked
+0,Liner Inserter,Total,6311
+0,Liner Inserter,Total_Parts_1Min,0.0
+0,Vertical Conveyor,Alarm_State,NORMAL
+0,Vertical Conveyor,Alarm_Text,
+0,Vertical Conveyor,Bad,0
+0,Vertical Conveyor,Bad_Parts_1Min,0.0
+0,Vertical Conveyor,Blocked,False
+0,Vertical Conveyor,Blocked_Time_1Min,0.0
+0,Vertical Conveyor,Down,False
+0,Vertical Conveyor,Down_Time_1Min,0.0
+0,Vertical Conveyor,Good,5887
+0,Vertical Conveyor,Good_Parts_1Min,0.0
+0,Vertical Conveyor,Starved,True
+0,Vertical Conveyor,Starved_Time_1Min,60.0
+0,Vertical Conveyor,State,Starved
+0,Vertical Conveyor,Total,605515
+0,Vertical Conveyor,Total_Parts_1Min,0.0

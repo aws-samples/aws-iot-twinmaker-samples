@@ -1,0 +1,85 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.svg {
+  --svg-priority-color: white;
+
+  shape-rendering: geometricPrecision;
+
+  [data-marker] {
+    fill: var(--svg-marker-fill-color, currentColor);
+    stroke: var(--svg-marker-stroke-color, currentColor);
+    stroke-width: var(--svg-marker-stroke-width, 1);
+  }
+
+  [data-priority] {
+    fill: var(--svg-priority-color);
+  }
+
+  &.priority1 {
+    translate: 0;
+  }
+
+  &.priority2 {
+    translate: 0;
+  }
+
+  &.priority3 {
+    translate: 0;
+  }
+
+  &.priority4 {
+    translate: 0;
+  }
+
+  &.priority4 {
+    translate: 0;
+  }
+}
+
+.svg2 {
+  display: block;
+  shape-rendering: geometricPrecision;
+
+  circle {
+    &[data-circle-outer] {
+      fill: none;
+      stroke: var(--svg-background-color, black);
+      stroke-width: 2px;
+    }
+
+    &[data-circle-inner] {
+      fill: var(--svg-background-color, black);
+    }
+  }
+
+  &.priority0 {
+    rect {
+      fill: var(--svg-foreground-color, white);
+    }
+  }
+
+  &.priority1 {
+    rect {
+      fill: var(--svg-foreground-color, white);
+    }
+  }
+
+  &.priority2 {
+    path {
+      fill: var(--svg-foreground-color, white);
+    }
+  }
+
+  &.priority3 {
+    path {
+      fill: var(--svg-foreground-color, white);
+    }
+  }
+
+  &.priority4 {
+    rect {
+      fill: var(--svg-foreground-color, white);
+    }
+  }
+}

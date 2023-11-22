@@ -1,0 +1,13 @@
+{
+  "componentTypeId": "com.example.workspace.synthetics",
+  "isSingleton": false,
+  "propertyDefinitions": {
+    "generate_error_states": {
+      "dataType": {
+        "type": "BOOLEAN"
+      },
+      "isTimeSeries": false,
+      "isStoredExternally": false
+    }
+  }
+}

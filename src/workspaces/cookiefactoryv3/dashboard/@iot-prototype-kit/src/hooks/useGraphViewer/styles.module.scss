@@ -1,0 +1,77 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  // --button-background-color: var(--background-layer-3);
+  // --button-background-hover-color: var(--background-layer-3-hover);
+  // --button-icon-color: var(--text-layer-3-secondary);
+  // --button-icon-hover-color: var(--text-layer-3-hover);
+  // --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+
+  display: grid;
+  overflow: hidden;
+
+  > [data-canvas] {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  > [data-controls] {
+    position: absolute;
+    inset: 20rem 20rem 20rem auto;
+    display: grid;
+    place-content: end;
+    gap: 8rem;
+    z-index: 1;
+
+    pointer-events: none;
+
+    > [data-button] {
+      --foreground-color: rgb(255, 255, 255, 0.5);
+      --foreground-hover-color: rgb(255, 255, 255, 1);
+      --foreground-active-color: rgb(255, 255, 255, 1);
+      --size: 40rem;
+      --transition-color: color var(--transition-duration) var(--transition-easing);
+
+      box-sizing: content-box;
+      width: var(--size);
+      height: var(--size);
+      // background-color: #464646;
+      // background-color: rgb(0, 0, 0, 0.1);
+      border-radius: var(--radius-5);
+      background-color: rgb(0, 0, 0, 0.15);
+      border: solid 1rem rgb(255, 255, 255, 0.1);
+      // box-shadow: var(--box-shadow-layer-3);
+      // backdrop-filter: blur(var(--blur-radius));
+      // mix-blend-mode: overlay;
+      pointer-events: all;
+
+      &:hover {
+        // --button-background-color: var(--button-background-hover-color);
+        --foreground-color: var(--foreground-hover-color);
+      }
+
+      > [data-button-icon] {
+        color: var(--foreground-color);
+        transition: var(--transition-color);
+      }
+
+      > [data-center] {
+        width: 20rem;
+      }
+
+      > [data-fit] {
+        width: 18rem;
+      }
+
+      > [data-zoom-in] {
+        width: 16rem;
+      }
+
+      > [data-zoom-out] {
+        width: 16rem;
+      }
+    }
+  }
+}

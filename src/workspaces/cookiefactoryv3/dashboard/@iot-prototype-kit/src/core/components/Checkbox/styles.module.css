@@ -1,0 +1,52 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.checkbox {
+  /* public */
+  --background-color: var(--text-layer-2-tertiary);
+  --background-selected-color: var(--text-layer-2-tertiary);
+  --foreground-color: var(--text-layer-2-tertiary);
+  --foreground-selected-color: var(--text-layer-2-tertiary);
+  --border-radius: 0;
+  /* private */
+  --size: 20rem;
+  display: grid;
+  place-content: center;
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+}
+
+.checkbox svg {
+  --svg-size: calc(var(--size) * .7);
+  display: none;
+  width: var(--svg-size);
+  height: var(--svg-size);
+  fill: none;
+  stroke: var(--foreground-color);
+  stroke-width: 4rem;
+  stroke-dasharray: 22rem;
+  stroke-dashoffset: 44;
+  translate: 1rem 0;
+}
+
+.checkbox[data-selected],
+.checkbox[data-indeterminate] {
+  --background-color: var(--background-selected-color);
+  --foreground-color: var(--foreground-selected-color);
+}
+
+.checkbox[data-selected] svg,
+.checkbox[data-indeterminate] svg {
+  display: block;
+}
+
+.checkbox[data-indeterminate] svg {
+  fill: var(--foreground-color);
+  stroke: none;
+}
+
+.checkbox[data-disabled] {
+  opacity: 0.4;
+}

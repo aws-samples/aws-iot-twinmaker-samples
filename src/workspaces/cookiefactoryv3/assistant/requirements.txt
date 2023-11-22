@@ -1,0 +1,16 @@
+chainlit/src/dist/chainlit-0.6.3-py3-none-any.whl
+python-dotenv==1.0.0
+langchain==0.0.252
+google-search-results
+ipywidgets==7.0.0
+opensearch-py==2.2.0
+sagemaker==2.179.0
+requests==2.31.0
+requests-aws4auth==1.2.3
+fastapi==0.97.0
+pypdf==3.15.2
+PyPDF2==3.0.1
+chromadb==0.4.7
+tabulate
+boto3==1.28.74
+botocore==1.31.74

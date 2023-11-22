@@ -1,0 +1,40 @@
+{
+    "version": "0.0.2",
+    "component_types": [
+        "com.example.synthetic.rateequipment.json",
+        "com.example.synthetic.bufferequipment.json",
+        "com.example.synthetic.cookieformerrateequipment.json",
+        "com.example.synthetic.freezertunnelrateequipment.json",
+        "com.example.cookiefactory.alarm.json",
+        "com.example.cookiefactory.cookie-former.json",
+        "com.example.cookiefactory.cookieline.json",
+        "com.example.cookiefactory.equipment.json",
+        "com.example.cookiefactory.mixer.json",
+        "com.example.cookiefactory.processstep.json",
+        "com.example.cookiefactory.space.json",
+        "com.example.cookiefactory.watertank.json",
+        "com.example.synthetic-telemetry.json",
+        "com.example.timestream-telemetry.json",
+        "com.example.workspace.synthetics.json"
+    ],
+    "scenes": [
+        "CookieFactoryTiles.json",
+        "Mixer.json",
+        "CookieFactory.json"
+    ],
+    "models": [
+        "CookieFactoryEnvironment/tileset.json",
+        "CookieFactoryEnvironment/0composite0.cmpt",
+        "CookieFactoryEnvironment/0composite1.cmpt",
+        "CookieFactoryEnvironment/0composite2.cmpt",
+        "CookieFactoryEnvironment/0material1_0.b3dm",
+        "CookieFactoryEnvironment/0material1_00.b3dm",
+        "CookieFactoryEnvironment/0material1_01.b3dm",
+        "CookieFactoryEnvironment/0material6_0.b3dm",
+        "../../../cookiefactory/scenes/CookieFactoryMixer.glb",
+        "../../../cookiefactory/scenes/CookieFactoryLine.glb",
+        "../../../cookiefactory/scenes/CookieFactoryWaterTank.glb",
+        "CF_SITE.glb"
+    ],
+    "entities": "entities.json"
+}

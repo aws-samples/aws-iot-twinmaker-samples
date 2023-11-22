@@ -1,0 +1,109 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  --button-background-color: var(--background-layer-3);
+  --button-background-hover-color: var(--background-layer-3-hover);
+  --button-icon-color: var(--text-layer-3-secondary);
+  --button-icon-hover-color: var(--text-layer-3-hover);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
+}
+
+.canvasContainer {
+  position: relative;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.controls {
+  position: absolute;
+  inset: 0 auto 0 var(--padding-x);
+  display: grid;
+  place-content: center;
+  gap: 8rem;
+  z-index: var(--z-index-1);
+  pointer-events: none;
+}
+
+.button {
+  --size: 36rem;
+  box-sizing: content-box;
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--button-background-color);
+  border-radius: var(--radius-5);
+  box-shadow: var(--box-shadow-layer-3);
+  transition: var(--transition-background-color), var(--transition-color);
+  pointer-events: all;
+}
+
+.button:hover {
+  --button-background-color: var(--button-background-hover-color);
+  --button-icon-color: var(--button-icon-hover-color);
+}
+
+.buttonCenterIcon {
+  width: 20rem;
+  color: var(--button-icon-color);
+  transition: var(--transition-color);
+}
+
+.buttonFitIcon {
+  width: 18rem;
+  color: var(--button-icon-color);
+  transition: var(--transition-color);
+}
+
+.buttonZoomInIcon {
+  width: 16rem;
+  color: var(--button-icon-color);
+  transition: var(--transition-color);
+}
+
+.buttonZoomOutIcon {
+  width: 16rem;
+  color: var(--button-icon-color);
+  transition: var(--transition-color);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: var(--z-index-2);
+}
+
+.kpis {
+  display: grid;
+  grid-auto-flow: column;
+  place-content: center start;
+  gap: 60rem;
+  padding: 40rem;
+  height: 241rem;
+  pointer-events: none;
+  border-top: solid 1px var(--background-layer-2-secondary);
+  z-index: var(--z-index-1);
+}
+
+.kpis[data-kpi-count='0'] {
+  place-content: center;
+  color: var(--foreground-tertiary-color);
+  font-size: 34rem;
+  font-weight: var(--font-weight-2);
+  text-align: center;
+}
+
+.kpi {
+  position: relative;
+}

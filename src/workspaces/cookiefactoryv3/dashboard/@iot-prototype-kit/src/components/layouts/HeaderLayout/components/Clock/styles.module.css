@@ -1,0 +1,15 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  display: flex;
+  gap: 8rem;
+  color: rgb(230, 230, 230, 1);
+  font-size: 16rem;
+  line-height: 1;
+  font-variant-numeric: proportional-nums;
+}
+
+.root [data-date] {
+  font-weight: var(--font-weight-6);
+}

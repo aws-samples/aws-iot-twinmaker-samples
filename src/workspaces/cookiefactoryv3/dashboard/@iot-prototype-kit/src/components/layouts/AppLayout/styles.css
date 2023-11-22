@@ -1,0 +1,13 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+[data-applayout] {
+  --background-color: var(--background-layer-1);
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 16rem;
+  padding: 16rem 40rem 40rem;
+  background-color: var(--background-color);
+  user-select: none;
+}

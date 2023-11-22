@@ -1,0 +1,285 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  --border-color: var(--text-layer-1-tertiary);
+  --foreground-color: var(--text-layer-2-primary);
+  --foreground-secondary-color: var(--text-layer-2-secondary);
+  --foreground-tertiary-color: var(--text-layer-2-tertiary);
+  --foreground-hover-color: var(--text-layer-2-hover);
+  --foreground-accent-color: var(--text-layer-2-accent);
+  --foreground-active-color: var(--text-layer-2-active);
+  --icon-color: var(--foreground-secondary-color);
+  --entity-name-color: var(--foreground-secondary-color);
+  --name-color: var(--foreground-secondary-color);
+  --message-color: var(--foreground-secondary-color);
+  --footer-color: var(--foreground-secondary-color);
+
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 15rem;
+  padding: 50rem var(--padding-x) 0;
+}
+
+.emptyState {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  pointer-events: none;
+}
+
+.emptyState [data-title] {
+  color: var(--foreground-tertiary-color);
+  font-size: 44rem;
+  font-weight: var(--font-weight-5);
+}
+
+.emptyState [data-message] {
+  color: var(--foreground-tertiary-color);
+  font-size: 34rem;
+  font-weight: var(--font-weight-2);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.filterMessage {
+  color: var(--foreground-color);
+  font-size: 24rem;
+  font-weight: var(--font-weight-5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alarmControls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15rem;
+}
+
+.alarmControl {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  color: var(--foreground-secondary-color);
+  font-size: 18rem;
+  font-weight: var(--font-weight-5);
+}
+
+.alarmControl[data-active='true'] {
+  color: var(--foreground-active-color);
+}
+
+.alarmControl:hover,
+.alarmControl.active {
+  /* background-color: var(--color-gray-44); */
+  /* border-color: var(--color-gray-22); */
+  /* box-shadow: 2rem 2rem 8px rgb(30, 30, 30, .3); */
+  /* color: var(--color-gray-37); */
+}
+
+.alarmControlIcon {
+  --size: 21rem;
+
+  flex-shrink: 0;
+  width: var(--size);
+  height: var(--size);
+}
+
+.alarmControl[data-active='true'] .alarmIconHigh {
+  color: var(--color-alarm-high);
+}
+
+.alarmControl[data-active='true'] .alarmIconMedium {
+  color: var(--color-alarm-medium);
+}
+
+.alarmControl[data-active='true'] .alarmIconLow {
+  color: var(--color-alarm-low);
+}
+
+.alarmControl[data-active='true'] .alarmIconResolved {
+  color: var(--foreground-accent-color);
+}
+
+.events {
+  flex: 1;
+  display: grid;
+  position: relative;
+}
+
+.eventList {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.event {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  row-gap: 12rem;
+  padding: 16rem 0;
+  border-bottom: dashed 1rem var(--border-color);
+}
+
+.event:first-child {
+  padding-top: 0;
+}
+
+.event:last-child {
+  border: none;
+  padding-bottom: var(--padding-y);
+}
+
+.event.high {
+  --icon-color: var(--color-alarm-high);
+  --entity-name-color: var(--foreground-color);
+  --name-color: var(--foreground-accent-color);
+  --message-color: var(--foreground-color);
+  --footer-color: var(--foreground-color);
+}
+
+.medium {
+  --icon-color: var(--color-alarm-medium);
+  --entity-name-color: var(--foreground-color);
+  --name-color: var(--foreground-accent-color);
+  --message-color: var(--foreground-color);
+  --footer-color: var(--foreground-color);
+}
+
+.low {
+  --icon-color: var(--color-alarm-low);
+  --entity-name-color: var(--foreground-color);
+  --name-color: var(--foreground-accent-color);
+  --message-color: var(--foreground-color);
+  --footer-color: var(--foreground-color);
+}
+
+.event:hover {
+  --entity-name-color: var(--foreground-hover-color);
+  --name-color: var(--foreground-hover-color);
+  --message-color: var(--foreground-hover-color);
+  --footer-color: var(--foreground-hover-color);
+}
+
+.event[data-active='true'] .footer > span:first-child {
+  color: var(--foreground-accent-color);
+}
+
+.normal {
+}
+
+.normalDark {
+}
+
+.unknown {
+}
+
+/* .head {
+  padding: calc(var(--gap) / 2) var(--gap);
+  color: var(--timestamp-color);
+  font-size: 12rem;
+  font-weight: 500;
+  letter-spacing: .4rem;
+  text-align: left;
+  text-transform: uppercase;
+} */
+/* .head.active {
+  color: var(--color-gray-3);
+} */
+.body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20rem;
+}
+
+.icon {
+  align-self: center;
+  flex-shrink: 0;
+  color: var(--icon-color);
+  width: 34rem;
+}
+
+.content {
+  display: grid;
+  place-items: center start;
+  row-gap: 4rem;
+}
+
+.entityName {
+  color: var(--entity-name-color);
+  font-size: 16rem;
+  font-weight: var(--font-weight-6);
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.name {
+  color: var(--name-color);
+  font-size: 18rem;
+  font-weight: var(--font-weight-6);
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.message {
+  color: var(--message-color);
+  font-size: 14rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.footer {
+  display: flex;
+  gap: 16rem;
+  padding-left: 54rem;
+  color: var(--footer-color);
+  font-size: 12rem;
+}
+
+.footer > span {
+  position: relative;
+}
+
+.footer > span::after {
+  content: '\2022';
+  position: absolute;
+  top: -4rem;
+  right: -11rem;
+  font-size: 16rem;
+  font-weight: var(--font-weight-6);
+}
+
+.footer > span:first-child {
+  font-weight: var(--font-weight-6);
+  text-transform: uppercase;
+}
+
+.footer > span:not(:first-child):before {
+  content: attr(data-label) ' ';
+  text-transform: capitalize;
+}
+
+.footer > span:last-child::after {
+  display: none;
+}
+
+.statusActive {
+  color: var(--foreground-accent-color);
+}

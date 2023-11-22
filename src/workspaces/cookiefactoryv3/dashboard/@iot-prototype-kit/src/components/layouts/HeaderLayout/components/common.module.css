@@ -1,0 +1,70 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+@keyframes menuFade {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.menu [data-menu] {
+  --menu-background-color: var(--background-layer-2-accent);
+  --menu-item-background-color: var(--background-layer-2);
+  --menu-item-background-hover-color: var(--background-layer-2-hover);
+  --menu-item-background-selected-color: var(--background-layer-2-accent);
+  --menu-item-text-primary-color: var(--text-layer-2-primary);
+  --menu-item-text-secondary-color: var(--text-layer-2-secondary);
+  --menu-item-text-tertiary-color: var(--text-layer-2-tertiary);
+  --menu-item-text-hover-color: var(--text-layer-2-hover);
+  --menu-item-text-selected-color: var(--text-layer-2-accent);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-border-color: border-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+
+  top: calc(100% + 8rem);
+  left: 50%;
+  translate: -50% 0;
+  min-width: 100%;
+  width: max-content;
+  row-gap: 1rem;
+
+  background-color: var(--menu-background-color);
+  border: solid 1rem var(--background-layer-2-accent);
+  border-radius: var(--radius-10);
+  box-shadow: var(--box-shadow-layer-1);
+  /* opacity: 0;
+  animation: menuFade 150ms forwards; */
+  /* will-change: scale; */
+}
+
+.menu [data-menu] [data-menu-item] {
+  display: grid;
+  background-color: var(--menu-item-background-color);
+  color: var(--menu-item-text-primary-color);
+}
+
+.menu [data-menu] [data-menu-item]:hover {
+  --menu-item-background-color: var(--menu-item-background-hover-color);
+  --menu-item-text-primary-color: var(--menu-item-text-hover-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-hover-color);
+}
+
+.menu [data-menu] [data-menu-item][data-selected='true'] {
+  --menu-item-background-color: var(--menu-item-background-selected-color);
+  --menu-item-text-primary-color: var(--menu-item-text-selected-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-selected-color);
+}
+
+.menu [data-menu] > button:first-child [data-menu-item] {
+  border-top: none;
+}
+
+.menu [data-menu] > button:last-child [data-menu-item] {
+  border-bottom: none;
+}

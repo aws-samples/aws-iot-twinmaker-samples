@@ -1,0 +1,35 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+build
+dist
+coverage
+script-build
+node_modules
+dist
+dist-ssr
+*.local
+.next
+awsCredentials.json
+**src/config/cognito.ts
+**src/config/sites.ts
+**src/config/users.ts
+src/app.config.tsx
+public/matterport
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

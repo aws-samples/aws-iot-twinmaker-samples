@@ -1,0 +1,142 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.overlay {
+  --color-alarm-bg: transparent;
+  --icon-color: var(--color-alarm-unknown);
+  --border-radius-outer: 10rem;
+  --border-radius-inner: 5rem;
+  display: grid;
+  width: clamp(50rem, max-content, 200rem);
+  background-color: var(--background-layer-3);
+  border: solid 1rem var(--background-layer-2-accent);
+  border-radius: var(--radius-10);
+  box-shadow: var(--box-shadow-layer-1);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 13rem;
+  padding: 13rem 20rem;
+}
+
+.headerTitleSection {
+  display: grid;
+  gap: 1rem;
+  white-space: nowrap;
+}
+
+.headerTitle {
+  color: var(--text-layer-3-primary);
+  font-size: 18rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headerSubtitle {
+  color: var(--text-layer-3-secondary);
+  font-size: 14rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bodySection {
+  display: grid;
+}
+
+.alarmStatusIcon {
+  --icon-color: var(--color-alarm-unknown);
+  width: 20rem;
+  color: var(--icon-color);
+}
+
+.overlay.Normal .alarmStatusIconIcon {
+  color: var(--color-health-normal);
+}
+
+.alarmMessageSection {
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center start;
+  gap: 6rem;
+  padding: 13rem 20rem;
+  background-color: var(--background-layer-2);
+  border-bottom: solid 1rem var(--background-layer-2-accent);
+  color: var(--text-layer-3-primary);
+  font-size: 14rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alarmMessageIcon {
+  flex-shrink: 0;
+  color: var(--icon-color);
+  width: 18rem;
+}
+
+.kpis {
+  --gap: 24rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--gap);
+  padding: 13rem 20rem 15rem;
+  background-color: var(--background-layer-2);
+}
+
+.kpi {
+  position: relative;
+}
+
+/* .kpi::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 100%;
+  right: calc(var(--gap) * -0.5);
+  border-right: dashed 1rem var(--text-layer-3-tertiary);
+}
+
+.kpi:last-child:after {
+  display: none;
+} */
+.kpisEmptyState {
+  color: var(--text-layer-3-secondary);
+  font-size: 14rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.high {
+  --icon-color: var(--color-alarm-high);
+}
+
+.medium {
+  --icon-color: var(--color-alarm-medium);
+}
+
+.low {
+  --icon-color: var(--color-alarm-low);
+}
+
+.normal {
+  --icon-color: var(--color-alarm-normal);
+}
+
+.normalDark {
+  --icon-color: var(--color-alarm-normaldark);
+}
+
+.unknown {
+  --icon-color: var(--color-alarm-unknown);
+}

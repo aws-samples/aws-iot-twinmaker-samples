@@ -1,0 +1,78 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.menu {
+  --trigger-background-color: transparent;
+  --trigger-background-hover-color: transparent;
+  --trigger-background-active-color: transparent;
+  --trigger-text-color: rgb(230, 230, 230, 1);
+  --trigger-text-hover-color: rgb(255, 255, 255, 1);
+  --trigger-text-active-color: rgb(255, 255, 255, 1);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  --transition-rotation: rotate calc(var(--transition-duration) * 0.3) var(--transition-easing);
+
+  position: relative;
+}
+
+.menu [data-trigger] {
+  --size: 20rem;
+
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  column-gap: 8rem;
+  background-color: var(--trigger-background-color);
+  border-radius: var(--radius-10);
+  color: var(--trigger-text-color);
+  transition: var(--transition-background-color);
+}
+
+.menu [data-trigger]:hover {
+  --trigger-text-color: var(--trigger-text-hover-color);
+}
+
+.menu[data-is-open='true'] [data-trigger] {
+  --trigger-text-color: var(--trigger-text-active-color);
+
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: calc(var(--z-index-max) + 1);
+}
+
+.menu[data-is-open='true'] [data-trigger] > [data-trigger-arrow] {
+  rotate: 180deg;
+}
+
+.menu [data-trigger] [data-trigger-name] {
+  font-size: var(--size);
+  font-weight: var(--font-weight-4);
+  transition: var(--transition-color);
+  translate: 0 1rem;
+}
+
+.menu [data-trigger] [data-trigger-arrow] {
+  width: calc(var(--size) * 0.6);
+  height: calc(var(--size) * 0.6);
+  transition: var(--transition-color), var(--transition-rotation);
+  translate: 0 1rem;
+}
+
+.menu [data-menu] [data-menu-item] {
+  place-content: start;
+}
+
+.menu [data-menu] [data-menu-item][data-override='false'] {
+  padding: 12rem 15rem;
+  font-size: 15rem;
+}
+
+.menu [data-menu] [data-menu-item]:hover {
+  --menu-item-text-primary-color: var(--menu-item-text-hover-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-hover-color);
+}
+
+.menu [data-menu] [data-menu-item][data-selected='true'] {
+  --menu-item-text-primary-color: var(--menu-item-text-selected-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-selected-color);
+}

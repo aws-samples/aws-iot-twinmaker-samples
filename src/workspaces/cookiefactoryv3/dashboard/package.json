@@ -1,0 +1,42 @@
+{
+  "name": "@amzn/cookie-factory-demo-v3",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "NODE_OPTIONS=--max-old-space-size=8192 vite build --outDir ./dist",
+    "dev": "vite serve --host --https --force",
+    "preview": "vite preview --host --https"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "3.414.0",
+    "@aws-sdk/client-iottwinmaker": "3.414.0",
+    "@aws-sdk/credential-provider-cognito-identity": "3.414.0",
+    "@iot-app-kit/react-components": "9.2.0",
+    "@iot-app-kit/scene-composer": "9.2.0",
+    "@iot-app-kit/source-iottwinmaker": "9.2.0",
+    "@nanostores/react": "^0.7.1",
+    "amazon-cognito-identity-js": "6.3.6",
+    "cytoscape": "3.26.0",
+    "date-fns": "2.30.0",
+    "echarts": "5.4.3",
+    "nanostores": "0.9.3",
+    "parse-duration": "1.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/cytoscape": "3.19.11",
+    "@types/node": "20.0.0",
+    "@types/react-dom": "18.2.7",
+    "@vitejs/plugin-basic-ssl": "1.0.1",
+    "@vitejs/plugin-react": "4.0.4",
+    "path": "0.12.7",
+    "type-fest": "4.3.1",
+    "typescript": "5.0.4",
+    "typescript-plugin-css-modules": "5.0.1",
+    "vite": "4.4.9",
+    "vite-plugin-commonjs": "0.9.0",
+    "vite-plugin-dynamic-import": "1.5.0"
+  }
+}
