@@ -1,0 +1,180 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.main {
+  /* public vars */
+  --color-property-normal: var(--text-layer-2-primary);
+  --color-property-active: var(--text-layer-2-active);
+  --color-value-normal: var(--text-layer-2-primary);
+  --color-value-active: var(--text-layer-2-active);
+  --color-unit-normal: var(--text-layer-2-primary);
+  --color-unit-active: var(--text-layer-2-active);
+  --color-trend-normal: var(--text-layer-2-primary);
+  --color-time: var(--text-layer-2-secondary);
+
+  /* private */
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-border-color: border-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  --transition-opacity: opacity var(--transition-duration) var(--transition-easing);
+  --transition-rotation: rotate calc(var(--transition-duration) * 0.3) var(--transition-easing);
+  --alarm-indicator-height: 4rem;
+
+  --color-property: var(--color-property-active);
+  --color-value: var(--color-value-active);
+  --color-unit: var(--color-unit-active);
+  --color-trend: var(--color-alarm-normal);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15rem;
+  padding: 0 0 20rem;
+  width: 220rem;
+  height: 160rem;
+  border-bottom: solid var(--alarm-indicator-height) transparent;
+  transition: var(--transition-border-color);
+}
+
+.main::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 calc(-1 * var(--alarm-indicator-height)) 0;
+  height: var(--alarm-indicator-height);
+  background-color: var(--color-alarm);
+  border-radius: var(--alarm-indicator-height);
+}
+
+.propertyName {
+  color: var(--color-property);
+  font-size: 20rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: 0.2rem;
+  transition: var(--transition-color);
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.valueSection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.valueGroup {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 5rem;
+}
+
+.value {
+  color: var(--color-value);
+  font-size: 70rem;
+  font-weight: var(--font-weight-6);
+  line-height: 1;
+  font-variant-numeric: proportional-nums;
+  transition: var(--transition-color);
+}
+
+.unit {
+  color: var(--color-unit);
+  font-size: 26rem;
+  transition: var(--transition-color);
+}
+
+.trendSection {
+  --size: 46rem;
+
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  color: var(--color-trend);
+}
+
+.trendSection.thresholdBreached {
+  --color-trend: var(--color-alarm);
+}
+
+.trendIcon {
+  width: var(--size);
+  color: currentColor;
+  transition: var(--transition-color), var(--transition-rotation);
+}
+
+.trendIconUp {
+  rotate: -45deg;
+}
+
+.trendIconDown {
+  rotate: 45deg;
+}
+
+.thresholdIndicator {
+  position: absolute;
+  color: currentColor;
+  font-size: 12rem;
+  font-variant-numeric: proportional-nums;
+  line-height: 1;
+  opacity: 0;
+  text-align: center;
+  transition: var(--transition-color), var(--transition-opacity);
+  width: 100%;
+}
+
+.thresholdIndicator.isActive {
+  opacity: 1;
+}
+
+.thresholdIndicatorLimitUpper {
+  border-top: dotted 2px currentColor;
+  padding-top: 6rem;
+  bottom: calc(var(--size) / -2) - 6rem;
+}
+
+.thresholdIndicatorLimitLower {
+  border-bottom: dotted 2px currentColor;
+  padding-bottom: 6rem;
+  top: calc(var(--size) / -2 - 6rem);
+}
+
+.timeSection {
+  display: flex;
+  gap: 6rem;
+  font-size: 13rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-time);
+}
+
+.timeSection:before {
+  content: attr(data-label) ' ';
+}
+
+.high {
+  --color-alarm: var(--color-alarm-high);
+}
+
+.medium {
+  --color-alarm: var(--color-alarm-medium);
+}
+
+.low {
+  --color-alarm: var(--color-alarm-low);
+}
+
+.normal {
+  --color-alarm: var(--color-alarm-normal);
+}
+
+.normalDark {
+  --color-alarm: var(--color-alarm-normaldark);
+}
+
+.unknown {
+  --icon-color: var(--color-alarm-unknown);
+}

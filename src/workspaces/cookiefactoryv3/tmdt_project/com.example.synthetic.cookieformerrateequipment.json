@@ -1,0 +1,150 @@
+{
+    "componentTypeId": "com.example.synthetic.cookieformerrateequipment",
+    "functions": {
+        "dataReader": {
+            "implementedBy": {
+                "isNative": false,
+                "lambda": {
+                    "arn": "__TO_FILL_IN_SYNTHETIC_DATA_ARN__"
+                }
+            },
+            "isInherited": false
+        }
+    },
+    "isSingleton": false,
+    "propertyDefinitions": {
+        "Alarm_State": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Alarm_Text": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Bad": {
+            "dataType": {
+                "type": "INTEGER"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Bad_Parts_1Min": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Blocked": {
+            "dataType": {
+                "type": "BOOLEAN"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Blocked_Time_1Min": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Down": {
+            "dataType": {
+                "type": "BOOLEAN"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Down_Time_1Min": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Downtime_Limit_Seconds": {
+            "dataType": {
+                "type": "INTEGER"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Good": {
+            "dataType": {
+                "type": "INTEGER"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Good_Parts_1Min": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Moisture": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Reject_Limit": {
+            "dataType": {
+                "type": "INTEGER"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Starved": {
+            "dataType": {
+                "type": "BOOLEAN"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Starved_Time_1Min": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "State": {
+            "dataType": {
+                "type": "STRING"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Temperature": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Total": {
+            "dataType": {
+                "type": "INTEGER"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Total_Parts_1Min": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        }
+    }
+}

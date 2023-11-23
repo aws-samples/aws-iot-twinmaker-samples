@@ -1,0 +1,63 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  position: relative
+}
+
+/** Below are @iot-app-kit overrides to fix styling issues **/
+/* iot-app-kit-vis-line-chart [class=iot-app-kit-vis-size-provider-container] {
+  margin-left: -10rem;
+} */
+iot-app-kit-vis-line-chart [class=y-axis-label] {
+  fill: var(--text-layer-2-tertiary) !important;
+}
+
+iot-app-kit-vis-line-chart [class=axis] [class=tick] line {
+  stroke: var(--background-layer-2-accent) !important;
+}
+
+iot-app-kit-vis-line-chart [class=axis] [class=tick] text {
+  fill: var(--text-layer-2-secondary) !important;
+}
+
+iot-app-kit-vis-line-chart [class=axis] [class=x-axis-separator] {
+  stroke: var(--background-layer-2-accent) !important;
+  stroke-width: 2;
+}
+
+iot-app-kit-vis-line-chart iot-app-kit-vis-error-badge {
+  margin-top: -15rem;
+}
+
+iot-app-kit-vis-line-chart iot-app-kit-vis-error-badge div {
+  color: var(--text-layer-2-primary);
+}
+
+iot-app-kit-vis-line-chart iot-app-kit-vis-error-badge [class=warning-symbol] {
+  color: var(--color-health-critical);
+  font-size: 12rem;
+}
+
+iot-app-kit-vis-line-chart iot-app-kit-vis-legend-row span {
+  color: var(--text-layer-2-primary) !important;
+  font-size: 14rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: .2rem;
+}
+
+iot-app-kit-vis-line-chart iot-app-kit-vis-legend-row [class=legend-value] h4 {
+  margin-top: 5rem;
+  color: var(--text-layer-2-primary) !important;
+  font-size: 20rem;
+  font-weight: var(--font-weight-6);
+  letter-spacing: .2rem;
+}
+
+iot-app-kit-vis-line-chart [class=legend-value] small {
+  margin-top: 5rem;
+  color: var(--text-layer-2-secondary) !important;
+  font-size: 14rem;
+  font-weight: var(--font-weight-5);
+  letter-spacing: .2rem;
+}

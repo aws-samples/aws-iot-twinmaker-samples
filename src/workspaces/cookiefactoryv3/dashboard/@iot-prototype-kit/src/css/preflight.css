@@ -1,0 +1,38 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+@import './normalize.css';
+@import './uswds-colors.css';
+@import './tokens.css';
+
+:root {
+  font-size: 1px;
+  font-weight: var(--font-weight-4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--background-layer-0);
+  font-family: var(--font-sans);
+}
+
+#root {
+  display: grid;
+  height: 100vh;
+}
+
+body[class*='hide-appkit'] > [class*='tooltip-portal'] {
+  display: none;
+}
+
+body[class*='hide-appkit'] iot-app-kit-vis-status-timeline {
+  display: none;
+}
+
+body[class*='hide-appkit'] iot-app-kit-vis-webgl-context {
+  visibility: hidden;
+}

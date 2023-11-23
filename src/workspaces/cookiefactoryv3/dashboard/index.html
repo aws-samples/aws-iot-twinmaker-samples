@@ -1,0 +1,24 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2021 -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="mage/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWS IoT TwinMaker Demo: Cookie Factory</title>
+    <script>
+      // Required. Mitigates errors when using AWS SDK client-side.
+      // https://ui.docs.amplify.aws/react/getting-started/troubleshooting#vite
+      window.global = window;
+      window.process = {
+        env: { DEBUG: undefined }
+      };
+      var exports = {};
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

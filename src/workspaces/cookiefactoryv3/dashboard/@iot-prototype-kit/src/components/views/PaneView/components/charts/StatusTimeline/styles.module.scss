@@ -1,0 +1,109 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  --foreground-color: rgb(245, 245, 245);
+  --foreground-color-dark: rgb(51, 51, 51);
+
+  display: grid;
+  grid-auto-rows: auto 1fr auto;
+  row-gap: 15rem;
+  // margin-top: 20rem;
+
+  &:first-of-type {
+    // margin: 0;
+  }
+
+  > [data-head] {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 5rem;
+
+    > [data-label] {
+      color: var(--foreground-color);
+      font-size: 20rem;
+      font-weight: var(--font-weight-5);
+      letter-spacing: 0.4rem;
+    }
+
+    > [data-latest-value] {
+      display: flex;
+      align-items: baseline;
+      gap: 5rem;
+
+      > [data-value] {
+        border: solid 1rem rgb(245, 245, 245, 0.5);
+        border-radius: var(--radius-5);
+        padding: 6rem 12rem;
+        color: var(--foreground-color);
+        font-size: 18em;
+        font-weight: var(--font-weight-4);
+        font-variant-numeric: proportional-nums;
+        letter-spacing: 0.2rem;
+        line-height: 1;
+        text-transform: uppercase;
+
+        &[data-alarm='down' i] {
+          background-color: var(--color-alarm-down);
+          border-color: var(--color-alarm-down);
+          color: var(--foreground-color);
+          font-weight: var(--font-weight-5);
+          letter-spacing: 0.4rem;
+        }
+
+        &[data-alarm='blocked' i] {
+          background-color: var(--color-alarm-blocked);
+          border-color: var(--color-alarm-blocked);
+          color: var(--foreground-color);
+          font-weight: var(--font-weight-5);
+          letter-spacing: 0.4rem;
+        }
+
+        &[data-alarm='starved' i] {
+          background-color: var(--color-alarm-starved);
+          border-color: var(--color-alarm-starved);
+          color: var(--foreground-color-dark);
+          font-weight: var(--font-weight-5);
+        }
+      }
+
+      > [data-unit] {
+        color: var(--foreground-color);
+        font-size: 18rem;
+        font-weight: var(--font-weight-4);
+      }
+    }
+  }
+
+  > [data-chart] {
+    height: 100%;
+  }
+
+  > [data-legend] {
+    display: flex;
+    align-items: bottom;
+    gap: 15rem;
+
+    > [data-legend-item] {
+      --size: 14rem;
+
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+
+      > [data-legend-color] {
+        width: var(--size);
+        height: var(--size);
+        // border: solid 1rem rgb(230, 230, 230, 0.4);
+        border-radius: var(--radius-2);
+      }
+
+      > [data-legend-label] {
+        color: var(--foreground-color);
+        font-size: var(--size);
+        font-weight: var(--font-weight-4);
+      }
+    }
+  }
+}

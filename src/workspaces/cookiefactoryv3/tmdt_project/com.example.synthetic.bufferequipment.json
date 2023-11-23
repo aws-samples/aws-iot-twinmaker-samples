@@ -1,0 +1,38 @@
+{
+    "componentTypeId": "com.example.synthetic.bufferequipment",
+    "functions": {
+        "dataReader": {
+            "implementedBy": {
+                "isNative": false,
+                "lambda": {
+                    "arn": "__TO_FILL_IN_SYNTHETIC_DATA_ARN__"
+                }
+            },
+            "isInherited": false
+        }
+    },
+    "isSingleton": false,
+    "propertyDefinitions": {
+        "Max_Level": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Min_Level": {
+            "dataType": {
+                "type": "DOUBLE"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        },
+        "Total": {
+            "dataType": {
+                "type": "INTEGER"
+            },
+            "isTimeSeries": true,
+            "isStoredExternally": true
+        }
+    }
+}

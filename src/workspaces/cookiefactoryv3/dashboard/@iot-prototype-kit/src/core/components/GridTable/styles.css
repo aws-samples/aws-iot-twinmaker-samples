@@ -1,0 +1,95 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+[data-grid-table] {
+  --cell-padding: 15rem;
+  --font-size: 16rem;
+  position: relative;
+  display: grid;
+  grid-auto-flow: row;
+  background-color: inherit;
+}
+
+[data-grid-table] [data-body] {
+  display: contents;
+}
+
+[data-grid-table] [data-cell] {
+  position: inherit;
+  top: inherit;
+  bottom: inherit;
+  left: inherit;
+  right: inherit;
+  padding: var(--cell-padding);
+  background-color: inherit;
+  border: inherit;
+  transition: background-color 200ms ease;
+  cursor: pointer;
+}
+
+[data-grid-table] [data-cell]:first-of-type {
+  padding-left: var(--cell-padding);
+}
+
+[data-grid-table] [data-cell]:last-of-type {
+  padding-right: var(--cell-padding);
+}
+
+[data-grid-table][data-column-size*='min-content'] [data-cell] {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+[data-grid-table][data-column-size*='min-content'] [data-head] [data-cell] {
+  align-items: end;
+}
+
+[data-grid-table]:not([data-column-size*='min-content']) [data-cell] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-grid-table] [data-row] {
+  display: contents;
+  background-color: inherit;
+  border-bottom: solid 1rem #444;
+  color: #bbb;
+}
+
+[data-grid-table] [data-row]:last-of-type {
+  border: 0;
+}
+
+[data-grid-table] [data-row]:hover {
+  background-color: #444;
+}
+
+[data-grid-table] [data-row][data-selected=true] {
+  background-color: #666;
+  color: #eee;
+}
+
+[data-grid-table] [data-head] {
+  display: contents;
+  position: sticky;
+  top: 0;
+  background-color: inherit;
+  border-bottom: solid 1rem #555;
+  color: #999;
+}
+
+[data-grid-table] [data-head] [data-cell]::after {
+  content: '▲';
+  padding-left: var(--cell-padding);
+  font-size: calc(var(--font-size) * .7);
+  opacity: 0;
+}
+
+[data-grid-table] [data-head] [data-sort]::after {
+  opacity: 1;
+}
+
+[data-grid-table] [data-head] [data-sort=descending]::after {
+  content: '▼';
+}

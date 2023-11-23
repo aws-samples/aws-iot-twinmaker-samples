@@ -1,0 +1,19 @@
+{
+    "componentTypeId": "com.example.workspace.synthetics",
+    "description": "configuration for synthetic data providers to control data generation behavior",
+    "isSingleton": false,
+    "propertyDefinitions": {
+        "generate_error_states": {
+            "dataType": {
+                "type": "BOOLEAN"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": false,
+            "isTimeSeries": false
+        }
+    }
+}

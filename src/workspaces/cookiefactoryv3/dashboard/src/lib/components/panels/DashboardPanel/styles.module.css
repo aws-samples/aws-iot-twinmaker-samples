@@ -1,0 +1,78 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  --foreground-color: var(--text-layer-2-primary);
+  --foreground-secondary-color: var(--text-layer-2-secondary);
+  --foreground-tertiary-color: var(--text-layer-2-tertiary);
+  --foreground-hover-color: var(--text-layer-2-hover);
+  --foreground-accent-color: var(--text-layer-2-accent);
+  --foreground-active-color: var(--text-layer-2-active);
+
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 15rem;
+  padding: 50rem  var(--padding-x) var(--padding-y);
+  overflow: hidden;
+}
+
+.emptyState {
+  position: relative;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  place-items: center;
+}
+
+.emptyState [data-title] {
+  color: var(--foreground-tertiary-color);
+  font-size: 44rem;
+  font-weight: var(--font-weight-5);
+}
+
+.emptyState [data-message] {
+  color: var(--foreground-tertiary-color);
+  font-size: 34rem;
+  font-weight: var(--font-weight-2);
+}
+
+.name {
+  color: var(--foreground-color);
+  font-size: 24rem;
+  font-weight: var(--font-weight-5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.charts {
+  display: grid;
+  row-gap: 15rem;
+}
+
+.root[data-is-entity='true'] {
+  grid-template-rows: auto 180rem auto 1fr;
+  row-gap: 0;
+}
+
+.root[data-is-entity='true'] iot-app-kit-vis-status-timeline iot-app-kit-vis-data-stream-name {
+  display: none;
+}
+
+.list {
+}
+
+.listItem {
+  --background-color: var(--background-layer-2);
+  --background-hover-color: var(--background-layer-2-hover);
+  --background-active-color: var(--background-layer-2-accent);
+  --foreground-color: var(--text-layer-2-primary);
+  --foreground-hover-color: var(--text-layer-2-hover);
+  --foreground-active-color: var(--text-layer-2-accent);
+  --column-gap: 6rem;
+
+  color: var(--foreground-color);
+  font-size: 22rem;
+  font-weight: var(--font-weight-5);
+}

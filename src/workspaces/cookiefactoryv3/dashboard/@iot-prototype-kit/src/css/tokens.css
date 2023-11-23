@@ -1,0 +1,120 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+:root {
+  /* COLOR TOKENS */
+  /* background colors */
+  /* background-layer-0 */
+  --background-layer-0: var(--uswds-gray-100);
+  --background-layer-0-rgb: var(--uswds-gray-100-rgb);
+  --background-layer-0-hover: var(--uswds-gray-90);
+  --background-layer-0-accent: var(--uswds-gray-90);
+  --background-layer-0-active: var(--uswds-blue-warm-vivid-80);
+  /* background-layer-1 */
+  --background-layer-1: var(--uswds-gray-90);
+  --background-layer-1-rgb: var(--uswds-gray-90-rgb);
+  --background-layer-1-secondary: var(--uswds-gray-100-rgb);
+  --background-layer-1-hover: var(--uswds-gray-70);
+  --background-layer-1-accent: var(--uswds-gray-80);
+  --background-layer-1-active: var(--uswds-blue-warm-vivid-70);
+  /* background-layer-2 */
+  --background-layer-2: var(--uswds-gray-80);
+  --background-layer-2-rgb: var(--uswds-gray-80-rgb);
+  --background-layer-2-secondary: var(--uswds-gray-90);
+  --background-layer-2-hover: var(--uswds-gray-60);
+  --background-layer-2-accent: var(--uswds-gray-70);
+  --background-layer-2-active: var(--uswds-blue-warm-vivid-60);
+  /* background-layer-3 */
+  --background-layer-3: var(--uswds-gray-70);
+  --background-layer-3-rgb: var(--uswds-gray-70-rgb);
+  --background-layer-3-secondary: var(--uswds-gray-80);
+  --background-layer-3-hover: var(--uswds-gray-50);
+  --background-layer-3-accent: var(--uswds-gray-60);
+  --background-layer-3-active: var(--uswds-blue-warm-vivid-50);
+  /* foreground colors */
+  /* foreground-layer-0 */
+  --foreground-layer-0-active: var(--uswds-blue-warm-vivid-30);
+  /* foreground-layer-1 */
+  --foreground-layer-1-active: var(--uswds-blue-warm-vivid-20);
+  /* foreground-layer-2 */
+  --foreground-layer-2-active: var(--uswds-blue-warm-vivid-10);
+  /* foreground-layer-3 */
+  --foreground-layer-3-active: var(--uswds-blue-warm-vivid-5);
+  /* text colors */
+  /* text-layer-0 */
+  --text-layer-0-primary: var(--uswds-gray-50);
+  --text-layer-0-secondary: var(--uswds-gray-60);
+  --text-layer-0-tertiary: var(--uswds-gray-70);
+  --text-layer-0-accent: var(--uswds-gray-40);
+  --text-layer-0-hover: var(--uswds-gray-30);
+  --text-layer-0-active: var(--uswds-gray-40);
+  /* text-layer-1 */
+  --text-layer-1-primary: var(--uswds-gray-40);
+  --text-layer-1-secondary: var(--uswds-gray-50);
+  --text-layer-1-tertiary: var(--uswds-gray-60);
+  --text-layer-1-accent: var(--uswds-gray-30);
+  --text-layer-1-hover: var(--uswds-gray-20);
+  --text-layer-1-active: var(--uswds-gray-30);
+  /* text-layer-2 */
+  --text-layer-2-primary: var(--uswds-gray-30);
+  --text-layer-2-secondary: var(--uswds-gray-40);
+  --text-layer-2-tertiary: var(--uswds-gray-50);
+  --text-layer-2-accent: var(--uswds-gray-20);
+  --text-layer-2-hover: var(--uswds-gray-10);
+  --text-layer-2-active: var(--uswds-gray-20);
+  /* text-layer-3 */
+  --text-layer-3-primary: var(--uswds-gray-20);
+  --text-layer-3-secondary: var(--uswds-gray-30);
+  --text-layer-3-tertiary: var(--uswds-gray-40);
+  --text-layer-3-accent: var(--uswds-gray-10);
+  --text-layer-3-hover: white;
+  --text-layer-3-active: var(--uswds-gray-10);
+  /* box-shadows */
+  --box-shadow-layer-1: 0 0 12rem -2rem rgb(var(--uswds-gray-100-rgb), 0.6);
+  --box-shadow-layer-2: 0 0 12rem -2rem rgb(var(--uswds-gray-90-rgb), 0.6);
+  --box-shadow-layer-3: 0 0 12rem -2rem rgb(var(--uswds-gray-80-rgb), 0.6);
+  /* FONT TOKENS */
+  --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  --font-serif: ui-serif, serif;
+  --font-mono: Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace, SF Mono, Monaco, Droid Sans Mono,
+    Source Code Pro, monospace;
+  --font-weight-1: 100;
+  --font-weight-2: 200;
+  --font-weight-3: 300;
+  --font-weight-4: 400;
+  --font-weight-5: 500;
+  --font-weight-6: 600;
+  --font-weight-7: 700;
+  --font-weight-8: 800;
+  --font-weight-9: 900;
+  /* RADIUS TOKENS */
+  --radius-1: 1rem;
+  --radius-2: 2rem;
+  --radius-3: 3rem;
+  --radius-4: 4rem;
+  --radius-5: 5rem;
+  --radius-6: 6rem;
+  --radius-7: 7rem;
+  --radius-8: 8rem;
+  --radius-9: 9rem;
+  --radius-10: 10rem;
+  --radius-20: 20rem;
+  --radius-30: 30rem;
+  --radius-40: 40rem;
+  --radius-50: 50rem;
+  /* TRANSITION TOKENS */
+  --transition-duration: 350ms;
+  --transition-easing: ease;
+  /* Z-INDEX TOKENS */
+  --z-index-1: 1;
+  --z-index-2: 2;
+  --z-index-3: 3;
+  --z-index-4: 4;
+  --z-index-5: 5;
+  --z-index-6: 6;
+  --z-index-7: 7;
+  --z-index-8: 8;
+  --z-index-9: 9;
+  --z-index-10: 10;
+  --z-index-max: 10000;
+}

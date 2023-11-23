@@ -1,0 +1,101 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  --border-color: var(--background-layer-2-secondary);
+  --foreground-color: var(--text-layer-2-primary);
+  --foreground-secondary-color: var(--text-layer-2-secondary);
+  --foreground-tertiary-color: var(--text-layer-2-tertiary);
+  --foreground-hover-color: var(--text-layer-2-hover);
+  --foreground-accent-color: var(--text-layer-2-accent);
+  --foreground-active-color: var(--text-layer-2-active);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  --border: solid 1rem var(--border-color);
+
+  position: relative;
+}
+
+.root[data-layer] {
+  position: absolute;
+  padding: calc(var(--padding-y) * 1.8) var(--padding-x) var(--padding-y);
+  width: min-content;
+  z-index: var(--z-index-max);
+
+  background-color: var(--background-layer-2);
+  border: solid 1rem var(--background-layer-2-accent);
+  border-radius: var(--radius-10);
+  box-shadow: var(--box-shadow-layer-1);
+}
+
+.root[data-layer='tl'] {
+  inset: var(--padding-y) auto auto var(--padding-x);
+}
+
+.root[data-layer='tr'] {
+  inset: var(--padding-y) var(--padding-x) auto auto;
+}
+
+.root[data-layer='br'] {
+  inset: auto var(--padding-x) var(--padding-y) auto;
+}
+
+.root[data-layer='bl'] {
+  inset: auto auto var(--padding-y) var(--padding-x);
+}
+
+.root[data-collapse-control-bar='true'] .head {
+  --inset: 6rem;
+
+  inset: var(--inset) var(--inset) auto var(--inset);
+  padding: 0;
+  /* mix-blend-mode: luminosity; */
+}
+
+.root[data-collapse-control-bar='true'] .head .label,
+.root[data-collapse-control-bar='true'] .head .controls {
+  position: relative;
+  padding: calc(var(--size) - var(--inset)) calc(var(--size));
+  background-color: var(--background-layer-2);
+  border: solid 1rem var(--background-layer-2-accent);
+  border-radius: var(--radius-4);
+}
+
+.head {
+  --size: 14rem;
+  isolation: isolate;
+  position: absolute;
+  inset: 0 0 auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(var(--padding-y) / 2) calc(var(--padding-x) / 2);
+  color: var(--foreground-secondary-color);
+  pointer-events: none;
+  z-index: var(--z-index-1);
+}
+
+.label {
+  font-size: var(--size);
+  letter-spacing: 0.2rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: var(--size);
+  pointer-events: all;
+}
+
+.controlIcon {
+  width: var(--size);
+  transition: var(--transition-color);
+}
+
+.controlIcon:hover {
+  color: var(--foreground-hover-color);
+}
+
+.closeIcon {
+  width: calc(var(--size) * 1.1);
+}

@@ -1,0 +1,67 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+:root {
+  --color-black: #000000;
+  --color-gray-1: #f8f8f9;
+  --color-gray-2: #f4f4f5;
+  --color-gray-3: #f0f0f1;
+  --color-gray-4: #ececed;
+  --color-gray-5: #e7e8e9;
+  --color-gray-6: #e3e3e5;
+  --color-gray-7: #dfdfe1;
+  --color-gray-8: #dbdbdd;
+  --color-gray-9: #d6d7d9;
+  --color-gray-10: #d2d3d5;
+  --color-gray-11: #cecfd1;
+  --color-gray-12: #cacacd;
+  --color-gray-13: #c6c6c9;
+  --color-gray-14: #c1c2c5;
+  --color-gray-15: #bdbec1;
+  --color-gray-16: #b9babd;
+  --color-gray-17: #b5b5ba;
+  --color-gray-18: #b0b1b6;
+  --color-gray-19: #acadb2;
+  --color-gray-20: #a8a9ae;
+  --color-gray-21: #a4a5aa;
+  --color-gray-22: #a0a1a6;
+  --color-gray-23: #9b9ca2;
+  --color-gray-24: #97989e;
+  --color-gray-25: #93949a;
+  --color-gray-26: #8f9096;
+  --color-gray-27: #8a8c92;
+  --color-gray-28: #86888e;
+  --color-gray-29: #82838a;
+  --color-gray-30: #7e7f86;
+  --color-gray-31: #7a7b82;
+  --color-gray-32: #76777e;
+  --color-gray-33: #72737a;
+  --color-gray-34: #6e6f76;
+  --color-gray-35: #6a6b71;
+  --color-gray-36: #66676d;
+  --color-gray-37: #626369;
+  --color-gray-38: #5e5f65;
+  --color-gray-39: #5a5b61;
+  --color-gray-40: #56575c;
+  --color-gray-41: #525358;
+  --color-gray-42: #4e4f54;
+  --color-gray-43: #4a4b50;
+  --color-gray-44: #46474b;
+  --color-gray-45: #424347;
+  --color-gray-46: #3f3f43;
+  --color-gray-47: #3b3b3f;
+  --color-gray-48: #37373b;
+  --color-gray-49: #333336;
+  --color-gray-50: #2f2f32;
+  --color-gray-51: #2b2b2e;
+  --color-gray-52: #27272a;
+  --color-gray-53: #232325;
+  --color-gray-54: #1f1f21;
+  --color-gray-55: #1b1b1d;
+  --color-gray-56: #171719;
+  --color-gray-57: #131315;
+  --color-gray-58: #0f0f10;
+  --color-gray-59: #0b0b0c;
+  --color-gray-60: #070708;
+  --color-white: #ffffff;
+}

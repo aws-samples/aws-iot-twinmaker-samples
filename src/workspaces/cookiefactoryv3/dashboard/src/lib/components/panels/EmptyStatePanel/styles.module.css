@@ -1,0 +1,16 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: var(--z-index-1);
+}
+
+.emptyStateLogo {
+  color: var(--background-layer-2-accent);
+  width: clamp(300rem, 50vw, 1000rem);
+}

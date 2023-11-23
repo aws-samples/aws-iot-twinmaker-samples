@@ -1,0 +1,17 @@
+.langchain.db
+
+.env
+.python-version
+
+*.swp
+package-lock.json
+__pycache__
+.pytest_cache
+.venv
+*.egg-info
+
+.chainlit/app.log
+.chainlit/.langchain.db
+
+# ignore the cloned chainlit repo
+chainlit/

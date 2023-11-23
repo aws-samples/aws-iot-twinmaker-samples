@@ -1,0 +1,2759 @@
+{
+    "specVersion": "1.0",
+    "version": "1",
+    "unit": "meters",
+    "properties": {
+        "environmentPreset": "neutral",
+        "dataBindingConfig": {
+            "fieldMapping": {
+                "entityId": [
+                    "sel_entity"
+                ],
+                "componentName": [
+                    "sel_comp"
+                ]
+            },
+            "template": {
+                "sel_entity": "Mixer_0_cd81d9fd-3f74-437a-802b-9747ff240837",
+                "sel_comp": "MixerComponent"
+            }
+        },
+        "componentSettings": {
+            "Tag": {
+                "autoRescale": false,
+                "scale": 1
+            },
+            "DataOverlay": {
+                "overlayPanelVisible": false
+            }
+        }
+    },
+    "nodes": [
+        {
+            "name": "AWSIoTTwinMakerScene",
+            "transform": {
+                "position": [
+                    0,
+                    2.1,
+                    -10.895
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                1,
+                2,
+                68,
+                69
+            ],
+            "components": [],
+            "properties": {}
+        },
+        {
+            "name": "Environment",
+            "transform": {
+                "position": [
+                    0,
+                    4.24,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryEnvironment/tileset.json",
+                    "modelType": "Tiles3D",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Equipment",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                3,
+                30,
+                34
+            ],
+            "components": [],
+            "properties": {}
+        },
+        {
+            "name": "Mixers",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                23,
+                5,
+                22,
+                6,
+                4
+            ],
+            "components": [],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_0",
+            "transform": {
+                "position": [
+                    19.540000000000003,
+                    1.9721522630525295e-31,
+                    68.51000000000002
+                ],
+                "rotation": [
+                    -3.141592653589793,
+                    8.641020686727515e-8,
+                    -3.141592653589793
+                ],
+                "scale": [
+                    1.0000000000000007,
+                    1,
+                    1.0000000000000007
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                35,
+                36,
+                37,
+                38,
+                39,
+                43
+            ],
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_1",
+            "transform": {
+                "position": [
+                    19.54,
+                    0,
+                    76.15334811887145
+                ],
+                "rotation": [
+                    -3.141592653589793,
+                    8.641020686727519e-8,
+                    -3.141592653589793
+                ],
+                "scale": [
+                    1.0000000000000002,
+                    1,
+                    1.0000000000000002
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                44
+            ],
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "Mixer_1_4b57cbee-c391-4de6-b882-622c633a697e",
+                            "componentName": "com_example_cookiefactory_mixer__synthetic",
+                            "propertyName": "Temperature",
+                            "entityPath": "Equipment/Mixers/Mixer_1"
+                        },
+                        "dataFrameLabel": "component%3Dcom_example_cookiefactory_mixer__synthetic%26entity%3DMixer_1_4b57cbee-c391-4de6-b882-622c633a697e%26property%3DTemperature,componentTypeId%3Dcom.example.cookiefactory.mixer.syntheticdata%26property%3DTemperature%26telemetryAssetId%3DtelemetryAssetId__synthetic,component%3Dcom_example_cookiefactory_mixer__synthetic%26entityPath%3DEquipment%252FMixers%252FMixer_1%26property%3DTemperature"
+                    },
+                    "ruleBasedMapId": "SynthMeshRuleMap"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_2",
+            "transform": {
+                "position": [
+                    19.54,
+                    1.67632942359465e-30,
+                    79.9
+                ],
+                "rotation": [
+                    -3.141592653589793,
+                    8.64102068672752e-8,
+                    -3.141592653589793
+                ],
+                "scale": [
+                    1.0000000000000002,
+                    1,
+                    1.0000000000000002
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                45
+            ],
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_3",
+            "transform": {
+                "position": [
+                    26.15,
+                    0,
+                    69.18
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_4",
+            "transform": {
+                "position": [
+                    26.15,
+                    0,
+                    72.84
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_5",
+            "transform": {
+                "position": [
+                    26.15,
+                    0,
+                    76.53
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_6",
+            "transform": {
+                "position": [
+                    26.15,
+                    0,
+                    80.19
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_7",
+            "transform": {
+                "position": [
+                    30.48,
+                    0,
+                    67.17
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_8",
+            "transform": {
+                "position": [
+                    30.48,
+                    0,
+                    70.96
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_9",
+            "transform": {
+                "position": [
+                    30.48,
+                    0,
+                    74.65
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_10",
+            "transform": {
+                "position": [
+                    30.48,
+                    0,
+                    78.36
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_11",
+            "transform": {
+                "position": [
+                    30.48,
+                    0,
+                    81.94
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_12",
+            "transform": {
+                "position": [
+                    38.39,
+                    0,
+                    67.17
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_13",
+            "transform": {
+                "position": [
+                    38.39,
+                    0,
+                    70.94
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_14",
+            "transform": {
+                "position": [
+                    38.39,
+                    0,
+                    74.65
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_15",
+            "transform": {
+                "position": [
+                    38.39,
+                    0,
+                    78.2
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_16",
+            "transform": {
+                "position": [
+                    38.39,
+                    0,
+                    81.89
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_17",
+            "transform": {
+                "position": [
+                    42.35,
+                    0,
+                    67.36
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_18",
+            "transform": {
+                "position": [
+                    42.35,
+                    0,
+                    70.97000000000003
+                ],
+                "rotation": [
+                    -3.141592653589793,
+                    8.641020686727513e-8,
+                    -3.141592653589793
+                ],
+                "scale": [
+                    1.0000000000000007,
+                    1,
+                    1.0000000000000007
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_19",
+            "transform": {
+                "position": [
+                    42.35,
+                    0,
+                    74.58
+                ],
+                "rotation": [
+                    -3.141592653589793,
+                    8.641020686727519e-8,
+                    -3.141592653589793
+                ],
+                "scale": [
+                    1.0000000000000002,
+                    1,
+                    1.0000000000000002
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_20",
+            "transform": {
+                "position": [
+                    42.35,
+                    0,
+                    78.27
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_21",
+            "transform": {
+                "position": [
+                    42.35,
+                    0,
+                    81.93
+                ],
+                "rotation": [
+                    0,
+                    -3.14159274,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_22",
+            "transform": {
+                "position": [
+                    49.51,
+                    0,
+                    69.17
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_23",
+            "transform": {
+                "position": [
+                    49.51,
+                    0,
+                    72.96
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_24",
+            "transform": {
+                "position": [
+                    49.51,
+                    0,
+                    76.46
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Mixer_25",
+            "transform": {
+                "position": [
+                    49.51,
+                    0,
+                    80.23
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryMixer.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CookieLines",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                32,
+                33,
+                31
+            ],
+            "components": [],
+            "properties": {}
+        },
+        {
+            "name": "COOKIE_LINE",
+            "transform": {
+                "position": [
+                    25.859083200000004,
+                    -2.442719,
+                    44.67025000000001
+                ],
+                "rotation": [
+                    0,
+                    -8.262987005736024e-8,
+                    0
+                ],
+                "scale": [
+                    1.0000000000000002,
+                    1,
+                    1.0000000000000002
+                ]
+            },
+            "transformConstraint": {},
+            "children": [
+                40,
+                41,
+                42,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                63,
+                64,
+                65,
+                66,
+                67,
+                72,
+                73,
+                74
+            ],
+            "components": [
+                {
+                    "uri": "CookieFactoryLine.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "ruleBasedMapId": "EntitySelectedRule"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "COOKIE_LINE_1",
+            "transform": {
+                "position": [
+                    9.43,
+                    -2.44271851,
+                    43.90341
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryLine.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "COOKIE_LINE_2",
+            "transform": {
+                "position": [
+                    -6.86,
+                    -2.44271851,
+                    43.90341
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryLine.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "WaterTank",
+            "transform": {
+                "position": [
+                    32.627,
+                    0,
+                    46.912
+                ],
+                "rotation": [
+                    0,
+                    -1.57079637,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "uri": "CookieFactoryWaterTank.glb",
+                    "modelType": "GLB",
+                    "castShadow": true,
+                    "receiveShadow": true,
+                    "type": "ModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "WaterTank_ab5e8bc0-5c8f-44d8-b0a9-bef9c8d2cfab",
+                            "componentName": "WaterTank",
+                            "propertyName": "flowRate1",
+                            "entityPath": "Equipment/WaterTank"
+                        }
+                    },
+                    "ruleBasedMapId": "WaterTankFlowRuleMap"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "MainBody_1",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "4d72a23e-9370-40e7-9c6e-72cd3a553b8f",
+                    "selector": "MainBody_1",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Plane",
+            "transform": {
+                "position": [
+                    -0.0710445,
+                    -0.3166003,
+                    -0.206056
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "4d72a23e-9370-40e7-9c6e-72cd3a553b8f",
+                    "selector": "Plane",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "MixerBowl_2",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "4d72a23e-9370-40e7-9c6e-72cd3a553b8f",
+                    "selector": "MixerBowl_2",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "MixerBowl_1",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "4d72a23e-9370-40e7-9c6e-72cd3a553b8f",
+                    "selector": "MixerBowl_1",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "MainBody_3",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "4d72a23e-9370-40e7-9c6e-72cd3a553b8f",
+                    "selector": "MainBody_3",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "COOKIE_FORMER",
+            "transform": {
+                "position": [
+                    8.07,
+                    2.429,
+                    5.903
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                55
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "COOKIE_FORMER",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "COOKIE_FORMER_19556bfd-469c-40bc-a389-dbeab255c144",
+                            "componentName": "rateEquipment",
+                            "propertyName": "State"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "PLASTIC_LINER",
+            "transform": {
+                "position": [
+                    8.438181,
+                    3.346,
+                    -15.8914127
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                61
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "PLASTIC_LINER",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "PLASTIC_LINER_a77e76bc-53f3-420d-8b2f-76103c810fac",
+                            "componentName": "rateEquipment",
+                            "propertyName": "State"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "FREEZER_TUNNEL",
+            "transform": {
+                "position": [
+                    7.990183,
+                    3.406,
+                    -1.92541122
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                70
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "FREEZER_TUNNEL",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "FREEZER_TUNNEL_e12e0733-f5df-4604-8f10-417f49e6d298",
+                            "componentName": "rateEquipment",
+                            "propertyName": "State"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Anchor",
+            "transform": {
+                "position": [
+                    0,
+                    2.84,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "4d72a23e-9370-40e7-9c6e-72cd3a553b8f",
+                    "selector": "Anchor",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CookieFactoryMixer",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "57d81336-4d65-4109-bb6f-d8fddb08984b",
+                    "selector": "CookieFactoryMixer",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CookieFactoryMixer",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "f63967ee-38a4-4792-928f-88c860df6a4c",
+                    "selector": "CookieFactoryMixer",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "Mixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef",
+                            "componentName": "AlarmComponent",
+                            "propertyName": "alarm_status",
+                            "entityPath": "Equipment/Mixers/Mixer_2"
+                        },
+                        "dataFrameLabel": "component%3DAlarmComponent%26entity%3DMixer_2_06ac63c4-d68d-4723-891a-8e758f8456ef%26property%3Dalarm_status,alarm_key%3DMixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb%26componentTypeId%3Dcom.example.cookiefactory.alarm%26property%3Dalarm_status%26telemetryAssetId%3DMixer_2_23a4ba92-f85c-423a-ba95-0a2f392d68eb,component%3DAlarmComponent%26entityPath%3DEquipment%252FMixers%252FMixer_2%26property%3Dalarm_status"
+                    },
+                    "ruleBasedMapId": "AlarmRuleMap"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "COOKIE_LINE",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "COOKIE_LINE",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CONVEYOR_LEFT_TURN",
+            "transform": {
+                "position": [
+                    4.298,
+                    3.014,
+                    -12.286
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                58
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "CONVEYOR_LEFT_TURN",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "CONVEYOR_LEFT_TURN_b28f2ca9-b6a7-44cd-a62d-7f76fc17ba45",
+                            "componentName": "rateEquipment",
+                            "propertyName": "Total"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CONVEYOR_RIGHT_TURN",
+            "transform": {
+                "position": [
+                    8.437181,
+                    2.988,
+                    -11.727
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                57
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "CONVEYOR_RIGHT_TURN",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "CONVEYOR_RIGHT_TURN_c4f2df3d-26a2-45c5-a6c9-02ca00eb4af6",
+                            "componentName": "rateEquipment",
+                            "propertyName": "Total"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "VERTICAL_CONVEYOR",
+            "transform": {
+                "position": [
+                    7.694,
+                    2.732,
+                    -8.942
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                56
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "VERTICAL_CONVEYOR",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "VERTICAL_CONVEYOR_d5423f7f-379c-4a97-aae0-3a5c0bcc9116",
+                            "componentName": "rateEquipment",
+                            "propertyName": "State"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CONVEYOR_STRIGHT",
+            "transform": {
+                "position": [
+                    6.019182,
+                    3.07,
+                    -10.0704117
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "CONVEYOR_STRIGHT",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "CONVEYOR_STRIGHT_9c62c546-f8ef-489d-9938-d46a12c97f32",
+                            "componentName": "CookieLineComponent",
+                            "propertyName": "AlarmMessage",
+                            "entityPath": "Equipment/CookieLines/COOKIE_LINE/CONVEYOR_STRAIGHT"
+                        },
+                        "dataFrameLabel": "component%3DCookieLineComponent%26entity%3DCONVEYOR_STRIGHT_9c62c546-f8ef-489d-9938-d46a12c97f32%26property%3DAlarmMessage,component%3DCookieLineComponent%26entityPath%3DEquipment%252FCookieLines%252FCOOKIE_LINE%252FCONVEYOR_STRAIGHT%26property%3DAlarmMessage"
+                    },
+                    "ruleBasedMapId": "CookieLineAlarmMessageRule"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "BOX_ERECTOR",
+            "transform": {
+                "position": [
+                    8.442183,
+                    3.28,
+                    -19.0554123
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                60
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "BOX_ERECTOR",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "BOX_ERECTOR_142496af-df2e-490e-aed5-2580eaf75e40",
+                            "componentName": "rateEquipment",
+                            "propertyName": "State"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "LABELING_BELT",
+            "transform": {
+                "position": [
+                    4.49,
+                    3.058,
+                    -18.727
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                62
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "LABELING_BELT",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "LABELING_BELT_5f98ffd2-ced1-48dd-a111-e3503b4e8532",
+                            "componentName": "rateEquipment",
+                            "propertyName": "State"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "BOX_SEALER",
+            "transform": {
+                "position": [
+                    4.257,
+                    3.299,
+                    -15.619
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                59
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "BOX_SEALER",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "BOX_SEALER_ad434a34-4363-4a36-8153-20bd7189951d",
+                            "componentName": "rateEquipment",
+                            "propertyName": "State"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "PALLET",
+            "transform": {
+                "position": [
+                    4.26318169,
+                    2.42571855,
+                    -21.8604126
+                ],
+                "rotation": [
+                    0,
+                    -1.5707963267948966,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "PALLET",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CookieFormerAnnotation",
+            "transform": {
+                "position": [
+                    8.085,
+                    4.5,
+                    6.08
+                ],
+                "rotation": [
+                    0,
+                    1.3234889800848441e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{COOKIE_FORMER_19556bfd-469c-40bc-a389-dbeab255c144}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "VerticalConveyorAnnotation",
+            "transform": {
+                "position": [
+                    6.727,
+                    5.75,
+                    -9.079
+                ],
+                "rotation": [
+                    0,
+                    1.3234889800848441e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{VERTICAL_CONVEYOR_d5423f7f-379c-4a97-aae0-3a5c0bcc9116}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "ConveyorRightTurnAnnotation",
+            "transform": {
+                "position": [
+                    8.42,
+                    3.5,
+                    -12.583
+                ],
+                "rotation": [
+                    0,
+                    1.3234889800848441e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{CONVEYOR_RIGHT_TURN_c4f2df3d-26a2-45c5-a6c9-02ca00eb4af6}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "ConveyorLeftTurnAnnotation",
+            "transform": {
+                "position": [
+                    4.3,
+                    3.5,
+                    -12.583
+                ],
+                "rotation": [
+                    0,
+                    1.3234889800848441e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{CONVEYOR_LEFT_TURN_b28f2ca9-b6a7-44cd-a62d-7f76fc17ba45}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "BoxSealerAnnotation",
+            "transform": {
+                "position": [
+                    4.264,
+                    4,
+                    -15.736
+                ],
+                "rotation": [
+                    0,
+                    1.3234889800848441e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{BOX_SEALER_ad434a34-4363-4a36-8153-20bd7189951d}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "BoxErectorAnnotation",
+            "transform": {
+                "position": [
+                    8.42,
+                    4.25,
+                    -18.695
+                ],
+                "rotation": [
+                    0,
+                    1.3234889800848441e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{BOX_ERECTOR_142496af-df2e-490e-aed5-2580eaf75e40}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "PlasticLinerAnnotation",
+            "transform": {
+                "position": [
+                    8.42,
+                    4.5,
+                    -15.894
+                ],
+                "rotation": [
+                    0,
+                    1.3234889800848441e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{PLASTIC_LINER_a77e76bc-53f3-420d-8b2f-76103c810fac}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "LabelingBeltAnnotation",
+            "transform": {
+                "position": [
+                    4.26,
+                    3.5,
+                    -18.937
+                ],
+                "rotation": [
+                    0,
+                    1.3234889800848441e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{LABELING_BELT_5f98ffd2-ced1-48dd-a111-e3503b4e8532}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Forming and Freezing Process Camera View",
+            "transform": {
+                "position": [
+                    17.759998510722056,
+                    5.524350076103206,
+                    10.126243755355837
+                ],
+                "rotation": [
+                    -0.18548121853870375,
+                    0.7531865008337352,
+                    0.12764041436001733
+                ],
+                "scale": [
+                    0.9999999999999998,
+                    0.9999999999999999,
+                    0.9999999999999998
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Camera",
+                    "cameraIndex": 0
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Packaging Process Camera View",
+            "transform": {
+                "position": [
+                    -1.0094182437246957,
+                    8.635102417510309,
+                    -6.733502493565791
+                ],
+                "rotation": [
+                    -0.6592703002596458,
+                    -0.8169477023988957,
+                    -0.514267711707072
+                ],
+                "scale": [
+                    0.9999999999999998,
+                    0.9999999999999999,
+                    0.9999999999999997
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Camera",
+                    "cameraIndex": 1
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Product_Shipped029",
+            "transform": {
+                "position": [
+                    0.01684003,
+                    0.1262879,
+                    0.009314271
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "Product_Shipped029",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "LABELING_BELT_1",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "LABELING_BELT_1",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Freezer Tunnel Camera",
+            "transform": {
+                "position": [
+                    18.73736523335924,
+                    7.067845191699197,
+                    -0.8801735888110684
+                ],
+                "rotation": [
+                    -1.4311699866353502,
+                    1.4311699866353502,
+                    1.4922565104551517
+                ],
+                "scale": [
+                    0.9999999999999998,
+                    1,
+                    0.9999999999999997
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Camera",
+                    "cameraIndex": 2
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CF_SITE",
+            "transform": {
+                "position": [
+                    34.30245066511557,
+                    0,
+                    73.26163720061747
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "ModelRef",
+                    "uri": "CF_SITE.glb",
+                    "modelType": "GLB",
+                    "castShadow": false,
+                    "receiveShadow": false
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "Light",
+            "transform": {
+                "position": [
+                    -6.585498680646204,
+                    34.95888510153252,
+                    20.221493345124518
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Light",
+                    "lightType": "Directional",
+                    "lightSettings": {
+                        "color": 16776678,
+                        "intensity": 0.8,
+                        "castShadow": true
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "FreezerTunnelAnnotation",
+            "transform": {
+                "position": [
+                    8.057,
+                    4.25,
+                    -1.239
+                ],
+                "rotation": [
+                    0,
+                    2.6469779601696883e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{FREEZER_TUNNEL_e12e0733-f5df-4604-8f10-417f49e6d298}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CookieInspectorAnnotation",
+            "transform": {
+                "position": [
+                    8.056999999999992,
+                    3.75,
+                    -7.08000000000002
+                ],
+                "rotation": [
+                    0,
+                    3.970466940254532e-23,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "DataOverlay",
+                    "subType": "TextAnnotation",
+                    "valueDataBindings": [],
+                    "dataRows": [
+                        {
+                            "rowType": "Markdown",
+                            "content": "{{INSPECTOR_POST_FREEZER_TUNNEL_999d8796-55f1-4791-af53-fc210038686f}}"
+                        }
+                    ]
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "FREEZER_TUNNEL_1",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "FREEZER_TUNNEL_1",
+                    "type": "SubModelRef"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "FREEZER_TUNNEL_8",
+            "transform": {
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "transformConstraint": {
+                "snapToFloor": false
+            },
+            "children": [
+                71
+            ],
+            "components": [
+                {
+                    "parentRef": "daf9df5f-d0c0-40cc-a1c4-6b5989036ce5",
+                    "selector": "FREEZER_TUNNEL_8",
+                    "type": "SubModelRef"
+                },
+                {
+                    "type": "ModelShader",
+                    "valueDataBinding": {
+                        "dataBindingContext": {
+                            "entityId": "INSPECTOR_POST_FREEZER_TUNNEL_999d8796-55f1-4791-af53-fc210038686f",
+                            "componentName": "rateEquipment",
+                            "propertyName": "State"
+                        },
+                        "isStaticData": false
+                    }
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "name": "CameraTopView",
+            "transform": {
+                "position": [
+                    24.73578039707193,
+                    44.876526287487664,
+                    29.07235563841038
+                ],
+                "rotation": [
+                    -0.8769889329073071,
+                    0.46821796099847834,
+                    0.49713041554102433
+                ],
+                "scale": [
+                    0.9999999999999997,
+                    1,
+                    0.9999999999999997
+                ]
+            },
+            "transformConstraint": {},
+            "components": [
+                {
+                    "type": "Camera",
+                    "cameraIndex": 3
+                }
+            ],
+            "properties": {}
+        }
+    ],
+    "rootNodeIndexes": [
+        0
+    ],
+    "cameras": [
+        {
+            "fov": 53.13,
+            "near": 0.1,
+            "far": 1000,
+            "zoom": 1,
+            "cameraType": "Perspective"
+        },
+        {
+            "fov": 53.13,
+            "near": 0.1,
+            "far": 1000,
+            "zoom": 1,
+            "cameraType": "Perspective"
+        },
+        {
+            "fov": 53.13,
+            "near": 0.1,
+            "far": 1000,
+            "zoom": 1,
+            "cameraType": "Perspective"
+        },
+        {
+            "fov": 53.13,
+            "near": 0.1,
+            "far": 1000,
+            "zoom": 1,
+            "cameraType": "Perspective"
+        }
+    ],
+    "rules": {
+        "AlarmRuleMap": {
+            "statements": [
+                {
+                    "expression": "AlarmMessage == \"High\"",
+                    "target": "iottwinmaker.common.icon:Error"
+                },
+                {
+                    "expression": "AlarmMessage == \"Medium\"",
+                    "target": "iottwinmaker.common.icon:Warning"
+                },
+                {
+                    "expression": "AlarmMessage == \"Low\"",
+                    "target": "iottwinmaker.common.icon:Warning"
+                }
+            ]
+        },
+        "MeshColorRuleMap": {
+            "statements": [
+                {
+                    "expression": "Temperature > 100",
+                    "target": "iottwinmaker.common.color:red"
+                },
+                {
+                    "expression": "Temperature < 99",
+                    "target": "iottwinmaker.common.color:yellow"
+                }
+            ]
+        },
+        "WaterTankFlowRuleMap": {
+            "statements": [
+                {
+                    "expression": "flowRate1 > 40",
+                    "target": "iottwinmaker.common.color:red"
+                },
+                {
+                    "expression": "flowRate1 <= 40",
+                    "target": "iottwinmaker.common.color:green"
+                }
+            ]
+        },
+        "SynthMeshRuleMap": {
+            "statements": [
+                {
+                    "expression": "Temperature > 100",
+                    "target": "iottwinmaker.common.color:#d13212"
+                },
+                {
+                    "expression": "Temperature > 90",
+                    "target": "iottwinmaker.common.color:#d0d112"
+                },
+                {
+                    "expression": "Temperature < 20",
+                    "target": "iottwinmaker.common.color:#12c9d1"
+                }
+            ]
+        },
+        "EntitySelectedRule": {
+            "statements": [
+                {
+                    "expression": "telemetryAssetType == 'Alarm'",
+                    "target": "iottwinmaker.common.color:#23ff06"
+                }
+            ]
+        },
+        "CookieLineAlarmRule": {
+            "statements": [
+                {
+                    "expression": "alarm_status == 'ACTIVE'",
+                    "target": "iottwinmaker.common.color:#d13212"
+                },
+                {
+                    "expression": "alarm_status == 'NORMAL'",
+                    "target": "iottwinmaker.common.color:#12d11d"
+                }
+            ]
+        },
+        "CookieLineAlarmMessageRule": {
+            "statements": [
+                {
+                    "expression": "AlarmMessage == \"High\"",
+                    "target": "iottwinmaker.common.color:#ff8080"
+                },
+                {
+                    "expression": "AlarmMessage == \"Medium\"",
+                    "target": "iottwinmaker.common.color:#ffbf66"
+                },
+                {
+                    "expression": "AlarmMessage == \"Low\"",
+                    "target": "iottwinmaker.common.color:#fff480"
+                }
+            ]
+        }
+    },
+    "defaultCameraIndex": 0
+}

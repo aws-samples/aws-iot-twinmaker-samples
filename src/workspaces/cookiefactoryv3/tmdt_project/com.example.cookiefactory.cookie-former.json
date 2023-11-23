@@ -1,0 +1,18 @@
+{
+    "componentTypeId": "com.example.cookiefactory.cookie-former",
+    "isSingleton": false,
+    "propertyDefinitions": {
+        "Health": {
+            "dataType": {
+                "type": "BOOLEAN"
+            },
+            "isExternalId": false,
+            "isFinal": false,
+            "isImported": false,
+            "isInherited": false,
+            "isRequiredInEntity": false,
+            "isStoredExternally": true,
+            "isTimeSeries": false
+        }
+    }
+}

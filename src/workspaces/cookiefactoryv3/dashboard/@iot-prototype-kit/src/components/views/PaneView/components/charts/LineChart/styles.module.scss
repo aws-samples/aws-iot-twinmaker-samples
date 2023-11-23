@@ -1,0 +1,54 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  display: grid;
+  grid-auto-rows: auto 1fr;
+  row-gap: 15rem;
+
+  // margin-top: 20rem;
+
+  &:first-of-type {
+    // margin: 0;
+  }
+
+  > [data-head] {
+    --foreground-color: rgb(245, 245, 245);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 5rem;
+
+    > [data-label] {
+      color: var(--foreground-color);
+      font-size: 20rem;
+      font-weight: var(--font-weight-6);
+      // letter-spacing: 0.4rem;
+    }
+
+    > [data-latest-value] {
+      display: flex;
+      align-items: baseline;
+      gap: 3rem;
+
+      > [data-value] {
+        color: var(--foreground-color);
+        font-size: 35rem;
+        font-weight: var(--font-weight-6);
+        font-variant-numeric: proportional-nums;
+      }
+
+      > [data-unit] {
+        color: var(--foreground-color);
+        font-size: 20rem;
+        font-weight: var(--font-weight-3);
+        //  color: #007bff
+      }
+    }
+  }
+
+  > [data-chart] {
+    height: 100%;
+  }
+}

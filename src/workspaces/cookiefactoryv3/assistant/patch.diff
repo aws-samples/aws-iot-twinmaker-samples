@@ -1,0 +1,341 @@
+diff --git a/package.json b/package.json
+index b17c97f..461ad1e 100644
+--- a/package.json
++++ b/package.json
+@@ -16,7 +16,6 @@
+   "scripts": {
+     "preinstall": "npx only-allow pnpm",
+     "test": "pnpm exec ts-node ./cypress/support/e2e.ts && (cd src/chainlit/frontend && pnpm run test)",
+-    "prepare": "husky install",
+     "lintUi": "cd src/chainlit/frontend && pnpm run lint",
+     "formatUi": "cd src/chainlit/frontend && pnpm run format",
+     "lintPython": "cd src/ && poetry run mypy chainlit/",
+diff --git a/src/chainlit/frontend/src/App.tsx b/src/chainlit/frontend/src/App.tsx
+index 703f240..3e0608c 100644
+--- a/src/chainlit/frontend/src/App.tsx
++++ b/src/chainlit/frontend/src/App.tsx
+@@ -28,6 +28,11 @@ function App() {
+   const { isAuthenticated, getAccessTokenSilently, logout } = useAuth();
+   const theme = makeTheme(themeVariant);
+ 
++  const userData = URLSearchParams
++    ? new URLSearchParams(window.location.search).get('user-data')
++    : undefined;
++  const userDataJson = userData ? JSON.parse(userData) : undefined;
++
+   useEffect(() => {
+     if (isAuthenticated && accessToken === undefined) {
+       getAccessTokenSilently({
+@@ -88,7 +93,7 @@ function App() {
+         }}
+       />
+       <Box display="flex" height="100vh" width="100vw">
+-        <Socket />
++        <Socket data={userDataJson} />
+         <Hotkeys />
+         <SettingsModal />
+         <RouterProvider router={router} />
+diff --git a/src/chainlit/frontend/src/components/atoms/actionsList.tsx b/src/chainlit/frontend/src/components/atoms/actionsList.tsx
+index c495180..b1c53c0 100644
+--- a/src/chainlit/frontend/src/components/atoms/actionsList.tsx
++++ b/src/chainlit/frontend/src/components/atoms/actionsList.tsx
+@@ -35,14 +35,19 @@ const Action = ({ action, loading, session }: ActionProps) => {
+   }, [session]);
+ 
+   const button = (
+-    <LoadingButton id={action.id} onClick={call} disabled={loading}>
++    <LoadingButton
++      id={action.id}
++      onClick={call}
++      disabled={loading}
++      variant="outlined"
++    >
+       {action.label || action.name}
+     </LoadingButton>
+   );
+ 
+   return (
+     <Tooltip title={action.description} placement="top">
+-      {button}
++      <>{!loading && button}</>
+     </Tooltip>
+   );
+ };
+@@ -50,11 +55,6 @@ const Action = ({ action, loading, session }: ActionProps) => {
+ export default function ActionList({ actions }: { actions: IAction[] }) {
+   const loading = useRecoilValue(loadingState);
+   const session = useRecoilValue(sessionState);
+-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+-
+-  const isMobile = useMediaQuery((theme: Theme) =>
+-    theme.breakpoints.down('sm')
+-  );
+ 
+   const renderActions = (items: IAction[]) =>
+     items.map((action) => (
+@@ -67,33 +67,8 @@ export default function ActionList({ actions }: { actions: IAction[] }) {
+     ));
+ 
+   return (
+-    <Box id="actions-list" margin="auto">
+-      {!isMobile ? renderActions(actions.slice(0, 2)) : null}
+-      {actions.length > 2 ? (
+-        <>
+-          <RegularButton
+-            id="actions-button"
+-            onClick={(event: React.MouseEvent<HTMLElement>) =>
+-              setAnchorEl(event.currentTarget)
+-            }
+-          >
+-            More actions
+-          </RegularButton>
+-          <Menu
+-            id="actions-menu"
+-            anchorEl={anchorEl}
+-            open={!!anchorEl}
+-            onClose={() => setAnchorEl(null)}
+-            sx={{ marginTop: 1 }}
+-          >
+-            <Stack direction="column" paddingX={2} gap={1}>
+-              {renderActions(
+-                isMobile ? actions : actions.slice(2, actions.length)
+-              )}
+-            </Stack>
+-          </Menu>
+-        </>
+-      ) : null}
+-    </Box>
++    <Stack id="actions-list" spacing={2} direction={'row'} mt={2}>
++      {renderActions(actions)}
++    </Stack>
+   );
+ }
+diff --git a/src/chainlit/frontend/src/components/organisms/chat/index.tsx b/src/chainlit/frontend/src/components/organisms/chat/index.tsx
+index 97972bb..093f89a 100644
+--- a/src/chainlit/frontend/src/components/organisms/chat/index.tsx
++++ b/src/chainlit/frontend/src/components/organisms/chat/index.tsx
+@@ -52,7 +52,8 @@ const Chat = () => {
+         author: user?.name || 'User',
+         authorIsUser: true,
+         content: msg,
+-        createdAt: new Date().toISOString()
++        createdAt: new Date().toISOString(),
++        context: (window as any).context?.selectedEntity
+       };
+ 
+       setChatHistory((old) => {
+diff --git a/src/chainlit/frontend/src/components/organisms/chat/inputBox/index.tsx b/src/chainlit/frontend/src/components/organisms/chat/inputBox/index.tsx
+index a34c2f2..b2de125 100644
+--- a/src/chainlit/frontend/src/components/organisms/chat/inputBox/index.tsx
++++ b/src/chainlit/frontend/src/components/organisms/chat/inputBox/index.tsx
+@@ -43,7 +43,6 @@ export default function InputBox({ onSubmit, onReply }: Props) {
+         </Stack> */}
+         {/* )} */}
+       </Box>
+-      <WaterMark />
+     </Box>
+   );
+ }
+diff --git a/src/chainlit/frontend/src/components/organisms/chat/inputBox/input.tsx b/src/chainlit/frontend/src/components/organisms/chat/inputBox/input.tsx
+index c4892c0..0b9dc1f 100644
+--- a/src/chainlit/frontend/src/components/organisms/chat/inputBox/input.tsx
++++ b/src/chainlit/frontend/src/components/organisms/chat/inputBox/input.tsx
+@@ -1,7 +1,7 @@
+ import { useCallback, useEffect, useRef, useState } from 'react';
+ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+ 
+-import SendIcon from '@mui/icons-material/Telegram';
++import SendIcon from '@mui/icons-material/Send';
+ import TuneIcon from '@mui/icons-material/Tune';
+ import { IconButton, TextField } from '@mui/material';
+ import InputAdornment from '@mui/material/InputAdornment';
+diff --git a/src/chainlit/frontend/src/components/organisms/chat/message/content.tsx b/src/chainlit/frontend/src/components/organisms/chat/message/content.tsx
+index 9154a11..cb2f3d1 100644
+--- a/src/chainlit/frontend/src/components/organisms/chat/message/content.tsx
++++ b/src/chainlit/frontend/src/components/organisms/chat/message/content.tsx
+@@ -207,13 +207,7 @@ export default memo(function MessageContent({
+ 
+   return (
+     <Stack width="100%">
+-      {preparedContent.length > COLLAPSE_MIN_LENGTH ? (
+-        <Collapse onDownload={() => exportToFile(preparedContent, `${id}.txt`)}>
+-          {renderContent()}
+-        </Collapse>
+-      ) : (
+-        renderContent()
+-      )}
++      {renderContent()}
+       <InlinedElements elements={inlinedElements} />
+     </Stack>
+   );
+diff --git a/src/chainlit/frontend/src/components/socket.tsx b/src/chainlit/frontend/src/components/socket.tsx
+index 0107c79..578af60 100644
+--- a/src/chainlit/frontend/src/components/socket.tsx
++++ b/src/chainlit/frontend/src/components/socket.tsx
+@@ -40,7 +40,12 @@ const compareMessageIds = (a: IMessage, b: IMessage) => {
+   return false;
+ };
+ 
+-export default memo(function Socket() {
++
++export default memo(function Socket({
++    data
++  }: {
++    data?: { [key: string]: string };
++  }) {
+   const pSettings = useRecoilValue(projectSettingsState);
+   const { accessToken, authenticating } = useAuth();
+   const userEnv = useRecoilValue(userEnvState);
+@@ -70,7 +75,8 @@ export default memo(function Socket() {
+       extraHeaders: {
+         Authorization: accessToken || '',
+         'X-Chainlit-Session-Id': sessionId,
+-        'user-env': JSON.stringify(userEnv)
++        'user-env': JSON.stringify(userEnv),
++        'user-data': data !== undefined ? JSON.stringify(data) : '{}'
+       }
+     });
+ 
+@@ -238,6 +244,11 @@ export default memo(function Socket() {
+       });
+     });
+ 
++    socket.on('view', (input: string) => {
++      console.log('view', input);
++      parent.postMessage({ action: 'teleport', entityId: input }, '*');
++    });
++
+     socket.on('token_usage', (count: number) => {
+       setTokenCount((old) => old + count);
+     });
+diff --git a/src/chainlit/frontend/src/pages/Page.tsx b/src/chainlit/frontend/src/pages/Page.tsx
+index 236d6ec..1fe33e8 100644
+--- a/src/chainlit/frontend/src/pages/Page.tsx
++++ b/src/chainlit/frontend/src/pages/Page.tsx
+@@ -54,7 +54,6 @@ const Page = ({ children }: Props) => {
+         width: '100%'
+       }}
+     >
+-      <Header />
+       {notAllowed ? (
+         <Alert severity="error">You are not part of this project.</Alert>
+       ) : (
+diff --git a/src/chainlit/frontend/src/state/chat.ts b/src/chainlit/frontend/src/state/chat.ts
+index 3081e45..9df01e0 100644
+--- a/src/chainlit/frontend/src/state/chat.ts
++++ b/src/chainlit/frontend/src/state/chat.ts
+@@ -50,6 +50,7 @@ export interface IMessage {
+   parentId?: string;
+   isError?: boolean;
+   prompt?: IPrompt;
++  context?: string;
+ }
+ 
+ export interface IMessageUpdate extends IMessage {
+diff --git a/src/chainlit/frontend/src/state/settings.ts b/src/chainlit/frontend/src/state/settings.ts
+index ecc6385..3694533 100644
+--- a/src/chainlit/frontend/src/state/settings.ts
++++ b/src/chainlit/frontend/src/state/settings.ts
+@@ -2,7 +2,7 @@ import { atom } from 'recoil';
+ 
+ type ThemeVariant = 'dark' | 'light';
+ 
+-const defaultTheme = 'light';
++const defaultTheme = 'dark';
+ 
+ const preferredTheme = localStorage.getItem(
+   'themeVariant'
+diff --git a/src/chainlit/frontend/src/theme.ts b/src/chainlit/frontend/src/theme.ts
+index d547315..b34acfc 100644
+--- a/src/chainlit/frontend/src/theme.ts
++++ b/src/chainlit/frontend/src/theme.ts
+@@ -93,7 +93,7 @@ const darkTheme = createTheme({
+       paper: window?.theme?.dark?.paper || grey[900]
+     },
+     primary: {
+-      main: window?.theme?.dark?.primary?.main || '#F80061',
++      main: window?.theme?.dark?.primary?.main || '#539fe5',
+       dark: window?.theme?.dark?.primary?.dark || primary[800],
+       light: window?.theme?.dark?.primary?.light || '#FFE7EB',
+       contrastText: white
+diff --git a/src/chainlit/message.py b/src/chainlit/message.py
+index c44f014..69e8348 100644
+--- a/src/chainlit/message.py
++++ b/src/chainlit/message.py
+@@ -145,8 +145,10 @@ class Message(MessageBase):
+         indent: int = 0,
+         actions: Optional[List[Action]] = None,
+         elements: Optional[List[ElementBased]] = None,
++        context: Optional[str] = None,
+     ):
+         self.content = content
++        self.context = context
+         self.author = author
+         self.prompt = prompt
+         self.language = language
+@@ -161,6 +163,7 @@ class Message(MessageBase):
+     def from_dict(self, _dict: MessageDict):
+         message = Message(
+             content=_dict["content"],
++            context=_dict.get("context"),
+             author=_dict.get("author", config.ui.name),
+             prompt=_dict.get("prompt"),
+             language=_dict.get("language"),
+@@ -179,6 +182,7 @@ class Message(MessageBase):
+         _dict = {
+             "createdAt": self.created_at,
+             "content": self.content,
++            "context": self.context,
+             "author": self.author,
+             "language": self.language,
+             "parentId": self.parent_id,
+diff --git a/src/chainlit/session.py b/src/chainlit/session.py
+index 14cf95c..526f8dd 100644
+--- a/src/chainlit/session.py
++++ b/src/chainlit/session.py
+@@ -35,6 +35,8 @@ class Session:
+         db_client: Optional[BaseDBClient],
+         # User specific environment variables. Empty if no user environment variables are required.
+         user_env: Dict[str, str],
++        # Additional data passed from the user
++        user_data: Dict[str, str],
+         # Headers received during the websocket connection handshake
+         initial_headers: Dict[str, str],
+         # Optional langchain agent
+@@ -48,6 +50,7 @@ class Session:
+         self.ask_user = ask_user
+         self.emit = emit
+         self.user_env = user_env
++        self.user_data = user_data
+         self.initial_headers = initial_headers
+         self.agent = agent
+         self.llama_instance = llama_instance
+diff --git a/src/chainlit/socket.py b/src/chainlit/socket.py
+index 74ced75..66c32ef 100644
+--- a/src/chainlit/socket.py
++++ b/src/chainlit/socket.py
+@@ -89,6 +89,7 @@ async def connect(sid, environ, auth):
+ 
+     db_client = None
+     user_env = environ.get("HTTP_USER_ENV")
++    user_data = environ.get("HTTP_USER_DATA")
+ 
+     try:
+         auth_client = await get_auth_client(
+@@ -113,6 +114,7 @@ async def connect(sid, environ, auth):
+         auth_client=auth_client,
+         db_client=db_client,
+         user_env=user_env,
++        user_data=json.loads(user_data),
+         initial_headers=request_headers,
+     )
+ 
+@@ -187,7 +189,7 @@ async def process_message(session: Session, message_dict: MessageDict):
+ 
+         message = Message.from_dict(message_dict)
+         if config.code.on_message:
+-            await config.code.on_message(message.content.strip(), message.id)
++            await config.code.on_message(message.content.strip(), message.context, message.id)
+     except InterruptedError:
+         pass
+     except Exception as e:

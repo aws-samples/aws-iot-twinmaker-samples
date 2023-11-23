@@ -1,0 +1,116 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+.root {
+  --background-color: var(--background-layer-1);
+  --background-active-color: var(--background-active);
+  --foreground-color: var(--text-layer-2-primary);
+  --item-background-color: var(--background-color);
+  --item-background-active-color: var(--background-active);
+  --item-foreground-color: var(--text-layer-2-primary);
+  --item-foreground-hover-color: var(--text-layer-2-hover);
+  --item-foreground-active-color: var(--foreground-active);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-border-color: border-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+  --thumbnail-border-color: rgb(var(--uswds-gray-0-rgb), 0.3);
+  display: grid;
+  place-content: center;
+  place-items: center;
+  row-gap: 20rem;
+  background-color: var(--background-color);
+  transition: var(--transition-background-color);
+  user-select: none;
+}
+
+.root[data-is-active='true'] {
+  --background-color: var(--background-active-color);
+  pointer-events: none;
+}
+
+.root[data-is-active='true'] .branding,
+.root[data-is-active='true'] .title,
+.root[data-is-active='true'] .card:not([data-is-active='true']) {
+  visibility: hidden;
+}
+
+.branding {
+  color: var(--item-foreground-color);
+  width: 500rem;
+}
+
+.title {
+  margin-bottom: 30rem;
+  color: var(--foreground-color);
+  font-size: 60rem;
+  font-weight: var(--font-weight-2);
+  text-align: center;
+}
+
+.cards {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 50rem;
+}
+
+.card {
+  display: grid;
+  place-items: center;
+  row-gap: 20rem;
+  width: max-content;
+  background-color: var(--item-background-color);
+  color: var(--item-foreground-color);
+  transition: var(--transition-background-color);
+}
+
+.card:hover {
+  --item-foreground-color: var(--item-foreground-hover-color);
+  --thumbnail-border-color: rgb(var(--uswds-gray-0-rgb), 0.8);
+}
+
+.card[data-is-active='true'] {
+  --item-background-color: var(--item-background-active-color);
+  --item-foreground-color: var(--item-foreground-active-color);
+}
+
+.thumbnail {
+  --size: 200rem;
+  width: var(--size);
+  height: calc(var(--size) * 3 / 4);
+  border-radius: var(--radius-10);
+  background-position: 70% center;
+  background-size: 200%;
+  border: solid 4rem var(--thumbnail-border-color);
+  box-shadow: var(--box-shadow-layer-1);
+  transition: var(--transition-border-color);
+}
+
+.thumbnail img {
+  max-width: 100%;
+}
+
+.cardGroup {
+  display: grid;
+  row-gap: 7rem;
+}
+
+.cardIcon {
+  --size: 150rem;
+  width: var(--size);
+  height: var(--size);
+  color: var(--item-foreground-color);
+  transition: var(--transition-color);
+}
+
+.cardName {
+  font-size: 28rem;
+  letter-spacing: -0.02rem;
+  line-height: 1.15;
+  transition: var(--transition-color);
+  word-break: break-all;
+}
+
+.cardTitle {
+  color: var(--item-foreground-color);
+  font-size: 16rem;
+  transition: var(--transition-color);
+}

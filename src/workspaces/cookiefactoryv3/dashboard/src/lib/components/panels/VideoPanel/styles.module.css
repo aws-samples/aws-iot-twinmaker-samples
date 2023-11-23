@@ -1,0 +1,154 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023 */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+.root {
+  --width: 480rem;
+}
+
+.root [data-empty] {
+  --size: 24rem;
+
+  margin-top: 37rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: var(--width);
+  aspect-ratio: 16 / 9;
+
+  background-color: var(--background-layer-2-secondary);
+  border-radius: var(--radius-6);
+
+  color: var(--text-layer-2-primary);
+  font-size: var(--size);
+  font-weight: var(--font-weight-3);
+  line-height: 1;
+}
+
+.root [data-video] {
+  --size: 22rem;
+
+  display: grid;
+  place-items: center start;
+  row-gap: 15rem;
+  color: var(--text-layer-2-primary);
+  font-size: var(--size);
+  font-weight: var(--font-weight-4);
+  line-height: 1;
+}
+
+/* .root [data-head] {
+  color: var(--text-layer-2-primary);
+  line-height: 1;
+} */
+
+.root [data-player] {
+  border-radius: var(--radius-6);
+  overflow: hidden;
+  width: var(--width);
+  aspect-ratio: 16 / 9;
+}
+
+.feedSelector[data-dropdownmenu] {
+  --text-color: var(--foreground-color);
+  --hover-color: var(--foreground-hover-color);
+  --active-color: var(--foreground-active-color);
+
+  position: relative;
+  place-self: center start;
+}
+
+.feedSelector[data-dropdownmenu] [data-trigger] {
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  column-gap: 6rem;
+  color: var(--text-color);
+  line-height: 1;
+  transition: var(--transition-color);
+  white-space: nowrap;
+}
+
+.feedSelector[data-dropdownmenu] [data-trigger] [data-trigger-arrow] {
+  width: calc(var(--size) * 0.6);
+  height: calc(var(--size) * 0.6);
+  transition: var(--transition-rotation);
+}
+
+.feedSelector[data-dropdownmenu] [data-trigger]:hover {
+  --text-color: var(--hover-color);
+}
+
+.feedSelector[data-dropdownmenu][data-is-open='true'] [data-trigger] {
+  --text-color: var(--active-color);
+}
+
+.feedSelector[data-dropdownmenu][data-is-open='true'] [data-trigger] > [data-trigger-arrow] {
+  rotate: 180deg;
+}
+
+.feedSelector[data-dropdownmenu] > [data-menu] {
+  --menu-background-color: var(--background-layer-2-accent);
+  --menu-item-background-color: var(--background-layer-2);
+  --menu-item-background-hover-color: var(--background-layer-2-hover);
+  --menu-item-background-selected-color: var(--background-layer-2-accent);
+  --menu-item-text-primary-color: var(--text-layer-2-primary);
+  --menu-item-text-secondary-color: var(--text-layer-2-secondary);
+  --menu-item-text-hover-color: var(--text-layer-2-hover);
+  --menu-item-text-selected-color: var(--text-layer-2-accent);
+  --transition-background-color: background-color var(--transition-duration) var(--transition-easing);
+  --transition-border-color: border-color var(--transition-duration) var(--transition-easing);
+  --transition-color: color var(--transition-duration) var(--transition-easing);
+
+  top: calc(100% + 8rem);
+  left: 0;
+  /* translate: -50% 0; */
+  /* min-width: 100%; */
+  width: max-content;
+  max-height: 300rem;
+  height: auto;
+  overflow-y: auto;
+
+  row-gap: 1rem;
+
+  background-color: var(--menu-background-color);
+  border: solid 1rem var(--background-layer-2-accent);
+  border-radius: var(--radius-10);
+  box-shadow: var(--box-shadow-layer-1);
+}
+
+.root [data-empty] .feedSelector[data-dropdownmenu] > [data-menu] {
+  left: 50%;
+  translate: -50% 0;
+}
+
+.feedSelector[data-dropdownmenu] > [data-menu] [data-menu-item] {
+  padding: 12rem 15rem;
+  background-color: var(--menu-item-background-color);
+  color: var(--menu-item-text-primary-color);
+  font-size: 15rem;
+  font-weight: var(--font-weight-4);
+  text-align: left;
+}
+
+.feedSelector[data-dropdownmenu] > [data-menu] [data-menu-item]:hover {
+  --menu-item-background-color: var(--menu-item-background-hover-color);
+  --menu-item-text-primary-color: var(--menu-item-text-hover-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-hover-color);
+}
+
+.feedSelector[data-dropdownmenu] > [data-menu] [data-menu-item][data-selected='true'] {
+  --menu-item-background-color: var(--menu-item-background-selected-color);
+  --menu-item-text-primary-color: var(--menu-item-text-selected-color);
+  --menu-item-text-secondary-color: var(--menu-item-text-selected-color);
+}
+
+.feedSelector[data-dropdownmenu] > [data-menu] > button:first-child [data-menu-item] {
+  border-top: none;
+}
+
+.feedSelector[data-dropdownmenu] > [data-menu] > button:last-child [data-menu-item] {
+  border-bottom: none;
+}
