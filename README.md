@@ -1,4 +1,10 @@
-2022/11/17 - For a sample Digital Twin application highlighting [TwinMaker Knowledge Graph](https://aws.amazon.com/about-aws/whats-new/2022/11/twinmaker-knowledge-graph-generally-available-aws-iot-twinmaker/), check out our guided [SmartBuilding workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/93076d98-bdf1-48b8-bfe8-f4039ca1bf25/en-US)!
+### 2023/11/28
+
+For a sample Digital Twin application highlighting an AI-assistant integration, check out our blog: [Building an AI Assistant for Smart Manufacturing with AWS IoT TwinMaker and Amazon Bedrock](https://aws.amazon.com/blogs/iot/building-an-ai-assistant-for-smart-manufacturing-with-aws-iot-twinmaker-and-amazon-bedrock/)
+
+For a sample Digital Twin application built with a React application on [iot-app-kit](https://github.com/awslabs/iot-app-kit) check out [CookieFactoryV2](https://github.com/aws-samples/aws-iot-twinmaker-samples/tree/main/src/workspaces/cookiefactoryv2)
+
+For a sample Digital Twin application highlighting [TwinMaker Knowledge Graph](https://aws.amazon.com/about-aws/whats-new/2022/11/twinmaker-knowledge-graph-generally-available-aws-iot-twinmaker/), check out our guided [SmartBuilding workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/93076d98-bdf1-48b8-bfe8-f4039ca1bf25/en-US)!
 
 ---
 
