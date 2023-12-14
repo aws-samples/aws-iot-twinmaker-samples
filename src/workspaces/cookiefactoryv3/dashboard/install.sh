@@ -50,7 +50,6 @@ sed_cmd "s/userPoolId: '__FILL_IN__'/userPoolId: '${COGNITO_USER_POOL_ID}'/" src
 
 COGNITO_PASSWORD="Aa#45678"
 sed_cmd "s/password: '__FILL_IN__'/password: '${COGNITO_PASSWORD}'/" src/app.config.tsx 
-# sed_cmd "s/title: 'Line Operator',/title: 'Line Operator - ${CFN_STACK_NAME}',/" src/app.config.tsx 
 
 aws cognito-idp admin-set-user-password --user-pool-id ${COGNITO_USER_POOL_ID} --username "user@cookiefactory" --password "${COGNITO_PASSWORD}" --permanent
 
