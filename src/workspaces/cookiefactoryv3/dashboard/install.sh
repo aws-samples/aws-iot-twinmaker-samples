@@ -38,7 +38,7 @@ fi
 cp src/app.config.template.tsx  src/app.config.tsx 
 sed_cmd "s/workspaceId: '__FILL_IN__'/workspaceId: '${WORKSPACE_ID}'/" src/app.config.tsx 
 
-CFN_STACK_OUTPUTS=$(aws cloudformation describe-stacks --stack-name "${CFN_STACK_NAME}" | jq '.Stacks[0].Outputs')
+CFN_STACK_OUTPUTS=$(aws cloudformation describe-stacks --stack-name "${CFN_STACK_NAME}" --output json | jq '.Stacks[0].Outputs')
 
 COGNITO_CLIENT_ID=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="ClientId").OutputValue')
 sed_cmd "s/clientId: '__FILL_IN__'/clientId: '${COGNITO_CLIENT_ID}'/" src/app.config.tsx 
@@ -50,7 +50,7 @@ sed_cmd "s/userPoolId: '__FILL_IN__'/userPoolId: '${COGNITO_USER_POOL_ID}'/" src
 
 COGNITO_PASSWORD="Aa#45678"
 sed_cmd "s/password: '__FILL_IN__'/password: '${COGNITO_PASSWORD}'/" src/app.config.tsx 
-sed_cmd "s/title: 'Line Operator',/title: 'Line Operator - ${CFN_STACK_NAME}',/" src/app.config.tsx 
+# sed_cmd "s/title: 'Line Operator',/title: 'Line Operator - ${CFN_STACK_NAME}',/" src/app.config.tsx 
 
 aws cognito-idp admin-set-user-password --user-pool-id ${COGNITO_USER_POOL_ID} --username "user@cookiefactory" --password "${COGNITO_PASSWORD}" --permanent
 
