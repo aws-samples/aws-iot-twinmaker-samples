@@ -26,6 +26,7 @@ export class CdkStack extends Stack {
       layers: [
         new PythonLayerVersion(this, 'udq_utils_layer', {
           entry: path.join(__dirname, '..', '..', '..', '..', 'libs', 'udq_helper_utils'),
+          compatibleRuntimes: [lambda.Runtime.PYTHON_3_10],
         }),
       ],
       handler: "lambda_handler",
