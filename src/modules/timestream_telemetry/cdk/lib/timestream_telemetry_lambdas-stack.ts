@@ -52,7 +52,7 @@ export class TimestreamTelemetryCdkLambdasStack extends Stack {
         index: 'udq_data_reader.py',
         memorySize: 256,
         role: timestreamUdqRole,
-        runtime: lambda.Runtime.PYTHON_3_7,
+        runtime: lambda.Runtime.PYTHON_3_10,
         timeout: Duration.minutes(15),
         logRetention: logs.RetentionDays.ONE_DAY,
         environment: {

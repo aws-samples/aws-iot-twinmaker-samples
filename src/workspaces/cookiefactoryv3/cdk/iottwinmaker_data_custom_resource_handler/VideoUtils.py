@@ -8,10 +8,7 @@ import hashlib
 import datetime
 import requests 
 import os
-import glob
 import cv2
-import uuid
-import json
 
 class VideoUtils:
     def __init__(self, region_name, profile=None):

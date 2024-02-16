@@ -351,7 +351,7 @@ export class TmdtApplication extends Construct {
             index: 'data_resource_handler.py',
             memorySize: 256,
             role: iottwinmakerDataCustomResourceLifecycleExecutionRole,
-            runtime: lambda.Runtime.PYTHON_3_7,
+            runtime: lambda.Runtime.PYTHON_3_10,
             timeout: cdk.Duration.minutes(15),
             logRetention: logs.RetentionDays.ONE_DAY,
         });
@@ -545,7 +545,7 @@ export class CookieFactoryV3Stack extends cdk.Stack {
             index: 'udq_data_reader.py',
             memorySize: 256,
             role: timestreamUdqRole,
-            runtime: lambda.Runtime.PYTHON_3_7,
+            runtime: lambda.Runtime.PYTHON_3_10,
             timeout: cdk.Duration.minutes(15),
             logRetention: logs.RetentionDays.ONE_DAY,
             environment: {
@@ -558,7 +558,7 @@ export class CookieFactoryV3Stack extends cdk.Stack {
         //region - sample infrastructure content for synthetic cookieline telemetry data
         // https://aws-sdk-pandas.readthedocs.io/en/stable/layers.html
         const pandasLayer = lambda.LayerVersion.fromLayerVersionArn(this,
-          'awsPandasLayer', `arn:aws:lambda:${this.region}:336392948345:layer:AWSSDKPandas-Python37:5`)
+          'awsPandasLayer', `arn:aws:lambda:${this.region}:336392948345:layer:AWSSDKPandas-Python310:11`)
 
         var telemetryDataAsset = new assets.Asset(this, `demo-data-asset`, {
             path: path.join(cookiefactoryv3_root, "cdk", "synthetic_replay_connector", "data.csv"),
@@ -577,7 +577,7 @@ export class CookieFactoryV3Stack extends cdk.Stack {
             index: 'synthetic_udq_reader.py',
             memorySize: 1024,
             role: timestreamUdqRole,
-            runtime: lambda.Runtime.PYTHON_3_7,
+            runtime: lambda.Runtime.PYTHON_3_10,
             timeout: cdk.Duration.minutes(15),
             logRetention: logs.RetentionDays.ONE_DAY,
             environment: {
