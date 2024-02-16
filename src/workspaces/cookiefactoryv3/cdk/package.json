@@ -24,13 +24,13 @@
   "dependencies": {
     "@aws-cdk/aws-lambda-python-alpha": "2.68.0-alpha.0",
 
-    "@aws-cdk/aws-glue": "1.196.0",
-    "@aws-cdk/aws-iotsitewise": "1.196.0",
-    "@aws-cdk/aws-kinesisanalytics": "1.196.0",
-    "@aws-cdk/aws-lambda": "1.196.0",
-    "@aws-cdk/aws-logs": "1.196.0",
-    "@aws-cdk/aws-s3": "1.196.0",
-    "@aws-cdk/core": "1.196.0",
+    "@aws-cdk/aws-glue": "1.204.0",
+    "@aws-cdk/aws-iotsitewise": "1.204.0",
+    "@aws-cdk/aws-kinesisanalytics": "1.204.0",
+    "@aws-cdk/aws-lambda": "1.204.0",
+    "@aws-cdk/aws-logs": "1.204.0",
+    "@aws-cdk/aws-s3": "1.204.0",
+    "@aws-cdk/core": "1.204.0",
     "source-map-support": "^0.5.16"
   }
 }
