@@ -100,13 +100,15 @@ rateeq_to_entityId = {
 def remap_rateeq_ids(row):
     return rateeq_to_entityId[row['asset_name']]
 df2_rateeq['entityId'] = df2_rateeq.apply(remap_rateeq_ids, axis=1)
+df2_rateeq['_entityId'] = df2_rateeq['entityId']
 df2_rateeq['Time'] = pd.to_datetime(df2_rateeq['timestamp'], unit='s').astype(str)
 
 # interpolate periods with no values with last value carried forward for the same entityId
-for propName in ['Alarm_State', 'Alarm_Text', 'Bad', 'Bad_Parts_1Min', 'Blocked', 'Blocked_Time_1Min', 'Down', 'Down_Time_1Min', 'Good', 'Good_Parts_1Min', 'Max_Level', 'Min_Level', 'Moisture', 'Shift', 'Speed', 'Starved', 'Starved_Time_1Min', 'State', 'Temperature', 'Total', 'Total_Parts_1Min']:
-    df2_rateeq[propName] = df2_rateeq.groupby('entityId')[propName].apply(lambda x: x.ffill().bfill())
-
-
+# for propName in ['Alarm_State', 'Alarm_Text', 'Bad', 'Bad_Parts_1Min', 'Blocked', 'Blocked_Time_1Min', 'Down', 'Down_Time_1Min', 'Good', 'Good_Parts_1Min', 'Max_Level', 'Min_Level', 'Moisture', 'Shift', 'Speed', 'Starved', 'Starved_Time_1Min', 'State', 'Temperature', 'Total', 'Total_Parts_1Min']:
+#     df2_rateeq[propName] = df2_rateeq.groupby('entityId')[propName].apply(lambda x: x.ffill().bfill())
+df2_rateeq = df2_rateeq.set_index('_entityId')
+df2_rateeq = df2_rateeq.ffill()
+df2_rateeq = df2_rateeq.bfill()
 
 
 
@@ -117,11 +119,16 @@ df2_rateeq_err = df2_rateeq_err.reset_index()
 def remap_rateeq_ids(row):
     return rateeq_to_entityId[row['asset_name']]
 df2_rateeq_err['entityId'] = df2_rateeq_err.apply(remap_rateeq_ids, axis=1)
+df2_rateeq_err['_entityId'] = df2_rateeq_err['entityId']
 df2_rateeq_err['Time'] = pd.to_datetime(df2_rateeq_err['timestamp'], unit='s').astype(str)
 
 # interpolate periods with no values with last value carried forward for the same entityId
-for propName in ['Alarm_State', 'Alarm_Text', 'Bad', 'Bad_Parts_1Min', 'Blocked', 'Blocked_Time_1Min', 'Down', 'Down_Time_1Min', 'Good', 'Good_Parts_1Min', 'Max_Level', 'Min_Level', 'Moisture', 'Shift', 'Speed', 'Starved', 'Starved_Time_1Min', 'State', 'Temperature', 'Total', 'Total_Parts_1Min']:
-    df2_rateeq_err[propName] = df2_rateeq_err.groupby('entityId')[propName].apply(lambda x: x.ffill().bfill())
+# for propName in ['Alarm_State', 'Alarm_Text', 'Bad', 'Bad_Parts_1Min', 'Blocked', 'Blocked_Time_1Min', 'Down', 'Down_Time_1Min', 'Good', 'Good_Parts_1Min', 'Max_Level', 'Min_Level', 'Moisture', 'Shift', 'Speed', 'Starved', 'Starved_Time_1Min', 'State', 'Temperature', 'Total', 'Total_Parts_1Min']:
+#     df2_rateeq_err[propName] = df2_rateeq_err.groupby('entityId')[propName].apply(lambda x: x.ffill().bfill())
+df2_rateeq_err = df2_rateeq_err.set_index('_entityId')
+df2_rateeq_err = df2_rateeq_err.ffill()
+df2_rateeq_err = df2_rateeq_err.bfill()
+
 
 class RenderIoTTwinMakerDataRow(IoTTwinMakerDataRow):
 
@@ -217,7 +224,7 @@ RENDER_READER = RenderValuesReader()
 # Main Lambda invocation entry point
 # noinspection PyUnusedLocal
 def lambda_handler(event, context):
-    print('Event: %s', event)
+    print(f'Event: {event}', )
     result = RENDER_READER.process_query(event)
     print("result:")
     print(result)
