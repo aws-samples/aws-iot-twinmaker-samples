@@ -86,12 +86,19 @@ def main():
     print(f"using following timestamp for data ingestion: {timestamp_string} ({content_start_time_ms}ms from epoch)")
 
     # this helper object does all the heavy lifting timestream telemetry for us
-    telemetry = timestream_libs.TimestreamTelemetryImporter(
-                region_name=args.region_name,
-                database_name=args.telemetry_database_name,
-                table_name=args.telemetry_table_name,
-                stack_name=args.telemetry_stack_name,
-                profile=args.profile)
+    try:
+        telemetry = timestream_libs.TimestreamTelemetryImporter(
+                    region_name=args.region_name,
+                    database_name=args.telemetry_database_name,
+                    table_name=args.telemetry_table_name,
+                    stack_name=args.telemetry_stack_name,
+                    profile=args.profile)
+    except:
+        if not args.delete_all:
+            print(f"telemetry stack {args.telemetry_stack_name} not found. Must exist unless running --delete-all")
+            return
+        else:
+            telemetry = None
 
     ####################################################################
     # We run teardown steps first.
@@ -118,7 +125,7 @@ def main():
         ws.delete_resource(destination='CookieFactoryEnvironment.glb')
 
     # Delete telemetry data
-    if args.delete_telemetry or args.delete_all:
+    if args.delete_telemetry or args.delete_all and telemetry is not None:
         print('Deleting sample telemetry data...')
         telemetry.recreate_table()
 
