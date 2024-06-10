@@ -140,7 +140,6 @@ For any issue not addressed here, please open an issue or contact AWS Support.
 
 - Some useful commands for resizing disk on Cloud9
   ```shell
-  curl https://aws-data-analytics-workshops.s3.amazonaws.com/athena-workshop/scripts/cloud9\_resize.sh > cloud9\_resize.sh
   sh cloud9\_resize.sh 20
   df -h
   ```
