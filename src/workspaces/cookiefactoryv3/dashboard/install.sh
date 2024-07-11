@@ -47,10 +47,25 @@ sed_cmd "s/identityPoolId: '__FILL_IN__'/identityPoolId: '${COGNITO_IDEN_POOL_ID
 sed_cmd "s/region: '__FILL_IN__'/region: '${AWS_DEFAULT_REGION}'/" src/app.config.tsx 
 COGNITO_USER_POOL_ID=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="UserPoolId").OutputValue')
 sed_cmd "s/userPoolId: '__FILL_IN__'/userPoolId: '${COGNITO_USER_POOL_ID}'/" src/app.config.tsx 
-
+VITE_BUCKET_NAME=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="ViteBucketName").OutputValue')
+CLOUDFRONT_DIST=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="DistributionDomainName").OutputValue')
 COGNITO_PASSWORD="Aa#45678"
 sed_cmd "s/password: '__FILL_IN__'/password: '${COGNITO_PASSWORD}'/" src/app.config.tsx 
 
 aws cognito-idp admin-set-user-password --user-pool-id ${COGNITO_USER_POOL_ID} --username "user@cookiefactory" --password "${COGNITO_PASSWORD}" --permanent
+
+echo "build front end"
+npm run build
+
+
+# Check if the dashboard directory exists
+if [ ! -d "./dist" ]; then
+  echo "Directory /dist does not exist."
+  exit 1
+fi
+
+aws s3 sync "./dist" "s3://$VITE_BUCKET_NAME/" --delete
+
+echo "application is deployed at https://$CLOUDFRONT_DIST"
 
 echo "dashboard app setup complete"

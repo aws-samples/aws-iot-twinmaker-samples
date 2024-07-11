@@ -14,6 +14,9 @@ import * as timestream from "aws-cdk-lib/aws-timestream";
 import * as iottwinmaker from "aws-cdk-lib/aws-iottwinmaker";
 import * as assets from "aws-cdk-lib/aws-s3-assets";
 import * as cognito from "aws-cdk-lib/aws-cognito";
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins'
+import * as s3 from 'aws-cdk-lib/aws-s3'
 import { CfnOutput } from "aws-cdk-lib/core";
 import {Construct} from "constructs";
 import CognitoAuthRole from "./CognitoAuthRole";
@@ -450,7 +453,7 @@ export class CookieFactoryV3Stack extends cdk.Stack {
 
         const authenticatedRole = new CognitoAuthRole(this, "CognitoAuthRole", {
             identityPool,
-          });
+        });
 
         authenticatedRole.role.addToPolicy(
             new iam.PolicyStatement({
@@ -487,7 +490,37 @@ export class CookieFactoryV3Stack extends cdk.Stack {
             })
         );
 
+         // Create CloudFront distribution
+         const originAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'OAI');
+        
+         // Create a new S3 bucket
+         const viteBucket = new s3.Bucket(this, 'ViteBucket', {
+             removalPolicy: cdk.RemovalPolicy.DESTROY, // NOT recommended for production
+             autoDeleteObjects: true, // NOT recommended for production
+             publicReadAccess: false,
+             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+         });
+        
+         viteBucket.grantRead(originAccessIdentity);
+ 
+         const distribution = new cloudfront.Distribution(this, 'ViteAppDistribution', {
+             defaultBehavior: {
+                 origin: new origins.S3Origin(viteBucket, { originAccessIdentity }),
+                 viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+             },
+             defaultRootObject: 'index.html',
+         });
+ 
+
          // Export values
+         new CfnOutput(this, 'DistributionDomainName', {
+            value: distribution.distributionDomainName,
+        });
+        
+        new CfnOutput(this, 'ViteBucketName', {
+            value: viteBucket.bucketName,
+        });
+
         new CfnOutput(this, "UserPoolId", {
             value: userPool.userPoolId,
         });
