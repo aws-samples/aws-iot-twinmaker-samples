@@ -34,14 +34,18 @@ const LoginPage = () => {
       if (AuthenticationResult && AuthenticationResult.AccessToken) {
         sessionStorage.setItem('accessToken', AuthenticationResult.AccessToken);
         
-        const authenticatedUser = await authenticateUser({
-          ...userConfig,
+        const authenticatedUser = await authenticateUser(
+          appConfig.cognito,
           password,
-          email,
-          firstName: UserAttributes["name"],
-          title: UserAttributes["custom:title"]
-        });
-  
+          {
+            ...appConfig.userConfigs[0],
+            firstName: UserAttributes?.["name"] || '', 
+            lastName: UserAttributes?.["lastName"] || '',  // Ensure lastName is provided
+            email: email,
+            title: UserAttributes?.["custom:title"] || '',
+          }
+        );
+
         if (authenticatedUser) {
           $user.set(authenticatedUser);
           navigate('/home');

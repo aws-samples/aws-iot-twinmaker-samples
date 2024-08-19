@@ -515,18 +515,14 @@ const cameraEntityConfigs: EntityConfig[] = [
 const appConfig: AppConfig = {
   branding: <CookieFactoryLogoWide />,
   statusBarComponents: <EventActivityStatus panelId={eventsPanelId} />,
+  cognito: {
+    clientId: '__FILL_IN__',
+    identityPoolId: '__FILL_IN__',
+    region: '__FILL_IN__',
+    userPoolId: '__FILL_IN__'
+  },
   userConfigs: [
     {
-      email: 'user@cookiefactory',
-      password: '__FILL_IN__',
-      firstName: 'Spencer',
-      title: 'Line Operator',
-      cognito: {
-        clientId: '__FILL_IN__',
-        identityPoolId: '__FILL_IN__',
-        region: '__FILL_IN__',
-        userPoolId: '__FILL_IN__'
-      },
       siteConfigs: [
         {
           id: crypto.randomUUID(),

@@ -8,13 +8,13 @@ import { CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js';
 import appConfig from './app.config';
 
 export const cognitoClient = new CognitoIdentityProviderClient({
-  region: appConfig.userConfigs[0].cognito.region,
+  region: appConfig.cognito.region,
 });
 
 function getCurrentCognitoUser(): CognitoUser | null {
   const userPool = new CognitoUserPool({
-    UserPoolId: appConfig.userConfigs[0].cognito.userPoolId,
-    ClientId: appConfig.userConfigs[0].cognito.clientId,
+    UserPoolId: appConfig.cognito.userPoolId,
+    ClientId: appConfig.cognito.clientId,
   });
 
   // This method checks for tokens in localStorage or sessionStorage
@@ -63,7 +63,7 @@ async function getUserAttributes(accessToken: string) {
 export const signIn = async (username: string, password: string): Promise<{ AuthenticationResult: AuthenticationResultType, UserAttributes: { [key: string]: string } }> => {
   const params = {
     AuthFlow: "USER_PASSWORD_AUTH",
-    ClientId: appConfig.userConfigs[0].cognito.clientId,
+    ClientId: appConfig.cognito.clientId,
     AuthParameters: {
       USERNAME: username,
       PASSWORD: password,
@@ -95,7 +95,7 @@ export const signIn = async (username: string, password: string): Promise<{ Auth
 
 export const signUp = async (email: string, name: string, password: string) => {
   const params = {
-    ClientId: appConfig.userConfigs[0].cognito.clientId,
+    ClientId: appConfig.cognito.clientId,
     Username: email,
     Password: password,
     UserAttributes: [
@@ -126,7 +126,7 @@ export const signUp = async (email: string, name: string, password: string) => {
 
 export const confirmSignUp = async (username: string, code: string) => {
   const params = {
-    ClientId: appConfig.userConfigs[0].cognito.clientId,
+    ClientId: appConfig.cognito.clientId,
     Username: username,
     ConfirmationCode: code,
   };
