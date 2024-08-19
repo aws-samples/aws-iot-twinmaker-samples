@@ -13,6 +13,8 @@ import { $user, resetUser } from '@iot-prototype-kit/stores/user';
 import { authenticateUser, getUserFullName } from '@iot-prototype-kit/utils/user';
 import { getUserConfigs } from '@iot-prototype-kit/utils/config';
 
+import {logOutUser} from '@/authservice'
+
 import common from '../common.module.css';
 import styles from './styles.module.css';
 
@@ -42,7 +44,12 @@ export function UserMenu({ children, className, ...props }: ComponentProps) {
         if (userConfig) {
           $user.set(await authenticateUser(userConfig));
         } else {
-          resetUser();
+          try {
+            logOutUser()
+            resetUser();
+          } catch (error) {
+            console.error('Error signing out:', error);
+          }
         }
       }}
       selectedKey={user?.email}

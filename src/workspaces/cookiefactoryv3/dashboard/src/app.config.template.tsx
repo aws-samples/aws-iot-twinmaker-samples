@@ -3,6 +3,7 @@
 
 import { addSeconds } from 'date-fns';
 
+import type { NodeSingular } from '@iot-prototype-kit/core/graph/types';
 import { DashboardIcon } from '@iot-prototype-kit/components/svgs/icons/DashboardIcon';
 import { NetworkIcon } from '@iot-prototype-kit/components/svgs/icons/NetworkIcon';
 import { ProcessPanel } from '@iot-prototype-kit/components/views/PanelView/panels/ProcessPanel';
@@ -128,7 +129,7 @@ export const panelConfigs: PanelConfig[] = [
         id={processPanelId}
         key={processPanelId}
         label="Process"
-        overlayContent={(node) => <OverlayContent node={node} />}
+        overlayContent={(node: NodeSingular) => <OverlayContent node={node} />}
       />
     ),
     id: processPanelId

@@ -9,9 +9,10 @@
     "preview": "vite preview --host --https"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "3.414.0",
-    "@aws-sdk/client-iottwinmaker": "3.414.0",
-    "@aws-sdk/credential-provider-cognito-identity": "3.414.0",
+    "@aws-sdk/client-cognito-identity": "3.423.0",
+    "@aws-sdk/client-cognito-identity-provider": "3.423.0",
+    "@aws-sdk/client-iottwinmaker": "3.423.0",
+    "@aws-sdk/credential-provider-cognito-identity": "3.423.0",
     "@iot-app-kit/react-components": "9.2.0",
     "@iot-app-kit/scene-composer": "9.2.0",
     "@iot-app-kit/source-iottwinmaker": "9.2.0",
@@ -23,7 +24,8 @@
     "nanostores": "0.9.3",
     "parse-duration": "1.1.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.22.3"
   },
   "devDependencies": {
     "@types/cytoscape": "3.19.11",

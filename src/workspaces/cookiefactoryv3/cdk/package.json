@@ -12,6 +12,11 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "^2.1.0",
+    "@babel/types": "^7.25.2",
+    "@types/babel__generator": "^7.6.8",
+    "@types/babel__template": "^7.4.4",
+    "@types/babel__traverse": "^7.20.6",
+    "@types/graceful-fs": "^4.1.9",
     "@types/jest": "27.0.2",
     "@types/node": "^10.17.27",
     "aws-cdk-lib": "^2.0.0",
@@ -22,12 +27,11 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/aws-lambda-python-alpha": "2.68.0-alpha.0",
-
     "@aws-cdk/aws-glue": "1.204.0",
     "@aws-cdk/aws-iotsitewise": "1.204.0",
     "@aws-cdk/aws-kinesisanalytics": "1.204.0",
     "@aws-cdk/aws-lambda": "1.204.0",
+    "@aws-cdk/aws-lambda-python-alpha": "2.68.0-alpha.0",
     "@aws-cdk/aws-logs": "1.204.0",
     "@aws-cdk/aws-s3": "1.204.0",
     "@aws-cdk/core": "1.204.0",
