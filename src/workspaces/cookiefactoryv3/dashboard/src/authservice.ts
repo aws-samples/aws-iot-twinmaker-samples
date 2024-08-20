@@ -31,9 +31,7 @@ export function logOutUser() {
     sessionStorage.removeItem(`accessToken`);
     sessionStorage.removeItem(`idToken`);
     sessionStorage.removeItem(`refreshToken`);
-
-    // Redirect to the login page
-    window.location.href = "/login";
+   
   } else {
     console.log("No user is currently logged in.");
   }

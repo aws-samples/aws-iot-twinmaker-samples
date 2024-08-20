@@ -30,24 +30,43 @@ aws ecr-public get-login-password --region us-east-1 | docker login --username A
 npm install
 
 python3 -m pip install boto3
-python3 ../../cookiefactory/setup_cloud_resources/create_iottwinmaker_workspace_role.py --region $AWS_DEFAULT_REGION > /tmp/create_iottwinmaker_workspace_role.out
-TWINMAKER_ROLE_ARN=$(head -n1 /tmp/create_iottwinmaker_workspace_role.out | cut -d " " -f4)
+
+# Check if the IAM role already exists
+TWINMAKER_ROLE_NAME="TwinMakerRole-$WORKSPACE_ID"
+TWINMAKER_ROLE_ARN=$(aws iam get-role --role-name $TWINMAKER_ROLE_NAME --query 'Role.Arn' --output text 2>/dev/null || true)
+
+if [ -z "$TWINMAKER_ROLE_ARN" ]; then
+  echo "Creating IAM role..."
+  python3 ../../cookiefactory/setup_cloud_resources/create_iottwinmaker_workspace_role.py --region $AWS_DEFAULT_REGION > /tmp/create_iottwinmaker_workspace_role.out
+  TWINMAKER_ROLE_ARN=$(head -n1 /tmp/create_iottwinmaker_workspace_role.out | cut -d " " -f4)
+else
+  echo "IAM role already exists: $TWINMAKER_ROLE_ARN"
+fi
+
 echo "TWINMAKER_ROLE_ARN: ${TWINMAKER_ROLE_ARN}"
 
-# create S3 bucket
-aws s3 mb s3://$WS_S3_BUCKET --region $AWS_DEFAULT_REGION
-aws s3api put-public-access-block --cli-input-json '{"Bucket": "'$WS_S3_BUCKET'","PublicAccessBlockConfiguration": {"BlockPublicAcls": true,"IgnorePublicAcls": true,"BlockPublicPolicy": true,"RestrictPublicBuckets": true}}' --region $AWS_DEFAULT_REGION
-aws s3api put-bucket-cors --cli-input-json '{"Bucket": "'$WS_S3_BUCKET'","CORSConfiguration": {"CORSRules": [{"AllowedHeaders": ["*"],"AllowedMethods": ["GET","PUT","POST","DELETE","HEAD"],"AllowedOrigins": ["*"],"ExposeHeaders": ["ETag"]}]}}' --region $AWS_DEFAULT_REGION
+# Check if the S3 bucket already exists
+if aws s3api head-bucket --bucket "$WS_S3_BUCKET" 2>/dev/null; then
+  echo "S3 bucket already exists: $WS_S3_BUCKET"
+else
+  echo "Creating S3 bucket..."
+  aws s3 mb s3://$WS_S3_BUCKET --region $AWS_DEFAULT_REGION
+  aws s3api put-public-access-block --cli-input-json '{"Bucket": "'$WS_S3_BUCKET'","PublicAccessBlockConfiguration": {"BlockPublicAcls": true,"IgnorePublicAcls": true,"BlockPublicPolicy": true,"RestrictPublicBuckets": true}}' --region $AWS_DEFAULT_REGION
+  aws s3api put-bucket-cors --cli-input-json '{"Bucket": "'$WS_S3_BUCKET'","CORSConfiguration": {"CORSRules": [{"AllowedHeaders": ["*"],"AllowedMethods": ["GET","PUT","POST","DELETE","HEAD"],"AllowedOrigins": ["*"],"ExposeHeaders": ["ETag"]}]}}' --region $AWS_DEFAULT_REGION
+fi
 
 echo "CREATE WORKSPACE JSON"
 echo '{"role": "'$TWINMAKER_ROLE_ARN'","s3Location": "arn:aws:s3:::'$WS_S3_BUCKET'","workspaceId": "'$WORKSPACE_ID'"}'
 
-# TODO remove blind sleep
-echo "sleep 10 seconds for IAM..."
-sleep 10
+# Check if the workspace already exists
+WORKSPACE_EXISTS=$(aws iottwinmaker get-workspace --workspace-id "$WORKSPACE_ID" --query 'workspaceId' --output text 2>/dev/null || true)
 
-# create workspace
-aws iottwinmaker create-workspace --cli-input-json '{"role": "'$TWINMAKER_ROLE_ARN'","s3Location": "arn:aws:s3:::'$WS_S3_BUCKET'","workspaceId": "'$WORKSPACE_ID'"}' --region $AWS_DEFAULT_REGION >> /dev/null
+if [ -z "$WORKSPACE_EXISTS" ]; then
+  echo "Creating IoT TwinMaker workspace..."
+  aws iottwinmaker create-workspace --cli-input-json '{"role": "'$TWINMAKER_ROLE_ARN'","s3Location": "arn:aws:s3:::'$WS_S3_BUCKET'","workspaceId": "'$WORKSPACE_ID'"}' --region $AWS_DEFAULT_REGION >> /dev/null
+else
+  echo "IoT TwinMaker workspace already exists: $WORKSPACE_ID"
+fi
 
 cdk deploy \
     --context stackName="${CFN_STACK_NAME}" \
@@ -71,7 +90,6 @@ aws iottwinmaker get-property-value-history  --cli-input-json '{
     "orderByTime": "DESCENDING"
 }' --region $AWS_DEFAULT_REGION > /tmp/out.txt
 cat /tmp/out.txt
-
 
 # echo exports to use for app
 echo "AWS resources setup complete"

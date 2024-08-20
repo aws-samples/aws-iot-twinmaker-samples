@@ -2,12 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as cdk from 'aws-cdk-lib';
-import {CustomResource} from 'aws-cdk-lib';
+import {CustomResource, SecretValue} from 'aws-cdk-lib';
 import * as lambdapython from "@aws-cdk/aws-lambda-python-alpha";
 import * as iam from "aws-cdk-lib/aws-iam";
 import {Effect, PolicyStatement} from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as logs from 'aws-cdk-lib/aws-logs';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as path from 'path';
 
 import * as timestream from "aws-cdk-lib/aws-timestream";
@@ -391,14 +392,21 @@ export class CookieFactoryV3Stack extends cdk.Stack {
         // Create Cognito Resources: User Pool, User Client, User, Identity Pool 
         const userPool = new cognito.UserPool(this, "CookiefactoryUserPool", {
             userPoolName: "CookiefactoryUserPool",
-            selfSignUpEnabled: false, 
+            selfSignUpEnabled: true, 
             signInAliases: {
                 email: true,
             },
             autoVerify: {
-                email: false,
+                email: true,
             },
             accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
+            customAttributes: {
+                title: new cognito.StringAttribute({ 
+                    minLen: 0, 
+                    maxLen: 50, // Set the maximum length as needed
+                    mutable: true  // Set to false if you don't want the user to change this attribute after sign-up
+                  }),
+            },
             email: cognito.UserPoolEmail.withCognito(),
             mfa: cognito.Mfa.OFF,
             passwordPolicy: {
@@ -420,25 +428,10 @@ export class CookieFactoryV3Stack extends cdk.Stack {
             idTokenValidity: cdk.Duration.minutes(60),
             authFlows: {
                 userSrp: true,
+                userPassword: true
               },
             preventUserExistenceErrors: true,
         });
-
-        const cfnUserPoolUser = new cognito.CfnUserPoolUser(this, 'MyCfnUserPoolUser', {
-            userPoolId: userPool.userPoolId,
-            userAttributes: [
-                {
-                    name: 'email_verified',
-                    value: 'true',
-                },
-                {
-                    name: 'email',
-                    value: 'user@cookiefactory',
-                }
-            ],
-            username: 'user@cookiefactory',
-            forceAliasCreation: true,
-          }); 
 
         const identityPool = new cognito.CfnIdentityPool(this, "CookiefactoryIdentityPool", {
             identityPoolName: "CookiefactoryIdentityPool",
@@ -510,25 +503,24 @@ export class CookieFactoryV3Stack extends cdk.Stack {
              },
              defaultRootObject: 'index.html',
          });
- 
 
-         // Export values
-         new CfnOutput(this, 'DistributionDomainName', {
-            value: distribution.distributionDomainName,
+         const cookieFactorySecret = new secretsmanager.Secret(this, `CFV3ParamSecret`, {
+            secretObjectValue: {
+                userPoolId: SecretValue.unsafePlainText(userPool.userPoolId),
+                clientId: SecretValue.unsafePlainText(userPoolClient.userPoolClientId),
+                region: SecretValue.unsafePlainText(this.region),
+                identityPoolId: SecretValue.unsafePlainText(identityPool.ref),
+                distributionDomainName: SecretValue.unsafePlainText(distribution.distributionDomainName),
+                viteBucketName: SecretValue.unsafePlainText(viteBucket.bucketName)
+            },
+            secretName: `CFV3Secrets`,
+            description: 'Cookie Factory Key Secrets'
         });
         
-        new CfnOutput(this, 'ViteBucketName', {
-            value: viteBucket.bucketName,
-        });
 
-        new CfnOutput(this, "UserPoolId", {
-            value: userPool.userPoolId,
-        });
-        new CfnOutput(this, "ClientId", {
-            value: userPoolClient.userPoolClientId,
-        });
-        new CfnOutput(this, "IdentityPoolId", {
-            value: identityPool.ref,
+         // Export values
+        new CfnOutput(this, "CookieFactorySecretName", {
+            value: cookieFactorySecret.secretName,
         });
 
         // lambda layer for helper utilities for implementing UDQ Lambdas
