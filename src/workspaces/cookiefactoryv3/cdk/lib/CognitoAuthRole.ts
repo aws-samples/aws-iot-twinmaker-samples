@@ -8,6 +8,8 @@ import * as cognito from "aws-cdk-lib/aws-cognito";
 export default class CognitoAuthRole extends Construct {
   // Public reference to the IAM role
   role: iam.Role;
+  region: string;
+  account: string
 
   constructor(scope: Construct, id: string, props?: any) {
     super(scope, id);
@@ -29,17 +31,23 @@ export default class CognitoAuthRole extends Construct {
         "sts:AssumeRoleWithWebIdentity"
       ),
     });
+   
+
+
     this.role.addToPolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
         actions: [
-          "mobileanalytics:PutEvents",
-          "cognito-sync:*",
-          "cognito-identity:*",
+          "cognito-identity:GetId",
+          "cognito-identity:GetCredentialsForIdentity",
+          "cognito-identity:DescribeIdentity",
         ],
-        resources: ["*"],
+        resources: [
+          `arn:aws:cognito-identity:${this.region}:${this.account}:identitypool/${identityPool.ref}`
+        ],
       })
     );
+    
 
     new cognito.CfnIdentityPoolRoleAttachment(
       this,

@@ -446,6 +446,8 @@ export class CookieFactoryV3Stack extends cdk.Stack {
 
         const authenticatedRole = new CognitoAuthRole(this, "CognitoAuthRole", {
             identityPool,
+            region: this.region,
+            account: this.account
         });
 
         authenticatedRole.role.addToPolicy(
