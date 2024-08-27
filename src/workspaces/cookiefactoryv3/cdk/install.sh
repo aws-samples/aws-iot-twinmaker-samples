@@ -31,19 +31,8 @@ npm install
 
 python3 -m pip install boto3
 
-# Check if the IAM role already exists
-TWINMAKER_ROLE_NAME="TwinMakerRole-$WORKSPACE_ID"
-TWINMAKER_ROLE_ARN=$(aws iam get-role --role-name $TWINMAKER_ROLE_NAME --query 'Role.Arn' --output text 2>/dev/null || true)
-
-if [ -z "$TWINMAKER_ROLE_ARN" ]; then
-  echo "Creating IAM role..."
-  python3 ../../cookiefactory/setup_cloud_resources/create_iottwinmaker_workspace_role.py --region $AWS_DEFAULT_REGION > /tmp/create_iottwinmaker_workspace_role.out
-  TWINMAKER_ROLE_ARN=$(head -n1 /tmp/create_iottwinmaker_workspace_role.out | cut -d " " -f4)
-else
-  echo "IAM role already exists: $TWINMAKER_ROLE_ARN"
-fi
-
-echo "TWINMAKER_ROLE_ARN: ${TWINMAKER_ROLE_ARN}"
+python3 ../../cookiefactory/setup_cloud_resources/create_iottwinmaker_workspace_role.py --region $AWS_DEFAULT_REGION > /tmp/create_iottwinmaker_workspace_role.out
+TWINMAKER_ROLE_ARN=$(head -n1 /tmp/create_iottwinmaker_workspace_role.out | cut -d " " -f4)
 
 # Check if the S3 bucket already exists
 if aws s3api head-bucket --bucket "$WS_S3_BUCKET" 2>/dev/null; then
@@ -57,6 +46,9 @@ fi
 
 echo "CREATE WORKSPACE JSON"
 echo '{"role": "'$TWINMAKER_ROLE_ARN'","s3Location": "arn:aws:s3:::'$WS_S3_BUCKET'","workspaceId": "'$WORKSPACE_ID'"}'
+
+echo "sleep 10 seconds for IAM..."
+sleep 10
 
 # Check if the workspace already exists
 WORKSPACE_EXISTS=$(aws iottwinmaker get-workspace --workspace-id "$WORKSPACE_ID" --query 'workspaceId' --output text 2>/dev/null || true)

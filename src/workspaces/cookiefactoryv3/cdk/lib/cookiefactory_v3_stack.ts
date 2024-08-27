@@ -474,7 +474,7 @@ export class CookieFactoryV3Stack extends cdk.Stack {
             new iam.PolicyStatement({
                 actions: ["iottwinmaker:ListWorkspaces"],
                 effect: iam.Effect.ALLOW,
-                resources: ["*"],
+                resources: [`arn:aws:iottwinmaker:${this.region}:${this.account}:workspace/*`],
             })
         );
         authenticatedRole.role.addToPolicy(
@@ -495,6 +495,20 @@ export class CookieFactoryV3Stack extends cdk.Stack {
              publicReadAccess: false,
              blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
          });
+
+         viteBucket.addToResourcePolicy(new iam.PolicyStatement({
+            effect: Effect.DENY,
+            principals: [new iam.AnyPrincipal()],
+            actions: ['s3:*'],
+            resources: [
+              viteBucket.arnForObjects('*'),
+              viteBucket.bucketArn,
+            ],
+            conditions: {
+              'Bool': { 'aws:SecureTransport': 'false' }
+            }
+          }));
+          
         
          viteBucket.grantRead(originAccessIdentity);
  
@@ -503,6 +517,7 @@ export class CookieFactoryV3Stack extends cdk.Stack {
                  origin: new origins.S3Origin(viteBucket, { originAccessIdentity }),
                  viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
              },
+             minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
              defaultRootObject: 'index.html',
          });
 
