@@ -31,9 +31,6 @@ npm install
 
 python3 -m pip install boto3
 
-python3 ../../cookiefactory/setup_cloud_resources/create_iottwinmaker_workspace_role.py --region $AWS_DEFAULT_REGION > /tmp/create_iottwinmaker_workspace_role.out
-TWINMAKER_ROLE_ARN=$(head -n1 /tmp/create_iottwinmaker_workspace_role.out | cut -d " " -f4)
-
 # Check if the S3 bucket already exists
 if aws s3api head-bucket --bucket "$WS_S3_BUCKET" 2>/dev/null; then
   echo "S3 bucket already exists: $WS_S3_BUCKET"
@@ -44,17 +41,20 @@ else
   aws s3api put-bucket-cors --cli-input-json '{"Bucket": "'$WS_S3_BUCKET'","CORSConfiguration": {"CORSRules": [{"AllowedHeaders": ["*"],"AllowedMethods": ["GET","PUT","POST","DELETE","HEAD"],"AllowedOrigins": ["*"],"ExposeHeaders": ["ETag"]}]}}' --region $AWS_DEFAULT_REGION
 fi
 
-echo "CREATE WORKSPACE JSON"
-echo '{"role": "'$TWINMAKER_ROLE_ARN'","s3Location": "arn:aws:s3:::'$WS_S3_BUCKET'","workspaceId": "'$WORKSPACE_ID'"}'
-
-echo "sleep 10 seconds for IAM..."
-sleep 10
-
 # Check if the workspace already exists
 WORKSPACE_EXISTS=$(aws iottwinmaker get-workspace --workspace-id "$WORKSPACE_ID" --query 'workspaceId' --output text 2>/dev/null || true)
 
 if [ -z "$WORKSPACE_EXISTS" ]; then
-  echo "Creating IoT TwinMaker workspace..."
+  echo "create twinmaker role"
+  python3 ../../cookiefactory/setup_cloud_resources/create_iottwinmaker_workspace_role.py --region $AWS_DEFAULT_REGION > /tmp/create_iottwinmaker_workspace_role.out
+  echo "sleep 10 seconds for IAM..."
+  sleep 10
+
+  TWINMAKER_ROLE_ARN=$(head -n1 /tmp/create_iottwinmaker_workspace_role.out | cut -d " " -f4)
+
+  echo "CREATE WORKSPACE JSON"
+  echo '{"role": "'$TWINMAKER_ROLE_ARN'","s3Location": "arn:aws:s3:::'$WS_S3_BUCKET'","workspaceId": "'$WORKSPACE_ID'"}'
+  
   aws iottwinmaker create-workspace --cli-input-json '{"role": "'$TWINMAKER_ROLE_ARN'","s3Location": "arn:aws:s3:::'$WS_S3_BUCKET'","workspaceId": "'$WORKSPACE_ID'"}' --region $AWS_DEFAULT_REGION >> /dev/null
 else
   echo "IoT TwinMaker workspace already exists: $WORKSPACE_ID"
