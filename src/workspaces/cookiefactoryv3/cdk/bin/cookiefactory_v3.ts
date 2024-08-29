@@ -169,37 +169,4 @@ NagSuppressions.addResourceSuppressionsByPath(
   ]
 );
 
-NagSuppressions.addResourceSuppressionsByPath(
-  stack,
-  '/CookieFactoryV3Stack/TmdtApp/iottwinmakerCustomResourceLifecycleFunctionRole/Resource',
-  [
-    {
-      id: 'AwsSolutions-IAM4',
-      reason: 'AWS managed policies are used for demo purposes but should be replaced with custom policies for production.',
-    },
-  ]
-);
-
-NagSuppressions.addResourceSuppressionsByPath(
-  stack,
-  '/CookieFactoryV3Stack/TmdtApp/iottwinmakerCustomResourceLifecycleFunctionRole/DefaultPolicy/Resource',
-  [
-    {
-      id: 'AwsSolutions-IAM5',
-      reason: 'Wildcard permissions are necessary for demo purposes but should be scoped down in production.',
-    },
-  ]
-);
-
-NagSuppressions.addResourceSuppressionsByPath(
-  stack,
-  '/CookieFactoryV3Stack/TmdtApp/iottwinmakerDataCustomResourceHandler/Resource',
-  [
-    {
-      id: 'AwsSolutions-L1',
-      reason: 'The non-container Lambda function is not configured to use the latest runtime version for the demo, but this should be updated in production.',
-    },
-  ]
-);
-
 app.synth();
