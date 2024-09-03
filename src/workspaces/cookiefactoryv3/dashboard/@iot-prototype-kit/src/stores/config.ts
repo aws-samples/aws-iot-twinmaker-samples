@@ -4,7 +4,7 @@
 import { action, atom } from '@iot-prototype-kit/core/store';
 import type { AppConfig } from '@iot-prototype-kit/types';
 
-const DEFAULT_STATE: AppConfig = { userConfigs: [] };
+const DEFAULT_STATE: AppConfig = {  userConfigs: [] };
 
 export const $appConfig = atom<AppConfig>(DEFAULT_STATE);
 

@@ -12,6 +12,9 @@ import { isNil } from '@iot-prototype-kit/core/utils/lang2';
 import { $user, resetUser } from '@iot-prototype-kit/stores/user';
 import { authenticateUser, getUserFullName } from '@iot-prototype-kit/utils/user';
 import { getUserConfigs } from '@iot-prototype-kit/utils/config';
+import { useNavigate } from 'react-router-dom';
+
+import {logOutUser} from '@/authservice'
 
 import common from '../common.module.css';
 import styles from './styles.module.css';
@@ -19,14 +22,15 @@ import styles from './styles.module.css';
 export function UserMenu({ children, className, ...props }: ComponentProps) {
   const user = useStore($user);
   const userConfigs = getUserConfigs();
+  const navigate = useNavigate();;
 
   if (isNil(user)) return null;
 
   const items: Record<string, ReactNode> = {};
 
   userConfigs.forEach((userConfig) => {
-    items[userConfig.email] = (
-      <UserMenuItem label={getUserFullName(user)} selected={userConfig.email === user?.email} />
+    items[user.email] = (
+      <UserMenuItem label={getUserFullName(user)} selected={true} />
     );
   });
 
@@ -37,12 +41,19 @@ export function UserMenu({ children, className, ...props }: ComponentProps) {
       className={createClassName(common.menu, styles.menu, className)}
       items={items}
       onSelect={async (value) => {
-        const userConfig = userConfigs.find(({ email }) => email === value) ?? null;
 
-        if (userConfig) {
-          $user.set(await authenticateUser(userConfig));
+        console.log(value)
+
+        if (user) {
+          try {
+            logOutUser()
+            resetUser();
+            navigate('/login');
+          } catch (error) {
+            console.error('Error signing out:', error);
+          }
         } else {
-          resetUser();
+          console.log("no user")
         }
       }}
       selectedKey={user?.email}

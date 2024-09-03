@@ -2,22 +2,31 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { getAwsCredentials } from '@iot-prototype-kit/core/auth/cognito';
+import type { CognitoAuthenticatedFlowConfig, AuthenticatedUserConfig } from '@iot-prototype-kit/core/auth/cognito';
 import type { User, UserConfig } from '@iot-prototype-kit/types';
 import type { ValueOf } from 'type-fest';
 
-export async function authenticateUser({ cognito, password, ...user }: UserConfig): Promise<User | null> {
+export async function authenticateUser(
+  cognito: CognitoAuthenticatedFlowConfig, 
+  password: string, 
+  user: Omit<User, 'awsCredentials' | 'id'>
+): Promise<User | null> {
   try {
-    const awsCredentials = await getAwsCredentials({ ...cognito, username: user.email, password: password });
-    return { awsCredentials, id: crypto.randomUUID(), ...user };
+    const awsCredentials = await getAwsCredentials({ ...cognito, password:password, username: user.email });
+    return { 
+      ...user,
+      awsCredentials: awsCredentials as Readonly<typeof awsCredentials>, 
+      id: crypto.randomUUID(),  
+    };
   } catch {
     return null;
   }
 }
 
-export function findUserConfig(userConfigs: UserConfig[], email: ValueOf<UserConfig, 'email'>): UserConfig | undefined {
-  return userConfigs.find((userConfig) => userConfig.email === email);
-}
+// export function findUserConfig(userConfigs: UserConfig[], email: ValueOf<UserConfig, 'email'>): UserConfig | undefined {
+//   return userConfigs.find((userConfig) => userConfig.email === email);
+// }
 
-export function getUserFullName({ firstName, lastName }: User | UserConfig): string {
+export function getUserFullName({ firstName, lastName }: User ): string {
   return `${firstName} ${lastName ?? ''}`.trim();
 }

@@ -299,25 +299,23 @@ export type TwinMakerQueryEdgeData = {
   sourceComponentTypeId: string;
 };
 
-export type User = Except<UserConfig, 'cognito' | 'password'> &
-  Readonly<{
-    awsCredentials: Readonly<AwsCredentials>;
-    id: string;
-  }>;
+export type User = UserConfig & {
+  firstName: string;
+  lastName: string;
+  title: string;
+  email: string;
+  readonly awsCredentials: Readonly<AwsCredentials>;
+  readonly id: string;
+};
 
 export type UserConfig = Readonly<{
-  cognito: CognitoAuthenticatedFlowConfig;
   siteConfigs: SiteConfig[];
-  email: string;
-  password: string;
-  firstName: string;
-  lastName?: string;
-  title: string;
   avatar?: ReactNode;
 }>;
 
 export type AppConfig = {
   branding?: ReactNode;
   statusBarComponents?: ReactNode | ReactNode[];
+  cognito: CognitoAuthenticatedFlowConfig;
   userConfigs: UserConfig[];
 };

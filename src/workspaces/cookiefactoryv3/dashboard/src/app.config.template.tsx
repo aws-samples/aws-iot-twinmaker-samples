@@ -3,6 +3,7 @@
 
 import { addSeconds } from 'date-fns';
 
+import type { NodeSingular } from '@iot-prototype-kit/core/graph/types';
 import { DashboardIcon } from '@iot-prototype-kit/components/svgs/icons/DashboardIcon';
 import { NetworkIcon } from '@iot-prototype-kit/components/svgs/icons/NetworkIcon';
 import { ProcessPanel } from '@iot-prototype-kit/components/views/PanelView/panels/ProcessPanel';
@@ -128,7 +129,7 @@ export const panelConfigs: PanelConfig[] = [
         id={processPanelId}
         key={processPanelId}
         label="Process"
-        overlayContent={(node) => <OverlayContent node={node} />}
+        overlayContent={(node: NodeSingular) => <OverlayContent node={node} />}
       />
     ),
     id: processPanelId
@@ -514,18 +515,14 @@ const cameraEntityConfigs: EntityConfig[] = [
 const appConfig: AppConfig = {
   branding: <CookieFactoryLogoWide />,
   statusBarComponents: <EventActivityStatus panelId={eventsPanelId} />,
+  cognito: {
+    clientId: '__FILL_IN__',
+    identityPoolId: '__FILL_IN__',
+    region: '__FILL_IN__',
+    userPoolId: '__FILL_IN__'
+  },
   userConfigs: [
     {
-      email: 'user@cookiefactory',
-      password: '__FILL_IN__',
-      firstName: 'Spencer',
-      title: 'Line Operator',
-      cognito: {
-        clientId: '__FILL_IN__',
-        identityPoolId: '__FILL_IN__',
-        region: '__FILL_IN__',
-        userPoolId: '__FILL_IN__'
-      },
       siteConfigs: [
         {
           id: crypto.randomUUID(),
