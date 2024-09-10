@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from langchain import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
 from langchain.callbacks.manager import (
@@ -15,15 +15,15 @@ from langchain.callbacks.manager import (
 from langchain.chains.base import Chain
 from langchain.schema.language_model import BaseLanguageModel
 
-from .llm import get_bedrock_text, get_processed_prompt_template
+from .llm import get_bedrock_text_v3_sonnet, get_processed_prompt_template_sonnet
 
-default_llm = get_bedrock_text()
+default_llm = get_bedrock_text_v3_sonnet()
 
 question_classifier_prompt = """
 You are a technical assistant to help the cooke line operators to investigate product quality issues. \
 Your task is take the "Collected Information" from alarm systems, summarize the issue and provide prescriptive suggestions as "Initial Diagnosis" based on \
 your knowledge about cookie production to provide initial suggestions for line operators to investigate the issue. Be concise and professional in the response. \
-Translate technical terms to business terms so it's easy for line operators to read and understand, for example, timestamps should be converted to local user friendly format.
+Translate technical terms to business terms so it's easy for line operators to read and understand, for example, timestamps should be converted to local user friendly format and use today's date instead of the one provided for October 23rd 2023.
 
 <example>
 Collected information
@@ -95,7 +95,7 @@ class InitialDiagnosisChain(Chain):
     ) -> InitialDiagnosisChain:
         router_template = question_classifier_prompt
         router_prompt = PromptTemplate(
-            template=get_processed_prompt_template(router_template),
+            template=get_processed_prompt_template_sonnet(router_template),
             input_variables=["event_title", "event_description", "event_timestamp"],
         )
         llm_chain = LLMChain(llm=llm, prompt=router_prompt)

@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Mapping, NamedTuple, Optional
 
-from langchain import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
 from langchain.callbacks.manager import (
@@ -21,10 +21,11 @@ from .tools.view import ViewChain
 from .tools.qa import QAChain
 from .tools.graph import GraphChain
 from .tools.general import GeneralChain
+from .tools.inspect_sensor_data import InspectChain
 
-from .llm import get_bedrock_text, get_processed_prompt_template
+from .llm import get_bedrock_text_v3_sonnet, get_processed_prompt_template_sonnet
 
-default_llm = get_bedrock_text()
+default_llm = get_bedrock_text_v3_sonnet()
 
 question_classifier_prompt = """
 You are given an instruction. The instruction is either a command or a question. You need to decide the type of the instruction provided by user. 
@@ -34,6 +35,7 @@ The only valid options are:
 - 3dview: if the instruction is a command about manipulating the 3D viewer
 - doc: if the instruction is a question about standard procedures in the knowledge base
 - graph: if the instruction is a question about finding information of the entities in the factory
+- inspect: if the instruction is a question about analyzing historical data for a freezer
 - general: if none of the above applies
 
 You must give an answer using one of the valid options, and you should write out the answer without further explanation.
@@ -45,6 +47,9 @@ Answer: graph
 
 Instruction: how to operate the cookie line?
 Answer: doc
+
+Instruction: Can you analyze the last 15 minutes of data for the freezer tunnel for any potential issues?
+Answer: inspect
 
 Instruction: what are the potential causes of the inconsistent cookie shape?
 Answer: general
@@ -134,7 +139,7 @@ class LLMRouterChain(Chain):
     ) -> LLMRouterChain:
         router_template = question_classifier_prompt
         router_prompt = PromptTemplate(
-            template=get_processed_prompt_template(router_template),
+            template=get_processed_prompt_template_sonnet(router_template),
             input_variables=["question"],
         )
         llm_chain = LLMChain(llm=llm, prompt=router_prompt)
@@ -223,6 +228,10 @@ def create_routes(memory):
         {
             "name": "general",
             "chain": GeneralChain()
+        },
+        {
+            "name": "inspect",
+            "chain": InspectChain()
         },
         {
             "name": "3dview",

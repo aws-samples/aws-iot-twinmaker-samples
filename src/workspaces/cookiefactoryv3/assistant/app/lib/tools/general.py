@@ -3,7 +3,8 @@
 
 from typing import Any, Dict, List, Optional
 
-from langchain import LLMChain, PromptTemplate
+from langchain_core.prompts import PromptTemplate
+from langchain import LLMChain
 from langchain.agents import tool
 from langchain.chains.base import Chain
 from langchain.callbacks.manager import (
@@ -11,10 +12,10 @@ from langchain.callbacks.manager import (
     CallbackManagerForChainRun,
 )
 
-from ..llm import get_bedrock_text, get_processed_prompt_template
+from ..llm import get_bedrock_text_v3_sonnet, get_processed_prompt_template_sonnet
 
-llm = get_bedrock_text()
-prompt_template = get_processed_prompt_template("{question}")
+llm = get_bedrock_text_v3_sonnet()
+prompt_template = get_processed_prompt_template_sonnet("{question}")
 
 def get_tool_metadata():
     return {

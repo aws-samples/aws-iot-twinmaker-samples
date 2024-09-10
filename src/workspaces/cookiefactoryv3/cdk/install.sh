@@ -60,12 +60,14 @@ else
   echo "IoT TwinMaker workspace already exists: $WORKSPACE_ID"
 fi
 
+echo "STACK_NAME=$CFN_STACK_NAME"
+
 cdk deploy \
-    --context stackName="${CFN_STACK_NAME}" \
+    --context stackName="$CFN_STACK_NAME" \
     --context iottwinmakerWorkspaceId="$WORKSPACE_ID" \
     --context iottwinmakerWorkspaceBucket="$WS_S3_BUCKET" --require-approval never
 
-# TODO fix in TmdtApp - handling for tiles assets
+# TODO fix in TmdtApp - handlinr tiles assets
 aws s3 cp --recursive ../tmdt_project/3d_models/ s3://${WS_S3_BUCKET}
 
 # verify data connector accessible
@@ -82,6 +84,29 @@ aws iottwinmaker get-property-value-history  --cli-input-json '{
     "orderByTime": "DESCENDING"
 }' --region $AWS_DEFAULT_REGION > /tmp/out.txt
 cat /tmp/out.txt
+
+SECRET_NAME="CFV3Secrets"
+
+SECRET=$(aws secretsmanager get-secret-value --secret-id $SECRET_NAME --query SecretString --output text)
+
+if [ $? -ne 0 ]; then
+  echo "Error: Failed to retrieve the secret with ID $SECRET_NAME .The secret may not exist or you do not have permissions to access it."
+  exit 1
+fi
+
+COMPANY_ASSETS_BUCKET_NAME=$(echo $SECRET | jq -r '.companyAssetsBucketName')
+ORIGIN_ACCES_ID=$(echo $SECRET | jq -r '.originAccessIdentityId')
+
+echo "ORIGIN_ACCES_ID: $ORIGIN_ACCES_ID"
+
+
+cdk deploy \
+    --context stackName="CookieFactoryV3ChainlitStack" \
+    --context secretName="$SECRET_NAME" \
+    --context companyAssetsBucketName="$COMPANY_ASSETS_BUCKET_NAME" \
+    --context originAccessIdentityId="$ORIGIN_ACCES_ID" \
+    --require-approval never
+
 
 # echo exports to use for app
 echo "AWS resources setup complete"

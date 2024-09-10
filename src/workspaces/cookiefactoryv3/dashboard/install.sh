@@ -37,20 +37,33 @@ fi
 
 # Retrieve secret values from Secrets Manager
 
-echo "Retrieving secret from Secrets Manager..."
-COOKIE_FACTORY_SECRET=$(aws secretsmanager get-secret-value --secret-id CFV3Secrets --query SecretString --output text)
+# echo "Retrieving secret from Secrets Manager..."
+# COOKIE_FACTORY_SECRET=$(aws secretsmanager get-secret-value --secret-id CFV3Secrets --query SecretString --output text)
 
-if [ $? -ne 0 ]; then
-  echo "Error: Failed to retrieve the secret with ID CFV3Secrets. The secret may not exist or you do not have permissions to access it."
-  exit 1
-fi
+# if [ $? -ne 0 ]; then
+#   echo "Error: Failed to retrieve the secret with ID CFV3Secrets. The secret may not exist or you do not have permissions to access it."
+#   exit 1
+# fi
+# SECRET_NAME="CFV3Secrets"
 
 
-COGNITO_CLIENT_ID=$(echo $COOKIE_FACTORY_SECRET | jq -r '.clientId')
-COGNITO_IDEN_POOL_ID=$(echo $COOKIE_FACTORY_SECRET | jq -r '.identityPoolId')
-COGNITO_USER_POOL_ID=$(echo $COOKIE_FACTORY_SECRET | jq -r '.userPoolId')
-VITE_BUCKET_NAME=$(echo $COOKIE_FACTORY_SECRET | jq -r '.viteBucketName')
-CLOUDFRONT_DIST=$(echo $COOKIE_FACTORY_SECRET | jq -r '.distributionDomainName')
+CFN_STACK_OUTPUTS=$(aws cloudformation describe-stacks --stack-name "${CFN_STACK_NAME}" --output json | jq '.Stacks[0].Outputs')
+
+COGNITO_CLIENT_ID=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="UserPoolClientId").OutputValue')
+COGNITO_IDEN_POOL_ID=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="IdentityPoolId").OutputValue')
+COGNITO_USER_POOL_ID=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="UserPoolId").OutputValue')
+COMPANY_ASSETS_BUCKET_NAME=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="CompanyAssetsBucketName").OutputValue')
+CLOUDFRONT_DIST=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="DistributionDomainName").OutputValue')
+REGION=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="Region").OutputValue')
+KNOWLEDGE_BASE_ID=$(echo $CFN_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="KnowledgeBaseID").OutputValue')
+
+
+CHAINLIT_STACK_OUTPUTS=$(aws cloudformation describe-stacks --stack-name "CookieFactoryV3ChainlitStack" --output json | jq '.Stacks[0].Outputs')
+echo "CHAINLIT_STACK_OUTPUTS: $CHAINLIT_STACK_OUTPUTS"
+
+CHAINLIT_URL=$(echo $CHAINLIT_STACK_OUTPUTS | jq -r '.[] | select(.OutputKey=="ChainlitURL").OutputValue')
+
+echo "CHAINLIT_URL: $CHAINLIT_URL"
 
 # Fill in src/app.config.template.tsx 
 cp src/app.config.template.tsx  src/app.config.tsx 
@@ -60,6 +73,8 @@ sed_cmd "s/identityPoolId: '__FILL_IN__'/identityPoolId: '${COGNITO_IDEN_POOL_ID
 sed_cmd "s/region: '__FILL_IN__'/region: '${AWS_DEFAULT_REGION}'/" src/app.config.tsx 
 sed_cmd "s/userPoolId: '__FILL_IN__'/userPoolId: '${COGNITO_USER_POOL_ID}'/" src/app.config.tsx 
 
+
+sed_cmd "s|chainlitUrl = '__FILL_IN__'|chainlitUrl = '${CHAINLIT_URL}'|" src/app.config.tsx 
 
 echo "build front end"
 npm run build
@@ -71,7 +86,7 @@ if [ ! -d "./dist" ]; then
   exit 1
 fi
 
-aws s3 sync "./dist" "s3://$VITE_BUCKET_NAME/" --delete
+aws s3 sync "./dist" "s3://$COMPANY_ASSETS_BUCKET_NAME/web/" --delete
 
 echo "application is deployed at https://$CLOUDFRONT_DIST"
 

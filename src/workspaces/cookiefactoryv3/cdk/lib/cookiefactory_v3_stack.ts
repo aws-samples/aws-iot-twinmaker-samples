@@ -12,7 +12,7 @@ import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as path from 'path';
 
 import * as timestream from "aws-cdk-lib/aws-timestream";
-import * as iottwinmaker from "aws-cdk-lib/aws-iottwinmaker";
+import * as bedrockstack from "../lib/bedrock/BedrockStack"
 import * as assets from "aws-cdk-lib/aws-s3-assets";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
@@ -21,46 +21,24 @@ import * as s3 from 'aws-cdk-lib/aws-s3'
 import { CfnOutput } from "aws-cdk-lib/core";
 import {Construct} from "constructs";
 import CognitoAuthRole from "./CognitoAuthRole";
+import * as nagsuppressions_stack from './nagsuppressions';
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as twinmakerstack  from "./twinmaker/twinmakerStack"
-import * as fs from "fs";
+import { OriginAccessIdentity } from 'aws-cdk-lib/aws-cloudfront';
 
 const sample_libs_root = path.join(__dirname, "..","..","..","..","libs");
 const sample_modules_root = path.join(__dirname, "..","..","..","..", "modules");
 const cookiefactoryv3_root = path.join(__dirname, "..","..","..","..", "workspaces", "cookiefactoryv3");
 
-export interface TmdtAppProps {
-    workspace_id: string;
-    workspaceBucket: string;
-    tmdtRoot: string;
-    replacements?: { [key: string]: string };
-    account: string;
-    region: string;
-    additionalDataPolicies?: PolicyStatement[];
-}
-
-// verbose logger for debugging
-// enable with `--context verboselogging=true` parameter to `cdk deploy`
-class VerboseLogger {
-    enabled: boolean;
-
-    constructor(scope: Construct) {
-        this.enabled = scope.node.tryGetContext("verboselogging") == 'true';
-    }
-
-    log(str: string) {
-        if (this.enabled) {
-            console.log(str);
-        }
-    }
-}
-
-
-
 export class CookieFactoryV3Stack extends cdk.Stack {
     tmdtApp: twinmakerstack.TmdtApplication
+    bedrockResources: bedrockstack.BedrockResources
+    oai: OriginAccessIdentity;
     
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
+
+        nagsuppressions_stack.applySuppressions(this);
 
         // IoT TwinMaker target environment to deploy to
         const workspaceId = this.node.tryGetContext("iottwinmakerWorkspaceId");
@@ -118,6 +96,7 @@ export class CookieFactoryV3Stack extends cdk.Stack {
             preventUserExistenceErrors: true,
         });
 
+
         const identityPool = new cognito.CfnIdentityPool(this, "CookiefactoryIdentityPool", {
             identityPoolName: "CookiefactoryIdentityPool",
             allowUnauthenticatedIdentities: false, 
@@ -170,60 +149,40 @@ export class CookieFactoryV3Stack extends cdk.Stack {
             })
         );
 
-         // Create CloudFront distribution
-         const originAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'OAI');
+        // Create CloudFront distribution
+        const originAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'OAI');
+        this.oai = originAccessIdentity
         
-         // Create a new S3 bucket
-         const viteBucket = new s3.Bucket(this, 'ViteBucket', {
+        // Create a new S3 bucket
+        const companyAssetsBucket = new s3.Bucket(this, 'CookiefactoryAssetsBucket', {
              removalPolicy: cdk.RemovalPolicy.DESTROY, // NOT recommended for production
              autoDeleteObjects: true, // NOT recommended for production
              publicReadAccess: false,
              blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
          });
 
-         viteBucket.addToResourcePolicy(new iam.PolicyStatement({
-            effect: Effect.DENY,
-            principals: [new iam.AnyPrincipal()],
-            actions: ['s3:*'],
-            resources: [
-              viteBucket.arnForObjects('*'),
-              viteBucket.bucketArn,
-            ],
-            conditions: {
-              'Bool': { 'aws:SecureTransport': 'false' }
-            }
-          }));
+        companyAssetsBucket.grantRead(originAccessIdentity);
+
+          // Deploy local document to the bucket
+        const bucketdeploy = new s3deploy.BucketDeployment(this, 'DeployDocuments', {
+            sources: [s3deploy.Source.asset('documents/')], 
+            destinationBucket: companyAssetsBucket
+        });
+
           
         
-         viteBucket.grantRead(originAccessIdentity);
  
          const distribution = new cloudfront.Distribution(this, 'ViteAppDistribution', {
              defaultBehavior: {
-                 origin: new origins.S3Origin(viteBucket, { originAccessIdentity }),
+                 origin: new origins.S3Origin(companyAssetsBucket, { 
+                    originAccessIdentity,
+                    originPath: '/web'
+                }),
                  viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
              },
              minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
              defaultRootObject: 'index.html',
          });
-
-         const cookieFactorySecret = new secretsmanager.Secret(this, `CFV3ParamSecret`, {
-            secretObjectValue: {
-                userPoolId: SecretValue.unsafePlainText(userPool.userPoolId),
-                clientId: SecretValue.unsafePlainText(userPoolClient.userPoolClientId),
-                region: SecretValue.unsafePlainText(this.region),
-                identityPoolId: SecretValue.unsafePlainText(identityPool.ref),
-                distributionDomainName: SecretValue.unsafePlainText(distribution.distributionDomainName),
-                viteBucketName: SecretValue.unsafePlainText(viteBucket.bucketName)
-            },
-            secretName: `CFV3Secrets`,
-            description: 'Cookie Factory Key Secrets'
-        });
-        
-
-         // Export values
-        new CfnOutput(this, "CookieFactorySecretName", {
-            value: cookieFactorySecret.secretName,
-        });
 
         // lambda layer for helper utilities for implementing UDQ Lambdas
         const udqHelperLayer = new lambdapython.PythonLayerVersion(this, 'udq_utils_layer', {
@@ -364,6 +323,73 @@ export class CookieFactoryV3Stack extends cdk.Stack {
         });
 
         this.tmdtApp.node.addDependency(timestreamTable);
+
+        // Create Bedrock Resources in nested stack
+        this.bedrockResources = new bedrockstack.BedrockResources(this, "BedrockResources", {
+            stack_name: this.stackName,
+            documentBucket: companyAssetsBucket,
+            account: this.account,
+            region: this.region,            
+        });
+        this.bedrockResources.node.addDependency(companyAssetsBucket);
+
+        const cookieFactorySecret = new secretsmanager.Secret(this, `CFV3ParamSecret`, {
+            secretObjectValue: {
+                workspaceId: SecretValue.unsafePlainText(workspaceId),
+                userPoolId: SecretValue.unsafePlainText(userPool.userPoolId),
+                clientId: SecretValue.unsafePlainText(userPoolClient.userPoolClientId),
+                region: SecretValue.unsafePlainText(this.region),
+                identityPoolId: SecretValue.unsafePlainText(identityPool.ref),
+                distributionDomainName: SecretValue.unsafePlainText(distribution.distributionDomainName),
+                companyAssetsBucketName: SecretValue.unsafePlainText(companyAssetsBucket.bucketName),
+                originAccessIdentityId: SecretValue.unsafePlainText(this.oai.originAccessIdentityId),
+                knowledgeBaseID: SecretValue.unsafePlainText(this.bedrockResources.knowledgeBaseId)
+            },
+            secretName: "CFV3Secrets",
+            description: 'Cookie Factory Key Secrets'
+        });
+
+
+        new CfnOutput(this, "KnowledgeBaseID", {
+            value: this.bedrockResources.knowledgeBaseId,
+        })        
+
+        new CfnOutput(this, "CompanyAssetsBucketName", {
+            value: companyAssetsBucket.bucketName,
+        })        
+
+        new CfnOutput(this, "DistributionDomainName", {
+            value: distribution.distributionDomainName,
+        })        
+
+        new CfnOutput(this, "IdentityPoolId", {
+            value: identityPool.ref,
+        })
+        
+        new CfnOutput(this, "Region", {
+            value: this.region,
+        });    
+        
+        new CfnOutput(this, "UserPoolClientId", {
+            value: userPoolClient.userPoolClientId,
+        });        
+
+        new CfnOutput(this, "UserPoolId", {
+            value: userPool.userPoolId,
+        });
+
+        new CfnOutput(this, "WorkspaceId", {
+            value: workspaceId,
+        });
+
+        new CfnOutput(this, "originAccessId", {
+            value: this.oai.originAccessIdentityId,
+        });
+
+         // Export values
+        new CfnOutput(this, "CookieFactorySecretName", {
+            value: cookieFactorySecret.secretName,
+        });
 
     }
 }

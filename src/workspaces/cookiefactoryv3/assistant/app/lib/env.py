@@ -11,3 +11,6 @@ def get_bedrock_region():
 
 def get_workspace_id():
   return os.getenv("WORKSPACE_ID")
+
+def get_knowledge_base_id():
+  return os.getenv("KNOWLEDGE_BASE_ID")

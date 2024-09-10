@@ -1,8 +1,8 @@
 .langchain.db
-
+Dockerfile
 .env
 .python-version
-
+test_run.sh
 *.swp
 package-lock.json
 __pycache__

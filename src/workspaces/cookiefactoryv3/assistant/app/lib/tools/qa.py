@@ -3,31 +3,36 @@
 
 import os
 import re
-import PyPDF2
+import boto3
+import json 
 
 from typing import Any, Dict, List, Optional
 
-from langchain import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain.agents import tool
 from langchain.chains.base import Chain
-from langchain.chains import RetrievalQAWithSourcesChain
+from langchain.chains import RetrievalQA
 from langchain.callbacks.manager import (
     AsyncCallbackManagerForChainRun,
     CallbackManagerForChainRun,
 )
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain_community.retrievers import AmazonKnowledgeBasesRetriever
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough, RunnableParallel
+from langchain_core.output_parsers import StrOutputParser
+from langchain_community.chat_models import BedrockChat
 
 import chainlit as cl
 
-from ..llm import get_bedrock_embedding, get_bedrock_text, get_processed_prompt_template
+from ..env import get_knowledge_base_id
+
+from ..llm import get_bedrock_embedding, get_bedrock_text_v3_sonnet, get_processed_prompt_template_sonnet
 
 embeddings = get_bedrock_embedding()
-llm = get_bedrock_text()
+llm = get_bedrock_text_v3_sonnet()
 metadatas = []
 texts = []
 docsearch = None
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 
 def get_tool_metadata():
     return {
@@ -37,34 +42,11 @@ def get_tool_metadata():
             Input to this tool is a question. \
             Output is the answer.",
     }
-
-def init_db(file):
-  pdf_text = ""
-  global texts
-  global metadatas
-  global docsearch
-  _, filename = os.path.split(file)
-  with open(file, 'rb') as f:
-    pdf = PyPDF2.PdfReader(f)
-    for i in range(len(pdf.pages)):
-      page = pdf.pages[i]
-      current_page_text = page.extract_text()
-      pdf_text += current_page_text
-
-      # Split the text into chunks
-      texts_current_page = text_splitter.split_text(current_page_text)
-      texts = texts + texts_current_page
-      metadatas = metadatas + [{ "source": f"{filename} - page {i+1}" } for _ in range(len(texts_current_page))]
-
-  # Create a Chroma vector store
-  docsearch = Chroma.from_texts(
-      texts, embeddings, metadatas=metadatas
-  )
   
 TEMPLATE_CLAUDE = """Given the information extracted from knowledge base and a question, create a final answer with references.
 
 <document>
-{summaries}
+{context}
 </document>
 
 Here is the question: {question}
@@ -75,7 +57,9 @@ First, find the parts that are most relevant to answering the question, and then
 
 Second, answer the question. Do not include or reference quoted content verbatim in the answer. Don't say "According to Quote [1]" when answering. Instead make references to quotes relevant to each section of the answer solely by adding their bracketed numbers at the end of relevant sentences. If the question cannot be answered by the knowledge base, say that you cannot answer the question based on the knowledge base. Do not make up answers.
 
-The format of the response should look like what's shown between the <example></example> tags. Make sure to follow the formatting and spacing exactly.
+Third, the file names like 'manual.pdf' in the Quotes section should be extracted from an s3 object key path. Only need the file name, not the whole path.
+
+The format of the response should look like what's shown between the <example></example> tags. Do not include <example> in response. Make sure to follow the formatting and spacing exactly.
 
 <example>
 Quotes:
@@ -87,39 +71,34 @@ Company X earned $12 million. [1]  Almost 90% of it was from widget sales. [2]
 </example>
 """
 
-CLAUDE_PROMPT = PromptTemplate(template=get_processed_prompt_template(TEMPLATE_CLAUDE), input_variables=["summaries", "question"])
+CLAUDE_PROMPT = PromptTemplate(template=get_processed_prompt_template_sonnet(TEMPLATE_CLAUDE), input_variables=["context", "question"])
 
 @tool
 def run(input: str) -> str:
-    """Answer the user question using the in memory vector db."""
+    """Answer the user question using Bedrock Agents and a KnowledgeBase."""
 
     global metadatas
     global texts
 
-    # Create a chain that uses the Chroma vector store
-    qa_chain = RetrievalQAWithSourcesChain.from_chain_type(
-        llm=llm,
-        chain_type="stuff",
-        retriever=docsearch.as_retriever(),
+    # Amazon Bedrock - KnowledgeBase Retriever 
+    retriever = AmazonKnowledgeBasesRetriever(
+        knowledge_base_id=get_knowledge_base_id(),
+        retrieval_config={"vectorSearchConfiguration": {"numberOfResults": 4}},
     )
-    
-    qa_chain.combine_documents_chain.llm_chain.prompt = CLAUDE_PROMPT
 
-    output = qa_chain({"question": input})
+    chain = (
+        RunnableParallel({"context": retriever, "question": RunnablePassthrough()})
+        .assign(response = CLAUDE_PROMPT | llm | StrOutputParser())
+        .pick(["response", "context"])
+    )
 
-    if output["answer"] is None:
+    output = chain.invoke(input)
+
+    if output["response"] is None:
         return "I don't know the answer to that question."
-
-    print('answer', output["answer"])
-
-    sources = ''
-    if output["sources"]:
-        if isinstance(output["sources"], str):
-            sources = output["sources"]
-
-    print('sources', sources)
-
-    cl.user_session.set("sources", sources)
+    
+    output["answer"] = output["response"]
+    cl.user_session.set("sources", output["answer"])
 
     return output["answer"]
 
@@ -147,7 +126,7 @@ class QAResult(object):
             return None
         
     def get_file_url(self, quote):
-        return f'/public/{quote[0]}#page={quote[1]}'
+        return f'/docs/{quote[0]}#page={quote[1]}'
         
     def format(self):
         answer = self.answer

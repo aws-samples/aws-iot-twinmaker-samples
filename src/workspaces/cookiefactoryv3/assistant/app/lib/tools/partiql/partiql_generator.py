@@ -1,12 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 # SPDX-License-Identifier: Apache-2.0
 
-from langchain import FewShotPromptTemplate, LLMChain, PromptTemplate
+from langchain_core.prompts import PromptTemplate, FewShotPromptTemplate
+from langchain import LLMChain
 from langchain.agents import tool
 
-from ...llm import get_bedrock_text, get_prefix_prompt_template, get_postfix_prompt_template
+from ...llm import get_bedrock_text_v3_sonnet, get_prefix_prompt_template_sonnet, get_postfix_prompt_template_sonnet
 
-llm = get_bedrock_text()
+llm = get_bedrock_text_v3_sonnet()
 
 few_shot_partiql_examples = [
     {
@@ -87,9 +88,9 @@ example_prompt = PromptTemplate(
 prompt = FewShotPromptTemplate(
     examples=few_shot_partiql_examples,
     example_prompt=example_prompt,
-    prefix=get_prefix_prompt_template("Here are few examples of creating partiql from instruction"),
-    suffix=get_postfix_prompt_template("""
-Create PartiQL statement from instruction. Only write down the PartiQL statement, do not repeat the instruction.
+    prefix=get_prefix_prompt_template_sonnet("Here are few examples of creating partiql from instruction"),
+    suffix=get_postfix_prompt_template_sonnet("""
+Create PartiQL statement strictly from instruction. The syntax must be like the examples. Only write down the PartiQL statement, do not repeat the instruction.
 
 Instruction: {twinmaker_domain_question}
 PartiQL: """),

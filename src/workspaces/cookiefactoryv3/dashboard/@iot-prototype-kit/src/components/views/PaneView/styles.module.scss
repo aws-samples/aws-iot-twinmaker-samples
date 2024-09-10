@@ -539,7 +539,7 @@
         top: 50%;
         left: 50%;
         translate: -50%;
-
+        
         padding: 0 0 10rem 0;
 
         width: 50vw;
@@ -558,7 +558,9 @@
           outline: none;
         }
 
-        z-index: 2;
+        & { 
+          z-index: 2;
+        }
       }
     }
 
@@ -581,7 +583,7 @@
       opacity: 0;
       scale: 0.8;
       transition: opacity 200ms ease, scale 200ms ease;
-      z-index: 1;
+      z-index: 2;
     }
 
     &[data-is-collapsed='true'] {
@@ -590,7 +592,7 @@
         // border: solid 1rem rgb(230, 230, 230, .6);
         box-shadow: 0 0 var(--drop-shadow-radius) rgb(0, 0, 0, 0.3);
         border-radius: var(--border-radius);
-        scale: 0.78;
+        scale: 1;
       }
 
       [data-pane-secondary] {

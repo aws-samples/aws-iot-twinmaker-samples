@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
@@ -12,13 +12,16 @@ if [ ! -d "$SCRIPT_DIR/chainlit" ]; then
 fi
 
 #### START - Building the chainlit project ####
-cd $SCRIPT_DIR/chainlit
+pushd $SCRIPT_DIR/chainlit
 
 git reset --hard 6189fc1f6cb4f2066d08f11ffba33527b12dd5a5
 git apply $SCRIPT_DIR/patch.diff
 
+# install pnpm
+curl -fsSL https://get.pnpm.io/install.sh | sh -pnmp
+
 # install poetry
-pip3 install poetry --break-system-packages
+python3 -m pip install poetry
 
 # install node dependencies
 pnpm install
@@ -27,14 +30,14 @@ pnpm install
 pnpm build
 
 # install chainlit
-cd src
+pushd src
 poetry install
-cd ..
-cd ..
+popd
 
+popd
 #### END - Building the chainlit project ####
 
 # install app dependencies
-pip3 install -r requirements.txt --break-system-packages
+python3 -m pip install -r requirements.txt
 
 echo "assistant app setup complete"

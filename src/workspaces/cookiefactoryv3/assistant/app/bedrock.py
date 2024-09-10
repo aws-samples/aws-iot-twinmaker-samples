@@ -19,17 +19,12 @@ import chainlit as cl
 from chainlit.context import context
 
 from lib.router import LLMRouterChain, MultiRouteChain, create_routes
-from lib.llm import get_bedrock_text
+from lib.llm import get_bedrock_text_v3_sonnet
 from lib.context_memory import EntityContextMemory
-from lib.tools.qa import init_db
 from lib.initial_diagnosis import InitialDiagnosisChain
 
-print('initializing vector db')
-
-init_db(os.path.join(os.path.dirname(__file__), '..', 'public', './freezer_tunnel_manual.pdf'))
-
-print('done initializing vector db')
-
+## To be implemented with update to chainlit
+#from chainlit.oauth_providers import AWSCognitoOAuthProvider 
 
 welcome_message="""
 Hi, I'm the AI assistant of the Cookie Factory. I'm here to help you diagnose and resolve issues \
@@ -41,15 +36,28 @@ welcome_message_with_event=welcome_message + """
 There is an ongoing event [#{event_id}](https://example.com/issue/{event_id}). Do you want to run an initial diagnosis of the issue?
 """
 
+## To be implemented with update to chainlit
+#cl.oauth_providers = [
+#    AWSCognitoOAuthProvider(
+#        client_id=os.environ["OAUTH_COGNITO_CLIENT_ID"],
+#        client_secret=os.environ["OAUTH_COGNITO_CLIENT_SECRET"],
+#        domain=os.environ["OAUTH_COGNITO_DOMAIN"],
+#    )
+#]
 
 @cl.on_chat_start
 async def start():
+  
+  ## To be implemented with udpdate to chainlit
+  #if not cl.user_session.get("is_authenticated"):
+  #      await cl.oauth_providers[0].authorize()
+        
   LLMRouterChain.update_forward_refs()
   MultiRouteChain.update_forward_refs()
   
   memory = EntityContextMemory()
   routes = create_routes(memory)
-  llm_chain = MultiRouteChain.from_prompts(llm=get_bedrock_text(), prompt_infos=routes)
+  llm_chain = MultiRouteChain.from_prompts(llm=get_bedrock_text_v3_sonnet(), prompt_infos=routes)
 
   cl.user_session.set("chain", llm_chain)
 
@@ -71,7 +79,7 @@ async def start():
 async def main(message, context):
   llm_chain = cl.user_session.get("chain")
 
-  res = await llm_chain.acall(
+  res = await llm_chain.ainvoke(
     message,
     callbacks=[cl.AsyncLangchainCallbackHandler()])
   
@@ -88,9 +96,9 @@ async def on_action(action):
   await action.remove()
   
   cb = cl.AsyncLangchainCallbackHandler()
-  chain = InitialDiagnosisChain.from_llm(llm=get_bedrock_text())
+  chain = InitialDiagnosisChain.from_llm(llm=get_bedrock_text_v3_sonnet())
   
-  res = await chain.acall({
+  res = await chain.ainvoke({
     'event_title': event_title,
     'event_description': event_description,
     'event_timestamp': event_timestamp
@@ -105,6 +113,7 @@ async def on_action(action):
 @cl.action_callback("agent_actions")
 async def on_action(action):
   event_entity_id = context.session.user_data.get('event_entity_id')
+
   if action.value == "3d":
     await cl.Message(content=f"Navigating to the issue site.").send()
     await action.remove()

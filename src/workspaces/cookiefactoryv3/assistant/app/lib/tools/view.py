@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 from langchain.agents import tool
 from langchain.chains.base import Chain
 from langchain.chains import LLMChain
-from langchain import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain.callbacks.manager import (
     AsyncCallbackManagerForChainRun,
     CallbackManagerForChainRun,
@@ -18,7 +18,7 @@ from chainlit import run_sync
 
 from tabulate import tabulate
 
-from ..llm import get_bedrock_text, get_processed_prompt_template
+from ..llm import get_bedrock_text_v3_sonnet, get_processed_prompt_template_sonnet
 from .graph import GraphChain
 
 
@@ -82,9 +82,9 @@ class EntityExtractorChain(Chain):
     
     @classmethod
     def create(cls, **kwargs):
-        llm = get_bedrock_text()
+        llm = get_bedrock_text_v3_sonnet()
         prompt = PromptTemplate(
-            template=get_processed_prompt_template(ENTITY_EXTRACTION_PROMPT),
+            template=get_processed_prompt_template_sonnet(ENTITY_EXTRACTION_PROMPT),
             input_variables=["question"],
         )
         llm_chain = LLMChain(

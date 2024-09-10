@@ -45,7 +45,7 @@ export const processPanelId = crypto.randomUUID();
 export const scenePanelId = crypto.randomUUID();
 export const videoPanelId = crypto.randomUUID();
 
-export const chainlitUrl = 'http://localhost:8000';
+export const chainlitUrl = '__FILL_IN__';
 
 export const simulationTriggerConfig = {
   componentTypeId: 'com.example.workspace.synthetics',

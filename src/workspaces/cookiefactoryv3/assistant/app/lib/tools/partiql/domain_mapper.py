@@ -1,12 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 # SPDX-License-Identifier: Apache-2.0
 
-from langchain import FewShotPromptTemplate, LLMChain, PromptTemplate
+from langchain_core.prompts import PromptTemplate, FewShotPromptTemplate
+from langchain import LLMChain
 from langchain.agents import tool
 
-from ...llm import get_bedrock_text, get_prefix_prompt_template, get_postfix_prompt_template
+from ...llm import get_bedrock_text_v3_sonnet, get_prefix_prompt_template_sonnet, get_postfix_prompt_template_sonnet
 
-llm = get_bedrock_text()
+llm = get_bedrock_text_v3_sonnet()
 
 few_shot_domain_mapping_examples = [
     {
@@ -133,10 +134,10 @@ Twinmaker domain question: {twinmaker_domain_question}
 prompt = FewShotPromptTemplate(
     examples=few_shot_domain_mapping_examples,
     example_prompt=example_prompt,
-    prefix=get_prefix_prompt_template("""
+    prefix=get_prefix_prompt_template_sonnet("""
 Here are few examples for creating a question in twinmaker domain from a question in user's domain 
 given the user's schema."""),
-    suffix=get_postfix_prompt_template("""
+    suffix=get_postfix_prompt_template_sonnet("""
 Create a question in twinmaker domain from the following question in user domain given the question and schema. 
 Only write down the twinmaker domain question, do not repeat the schema and original question. 
                                        
