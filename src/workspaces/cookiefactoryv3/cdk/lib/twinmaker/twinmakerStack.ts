@@ -11,7 +11,6 @@ import * as logs from 'aws-cdk-lib/aws-logs';
 import * as path from 'path';
 import * as iottwinmaker from "aws-cdk-lib/aws-iottwinmaker";
 import * as assets from "aws-cdk-lib/aws-s3-assets";
-import { CfnOutput } from "aws-cdk-lib/core";
 import {Construct} from "constructs";
 import * as fs from "fs";
 import * as nagsuppressions_stack from './nagsuppressions';
