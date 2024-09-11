@@ -14,7 +14,6 @@ import * as assets from "aws-cdk-lib/aws-s3-assets";
 import { CfnOutput } from "aws-cdk-lib/core";
 import {Construct} from "constructs";
 import * as fs from "fs";
-import { NagSuppressions } from 'cdk-nag';
 import * as nagsuppressions_stack from './nagsuppressions';
 
 const sample_libs_root = path.join(__dirname,"..", "..","..","..","..","libs");
@@ -363,9 +362,5 @@ export class TmdtApplication extends NestedStack {
                 "asset_map": assetMap
             }
         });
-        NagSuppressions.addResourceSuppressions(
-            [iottwinmakerWorkspaceData],
-            [{ id: 'IoTTwinmakerWorkspaceData-S1', reason: 'The custom resource requires a custom property to be passed' }]
-          );
     }
 }
