@@ -11,3 +11,9 @@ __pycache__/
 .DS_Store
 
 *.egg-info/
+
+# Chainlit auto-generated files
+.chainlit/
+
+# Node.js lock files (generated, not source)
+package-lock.json

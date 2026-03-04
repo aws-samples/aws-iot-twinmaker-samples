@@ -1,5 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 # SPDX-License-Identifier: Apache-2.0
+# Updated 2024: Migrated to Claude 3 / Messages API
 
 from __future__ import annotations
 
@@ -10,10 +11,6 @@ import os
 import logging
 
 logging.getLogger('botocore').setLevel(logging.DEBUG)
-
-import langchain
-langchain.debug = True
-langchain.verbose = True
 
 import chainlit as cl
 from chainlit.context import context
@@ -58,7 +55,7 @@ async def start():
   
   if event_id:
     actions = [
-        cl.Action(name="initial_chat_actions", value="initial_diagnosis", label="Run Issue Diagnosis", description="Run Issue Diagnosis"),
+        cl.Action(name="initial_chat_actions", payload={"value": "initial_diagnosis"}, label="Run Issue Diagnosis", tooltip="Run Issue Diagnosis"),
     ]
     message = welcome_message_with_event.format(event_id=event_id)
     await cl.Message(content=message, actions=actions).send()
@@ -68,11 +65,11 @@ async def start():
   
 
 @cl.on_message
-async def main(message, context):
+async def main(message: cl.Message):
   llm_chain = cl.user_session.get("chain")
 
   res = await llm_chain.acall(
-    message,
+    message.content,
     callbacks=[cl.AsyncLangchainCallbackHandler()])
   
   await cl.Message(content=res["text"]).send()
@@ -97,7 +94,7 @@ async def on_action(action):
   }, callbacks=[cb])
 
   actions = [
-      cl.Action(name="agent_actions", value="3d", label="Show in 3D", description="Show in 3D")
+      cl.Action(name="agent_actions", payload={"value": "3d"}, label="Show in 3D", tooltip="Show in 3D")
   ]
   
   await cl.Message(content=res['output'], actions=actions).send()
@@ -105,7 +102,7 @@ async def on_action(action):
 @cl.action_callback("agent_actions")
 async def on_action(action):
   event_entity_id = context.session.user_data.get('event_entity_id')
-  if action.value == "3d":
+  if action.payload.get("value") == "3d":
     await cl.Message(content=f"Navigating to the issue site.").send()
     await action.remove()
     # point camera to the entity id

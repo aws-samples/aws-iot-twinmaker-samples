@@ -3,17 +3,16 @@
 
 from typing import Any, Dict, List, Optional
 
-from langchain.agents import tool
-from langchain.chains.base import Chain
-from langchain.chains import LLMChain
-from langchain import PromptTemplate
-from langchain.callbacks.manager import (
+from langchain_classic.agents import tool
+from langchain_classic.chains.base import Chain
+from langchain_classic.chains import LLMChain
+from langchain_classic import PromptTemplate
+from langchain_classic.callbacks.manager import (
     AsyncCallbackManagerForChainRun,
     CallbackManagerForChainRun,
 )
 
 import chainlit as cl
-from chainlit.context import context
 from chainlit import run_sync
 
 from tabulate import tabulate
@@ -38,6 +37,7 @@ def run(input: str) -> str:
     return 'Found it!'
 
 def point_camera_to_entity(entityId):
+    from chainlit.context import context
     run_sync(context.session.emit('view', entityId))
 
 ENTITY_EXTRACTION_PROMPT = """

@@ -5,17 +5,17 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Mapping, NamedTuple, Optional
 
-from langchain import PromptTemplate
-from langchain.chains import LLMChain
+from langchain_classic import PromptTemplate
+from langchain_classic.chains import LLMChain
 
-from langchain.callbacks.manager import (
+from langchain_classic.callbacks.manager import (
     AsyncCallbackManagerForChainRun,
     CallbackManagerForChainRun,
     Callbacks,
 )
-from langchain.chains.base import Chain
+from langchain_classic.chains.base import Chain
 
-from langchain.schema.language_model import BaseLanguageModel
+from langchain_classic.schema.language_model import BaseLanguageModel
 
 from .tools.view import ViewChain
 from .tools.qa import QAChain

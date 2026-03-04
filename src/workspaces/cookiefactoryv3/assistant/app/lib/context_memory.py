@@ -3,7 +3,7 @@
 
 from typing import Any, Dict, List
 
-from langchain.schema import BaseMemory
+from langchain_classic.schema import BaseMemory
 from pydantic import BaseModel
 
 class EntityContextMemory(BaseMemory, BaseModel):

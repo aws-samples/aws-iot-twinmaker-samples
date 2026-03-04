@@ -7,16 +7,16 @@ import PyPDF2
 
 from typing import Any, Dict, List, Optional
 
-from langchain import PromptTemplate
-from langchain.agents import tool
-from langchain.chains.base import Chain
-from langchain.chains import RetrievalQAWithSourcesChain
-from langchain.callbacks.manager import (
+from langchain_classic import PromptTemplate
+from langchain_classic.agents import tool
+from langchain_classic.chains.base import Chain
+from langchain_classic.chains import RetrievalQAWithSourcesChain
+from langchain_classic.callbacks.manager import (
     AsyncCallbackManagerForChainRun,
     CallbackManagerForChainRun,
 )
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
 
 import chainlit as cl
 

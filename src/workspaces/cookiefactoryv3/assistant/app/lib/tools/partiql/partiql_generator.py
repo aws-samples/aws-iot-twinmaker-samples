@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 2023
 # SPDX-License-Identifier: Apache-2.0
 
-from langchain import FewShotPromptTemplate, LLMChain, PromptTemplate
-from langchain.agents import tool
+from langchain_classic import FewShotPromptTemplate, LLMChain, PromptTemplate
+from langchain_classic.agents import tool
 
 from ...llm import get_bedrock_text, get_prefix_prompt_template, get_postfix_prompt_template
 

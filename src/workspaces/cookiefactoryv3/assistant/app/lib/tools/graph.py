@@ -3,10 +3,10 @@
 
 from typing import Any, Dict, List, Optional
 
-from langchain.chains import SequentialChain
-from langchain.chains.base import Chain
-from langchain.agents import tool
-from langchain.callbacks.manager import (
+from langchain_classic.chains import SequentialChain
+from langchain_classic.chains.base import Chain
+from langchain_classic.agents import tool
+from langchain_classic.callbacks.manager import (
     AsyncCallbackManagerForChainRun,
     CallbackManagerForChainRun,
 )
