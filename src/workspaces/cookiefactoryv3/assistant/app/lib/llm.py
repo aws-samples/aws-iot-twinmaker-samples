@@ -3,8 +3,8 @@
 
 import boto3
 
-from langchain.llms.bedrock import Bedrock
-from langchain.embeddings.bedrock import BedrockEmbeddings
+from langchain_aws import BedrockLLM
+from langchain_aws import BedrockEmbeddings
 
 from botocore.config import Config
 
@@ -77,12 +77,12 @@ response = bedrock.list_foundation_models()
 print(response.get('modelSummaries')) 
 
 def get_bedrock_text():
-    llm = Bedrock(model_id=text_model_id, client=bedrock_runtime)
+    llm = BedrockLLM(model_id=text_model_id, client=bedrock_runtime)
     llm.model_kwargs = model_kwargs.get(text_model_id, {})
     return llm
 
 def get_bedrock_text_v2():
-    llm = Bedrock(model_id=text_v2_model_id, client=bedrock_runtime)
+    llm = BedrockLLM(model_id=text_v2_model_id, client=bedrock_runtime)
     llm.model_kwargs = model_kwargs.get(text_v2_model_id, {})
     return llm
 

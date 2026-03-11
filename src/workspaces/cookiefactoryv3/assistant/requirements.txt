@@ -1,6 +1,7 @@
 chainlit/src/dist/chainlit-0.6.3-py3-none-any.whl
 python-dotenv==1.0.0
-langchain==0.0.252
+langchain>=0.2.0
+langchain-aws>=0.2.0
 google-search-results
 ipywidgets==7.0.0
 opensearch-py==2.2.0
